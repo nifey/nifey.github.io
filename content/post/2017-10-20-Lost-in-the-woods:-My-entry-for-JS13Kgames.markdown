@@ -1,0 +1,73 @@
+---
+categories: null
+date: "2017-10-20T20:52:38Z"
+title: 'Lost in the woods: My entry for JS13Kgames'
+---
+
+![Lost in the woods](../../../assets/js13k/js13kfinal.png "Lost in the woods")
+
+In this blog post, I want to share my experience participating in the [JS13Kgames](http://js13kgames.com) game jam. 
+
+About a month ago, I got a chance to participate in the JS13Kgames. JS13kgames is an HTML5 game development competition that happens from 13th August till 13th September. The goal of this competition is to make a game in under 13 kilobytes including all the game assets. For this game jam, I made a two-player game called "Lost in the woods". 
+
+Here is the link to my game entry : [Lost in the woods](http://js13kgames.com/entries/lost-in-the-woods)
+
+And the code is available in this GitHub repository : [www.github.com/nifey/lost-in-the-woods](https://github.com/nifey/lost-in-the-woods)
+
+I came to know about this competition through the MozillaTN telegram group. At first, I wasn't very interested in this because I had very little experience using javascript. But since the game size is limited to 13 kilobytes no big game frameworks like phaser can be used. This makes this competition beginner friendly. So I decided to give it a try.
+
+## Game Idea
+The theme of 2017 was Lost. Getting lost in the forest was the first thing that struck my mind. "Lost in the woods". I spent a lot of time thinking about a game idea.
+I took some inspiration from a mobile game, I played a while back, called Myst. It makes use of procedural generation to generate maze for the player. In this game, the player only gets to see a small area around him.
+
+I thought of making a two player game where the goal of the game is to find each other but they won't know where they are on the map.
+
+## Game development
+By the time I had a vague idea of what I was going to make, I only had about 2 weeks left. So I just started coding. I have made simple games in C before but HTML5 game development was a bit different, so I had to follow a lot of tutorials.
+
+### 1 : Level generation
+First I started with level generation. I decided to generate the levels procedurally to increase replay value. There are numerous algorithms for procedural generation each designed for a specific genre of games. I found a very detailed blog post on the generation of cave levels using cellular automata. Cellular automata consist of a grid of cells having a finite set of states, in our case, ON and OFF. The transition between states is governed by a set of deterministic rules. Conway's Game of life is a famous example of cellular automata. The cellular automata described in that blog post generates a cave that is bounded on all sides but I used it as a bounded forest. It was perfect for my needs.
+
+Here is the [link](https://gamedevelopment.tutsplus.com/tutorials/generate-random-cave-levels-using-cellular-automata--gamedev-9664) to that blog post on cave generation using cellular automation.
+
+At this point, I used squares on canvas to visualise the levels. The levels generated usually have more than one pocket of empty space. But this is undesirable because if the two players get placed in different spaces then they will never meet. So I had to add code to perform flood fill algorithm to check if the level generated has only one big space.
+
+![level Generation](../../../assets/js13k/js13kproclevelgen.png "A procedurally generated level")
+
+### 2 : Adding players 
+After the level has been generated, The players have to be placed. The positions of the players have to be selected in random and also should not be too close to each other. Now, I created two canvas elements and displayed a small area around each player in different canvases. I added keyboard event handling to move the players across the map. If the players meet, the game ends.
+
+![Added players](../../../assets/js13k/js13kplayers.png "Adding players")
+
+### 3 : Adding graphics
+The basic gameplay was done. So now, I had to add some graphics. I searched for art on the OpenGameArt website but I couldn't find a suitable set of tiles. So I decided to make my own graphics using GIMP. I am not a great artist, but we all have to start somewhere. I made tiles for the trees, grass and the player. Later, I also added a bush tile.
+
+![Added graphics](../../../assets/js13k/js13kgraphics.png "Finally some graphics")
+
+After playing the game for a couple of times, I felt that the game needs enemy characters. So I drew a tree with a face and called them tree monsters. These tree monsters will be the enemy characters. Whenever a player dashes into a tree monster, the players lose. The game adds a number of tree monsters on the map and moves them randomly. 
+
+I added a transparent circular gradient to each of the canvas to make it look like the lamp's light is fading away. The center of the canvas where the player will be displayed will be completely transparent. The transparency will slowly fade towards the edges.
+### 4 : Adding an intro page
+
+Finally, I made a div element that displays the game instruction and the keyboard controls.
+![Added an intro page](../../../assets/js13k/js13kstartpage.png "Game instructions")
+
+## What went right
+* I used **version control**. I had no intention of writing a post-mortem when I started making this game. But thanks to git, I was able to take the screenshots of the game at different commits.
+* **Procedural level generation** gives the game some novelty. Each time the players play, a new map is generated. Also, there is no need to store level data as it is generated on the fly. This saves precious space.
+
+## What went wrong 
+* I **started late**. I took too much time to decide on a game idea. Because of this, I couldn't add music to the game.
+* I **didn't use the gulp tool**. The organisers of the JS13Kgames had suggested a gulp workflow that automates minification and also shows how much memory the game occupies when zipped. I regret not spending some time to learn this tool. I thought that I could do minification manually. During the jam, I didn't care about the 13 kilobytes limit because I did not use any mini-game frameworks like [Kontra](https://github.com/straker/kontra). All the code I wrote was just plain vanilla JS. After finishing the game, I did minification using the closure compiler. For some reason, the code that was minified using the advanced option of the closure compiler didn't work. So I had to use the javascript code with only the whitespaces eliminated. I zipped the game only to find that the game size was over the limit. I had to reduce the size of the image asset using [tinypng](https://tinypng.com) to bring down the game size. 
+* I **didn't give importance to the graphics and general appeal of the game**. I should have spent more time on graphics, sound and animation. Most people spend only a couple of minutes playing each game. So The game should impress the players in the first few minutes.
+
+## Game Jam results
+This year, there were 254 game entries in total. I played almost all of the submitted games. It was amazing to see how much can be done in 13 kilobytes. Here are some of my favorite games:
+
+* [Fear the Dark](http://js13kgames.com/entries/fear-the-dark)
+* [Riding Hoods](http://js13kgames.com/entries/riding-hoods)
+* [A King's Journey: Chapter 3: Trapped & Poisoned](http://js13kgames.com/entries/a-kings-journey-chapter-3-trapped-poisoned)
+
+My game was ranked 44 in the desktop category. This is my first game jam ever and I'm glad that I participated. On the whole, this was a nice learning experience.
+
+Thanks to Andrzej Mazur and all the judges for organising such a fun game jam. Looking forward to participating in the next JS13Kgames. But next time I will be prepared :) 
