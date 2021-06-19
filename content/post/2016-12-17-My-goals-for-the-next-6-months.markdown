@@ -1,8 +1,8 @@
----
-categories: null
-date: "2016-12-17T20:52:38Z"
-title: My goals for the next 6 months
----
++++
+title = "My goals for the next 6 months"
+date = 2016-12-17T20:52:38Z
+draft = false
++++
 In this post, I am sharing my goals for the next 6 months.
 
 The reason I'm doing this is to keep myself motivated and also to let other mozillians know what I'm up to.

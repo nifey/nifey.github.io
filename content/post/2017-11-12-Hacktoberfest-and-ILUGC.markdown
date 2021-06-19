@@ -1,8 +1,9 @@
----
-categories: null
-date: "2017-11-12T13:28:37Z"
-title: Hacktoberfest and ILUGC meetup
----
++++
+title = "Hacktoberfest and ILUGC meetup"
+date = 2017-11-12T13:28:37Z
+tags = ["hacktoberfest", "ILUGC"]
+draft = false
++++
 
 ![Hacktoberfest](../../../assets/hacktoberfest/hacktoberfest.png "Hactoberfest")
 

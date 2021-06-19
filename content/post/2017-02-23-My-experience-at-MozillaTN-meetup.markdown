@@ -1,8 +1,9 @@
----
-categories: null
-date: "2017-02-23T20:51:38Z"
-title: My experience at MozillaTN meetup 2017
----
++++
+title = "My experience at MozillaTN meetup 2017"
+date = 2017-02-23T20:51:38Z
+tags = ["mozilla"]
+draft = false
++++
 
 In this blog post, I am writing about my experience participating in the MozillaTN community meetup held at Coimbatore this January.
 

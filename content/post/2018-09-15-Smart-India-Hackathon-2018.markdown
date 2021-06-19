@@ -1,7 +1,9 @@
----
-date: "2018-09-15T17:50:37Z"
-title: Smart India Hackathon 2018
----
++++
+title = "Smart India Hackathon 2018"
+date = 2018-09-15T17:50:37Z
+tags = ["hackathon", "AI-ML"]
+draft = false
++++
 ## Smart India Hackathon 2018
 
 In January this year, I along with my friends got an opportunity to participate in the Smart India Hackathon 2018. In this blog post, I want to share my experience of attending this hackathon and the lessons we learnt.

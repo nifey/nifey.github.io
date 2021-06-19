@@ -1,5 +1,5 @@
 # Site settings
-baseurl = "https://nihaal.netlify.com/"
+baseurl = "http://nihaal.me/"
 themesDir = "themes"
 languageCode = "en-us"
 title = "Nihaal"
@@ -25,7 +25,7 @@ theme = "hugo-cactus-theme"
 	olderPosts = ""
 	newerPosts = ""
 	readMore = ""
-	copyright = " "
+	copyright = "Copyright © 2021 Abdun Nihaal"
 	# Sharing options and author information in posts
 	aboutAuthor = "MS student at IITM"
 	tweet = ""

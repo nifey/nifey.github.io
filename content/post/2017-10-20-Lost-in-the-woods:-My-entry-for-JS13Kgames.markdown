@@ -1,8 +1,9 @@
----
-categories: null
-date: "2017-10-20T20:52:38Z"
-title: 'Lost in the woods: My entry for JS13Kgames'
----
++++
+title = "Lost in the woods: My entry for JS13Kgames"
+date = 2017-10-20T20:52:38Z
+tags = ["gamejam", "js13kgames"]
+draft = false
++++
 
 ![Lost in the woods](../../../assets/js13k/js13kfinal.png "Lost in the woods")
 

@@ -1,7 +1,7 @@
 +++
 title = "Hello world Linux Kernel Module"
-author = ["nihaal"]
 date = 2020-01-31T10:42:00+05:30
+tags = ["linux", "kernel"]
 draft = false
 +++
 

@@ -1,8 +1,9 @@
----
-categories: Rust
-date: "2016-11-15T17:50:37Z"
-title: 'Hello World: Getting started with Rust'
----
++++
+title = "Hello World: Getting started with Rust"
+date = 2016-11-15T17:50:37Z
+tags = ["rust"]
+draft = false
++++
 ## The Rust programming language
 
 Rust is a system programming language that focusses on three aspects: Speed, Safety and Concurrency. It is being developed by an active community of programmers. Its development is officially sponsored by Mozilla.
