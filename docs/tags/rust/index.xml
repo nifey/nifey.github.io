@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>rust on Nihaal</title>
+    <link>http://nihaal.me/tags/rust/</link>
+    <description>Recent content in rust on Nihaal</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Tue, 15 Nov 2016 17:50:37 +0000</lastBuildDate><atom:link href="http://nihaal.me/tags/rust/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Hello World: Getting started with Rust</title>
+      <link>http://nihaal.me/post/2016-11-15-hello-world-getting-started-with-rust/</link>
+      <pubDate>Tue, 15 Nov 2016 17:50:37 +0000</pubDate>
+      
+      <guid>http://nihaal.me/post/2016-11-15-hello-world-getting-started-with-rust/</guid>
+      <description>The Rust programming language Rust is a system programming language that focusses on three aspects: Speed, Safety and Concurrency. It is being developed by an active community of programmers. Its development is officially sponsored by Mozilla.
+Installing rust First, we have to install the rust compiler which is called rustc and cargo ,rust&amp;rsquo;s package manager. I recommend installing rustc and cargo using rustup. Why rustup? Before answering that I have to mention that rustc comes in three versions : Stable , Beta and Nightly.</description>
+    </item>
+    
+  </channel>
+</rss>

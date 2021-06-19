@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en-us">
+	<head>
+    <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="author" content="Abdun Nihaal">
+
+<meta name="generator" content="Hugo 0.83.1" />
+<title>Hello World: Getting started with Rust</title>
+<link rel="shortcut icon" href="http://nihaal.me/images/favicon.ico">
+<link rel="stylesheet" href="http://nihaal.me/css/style.css">
+<link rel="stylesheet" href="http://nihaal.me/css/highlight.css">
+
+
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
+
+
+
+
+<meta property="og:title" content="Hello World: Getting started with Rust" />
+<meta property="og:description" content="The Rust programming language Rust is a system programming language that focusses on three aspects: Speed, Safety and Concurrency. It is being developed by an active community of programmers. Its development is officially sponsored by Mozilla.
+Installing rust First, we have to install the rust compiler which is called rustc and cargo ,rust&rsquo;s package manager. I recommend installing rustc and cargo using rustup. Why rustup? Before answering that I have to mention that rustc comes in three versions : Stable , Beta and Nightly." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://nihaal.me/post/2016-11-15-hello-world-getting-started-with-rust/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2016-11-15T17:50:37&#43;00:00" />
+<meta property="article:modified_time" content="2016-11-15T17:50:37&#43;00:00" />
+
+
+
+<meta itemprop="name" content="Hello World: Getting started with Rust">
+<meta itemprop="description" content="The Rust programming language Rust is a system programming language that focusses on three aspects: Speed, Safety and Concurrency. It is being developed by an active community of programmers. Its development is officially sponsored by Mozilla.
+Installing rust First, we have to install the rust compiler which is called rustc and cargo ,rust&rsquo;s package manager. I recommend installing rustc and cargo using rustup. Why rustup? Before answering that I have to mention that rustc comes in three versions : Stable , Beta and Nightly."><meta itemprop="datePublished" content="2016-11-15T17:50:37&#43;00:00" />
+<meta itemprop="dateModified" content="2016-11-15T17:50:37&#43;00:00" />
+<meta itemprop="wordCount" content="396">
+<meta itemprop="keywords" content="rust," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Hello World: Getting started with Rust"/>
+<meta name="twitter:description" content="The Rust programming language Rust is a system programming language that focusses on three aspects: Speed, Safety and Concurrency. It is being developed by an active community of programmers. Its development is officially sponsored by Mozilla.
+Installing rust First, we have to install the rust compiler which is called rustc and cargo ,rust&rsquo;s package manager. I recommend installing rustc and cargo using rustup. Why rustup? Before answering that I have to mention that rustc comes in three versions : Stable , Beta and Nightly."/>
+<meta name="twitter:site" content="@https://www.twitter.com/nihaal_an"/>
+
+
+    </head>
+<body>
+    <nav class="main-nav">
+	
+		<a href='http://nihaal.me/'> <span class="arrow">←</span>Home</a>
+	
+
+	
+
+	
+</nav>
+
+    <section id="wrapper">
+        
+        
+<article class="post">
+    <header>
+        <h1>Hello World: Getting started with Rust</h1>
+        <h2 class="subtitle"></h2>
+        <h2 class="headline">
+        November 15, 2016
+        <br>
+        
+        
+            
+                <a href="http://nihaal.me/tags/rust">rust</a>
+            
+        
+        
+        </h2>
+    </header>
+    <section id="post-body">
+        <h2 id="the-rust-programming-language">The Rust programming language</h2>
+<p>Rust is a system programming language that focusses on three aspects: Speed, Safety and Concurrency. It is being developed by an active community of programmers. Its development is officially sponsored by Mozilla.</p>
+<h3 id="installing-rust">Installing rust</h3>
+<p>First, we have to install the rust compiler which is called <strong>rustc</strong> and <strong>cargo</strong> ,rust&rsquo;s package manager. I recommend installing rustc and cargo using rustup. Why rustup? Before answering that I have to mention that rustc comes in three versions : Stable , Beta and Nightly.</p>
+<p><strong>Rustup</strong> is a multi toolchain installer that lets you manage different versions of rustc and also lets you cross compile for different architectures and operating systems. Simply put , it makes installation easy.</p>
+<p>To install rustup ,go to rustup.rs and follow the instructions.</p>
+<p>Sometimes you have to add the path of  cargo directory to the environment variables.</p>
+<p>In linux , type in</p>
+<p><code>export PATH=$PATH:$HOME/.cargo/bin</code></p>
+<p>where $HOME/.cargo/bin is the default cargo directory.</p>
+<p>After installing , type in rustc and cargo in the terminal or command prompt. If it prints unknown command , you probably have not installed it properly.</p>
+<h3 id="writing-rust-code">Writing rust code</h3>
+<p>To write rust code , you can use an ordinary text editor or you can install bindings for popular IDEs. I&rsquo;ll have links to that below.</p>
+<p>I recommend using Atom. It has a lot of packages that helps in writing rust code. If you are going to use atom then be sure to install the following packages.</p>
+<h3 id="atom-packages-for-rust">Atom packages for rust:</h3>
+<ul>
+<li>language-rust</li>
+<li>linter-rust (shows errors while typing  )</li>
+<li>rustfmt  (formats code while saving the file)</li>
+<li>racer (code completion utility)</li>
+</ul>
+<h3 id="hello-world">Hello World</h3>
+<p>So now that you have installed rustc and cargo. Let&rsquo;s create a sample program. To create a binary application using cargo run :</p>
+<p><code>cargo new helloworld --bin</code></p>
+<p>Cargo automatically creates a hello world program in a file named main.rs in the src folder. To build it open terminal in the project directory and run</p>
+<p><code>cargo build</code></p>
+<p>This will create an executable in the debug folder. To run this program type in</p>
+<p><code>cargo run</code></p>
+<p>If you see Hello World printed on the screen then you have just executed your first rust program.</p>
+<h3 id="external-links">External links</h3>
+<p>The official rust website : <a href="www.rust-lang.org">www.rust-lang.org</a></p>
+<p>Rustup   : <a href="www.rustup.rs">www.rustup.rs</a></p>
+<p>Atom text editor : <a href="www.atom.io">www.atom.io</a></p>
+<p>The book (Official rust documentation) : <a href="doc.rust-lang.org/book">doc.rust-lang.org/book</a></p>
+<p>Rust extensions for various IDEs : see <a href="https://github.com/kud1ing/awesome-rust#ides">awesome-rust</a> list</p>
+<p>IRC channels : #rust  #rust-beginners on <a href="irc.mozilla.org">irc.mozilla.org</a></p>
+
+    </section>
+</article>
+
+<footer id="post-meta" class="clearfix">
+    <a href="https://twitter.com/nihaal_an">
+    <img class="avatar" src="http://nihaal.me/images/avatar.png">
+    <div>
+        <span class="dark">Abdun Nihaal</span>
+        <span>MS student at IITM</span>
+    </div>
+    </a>
+    <section id="sharing">
+        <a class="twitter" href="https://twitter.com/intent/tweet?text=http%3a%2f%2fnihaal.me%2fpost%2f2016-11-15-hello-world-getting-started-with-rust%2f - Hello%20World%3a%20Getting%20started%20with%20Rust by @nihaal_an"><span class="icon-twitter"> tweet</span></a>
+
+<a class="facebook" href="#" onclick="
+    window.open(
+      'https://www.facebook.com/sharer/sharer.php?u='+encodeURIComponent(location.href),
+      'facebook-share-dialog',
+      'width=626,height=436');
+    return false;"><span class="icon-facebook-rect"> Share</span>
+</a>
+
+    </section>
+</footer>
+
+
+
+<ul id="post-list" class="archive readmore">
+    <h3>Read more</h3>
+
+    
+    
+    
+        <li>
+            <a href="http://nihaal.me/post/rsync/">Backing up files with RSync<aside class="dates">Jun 19 2021</aside></a>
+        </li>
+    
+        <li>
+            <a href="http://nihaal.me/post/hello_world_lkm/">Hello world Linux Kernel Module<aside class="dates">Jan 31 2020</aside></a>
+        </li>
+    
+        <li>
+            <a href="http://nihaal.me/post/2018-09-15-smart-india-hackathon-2018/">Smart India Hackathon 2018<aside class="dates">Sep 15 2018</aside></a>
+        </li>
+    
+        <li>
+            <a href="http://nihaal.me/post/2017-11-12-hacktoberfest-and-ilugc/">Hacktoberfest and ILUGC meetup<aside class="dates">Nov 12 2017</aside></a>
+        </li>
+    
+        <li>
+            <a href="http://nihaal.me/post/2017-10-20-lost-in-the-woods-my-entry-for-js13kgames/">Lost in the woods: My entry for JS13Kgames<aside class="dates">Oct 20 2017</aside></a>
+        </li>
+    
+        <li>
+            <a href="http://nihaal.me/post/2017-02-23-my-experience-at-mozillatn-meetup/">My experience at MozillaTN meetup 2017<aside class="dates">Feb 23 2017</aside></a>
+        </li>
+    
+        <li>
+            <a href="http://nihaal.me/post/2016-12-17-my-goals-for-the-next-6-months/">My goals for the next 6 months<aside class="dates">Dec 17 2016</aside></a>
+        </li>
+    
+</ul>
+
+
+
+        <footer id="footer">
+    
+        <div id="social">
+
+	
+	
+    <a class="symbol" href="https://www.github.com/nifey">
+        <i class="fa fa-github"></i>
+    </a>
+    
+    <a class="symbol" href="https://www.gitlab.com/nihaal">
+        <i class="fa fa-gitlab"></i>
+    </a>
+    
+    <a class="symbol" href="https://in.linkedin.com/in/abdun-nihaal-289272143">
+        <i class="fa fa-linkedin"></i>
+    </a>
+    
+    <a class="symbol" href="https://www.twitter.com/nihaal_an">
+        <i class="fa fa-twitter"></i>
+    </a>
+    
+
+
+</div>
+
+    
+    <p class="small">
+    
+        Copyright © 2021 Abdun Nihaal
+    
+    </p>
+</footer>
+
+    </section>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="http://nihaal.me/js/main.js"></script>
+<script src="http://nihaal.me/js/highlight.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+
+
+
+
+</body>
+</html>

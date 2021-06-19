@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en-us">
+	<head>
+    <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="author" content="Abdun Nihaal">
+
+<meta name="generator" content="Hugo 0.83.1" />
+<title>Backing up files with RSync</title>
+<link rel="shortcut icon" href="http://nihaal.me/images/favicon.ico">
+<link rel="stylesheet" href="http://nihaal.me/css/style.css">
+<link rel="stylesheet" href="http://nihaal.me/css/highlight.css">
+
+
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
+
+
+
+
+<meta property="og:title" content="Backing up files with RSync" />
+<meta property="og:description" content="You need a backup When was the last time you took a backup of your files? Thanks to technology, today, we can store thousands of photos and videos in a single pen drive. Digital files are easy to store, but they are also easy to lose. And that is why we all need to take regular backup of our files.
+3-2-1 Backup Strategy 3-2-1 Backup strategy is a general rule of thumb that says it is better to have atleast 3 copies of our files." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://nihaal.me/post/rsync/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2021-06-19T11:16:00&#43;05:30" />
+<meta property="article:modified_time" content="2021-06-19T11:16:00&#43;05:30" />
+
+
+
+<meta itemprop="name" content="Backing up files with RSync">
+<meta itemprop="description" content="You need a backup When was the last time you took a backup of your files? Thanks to technology, today, we can store thousands of photos and videos in a single pen drive. Digital files are easy to store, but they are also easy to lose. And that is why we all need to take regular backup of our files.
+3-2-1 Backup Strategy 3-2-1 Backup strategy is a general rule of thumb that says it is better to have atleast 3 copies of our files."><meta itemprop="datePublished" content="2021-06-19T11:16:00&#43;05:30" />
+<meta itemprop="dateModified" content="2021-06-19T11:16:00&#43;05:30" />
+<meta itemprop="wordCount" content="1030">
+<meta itemprop="keywords" content="backup," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Backing up files with RSync"/>
+<meta name="twitter:description" content="You need a backup When was the last time you took a backup of your files? Thanks to technology, today, we can store thousands of photos and videos in a single pen drive. Digital files are easy to store, but they are also easy to lose. And that is why we all need to take regular backup of our files.
+3-2-1 Backup Strategy 3-2-1 Backup strategy is a general rule of thumb that says it is better to have atleast 3 copies of our files."/>
+<meta name="twitter:site" content="@https://www.twitter.com/nihaal_an"/>
+
+
+    </head>
+<body>
+    <nav class="main-nav">
+	
+		<a href='http://nihaal.me/'> <span class="arrow">←</span>Home</a>
+	
+
+	
+
+	
+</nav>
+
+    <section id="wrapper">
+        
+        
+<article class="post">
+    <header>
+        <h1>Backing up files with RSync</h1>
+        <h2 class="subtitle"></h2>
+        <h2 class="headline">
+        June 19, 2021
+        <br>
+        
+        
+            
+                <a href="http://nihaal.me/tags/backup">backup</a>
+            
+        
+        
+        </h2>
+    </header>
+    <section id="post-body">
+        <h2 id="you-need-a-backup">You need a backup</h2>
+<p>When was the last time you took a backup of your files?
+Thanks to technology, today, we can store thousands of photos and videos in a single pen drive.
+Digital files are easy to store, but they are also easy to lose.
+And that is why we all need to take regular backup of our files.</p>
+<h3 id="3-2-1-backup-strategy">3-2-1 Backup Strategy</h3>
+<p>3-2-1 Backup strategy is a general rule of thumb that says it is better to have atleast 3 copies of our files.</p>
+<ol>
+<li><strong>Working copy</strong>
+<ul>
+<li>This is the copy that your work on and have on your goto machine.</li>
+</ul>
+</li>
+<li><strong>Local backup</strong>
+<ul>
+<li>This is a backup of data present in a local machine or an external hard disk.</li>
+<li>Having a local backup allows us to restore the files quickly in case the working copy is not accessible.</li>
+</ul>
+</li>
+<li><strong>Remote backup</strong>
+<ul>
+<li>If both of your local copies become inaccessible, then you can still get your data from a remote backup, if you have one.</li>
+</ul>
+</li>
+</ol>
+<p>The best way to ensure that your data is safe, is to create an automatic system that takes
+regular backups of your files.
+Such a system should perform backups automatically based on a schedule
+or based on a trigger (for example, when you plug in your external hard disk).</p>
+<p>I&rsquo;m trying to create such a backup system for myself.
+As I make progress, I&rsquo;ll share what I learn in putting together such a system in this blog.</p>
+<p>In this blog post, I&rsquo;ll discuss a backup tool called RSync.</p>
+<h2 id="rsync">RSync</h2>
+<p>RSync is a popular commandline utility that is used to backup files.
+It is written in C and is suppoted on many OSes including Linux (of course), Windows, OS X and BSD.
+RSync also has many GUI frontends available. Some of them are GSync, QSync, Zynk, etc.
+The general format of the command is shown below.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">rsync <span style="color:#f92672">[</span>options<span style="color:#f92672">]</span> /path/to/source/folder /path/to/backup/folder
+</code></pre></div><h2 id="when-to-use-rsync">When to use RSync</h2>
+<p>RSync tries to transfer only the difference between the current file and the file in the backup folder.
+If the file does not exist in the backup folder, it copies the whole file.
+This is especially helpful for incremental backups over a network i.e. when we want the modifications we made to a remote folder
+to be synchronized with an existing backup of that folder.
+RSync uses a diff based transfer algorithm, that splits a file into blocks and
+transfers only the modified blocks to save bandwidth.
+RSync also works over ssh.</p>
+<p>RSync is best suited for unidirectional file synchronization, i.e. when we don&rsquo;t expect changes made
+to the backup folder to be reflected in the source folder.</p>
+<h2 id="when-not-to-use-rsync">When not to use RSync</h2>
+<h3 id="bidirectional-file-synchronization">Bidirectional File synchronization</h3>
+<p>RSync cannot be used easily for bidirectional transfers, where we may want to have modifications
+in one copy get updated in the other copy and vice versa.
+The problem is that if you modify a file in both the copies and then use RSync, one of them will be lost.
+In other words, RSync does not resolve file conflicts.
+In such a scenario, <a href="https://syncthing.net/">Syncthing</a> is a better tool.</p>
+<h3 id="sometimes-rsync-wastes-bandwidth">Sometimes RSync wastes bandwidth</h3>
+<p>RSync does not keep track of file moves and renames. So if we move or rename a file, it will treat it as a new file and copy it again.
+Though this does not lead to data loss, it wastes bandwidth, especially if the size of the moved files are large.
+This also means that if we do a file reorganization within the source folder, backing up with RSync will take longer due to unnecessary transfers.</p>
+<p>Some workarounds to prevent RSync from making unnecesary file transfer, when the files were just renamed or moved, are:</p>
+<ul>
+<li><em>-</em>-fuzzy (-y) option, detects renames within a directory and avoids file transfer.</li>
+<li><a href="https://lincolnloop.com/blog/detecting-file-moves-renames-rsync/">Using hard links</a></li>
+</ul>
+<p>The diff based algorithm also does not work well for compressed files, so RSync may copy compressed files fully even if only a small change was made.</p>
+<h2 id="things-to-note">Things to note</h2>
+<ul>
+<li><strong>RSync has different behaviour with and without trailing backslash.</strong>
+If the source folder is suffixed with a backslash, the contents of the folder are synchronized,
+whereas if we don&rsquo;t use the backslash after the source folder, the folder as a whole, is synchronized.
+It is always a better idea to use the dry run (-n) option to verify if RSync does what
+you expect it to do.</li>
+<li><strong>Databases need to be dumped to files for RSync to backup.</strong>
+RSync only works on files. So if you need to backup a database, you have to dump it
+to a file first. Most DBMS software have tools to dump the database contents to a file.
+One example is mysqldump for MySQL.</li>
+<li><strong>On Linux, we can use crontab or SystemD timers to automate backups.</strong></li>
+<li><strong>Always do a dry run before executing (especially when using <em>-</em>-delete)</strong></li>
+</ul>
+<h2 id="freqently-used-options">Freqently used options</h2>
+<p>Here is a table of the most commonly used RSync options.</p>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Used for</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>-a</td>
+<td>preserves permission and other attributes</td>
+</tr>
+<tr>
+<td>-r</td>
+<td>to copy recursively</td>
+</tr>
+<tr>
+<td>-z</td>
+<td>transfers data in compressed format (to save bandwidth)</td>
+</tr>
+<tr>
+<td>-vhP</td>
+<td>verbose, human-readable, show progress</td>
+</tr>
+<tr>
+<td>-e ssh</td>
+<td>transfer over ssh</td>
+</tr>
+<tr>
+<td>-e &lsquo;ssh -p port&rsquo;</td>
+<td>transfer over ssh using a different port</td>
+</tr>
+<tr>
+<td>-W</td>
+<td>whole file transfer (instead of diff based)</td>
+</tr>
+<tr>
+<td><em>-</em>-dry-run, -n</td>
+<td>does not modify filesystem</td>
+</tr>
+<tr>
+<td><em>-</em>-delete</td>
+<td>removes files (in backup folder) that does not exist at the source  folder</td>
+</tr>
+<tr>
+<td><em>-</em>-exclude=&quot;&quot;</td>
+<td>to specify which files to exclude</td>
+</tr>
+<tr>
+<td><em>-</em>-exclude-from=file</td>
+<td>exclude glob patterns specified in a file</td>
+</tr>
+</tbody>
+</table>
+<h2 id="common-uses">Common uses</h2>
+<h3 id="full-system-backup--for-more-information">Full system backup (<a href="https://www.linuxsecrets.com/archlinux-wiki/wiki.archlinux.org/index.php/Full%5Fsystem%5Fbackup%5Fwith%5Frsync.html">For more information</a>)</h3>
+<p>We can backup the whole Linux system with RSync.
+The following command backs up programs (/bin), libraries (/lib), boot files (/boot),
+and data (/home) to the backup folder.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">sudo rsync -aAXv <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>--exclude<span style="color:#f92672">={</span><span style="color:#e6db74">&#34;/dev/*&#34;</span>,<span style="color:#e6db74">&#34;/proc/*&#34;</span>,<span style="color:#e6db74">&#34;/sys/*&#34;</span>,<span style="color:#e6db74">&#34;/tmp/*&#34;</span>,<span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>           <span style="color:#e6db74">&#34;/run/*&#34;</span>,<span style="color:#e6db74">&#34;/mnt/*&#34;</span>,<span style="color:#e6db74">&#34;/media/*&#34;</span>,<span style="color:#e6db74">&#34;/lost+found&#34;</span><span style="color:#f92672">}</span> <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>/ /path/to/backup/folder
+</code></pre></div><p>We exclude files in mounted partitions (/mnt/*), directories populated at runtime (/proc/*,/sys/*) and filesystem specific folders like lost+found.
+The -A option syncs the Access Control Lists of the files and -X option syncs the extended attributes of the files.</p>
+<h3 id="backup-remote-folder-using-ssh">Backup remote folder using ssh</h3>
+<p>To backup over ssh, we simply add &ldquo;-e ssh&rdquo; to the options.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">rsync -ave ssh /path/to/source/folder user@remote:~/backup/folder
+</code></pre></div><h3 id="incremental-backup">Incremental backup</h3>
+<p>When used with the <em>-</em>-delete option, we can make the backup folder to be an exact replica of the source folder.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">rsync -arvhP --delete /path/to/source/folder /path/to/backup/folder
+</code></pre></div>
+    </section>
+</article>
+
+<footer id="post-meta" class="clearfix">
+    <a href="https://twitter.com/nihaal_an">
+    <img class="avatar" src="http://nihaal.me/images/avatar.png">
+    <div>
+        <span class="dark">Abdun Nihaal</span>
+        <span>MS student at IITM</span>
+    </div>
+    </a>
+    <section id="sharing">
+        <a class="twitter" href="https://twitter.com/intent/tweet?text=http%3a%2f%2fnihaal.me%2fpost%2frsync%2f - Backing%20up%20files%20with%20RSync by @nihaal_an"><span class="icon-twitter"> tweet</span></a>
+
+<a class="facebook" href="#" onclick="
+    window.open(
+      'https://www.facebook.com/sharer/sharer.php?u='+encodeURIComponent(location.href),
+      'facebook-share-dialog',
+      'width=626,height=436');
+    return false;"><span class="icon-facebook-rect"> Share</span>
+</a>
+
+    </section>
+</footer>
+
+
+
+<ul id="post-list" class="archive readmore">
+    <h3>Read more</h3>
+
+    
+    
+    
+        <li>
+            <a href="http://nihaal.me/post/hello_world_lkm/">Hello world Linux Kernel Module<aside class="dates">Jan 31 2020</aside></a>
+        </li>
+    
+        <li>
+            <a href="http://nihaal.me/post/2018-09-15-smart-india-hackathon-2018/">Smart India Hackathon 2018<aside class="dates">Sep 15 2018</aside></a>
+        </li>
+    
+        <li>
+            <a href="http://nihaal.me/post/2017-11-12-hacktoberfest-and-ilugc/">Hacktoberfest and ILUGC meetup<aside class="dates">Nov 12 2017</aside></a>
+        </li>
+    
+        <li>
+            <a href="http://nihaal.me/post/2017-10-20-lost-in-the-woods-my-entry-for-js13kgames/">Lost in the woods: My entry for JS13Kgames<aside class="dates">Oct 20 2017</aside></a>
+        </li>
+    
+        <li>
+            <a href="http://nihaal.me/post/2017-02-23-my-experience-at-mozillatn-meetup/">My experience at MozillaTN meetup 2017<aside class="dates">Feb 23 2017</aside></a>
+        </li>
+    
+        <li>
+            <a href="http://nihaal.me/post/2016-12-17-my-goals-for-the-next-6-months/">My goals for the next 6 months<aside class="dates">Dec 17 2016</aside></a>
+        </li>
+    
+        <li>
+            <a href="http://nihaal.me/post/2016-11-15-hello-world-getting-started-with-rust/">Hello World: Getting started with Rust<aside class="dates">Nov 15 2016</aside></a>
+        </li>
+    
+</ul>
+
+
+
+        <footer id="footer">
+    
+        <div id="social">
+
+	
+	
+    <a class="symbol" href="https://www.github.com/nifey">
+        <i class="fa fa-github"></i>
+    </a>
+    
+    <a class="symbol" href="https://www.gitlab.com/nihaal">
+        <i class="fa fa-gitlab"></i>
+    </a>
+    
+    <a class="symbol" href="https://in.linkedin.com/in/abdun-nihaal-289272143">
+        <i class="fa fa-linkedin"></i>
+    </a>
+    
+    <a class="symbol" href="https://www.twitter.com/nihaal_an">
+        <i class="fa fa-twitter"></i>
+    </a>
+    
+
+
+</div>
+
+    
+    <p class="small">
+    
+        Copyright © 2021 Abdun Nihaal
+    
+    </p>
+</footer>
+
+    </section>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="http://nihaal.me/js/main.js"></script>
+<script src="http://nihaal.me/js/highlight.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+
+
+
+
+</body>
+</html>

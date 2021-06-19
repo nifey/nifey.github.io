@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>kernel on Nihaal</title>
+    <link>http://nihaal.me/tags/kernel/</link>
+    <description>Recent content in kernel on Nihaal</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 31 Jan 2020 10:42:00 +0530</lastBuildDate><atom:link href="http://nihaal.me/tags/kernel/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Hello world Linux Kernel Module</title>
+      <link>http://nihaal.me/post/hello_world_lkm/</link>
+      <pubDate>Fri, 31 Jan 2020 10:42:00 +0530</pubDate>
+      
+      <guid>http://nihaal.me/post/hello_world_lkm/</guid>
+      <description>A Loadable Kernel Module (LKM) is a piece of code that can be loaded to a running kernel to add additional functionality to the kernel. The code that runs as a kernel module will be executed with kernel privileges. Most operating system kernels support kernel modules.
+The advantage of using kernel modules is that it can be loaded to and unloaded from the kernel without the need to recompile or reboot the kernel.</description>
+    </item>
+    
+  </channel>
+</rss>

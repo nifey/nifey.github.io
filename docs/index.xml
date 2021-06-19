@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Nihaal</title>
+    <link>http://nihaal.me/</link>
+    <description>Recent content on Nihaal</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sat, 19 Jun 2021 11:16:00 +0530</lastBuildDate><atom:link href="http://nihaal.me/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Backing up files with RSync</title>
+      <link>http://nihaal.me/post/rsync/</link>
+      <pubDate>Sat, 19 Jun 2021 11:16:00 +0530</pubDate>
+      
+      <guid>http://nihaal.me/post/rsync/</guid>
+      <description>You need a backup When was the last time you took a backup of your files? Thanks to technology, today, we can store thousands of photos and videos in a single pen drive. Digital files are easy to store, but they are also easy to lose. And that is why we all need to take regular backup of our files.
+3-2-1 Backup Strategy 3-2-1 Backup strategy is a general rule of thumb that says it is better to have atleast 3 copies of our files.</description>
+    </item>
+    
+    <item>
+      <title>Hello world Linux Kernel Module</title>
+      <link>http://nihaal.me/post/hello_world_lkm/</link>
+      <pubDate>Fri, 31 Jan 2020 10:42:00 +0530</pubDate>
+      
+      <guid>http://nihaal.me/post/hello_world_lkm/</guid>
+      <description>A Loadable Kernel Module (LKM) is a piece of code that can be loaded to a running kernel to add additional functionality to the kernel. The code that runs as a kernel module will be executed with kernel privileges. Most operating system kernels support kernel modules.
+The advantage of using kernel modules is that it can be loaded to and unloaded from the kernel without the need to recompile or reboot the kernel.</description>
+    </item>
+    
+    <item>
+      <title>Smart India Hackathon 2018</title>
+      <link>http://nihaal.me/post/2018-09-15-smart-india-hackathon-2018/</link>
+      <pubDate>Sat, 15 Sep 2018 17:50:37 +0000</pubDate>
+      
+      <guid>http://nihaal.me/post/2018-09-15-smart-india-hackathon-2018/</guid>
+      <description>Smart India Hackathon 2018 In January this year, I along with my friends got an opportunity to participate in the Smart India Hackathon 2018. In this blog post, I want to share my experience of attending this hackathon and the lessons we learnt.
+Smart India Hackathon is a 36-hour hackathon organized by the government of India. It is an opportunity for students to use their innovative ideas to solve real-world problems.</description>
+    </item>
+    
+    <item>
+      <title>Hacktoberfest and ILUGC meetup</title>
+      <link>http://nihaal.me/post/2017-11-12-hacktoberfest-and-ilugc/</link>
+      <pubDate>Sun, 12 Nov 2017 13:28:37 +0000</pubDate>
+      
+      <guid>http://nihaal.me/post/2017-11-12-hacktoberfest-and-ilugc/</guid>
+      <description>In this post, I want to share what I did for Hacktoberfest.
+Hacktoberfest is a month-long program to motivate people to contribute to open source software. All you have to do is give 4 pull requests to any public repository on Github. The reward is a cool t-shirt and Github stickers. These contributions should be made in the month of October to be counted for hacktoberfest.
+I searched for a project I can contribute to.</description>
+    </item>
+    
+    <item>
+      <title>Lost in the woods: My entry for JS13Kgames</title>
+      <link>http://nihaal.me/post/2017-10-20-lost-in-the-woods-my-entry-for-js13kgames/</link>
+      <pubDate>Fri, 20 Oct 2017 20:52:38 +0000</pubDate>
+      
+      <guid>http://nihaal.me/post/2017-10-20-lost-in-the-woods-my-entry-for-js13kgames/</guid>
+      <description>In this blog post, I want to share my experience participating in the JS13Kgames game jam.
+About a month ago, I got a chance to participate in the JS13Kgames. JS13kgames is an HTML5 game development competition that happens from 13th August till 13th September. The goal of this competition is to make a game in under 13 kilobytes including all the game assets. For this game jam, I made a two-player game called &amp;ldquo;Lost in the woods&amp;rdquo;.</description>
+    </item>
+    
+    <item>
+      <title>My experience at MozillaTN meetup 2017</title>
+      <link>http://nihaal.me/post/2017-02-23-my-experience-at-mozillatn-meetup/</link>
+      <pubDate>Thu, 23 Feb 2017 20:51:38 +0000</pubDate>
+      
+      <guid>http://nihaal.me/post/2017-02-23-my-experience-at-mozillatn-meetup/</guid>
+      <description>In this blog post, I am writing about my experience participating in the MozillaTN community meetup held at Coimbatore this January.
+Mozilla is a global community of passionate people working to protect the web as an open resource. I was always interested in Mozilla for 2 reasons. First, Mozilla is one of the pioneers of the open source movement. As far as I remember, Mozilla Firefox was the first open source software I have ever used.</description>
+    </item>
+    
+    <item>
+      <title>My goals for the next 6 months</title>
+      <link>http://nihaal.me/post/2016-12-17-my-goals-for-the-next-6-months/</link>
+      <pubDate>Sat, 17 Dec 2016 20:52:38 +0000</pubDate>
+      
+      <guid>http://nihaal.me/post/2016-12-17-my-goals-for-the-next-6-months/</guid>
+      <description>In this post, I am sharing my goals for the next 6 months.
+The reason I&amp;rsquo;m doing this is to keep myself motivated and also to let other mozillians know what I&amp;rsquo;m up to.
+ Learn Rust. Learning more about the rust language is my first priority. In this 6 months I want to learn about:  Unit Testing Networking in rust basics of functional programming If possible, using threads in rust   Contribute to some simple, open source rust projects.</description>
+    </item>
+    
+    <item>
+      <title>Hello World: Getting started with Rust</title>
+      <link>http://nihaal.me/post/2016-11-15-hello-world-getting-started-with-rust/</link>
+      <pubDate>Tue, 15 Nov 2016 17:50:37 +0000</pubDate>
+      
+      <guid>http://nihaal.me/post/2016-11-15-hello-world-getting-started-with-rust/</guid>
+      <description>The Rust programming language Rust is a system programming language that focusses on three aspects: Speed, Safety and Concurrency. It is being developed by an active community of programmers. Its development is officially sponsored by Mozilla.
+Installing rust First, we have to install the rust compiler which is called rustc and cargo ,rust&amp;rsquo;s package manager. I recommend installing rustc and cargo using rustup. Why rustup? Before answering that I have to mention that rustc comes in three versions : Stable , Beta and Nightly.</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>hacktoberfest on Nihaal</title>
+    <link>http://nihaal.me/tags/hacktoberfest/</link>
+    <description>Recent content in hacktoberfest on Nihaal</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sun, 12 Nov 2017 13:28:37 +0000</lastBuildDate><atom:link href="http://nihaal.me/tags/hacktoberfest/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Hacktoberfest and ILUGC meetup</title>
+      <link>http://nihaal.me/post/2017-11-12-hacktoberfest-and-ilugc/</link>
+      <pubDate>Sun, 12 Nov 2017 13:28:37 +0000</pubDate>
+      
+      <guid>http://nihaal.me/post/2017-11-12-hacktoberfest-and-ilugc/</guid>
+      <description>In this post, I want to share what I did for Hacktoberfest.
+Hacktoberfest is a month-long program to motivate people to contribute to open source software. All you have to do is give 4 pull requests to any public repository on Github. The reward is a cool t-shirt and Github stickers. These contributions should be made in the month of October to be counted for hacktoberfest.
+I searched for a project I can contribute to.</description>
+    </item>
+    
+  </channel>
+</rss>

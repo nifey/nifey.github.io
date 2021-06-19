@@ -4,6 +4,7 @@ themesDir = "themes"
 languageCode = "en-us"
 title = "Nihaal"
 theme = "hugo-cactus-theme"
+publishDir = "docs"
 
 [params]
 	name = "Abdun Nihaal"
