@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>gamejam on Nihaal</title>
-    <link>http://nihaal.me/tags/gamejam/</link>
+    <link>https://nihaal.me/tags/gamejam/</link>
     <description>Recent content in gamejam on Nihaal</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 20 Oct 2017 20:52:38 +0000</lastBuildDate><atom:link href="http://nihaal.me/tags/gamejam/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 20 Oct 2017 20:52:38 +0000</lastBuildDate><atom:link href="https://nihaal.me/tags/gamejam/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Lost in the woods: My entry for JS13Kgames</title>
-      <link>http://nihaal.me/post/2017-10-20-lost-in-the-woods-my-entry-for-js13kgames/</link>
+      <link>https://nihaal.me/post/2017-10-20-lost-in-the-woods-my-entry-for-js13kgames/</link>
       <pubDate>Fri, 20 Oct 2017 20:52:38 +0000</pubDate>
       
-      <guid>http://nihaal.me/post/2017-10-20-lost-in-the-woods-my-entry-for-js13kgames/</guid>
+      <guid>https://nihaal.me/post/2017-10-20-lost-in-the-woods-my-entry-for-js13kgames/</guid>
       <description>In this blog post, I want to share my experience participating in the JS13Kgames game jam.
 About a month ago, I got a chance to participate in the JS13Kgames. JS13kgames is an HTML5 game development competition that happens from 13th August till 13th September. The goal of this competition is to make a game in under 13 kilobytes including all the game assets. For this game jam, I made a two-player game called &amp;ldquo;Lost in the woods&amp;rdquo;.</description>
     </item>

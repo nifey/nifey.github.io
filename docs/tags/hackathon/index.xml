@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>hackathon on Nihaal</title>
-    <link>http://nihaal.me/tags/hackathon/</link>
+    <link>https://nihaal.me/tags/hackathon/</link>
     <description>Recent content in hackathon on Nihaal</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sat, 15 Sep 2018 17:50:37 +0000</lastBuildDate><atom:link href="http://nihaal.me/tags/hackathon/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 15 Sep 2018 17:50:37 +0000</lastBuildDate><atom:link href="https://nihaal.me/tags/hackathon/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Smart India Hackathon 2018</title>
-      <link>http://nihaal.me/post/2018-09-15-smart-india-hackathon-2018/</link>
+      <link>https://nihaal.me/post/2018-09-15-smart-india-hackathon-2018/</link>
       <pubDate>Sat, 15 Sep 2018 17:50:37 +0000</pubDate>
       
-      <guid>http://nihaal.me/post/2018-09-15-smart-india-hackathon-2018/</guid>
+      <guid>https://nihaal.me/post/2018-09-15-smart-india-hackathon-2018/</guid>
       <description>Smart India Hackathon 2018 In January this year, I along with my friends got an opportunity to participate in the Smart India Hackathon 2018. In this blog post, I want to share my experience of attending this hackathon and the lessons we learnt.
 Smart India Hackathon is a 36-hour hackathon organized by the government of India. It is an opportunity for students to use their innovative ideas to solve real-world problems.</description>
     </item>
