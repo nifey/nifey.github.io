@@ -6,7 +6,19 @@
     <description>Recent content in Posts on Nihaal</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sat, 19 Jun 2021 11:16:00 +0530</lastBuildDate><atom:link href="https://nihaal.me/post/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 12 Oct 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://nihaal.me/post/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Eudyptula Challenge task 5</title>
+      <link>https://nihaal.me/post/ec5/</link>
+      <pubDate>Tue, 12 Oct 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://nihaal.me/post/ec5/</guid>
+      <description>In this post, I want to share what I learnt by doing task 5 of the Eudyptula challenge.
+The Eudyptula Challenge is a set of 20 tasks designed to help people get started with Linux kernel development.
+Task 5 of the challenge is to make a hello world kernel module get loaded automatically when a USB keyboard is plugged in.
+Loadable kernel modules Linux kernel allows us to load modules to the kernel while the kernel is running.</description>
+    </item>
+    
     <item>
       <title>Backing up files with RSync</title>
       <link>https://nihaal.me/post/rsync/</link>

@@ -2,28 +2,31 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>https://nihaal.me/post/ec5/</loc>
+    <lastmod>2021-10-12T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://nihaal.me/tags/kernel/</loc>
+    <lastmod>2021-10-12T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://nihaal.me/tags/linux/</loc>
+    <lastmod>2021-10-12T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://nihaal.me/</loc>
+    <lastmod>2021-10-12T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://nihaal.me/post/</loc>
+    <lastmod>2021-10-12T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://nihaal.me/tags/</loc>
+    <lastmod>2021-10-12T00:00:00+00:00</lastmod>
+  </url><url>
     <loc>https://nihaal.me/post/rsync/</loc>
     <lastmod>2021-06-19T11:16:00+05:30</lastmod>
   </url><url>
     <loc>https://nihaal.me/tags/backup/</loc>
     <lastmod>2021-06-19T11:16:00+05:30</lastmod>
   </url><url>
-    <loc>https://nihaal.me/</loc>
-    <lastmod>2021-06-19T11:16:00+05:30</lastmod>
-  </url><url>
-    <loc>https://nihaal.me/post/</loc>
-    <lastmod>2021-06-19T11:16:00+05:30</lastmod>
-  </url><url>
-    <loc>https://nihaal.me/tags/</loc>
-    <lastmod>2021-06-19T11:16:00+05:30</lastmod>
-  </url><url>
     <loc>https://nihaal.me/post/hello_world_lkm/</loc>
-    <lastmod>2020-01-31T10:42:00+05:30</lastmod>
-  </url><url>
-    <loc>https://nihaal.me/tags/kernel/</loc>
-    <lastmod>2020-01-31T10:42:00+05:30</lastmod>
-  </url><url>
-    <loc>https://nihaal.me/tags/linux/</loc>
     <lastmod>2020-01-31T10:42:00+05:30</lastmod>
   </url><url>
     <loc>https://nihaal.me/tags/ai-ml/</loc>

@@ -6,20 +6,11 @@
     <description>Recent content in Tags on Nihaal</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sat, 19 Jun 2021 11:16:00 +0530</lastBuildDate><atom:link href="https://nihaal.me/tags/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>backup</title>
-      <link>https://nihaal.me/tags/backup/</link>
-      <pubDate>Sat, 19 Jun 2021 11:16:00 +0530</pubDate>
-      
-      <guid>https://nihaal.me/tags/backup/</guid>
-      <description></description>
-    </item>
-    
+    <lastBuildDate>Tue, 12 Oct 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://nihaal.me/tags/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>kernel</title>
       <link>https://nihaal.me/tags/kernel/</link>
-      <pubDate>Fri, 31 Jan 2020 10:42:00 +0530</pubDate>
+      <pubDate>Tue, 12 Oct 2021 00:00:00 +0000</pubDate>
       
       <guid>https://nihaal.me/tags/kernel/</guid>
       <description></description>
@@ -28,9 +19,18 @@
     <item>
       <title>linux</title>
       <link>https://nihaal.me/tags/linux/</link>
-      <pubDate>Fri, 31 Jan 2020 10:42:00 +0530</pubDate>
+      <pubDate>Tue, 12 Oct 2021 00:00:00 +0000</pubDate>
       
       <guid>https://nihaal.me/tags/linux/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>backup</title>
+      <link>https://nihaal.me/tags/backup/</link>
+      <pubDate>Sat, 19 Jun 2021 11:16:00 +0530</pubDate>
+      
+      <guid>https://nihaal.me/tags/backup/</guid>
       <description></description>
     </item>
     
