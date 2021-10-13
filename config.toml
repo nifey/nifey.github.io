@@ -1,46 +1,155 @@
 # Site settings
 baseurl = "https://nihaal.me/"
 themesDir = "themes"
-languageCode = "en-us"
+languageCode = "en"
+defaultContentLanguage = "en"
 title = "Nihaal"
-theme = "hugo-cactus-theme"
+theme = "even"
 publishDir = "docs"
+preserveTaxonomyNames = true
+enableRobotsTXT = true
+enableEmoji = true
+enableGitInfo = false # use git commit log to generate lastmod record
+
+[languages]
+  [languages.en]
+    title = 'Nihaal'
+    languageName = 'English'
+
+# Syntax highlighting by Chroma. NOTE: Don't enable `highlightInClient` and `chroma` at the same time!
+pygmentsOptions = "linenos=table"
+pygmentsCodefences = true
+pygmentsUseClasses = true
+pygmentsCodefencesGuessSyntax = true
+
+hasCJKLanguage = false
+paginate = 5
+disqusShortname = ""
+googleAnalytics = ""
+copyright = ""
+
+[author]
+  name = "Abdun Nihaal"
+
+[sitemap]
+  changefreq = "weekly"
+  priority = 0.5
+  filename = "sitemap.xml"
+
+[[menu.main]]
+  name = "Home"
+  weight = 10
+  identifier = "home"
+  url = "/"
+[[menu.main]]
+  name = "Archives"
+  weight = 20
+  identifier = "archives"
+  url = "/post/"
+[[menu.main]]
+  name = "Tags"
+  weight = 30
+  identifier = "tags"
+  url = "/tags/"
 
 [params]
-	name = "Abdun Nihaal"
+  version = "4.x"           # Used to give a friendly message when you have an incompatible update
+  debug = false             # If true, load `eruda.min.js`. See https://github.com/liriliri/eruda
 
-	twitter = "nihaal_an"
+  since = "2016"
+  # use public git repo url to link lastmod git commit, enableGitInfo should be true.
+  gitRepo = ""
 
-	# Integrate Javascript files or stylesheets by adding the url to the external assets or by
-	# linking local files with their path relative to the static folder, e.g. "css/styles.css"
-	customCSS = []
-	customJS  = []
+  # site info (optional)
+  logoTitle = ""
+  keywords = []
+  description = ""
 
-	# The variables below are optionally too and can be used to
-	# translate or customize each string of the theme.
+  # paginate of archives, tags and categories
+  archivePaginate = 50
 
-	# Navigation links
-	home = ""
-	subscribe = ""
-	# Pagination links
-	olderPosts = ""
-	newerPosts = ""
-	readMore = ""
-	copyright = "Copyright © 2021 Abdun Nihaal"
-	# Sharing options and author information in posts
-	aboutAuthor = "MS student at IITM"
-	tweet = ""
-	share = ""
-	# 404 page
-	title404 = ""
-	subtitle404 = ""
+  # show 'xx Posts In Total' in archive page ?
+  showArchiveCount = true
 
-	# Choose a font for the social icons in the footer. Either "mono-social" or "font-awesome"
-	iconFont = "font-awesome"
+  # The date format to use; for a list of valid formats, see https://gohugo.io/functions/format/
+  dateFormatToUse = "02-01-2006"
 
-# Add additional social link entries underneath
-[social]
-    twitter  = "https://www.twitter.com/nihaal_an"
-    github   = "https://www.github.com/nifey"
-    gitlab   = "https://www.gitlab.com/nihaal"
-    linkedin = "https://in.linkedin.com/in/abdun-nihaal-289272143"
+  # show word count and read time ?
+  moreMeta = true
+
+  # Syntax highlighting by highlight.js
+  highlightInClient = false
+
+  # Some global options, you can also close or open something in front matter for a single post, see more information from `archetypes/default.md`.
+  toc = true
+  autoCollapseToc = false   # Auto expand and collapse toc
+  fancybox = true           # see https://github.com/fancyapps/fancybox
+
+  # mathjax
+  mathjax = false           # see https://www.mathjax.org/
+  mathjaxEnableSingleDollar = false
+  mathjaxEnableAutoNumber = false
+  mathjaxUseLocalFiles = false  # You should install mathjax in `your-site/static/lib/mathjax`
+
+  postMetaInFooter = true   # contain author, lastMod, markdown link, license
+  linkToMarkDown = false    # Only effective when hugo will output .md files.
+  contentCopyright = ''     # e.g. '<a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank">CC BY-NC-ND 4.0</a>'
+
+  # Link custom CSS and JS assets
+  #   (relative to /static/css and /static/js respectively)
+  customCSS = []
+  customJS = []
+
+  uglyURLs = false          # please keep same with uglyurls setting
+
+  # Show language selector for multilingual site.
+  showLanguageSelector = true
+
+  [params.outdatedInfoWarning]
+    enable = false
+    hint = 30               # Display hint if the last modified time is more than these days ago.
+    warn = 180              # Display warning if the last modified time is more than these days ago.
+
+  [params.gitment]          # Gitment is a comment system based on GitHub issues. see https://github.com/imsun/gitment
+    owner = ""              # Your GitHub ID
+    repo = ""               # The repo to store comments
+    clientId = ""           # Your client ID
+    clientSecret = ""       # Your client secret
+
+  [params.utterances]       # https://utteranc.es/
+    owner = ""              # Your GitHub ID
+    repo = ""               # The repo to store comments
+
+  [params.gitalk]           # Gitalk is a comment system based on GitHub issues. see https://github.com/gitalk/gitalk
+    owner = ""              # Your GitHub ID
+    repo = ""               # The repo to store comments
+    clientId = ""           # Your client ID
+    clientSecret = ""       # Your client secret
+
+  [params.flowchartDiagrams]# see https://blog.olowolo.com/example-site/post/js-flowchart-diagrams/
+    enable = false
+    options = ""
+
+  [params.sequenceDiagrams] # see https://blog.olowolo.com/example-site/post/js-sequence-diagrams/
+    enable = false
+    options = ""            # default: "{theme: 'simple'}"
+
+  [params.social]
+    c-twitter = "https://www.twitter.com/nihaal_an"
+    e-linkedin = "https://in.linkedin.com/in/abdun-nihaal-289272143"
+    g-github = "https://www.github.com/nifey"
+    n-gitlab = "https://www.gitlab.com/nihaal"
+
+# See https://gohugo.io/about/hugo-and-gdpr/
+[privacy]
+  [privacy.googleAnalytics]
+    anonymizeIP = true      # 12.214.31.144 -> 12.214.31.0
+  [privacy.youtube]
+    privacyEnhanced = true
+
+# see https://gohugo.io/getting-started/configuration-markup
+[markup]
+  [markup.tableOfContents]
+    startLevel = 1
+  [markup.goldmark.renderer]
+    unsafe = true
