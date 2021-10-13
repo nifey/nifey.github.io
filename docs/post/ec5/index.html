@@ -1,22 +1,45 @@
 <!DOCTYPE html>
-<html lang="en-us">
-	<head>
-    <meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="author" content="Abdun Nihaal">
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Eudyptula Challenge task 5 - Nihaal</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
 
-<meta name="generator" content="Hugo 0.87.0" />
-<title>Eudyptula Challenge task 5</title>
-<link rel="shortcut icon" href="https://nihaal.me/images/favicon.ico">
-<link rel="stylesheet" href="https://nihaal.me/css/style.css">
-<link rel="stylesheet" href="https://nihaal.me/css/highlight.css">
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="Abdun Nihaal" /><meta name="description" content="In this post, I want to share what I learnt by doing task 5 of the Eudyptula challenge.
+The Eudyptula Challenge is a set of 20 tasks designed to help people get started with Linux kernel development.
+Task 5 of the challenge is to make a hello world kernel module get loaded automatically when a USB keyboard is plugged in.
+Loadable kernel modules Linux kernel allows us to load modules to the kernel while the kernel is running." />
 
 
 
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
 
 
+
+<meta name="generator" content="Hugo 0.87.0 with theme even" />
+
+
+<link rel="canonical" href="https://nihaal.me/post/ec5/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+<link href="/sass/main.min.f92fd13721ddf72129410fd8250e73152cc6f2438082b6c0208dc24ee7c13fc4.css" rel="stylesheet">
+<link href="/lib/fancybox/jquery.fancybox-3.1.20.min.css" rel="stylesheet">
 
 
 <meta property="og:title" content="Eudyptula Challenge task 5" />
@@ -27,9 +50,7 @@ Loadable kernel modules Linux kernel allows us to load modules to the kernel whi
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://nihaal.me/post/ec5/" /><meta property="article:section" content="post" />
 <meta property="article:published_time" content="2021-10-12T00:00:00+00:00" />
-<meta property="article:modified_time" content="2021-10-12T00:00:00+00:00" />
-
-
+<meta property="article:modified_time" content="2021-10-12T00:00:00+00:00" /><meta property="og:site_name" content="Nihaal" />
 
 <meta itemprop="name" content="Eudyptula Challenge task 5">
 <meta itemprop="description" content="In this post, I want to share what I learnt by doing task 5 of the Eudyptula challenge.
@@ -37,52 +58,122 @@ The Eudyptula Challenge is a set of 20 tasks designed to help people get started
 Task 5 of the challenge is to make a hello world kernel module get loaded automatically when a USB keyboard is plugged in.
 Loadable kernel modules Linux kernel allows us to load modules to the kernel while the kernel is running."><meta itemprop="datePublished" content="2021-10-12T00:00:00+00:00" />
 <meta itemprop="dateModified" content="2021-10-12T00:00:00+00:00" />
-<meta itemprop="wordCount" content="999">
-<meta itemprop="keywords" content="linux,kernel," />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="wordCount" content="1042">
+<meta itemprop="keywords" content="linux,kernel," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Eudyptula Challenge task 5"/>
 <meta name="twitter:description" content="In this post, I want to share what I learnt by doing task 5 of the Eudyptula challenge.
 The Eudyptula Challenge is a set of 20 tasks designed to help people get started with Linux kernel development.
 Task 5 of the challenge is to make a hello world kernel module get loaded automatically when a USB keyboard is plugged in.
 Loadable kernel modules Linux kernel allows us to load modules to the kernel while the kernel is running."/>
-<meta name="twitter:site" content="@https://www.twitter.com/nihaal_an"/>
 
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
 
-    </head>
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
 <body>
-    <nav class="main-nav">
-	
-		<a href='https://nihaal.me/'> <span class="arrow">←</span>Home</a>
-	
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Nihaal</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a>
+  </ul>
 
-	
+  
 
-	
+
 </nav>
 
-    <section id="wrapper">
-        
-        
-<article class="post">
-    <header>
-        <h1>Eudyptula Challenge task 5</h1>
-        <h2 class="subtitle"></h2>
-        <h2 class="headline">
-        October 12, 2021
-        <br>
-        
-        
-            
-                <a href="https://nihaal.me/tags/linux">linux</a>
-            
-                <a href="https://nihaal.me/tags/kernel">kernel</a>
-            
-        
-        
-        </h2>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Nihaal</a>
+</div>
+
+
+
+
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li>
+  </ul>
+</nav>
+
     </header>
-    <section id="post-body">
-        <p>In this post, I want to share what I learnt by doing task 5 of the Eudyptula challenge.</p>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">Eudyptula Challenge task 5</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 12-10-2021 </span>
+        
+          <span class="more-meta"> 1042 words </span>
+          <span class="more-meta"> 5 mins read </span>
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">Contents</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#loadable-kernel-modules">Loadable kernel modules</a></li>
+        <li><a href="#dynamic-loading-of-kernel-modules">Dynamic loading of kernel modules</a>
+          <ul>
+            <li><a href="#1-dot-udev">1. udev</a></li>
+            <li><a href="#2-dot-modprobe">2. modprobe</a></li>
+          </ul>
+        </li>
+        <li><a href="#difference-between-modprobe-and-insmod">Difference between modprobe and insmod</a></li>
+        <li><a href="#solution-for-the-task">Solution for the task</a>
+          <ul>
+            <li><a href="#1-dot-adding-a-modalias">1. Adding a modalias</a></li>
+            <li><a href="#2-dot-make-modprobe-detect-the-new-driver">2. Make modprobe detect the new driver</a></li>
+          </ul>
+        </li>
+        <li><a href="#references">References</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <p>In this post, I want to share what I learnt by doing task 5 of the Eudyptula challenge.</p>
 <p>The Eudyptula Challenge is a set of 20 tasks designed to
 help people get started with Linux kernel development.</p>
 <p>Task 5 of the challenge is to make a <a href="https://nihaal.me/post/hello%5Fworld%5Flkm/">hello world kernel module</a> get loaded
@@ -102,8 +193,15 @@ hardware device is plugged in.</p>
 and sends a <strong>uevent</strong> to a userspace daemon called <strong>udevd</strong>.
 The uevent message contains information about the hardware ID of the device and the bus to which the device is connected to.
 We can view the stream of uevent messages using udevadm:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ sudo udevadm monitor --kernel
-</code></pre></div><p>udevd processes these uevent messages and is responsible for</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh">$ sudo udevadm monitor --kernel
+</code></pre></td></tr></table>
+</div>
+</div><p>udevd processes these uevent messages and is responsible for</p>
 <ul>
 <li>creating or deleting device files in /dev directory and setting appropriate permissions for them</li>
 <li>executing scripts based on rules defined in /etc/udev/rules.d</li>
@@ -113,8 +211,15 @@ We can view the stream of uevent messages using udevadm:</p>
 and passes that modalias to modprobe.
 For example, the alias of my USB keyboard is usb:v03F0p0324d0104dc00dsc00dp00ic03isc01ip01in00.
 (We can find that from the <em>modalias</em> file in the sysfs directory corresponding to the device.)</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ modprobe usb:v03F0p0324d0104dc00dsc00dp00ic03isc01ip01in00
-</code></pre></div><h3 id="2-dot-modprobe">2. modprobe</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">$ modprobe usb:v03F0p0324d0104dc00dsc00dp00ic03isc01ip01in00
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="2-dot-modprobe">2. modprobe</h3>
 <p>Modprobe is a userspace utility used for loading kernel modules.
 The role of modprobe is to find and load all modules that a device might need
 by using the modalias passed by udevd.</p>
@@ -123,7 +228,22 @@ by using the modalias passed by udevd.</p>
 the MODULE_DEVICE_TABLE macro.
 During compilation, the module device table of each driver is encoded as a modalias for that driver.</p>
 <p>We can find the modalias of a module using modinfo:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ modinfo usbhid | head
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="hl"><span class="lnt"> 9
+</span></span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh">$ modinfo usbhid <span class="p">|</span> head
 filename:       /lib/modules/5.14.2-arch1-2/kernel/drivers/hid/usbhid/usbhid.ko.zst
 license:        GPL
 description:    USB HID core driver
@@ -131,23 +251,45 @@ author:         Jiri Kosina
 author:         Vojtech Pavlik
 author:         Andreas Gal
 srcversion:     538A7DD58A0E86450F80FB8
-<span style="display:block;width:100%;background-color:#3c3d38">alias:          usb:v*p*d*dc*dsc*dp*ic03isc*ip*in*
+<span class="hl">alias:          usb:v*p*d*dc*dsc*dp*ic03isc*ip*in*
 </span>depends:
 retpoline:      Y
-</code></pre></div><p>The modalias of every module is present in the module.alias and module.builtin.alias files
+</code></pre></td></tr></table>
+</div>
+</div><p>The modalias of every module is present in the module.alias and module.builtin.alias files
 present in  /lib/modules/`uname -r`.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ cat /lib/modules/<span style="color:#e6db74">`</span>uname -r<span style="color:#e6db74">`</span>/modules.alias | grep -C <span style="color:#ae81ff">2</span> usbhid
-alias platform:HID-SENSOR-2000e2 hid_sensor_custom
-alias platform:HID-SENSOR-2000e1 hid_sensor_custom
-<span style="display:block;width:100%;background-color:#3c3d38">alias usb:v*p*d*dc*dsc*dp*ic03isc*ip*in* usbhid
-</span>alias acpi*:PNP0C50:* i2c_hid_acpi
-alias acpi*:ACPI0C50:* i2c_hid_acpi
-</code></pre></div><p>So now all modprobe has to do to load the correct modules is to go through the module.alias file
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="hl"><span class="lnt">4
+</span></span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh">$ cat /lib/modules/<span class="sb">`</span>uname -r<span class="sb">`</span>/modules.alias <span class="p">|</span> grep -C <span class="m">2</span> usbhid
+<span class="nb">alias</span> platform:HID-SENSOR-2000e2 hid_sensor_custom
+<span class="nb">alias</span> platform:HID-SENSOR-2000e1 hid_sensor_custom
+<span class="hl"><span class="nb">alias</span> usb:v*p*d*dc*dsc*dp*ic03isc*ip*in* usbhid
+</span><span class="nb">alias</span> acpi*:PNP0C50:* i2c_hid_acpi
+<span class="nb">alias</span> acpi*:ACPI0C50:* i2c_hid_acpi
+</code></pre></td></tr></table>
+</div>
+</div><p>So now all modprobe has to do to load the correct modules is to go through the module.alias file
 and load modules with a modalias that matches the modalias passed by udevd.</p>
 <p>We can list all modules that match with a modalias by using modprobe&rsquo;s -R flag.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ modprobe -R usb:v03F0p0324d0104dc00dsc00dp00ic03isc01ip01in00
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">$ modprobe -R usb:v03F0p0324d0104dc00dsc00dp00ic03isc01ip01in00
 usbhid
-</code></pre></div><h2 id="difference-between-modprobe-and-insmod">Difference between modprobe and insmod</h2>
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="difference-between-modprobe-and-insmod">Difference between modprobe and insmod</h2>
 <p><strong>modprobe</strong> and <strong>insmod</strong> are the two userspace utilities used to load kernel modules.
 The differences between the two are:</p>
 <table>
@@ -181,42 +323,88 @@ of the hello world module to correspond to all USB keyboards.</p>
 <p>To find the device table entry to use, I looked at the source code of the current USB keyboard driver in my system.
 The driver that handles USB keyboards is <strong>usbhid</strong> (hid stands for human interface device).</p>
 <p>To find the driver that is being used for a device, we can use udevadm.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ udevadm info -a -n /dev/input/by-id/usb-your-keyboard-name | grep -i driver
-E: ID_USB_DRIVER<span style="color:#f92672">=</span>usbhid
-</code></pre></div><p>Usually, for every module, we can find a directory or C file with the module name in the kernel source.
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh">$ udevadm info -a -n /dev/input/by-id/usb-your-keyboard-name <span class="p">|</span> grep -i driver
+E: <span class="nv">ID_USB_DRIVER</span><span class="o">=</span>usbhid
+</code></pre></td></tr></table>
+</div>
+</div><p>Usually, for every module, we can find a directory or C file with the module name in the kernel source.
 The source code of usbhid module is present under drivers/hid/usbhid.
 In that directory, the file usbkbd.c contains driver code for USB keyboards.
 We can find the device table entry for USB keyboards in that file.</p>
 <p>The following snippet creates the device table with an entry corresponding to USB keyboards
 (taken from usbkbd.c) and registers it with the MODULE_DEVICE_TABLE macro.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#66d9ef">static</span> <span style="color:#66d9ef">const</span> <span style="color:#66d9ef">struct</span> usb_device_id hello_id_table[] <span style="color:#f92672">=</span> {
-  { USB_INTERFACE_INFO(USB_INTERFACE_CLASS_HID, USB_INTERFACE_SUBCLASS_BOOT,
-                       USB_INTERFACE_PROTOCOL_KEYBOARD) },
-  { }						<span style="color:#75715e">/* Terminating entry */</span>
-};
-MODULE_DEVICE_TABLE(usb, hello_id_table);
-</code></pre></div><p>I compiled the hello world module after adding the above snippet.
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="k">static</span> <span class="k">const</span> <span class="k">struct</span> <span class="n">usb_device_id</span> <span class="n">hello_id_table</span><span class="p">[]</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="p">{</span> <span class="n">USB_INTERFACE_INFO</span><span class="p">(</span><span class="n">USB_INTERFACE_CLASS_HID</span><span class="p">,</span> <span class="n">USB_INTERFACE_SUBCLASS_BOOT</span><span class="p">,</span>
+                       <span class="n">USB_INTERFACE_PROTOCOL_KEYBOARD</span><span class="p">)</span> <span class="p">},</span>
+  <span class="p">{</span> <span class="p">}</span>						<span class="cm">/* Terminating entry */</span>
+<span class="p">};</span>
+<span class="n">MODULE_DEVICE_TABLE</span><span class="p">(</span><span class="n">usb</span><span class="p">,</span> <span class="n">hello_id_table</span><span class="p">);</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>I compiled the hello world module after adding the above snippet.
 After compilation, running modinfo shows us an alias entry.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ modinfo hello.ko
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="hl"><span class="lnt"> 8
+</span></span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh">$ modinfo hello.ko
 filename:       /home/nihaal/lk/hello.ko
 version:        1.0
 description:    Hello world kernel module that loads automatically when USB keyboard is plugged in
 author:         Abdun Nihaal
 license:        GPL
 srcversion:     2D34CB10D98468A6F260278
-<span style="display:block;width:100%;background-color:#3c3d38">alias:          usb:v*p*d*dc*dsc*dp*ic03isc01ip01in*
+<span class="hl">alias:          usb:v*p*d*dc*dsc*dp*ic03isc01ip01in*
 </span>depends:
 retpoline:      Y
 name:           hello
 vermagic:       5.14.2-arch1-2 SMP preempt mod_unload
-</code></pre></div><h3 id="2-dot-make-modprobe-detect-the-new-driver">2. Make modprobe detect the new driver</h3>
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="2-dot-make-modprobe-detect-the-new-driver">2. Make modprobe detect the new driver</h3>
 <p>To make modprobe detect our module, we have to copy the module (.ko file) into the default module
 path (/lib/modules/`uname -r`) and use <strong>depmod</strong> to update the module.alias file.
 When used with the -A flag, depmod will only check files that are more recent than
 the module.alias file.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">sudo cp hello.ko /lib/modules/<span style="color:#e6db74">`</span>uname -r<span style="color:#e6db74">`</span>/
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">sudo cp hello.ko /lib/modules/<span class="sb">`</span>uname -r<span class="sb">`</span>/
 depmod -A
-</code></pre></div><p>Now modprobe will be able to load our module and will load it automatically when a USB keyboard is plugged in.</p>
+</code></pre></td></tr></table>
+</div>
+</div><p>Now modprobe will be able to load our module and will load it automatically when a USB keyboard is plugged in.</p>
 <h2 id="references">References</h2>
 <ul>
 <li><a href="https://eudyptula-challenge.org/">Eudyptula Challenge website</a></li>
@@ -225,114 +413,92 @@ depmod -A
 <li><a href="https://nihaal.me/post/hello%5Fworld%5Flkm/">Hello world kernel module</a></li>
 </ul>
 
-    </section>
-</article>
-
-<footer id="post-meta" class="clearfix">
-    <a href="https://twitter.com/nihaal_an">
-    <img class="avatar" src="https://nihaal.me/images/avatar.png">
-    <div>
-        <span class="dark">Abdun Nihaal</span>
-        <span>MS student at IITM</span>
     </div>
-    </a>
-    <section id="sharing">
-        <a class="twitter" href="https://twitter.com/intent/tweet?text=https%3a%2f%2fnihaal.me%2fpost%2fec5%2f - Eudyptula%20Challenge%20task%205 by @nihaal_an"><span class="icon-twitter"> tweet</span></a>
 
-<a class="facebook" href="#" onclick="
-    window.open(
-      'https://www.facebook.com/sharer/sharer.php?u='+encodeURIComponent(location.href),
-      'facebook-share-dialog',
-      'width=626,height=436');
-    return false;"><span class="icon-facebook-rect"> Share</span>
-</a>
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">Author</span>
+    <span class="item-content">Abdun Nihaal</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">LastMod</span>
+    <span class="item-content">
+        12-10-2021
+        
+    </span>
+  </p>
+  
+  
+</div>
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/linux/">linux</a>
+          <a href="/tags/kernel/">kernel</a>
+          </div>
+      <nav class="post-nav">
+        
+        <a class="next" href="/post/rsync/">
+            <span class="next-text nav-default">Backing up files with RSync</span>
+            <span class="next-text nav-mobile">Next</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
 
-    </section>
-</footer>
+  
 
+  
 
+      </div>
+    </main>
 
-<ul id="post-list" class="archive readmore">
-    <h3>Read more</h3>
-
-    
-    
-    
-        <li>
-            <a href="https://nihaal.me/post/rsync/">Backing up files with RSync<aside class="dates">Jun 19 2021</aside></a>
-        </li>
-    
-        <li>
-            <a href="https://nihaal.me/post/hello_world_lkm/">Hello world Linux Kernel Module<aside class="dates">Jan 31 2020</aside></a>
-        </li>
-    
-        <li>
-            <a href="https://nihaal.me/post/2018-09-15-smart-india-hackathon-2018/">Smart India Hackathon 2018<aside class="dates">Sep 15 2018</aside></a>
-        </li>
-    
-        <li>
-            <a href="https://nihaal.me/post/2017-11-12-hacktoberfest-and-ilugc/">Hacktoberfest and ILUGC meetup<aside class="dates">Nov 12 2017</aside></a>
-        </li>
-    
-        <li>
-            <a href="https://nihaal.me/post/2017-10-20-lost-in-the-woods-my-entry-for-js13kgames/">Lost in the woods: My entry for JS13Kgames<aside class="dates">Oct 20 2017</aside></a>
-        </li>
-    
-        <li>
-            <a href="https://nihaal.me/post/2017-02-23-my-experience-at-mozillatn-meetup/">My experience at MozillaTN meetup 2017<aside class="dates">Feb 23 2017</aside></a>
-        </li>
-    
-        <li>
-            <a href="https://nihaal.me/post/2016-12-17-my-goals-for-the-next-6-months/">My goals for the next 6 months<aside class="dates">Dec 17 2016</aside></a>
-        </li>
-    
-        <li>
-            <a href="https://nihaal.me/post/2016-11-15-hello-world-getting-started-with-rust/">Hello World: Getting started with Rust<aside class="dates">Nov 15 2016</aside></a>
-        </li>
-    
-</ul>
-
-
-
-        <footer id="footer">
-    
-        <div id="social">
-
-	
-	
-    <a class="symbol" href="https://www.github.com/nifey">
-        <i class="fa fa-github"></i>
-    </a>
-    
-    <a class="symbol" href="https://www.gitlab.com/nihaal">
-        <i class="fa fa-gitlab"></i>
-    </a>
-    
-    <a class="symbol" href="https://in.linkedin.com/in/abdun-nihaal-289272143">
-        <i class="fa fa-linkedin"></i>
-    </a>
-    
-    <a class="symbol" href="https://www.twitter.com/nihaal_an">
-        <i class="fa fa-twitter"></i>
-    </a>
-    
-
-
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="https://www.twitter.com/nihaal_an" class="iconfont icon-twitter" title="twitter"></a>
+      <a href="https://in.linkedin.com/in/abdun-nihaal-289272143" class="iconfont icon-linkedin" title="linkedin"></a>
+      <a href="https://www.github.com/nifey" class="iconfont icon-github" title="github"></a>
+      <a href="https://www.gitlab.com/nihaal" class="iconfont icon-gitlab" title="gitlab"></a>
+  <a href="https://nihaal.me/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
 </div>
 
-    
-    <p class="small">
-    
-        Copyright © 2021 Abdun Nihaal
-    
-    </p>
-</footer>
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
 
-    </section>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-<script src="https://nihaal.me/js/main.js"></script>
-<script src="https://nihaal.me/js/highlight.js"></script>
-<script>hljs.initHighlightingOnLoad();</script>
+  
+
+  <span class="copyright-year">
+    &copy; 
+    2016 - 
+    2021<span class="heart"><i class="iconfont icon-heart"></i></span><span>Abdun Nihaal</span>
+  </span>
+</div>
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  <script type="text/javascript" src="/lib/jquery/jquery-3.2.1.min.js"></script>
+  <script type="text/javascript" src="/lib/slideout/slideout-1.0.1.min.js"></script>
+  <script type="text/javascript" src="/lib/fancybox/jquery.fancybox-3.1.20.min.js"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.c99b103c33d1539acf3025e1913697534542c4a5aa5af0ccc20475ed2863603b.js"></script>
+
+
+
 
 
 
