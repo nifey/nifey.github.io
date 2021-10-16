@@ -58,7 +58,7 @@ The Eudyptula Challenge is a set of 20 tasks designed to help people get started
 Task 5 of the challenge is to make a hello world kernel module get loaded automatically when a USB keyboard is plugged in.
 Loadable kernel modules Linux kernel allows us to load modules to the kernel while the kernel is running."><meta itemprop="datePublished" content="2021-10-12T00:00:00+00:00" />
 <meta itemprop="dateModified" content="2021-10-12T00:00:00+00:00" />
-<meta itemprop="wordCount" content="1042">
+<meta itemprop="wordCount" content="1041">
 <meta itemprop="keywords" content="linux,kernel," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Eudyptula Challenge task 5"/>
 <meta name="twitter:description" content="In this post, I want to share what I learnt by doing task 5 of the Eudyptula challenge.
@@ -138,7 +138,7 @@ Loadable kernel modules Linux kernel allows us to load modules to the kernel whi
       <div class="post-meta">
         <span class="post-time"> 12-10-2021 </span>
         
-          <span class="more-meta"> 1042 words </span>
+          <span class="more-meta"> 1041 words </span>
           <span class="more-meta"> 5 mins read </span>
         
       </div>
@@ -329,7 +329,7 @@ The driver that handles USB keyboards is <strong>usbhid</strong> (hid stands for
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh">$ udevadm info -a -n /dev/input/by-id/usb-your-keyboard-name <span class="p">|</span> grep -i driver
+<pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh">$ udevadm info -n /dev/input/by-id/usb-your-keyboard-name <span class="p">|</span> grep -i driver
 E: <span class="nv">ID_USB_DRIVER</span><span class="o">=</span>usbhid
 </code></pre></td></tr></table>
 </div>

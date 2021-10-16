@@ -138,7 +138,7 @@ The driver that handles USB keyboards is **usbhid** (hid stands for human interf
 To find the driver that is being used for a device, we can use udevadm.
 
 ```sh
-$ udevadm info -a -n /dev/input/by-id/usb-your-keyboard-name | grep -i driver
+$ udevadm info -n /dev/input/by-id/usb-your-keyboard-name | grep -i driver
 E: ID_USB_DRIVER=usbhid
 ```
 
