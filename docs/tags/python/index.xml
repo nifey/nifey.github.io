@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>python on Nihaal</title>
+    <link>https://nihaal.me/tags/python/</link>
+    <description>Recent content in python on Nihaal</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Mon, 18 Oct 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://nihaal.me/tags/python/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Updating vulnerable Python dependencies</title>
+      <link>https://nihaal.me/post/updating_vulnerable_python_dependencies/</link>
+      <pubDate>Mon, 18 Oct 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://nihaal.me/post/updating_vulnerable_python_dependencies/</guid>
+      <description>Finding vulnerable dependencies Safety-db is a database that keeps track of vulnerable python packages and version information. It is updated once a month. They also provide a tool called safety, that checks if the installed packages or packages in requirements.txt are identified as vulnerable using the safety-db.
+  Install safety
+1  pip install safety     Use safety to check all packages in the current virtual enviroment</description>
+    </item>
+    
+  </channel>
+</rss>

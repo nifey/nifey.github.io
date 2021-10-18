@@ -6,7 +6,18 @@
     <description>Recent content on Nihaal</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Tue, 12 Oct 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://nihaal.me/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 18 Oct 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://nihaal.me/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Updating vulnerable Python dependencies</title>
+      <link>https://nihaal.me/post/updating_vulnerable_python_dependencies/</link>
+      <pubDate>Mon, 18 Oct 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://nihaal.me/post/updating_vulnerable_python_dependencies/</guid>
+      <description>Finding vulnerable dependencies Safety-db is a database that keeps track of vulnerable python packages and version information. It is updated once a month. They also provide a tool called safety, that checks if the installed packages or packages in requirements.txt are identified as vulnerable using the safety-db.
+  Install safety
+1  pip install safety     Use safety to check all packages in the current virtual enviroment</description>
+    </item>
+    
     <item>
       <title>Eudyptula Challenge task 5</title>
       <link>https://nihaal.me/post/ec5/</link>
