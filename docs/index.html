@@ -122,15 +122,15 @@
     <div class="post-meta">
       <span class="post-time"> 03-11-2021 </span>
       
-        <span class="more-meta"> 1454 words </span>
-        <span class="more-meta"> 7 mins read </span>
+        <span class="more-meta"> 1704 words </span>
+        <span class="more-meta"> 8 mins read </span>
     </div>
   </header>
   
   <div class="post-content">
     <div class="post-summary">
-      Misc Char device Creating a character device involves choosing a major and minor number to use and registering the device with the kernel. For creating simple character device files which are not associated with any hardware or cannot be put in any other Major number categories, we can instead create a Miscellaneous character device.
-Misc char devices makes device registration a bit easier. The functions for handling open and llseek syscalls on misc char devices are already defined.
+      Character Devices, Major and Minor numbers Based on granularity of access, there are two classes of devices:
+ Character devices are accessed as a stream of bytes. Eg: Keyboards Block devices are accessed in blocks. For instance, hard disks transfer data in blocks of multiple bytes at a time.  The kernel uses major and minor numbers to identify the attached hardware devices. Major number usually tells us the type of device.
     </div>
     <div class="read-more">
       <a href="/post/misc_char_devices/" class="read-more-link">Read more...</a>
