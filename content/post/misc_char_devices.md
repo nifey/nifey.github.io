@@ -5,6 +5,35 @@ tags = ["linux", "kernel"]
 draft = false
 +++
 
+## Character Devices, Major and Minor numbers {#character-devices-major-and-minor-numbers}
+
+Based on granularity of access, there are two classes of devices:
+
+1.  _Character devices_ are accessed as a stream of bytes. Eg: Keyboards
+2.  _Block devices_ are accessed in blocks. For instance, hard disks transfer data in blocks of multiple bytes at a time.
+
+The kernel uses major and minor numbers to identify the attached hardware devices.
+Major number usually tells us the type of device.
+Minor numbers are used to differentiate two or more devices with the same major number.
+Some minor numbers are reserved.
+The driver writer can choose to use a specific minor number for a device by reserving it, or allow the kernel to assign any free minor number.
+The meaning of major numbers and the list of reserved minor numbers can be found in [Documentation/admin-guide/devices.txt](https://elixir.bootlin.com/linux/latest/source/Documentation/admin-guide/devices.txt).
+
+```bash
+ls /dev -l
+# ....
+# crw-------    241,0 root   27 Oct 15:25 ng0n1
+# crw-rw-rw-      1,3 root   27 Oct 15:25 null
+# crw-------    242,0 root   27 Oct 15:25 nvme0
+# brw-rw----      3,0 root   27 Oct 15:25 nvme0n1
+# brw-rw----      3,1 root   27 Oct 15:25 nvme0n1p1
+# ....
+```
+
+The first character in the output of _ls_ command tells us if it is a character (c) or a block (b) device.
+It also shows the major and minor numbers of the device files.
+
+
 ## Misc Char device {#misc-char-device}
 
 Creating a character device involves choosing a major and minor number to use and registering the device with the kernel.
@@ -278,9 +307,11 @@ clean:
     ```bash
       make
       sudo insmod echo.ko
+      ls /dev/echo
+      # crw-rw-rw- 10,123 root  3 Nov 20:53 /dev/echo
     ```
 
-    The echo device will show up at /dev/echo
+    The echo device will show up at /dev/echo. Notice that the major number 10 tells us that it is a misc device.
 -   Write to the device
 
     ```bash
@@ -303,6 +334,7 @@ clean:
 
 -   [Source code of echo module](https://github.com/nifey/nifey.github.io/tree/master/code/misc%5Fchar%5Fdevices)
 -   [LDD3 Chapter 3](https://lwn.net/images/pdf/LDD3/ch03.pdf)
+-   [Documentation/admin-guide/devices.txt](https://elixir.bootlin.com/linux/latest/source/Documentation/admin-guide/devices.txt)
 -   [include/linux/miscdevice.h](https://elixir.bootlin.com/linux/latest/source/include/linux/miscdevice.h)
 -   [include/linux/stat.h](https://elixir.bootlin.com/linux/latest/source/include/linux/stat.h)
 -   [include/uapi/linux/stat.h](https://elixir.bootlin.com/linux/latest/source/include/uapi/linux/stat.h)
