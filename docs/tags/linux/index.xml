@@ -6,7 +6,19 @@
     <description>Recent content in linux on Nihaal</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Wed, 03 Nov 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://nihaal.me/tags/linux/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 06 Nov 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://nihaal.me/tags/linux/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Creating debugfs files</title>
+      <link>https://nihaal.me/post/creating_debugfs_files/</link>
+      <pubDate>Sat, 06 Nov 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://nihaal.me/post/creating_debugfs_files/</guid>
+      <description>debugfs debugfs is a pseudo-filesystem used for kernel debugging. It is usually mounted at /sys/kernel/debug. debugfs contains files that allow us to read debugging information.
+By default, only the root user can cd into the /sys/kernel/debug directory.
+To change it to allow the current user to cd into debugfs, we can remount it with uid set to the current user&amp;rsquo;s uid.
+1 2 3  sudo umount /sys/kernel/debug sudo mount -t debugfs none /sys/kernel/debug -o uid=`echo $UID` cd /sys/kernel/debug   Creating debugfs entries Creating debugfs files is similar to creating character device files.</description>
+    </item>
+    
     <item>
       <title>Misc character devices</title>
       <link>https://nihaal.me/post/misc_char_devices/</link>
