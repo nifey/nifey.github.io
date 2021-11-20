@@ -6,7 +6,17 @@
     <description>Recent content on Nihaal</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Sat, 06 Nov 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://nihaal.me/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 20 Nov 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://nihaal.me/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Looking inside /dev/null</title>
+      <link>https://nihaal.me/post/dev_null/</link>
+      <pubDate>Sat, 20 Nov 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://nihaal.me/post/dev_null/</guid>
+      <description>Accessing hardware devices like files An important role of the operating system is to allow the user applications to access hardware resources. It has to allow the user programs to use hardware while also ensuring that the applications have permissions to access it and don&amp;rsquo;t misuse them.
+To simplify access to hardware, Unix, by design, exposes most of the hardware devices to userspace as device files, usually present under /dev directory.</description>
+    </item>
+    
     <item>
       <title>Creating debugfs files</title>
       <link>https://nihaal.me/post/creating_debugfs_files/</link>

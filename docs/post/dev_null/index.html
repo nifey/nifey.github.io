@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Looking inside /dev/null - Nihaal</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="Abdun Nihaal" /><meta name="description" content="Accessing hardware devices like files An important role of the operating system is to allow the user applications to access hardware resources. It has to allow the user programs to use hardware while also ensuring that the applications have permissions to access it and don&amp;rsquo;t misuse them.
+To simplify access to hardware, Unix, by design, exposes most of the hardware devices to userspace as device files, usually present under /dev directory." />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.89.2 with theme even" />
+
+
+<link rel="canonical" href="https://nihaal.me/post/dev_null/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+<link href="/sass/main.min.f92fd13721ddf72129410fd8250e73152cc6f2438082b6c0208dc24ee7c13fc4.css" rel="stylesheet">
+<link href="/lib/fancybox/jquery.fancybox-3.1.20.min.css" rel="stylesheet">
+
+
+<meta property="og:title" content="Looking inside /dev/null" />
+<meta property="og:description" content="Accessing hardware devices like files An important role of the operating system is to allow the user applications to access hardware resources. It has to allow the user programs to use hardware while also ensuring that the applications have permissions to access it and don&rsquo;t misuse them.
+To simplify access to hardware, Unix, by design, exposes most of the hardware devices to userspace as device files, usually present under /dev directory." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://nihaal.me/post/dev_null/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2021-11-20T00:00:00+00:00" />
+<meta property="article:modified_time" content="2021-11-20T00:00:00+00:00" /><meta property="og:site_name" content="Nihaal" />
+
+<meta itemprop="name" content="Looking inside /dev/null">
+<meta itemprop="description" content="Accessing hardware devices like files An important role of the operating system is to allow the user applications to access hardware resources. It has to allow the user programs to use hardware while also ensuring that the applications have permissions to access it and don&rsquo;t misuse them.
+To simplify access to hardware, Unix, by design, exposes most of the hardware devices to userspace as device files, usually present under /dev directory."><meta itemprop="datePublished" content="2021-11-20T00:00:00+00:00" />
+<meta itemprop="dateModified" content="2021-11-20T00:00:00+00:00" />
+<meta itemprop="wordCount" content="630">
+<meta itemprop="keywords" content="linux,kernel," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Looking inside /dev/null"/>
+<meta name="twitter:description" content="Accessing hardware devices like files An important role of the operating system is to allow the user applications to access hardware resources. It has to allow the user programs to use hardware while also ensuring that the applications have permissions to access it and don&rsquo;t misuse them.
+To simplify access to hardware, Unix, by design, exposes most of the hardware devices to userspace as device files, usually present under /dev directory."/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Nihaal</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a>
+  </ul>
+
+  
+
+
+</nav>
+
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Nihaal</a>
+</div>
+
+
+
+
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li>
+  </ul>
+</nav>
+
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">Looking inside /dev/null</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 20-11-2021 </span>
+        
+          <span class="more-meta"> 630 words </span>
+          <span class="more-meta"> 3 mins read </span>
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">Contents</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#accessing-hardware-devices-like-files">Accessing hardware devices like files</a></li>
+        <li><a href="#an-example-dev-null">An example: /dev/null</a>
+          <ul>
+            <li><a href="#read-null">read_null</a></li>
+            <li><a href="#write-null">write_null</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <h2 id="accessing-hardware-devices-like-files">Accessing hardware devices like files</h2>
+<p>An important role of the operating system is to allow the user applications to access hardware resources. It has to allow the user programs to use hardware while also ensuring that the applications have permissions to access it and don&rsquo;t misuse them.</p>
+<p>To simplify access to hardware, Unix, by design, exposes most of the hardware devices to userspace as <em>device files</em>, usually present under /dev directory.
+Applications can then access the hardware by invoking system calls like read or write on the device files associated with that device.</p>
+<p>Why do it this way?
+The advantage is that file related system calls like open, read, write, close, etc can be reused to access hardware. And so we avoid adding too many extra system calls specifically to access hardware. Also it provides a unified interface to interact with things, be it files or devices.
+It allows the user application to use hardware without dealing with the quirks of the underlying hardware.</p>
+<p>But somebody has to deal with the quirks and details of the hardware. That is where device drivers come in.
+Device drivers tell the kernel what to do when a particular system call is invoked on a device file.
+It does this by</p>
+<ol>
+<li>Defining functions corresponding to each system call (that it supports)</li>
+<li>Creating a <em>file_operations</em> structure with pointers to the defined functions.</li>
+<li>Registering the device with the kernel</li>
+</ol>
+<p>The driver provides the <em>file_operations</em> structure that contains a set of function pointers corresponding to some system calls.
+Whenever an application executes a system call on a device file, the kernel will lookup the <em>file_operations</em> structure corresponding to the
+device and invoke the function pointed by the struct&rsquo;s fields.</p>
+<p>Setting the fields of <em>file_operations</em> struct to <em>NULL</em> usually disables that system call on that device file.
+Information about what each of the fields of <em>file_operations</em> struct are, and what happens when they are set to null can be found in the <a href="https://lwn.net/images/pdf/LDD3/ch03.pdf">LDD3 book</a>.</p>
+<h2 id="an-example-dev-null">An example: /dev/null</h2>
+<p>To better understand this, we&rsquo;ll look at the simplest device file: <strong>/dev/null</strong>.
+This device file is special because it has no associated hardware.
+/dev/zero, /dev/random are some of the other special files.</p>
+<p>The behaviour of /dev/null file is this:</p>
+<ul>
+<li>When we read from it, it returns nothing.</li>
+<li>When we write to it, the data is discarded.</li>
+</ul>
+<p>The most common usecase of /dev/null is discarding the output of a command by redirecting it to /dev/null.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="nb">echo</span> <span class="s2">&#34;going into the void&#34;</span> &gt; /dev/null
+</code></pre></td></tr></table>
+</div>
+</div><p>The definitions of some special device files including /dev/null, /dev/zero and /dev/random can be found in <a href="https://elixir.bootlin.com/linux/latest/source/drivers/char/mem.c">drivers/char/mem.c</a>.
+Here we will look at the read and write functions of /dev/null, which are used when a process invokes a read or write system call (respectively) on /dev/null device file.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="k">static</span> <span class="n">ssize_t</span> <span class="nf">read_null</span><span class="p">(</span><span class="k">struct</span> <span class="n">file</span> <span class="o">*</span><span class="n">file</span><span class="p">,</span> <span class="kt">char</span> <span class="n">__user</span> <span class="o">*</span><span class="n">buf</span><span class="p">,</span>
+			 <span class="n">size_t</span> <span class="n">count</span><span class="p">,</span> <span class="n">loff_t</span> <span class="o">*</span><span class="n">ppos</span><span class="p">)</span>
+<span class="p">{</span>
+	<span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="k">static</span> <span class="n">ssize_t</span> <span class="nf">write_null</span><span class="p">(</span><span class="k">struct</span> <span class="n">file</span> <span class="o">*</span><span class="n">file</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span> <span class="n">__user</span> <span class="o">*</span><span class="n">buf</span><span class="p">,</span>
+			  <span class="n">size_t</span> <span class="n">count</span><span class="p">,</span> <span class="n">loff_t</span> <span class="o">*</span><span class="n">ppos</span><span class="p">)</span>
+<span class="p">{</span>
+	<span class="k">return</span> <span class="n">count</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="k">static</span> <span class="k">const</span> <span class="k">struct</span> <span class="n">file_operations</span> <span class="n">null_fops</span> <span class="o">=</span> <span class="p">{</span>
+	<span class="p">.</span><span class="n">read</span>		<span class="o">=</span> <span class="n">read_null</span><span class="p">,</span>
+	<span class="p">.</span><span class="n">write</span>		<span class="o">=</span> <span class="n">write_null</span><span class="p">,</span>
+	<span class="c1">//...
+</span><span class="c1"></span><span class="p">};</span>
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="read-null">read_null</h3>
+<p>The read function of <em>file_operations</em> structure is expected to copy <em>count</em> bytes of device data into the userspace buffer <em>buf</em>, update the file position <em>ppos</em> and return the number of bytes written to the buffer.
+The read function of /dev/null, does not copy anything to the buffer. It just returns 0 everytime, which indicates that the end of file has been reached.</p>
+<h3 id="write-null">write_null</h3>
+<p>The write function of <em>file_operations</em> structure is expected to read <em>count</em> bytes of userspace data into kernelspace and return the number of bytes read from the buffer.
+The write function of /​dev/null, does not read anything from the buffer.
+It simply returns <em>count</em>.</p>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">Author</span>
+    <span class="item-content">Abdun Nihaal</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">LastMod</span>
+    <span class="item-content">
+        20-11-2021
+        
+    </span>
+  </p>
+  
+  
+</div>
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/linux/">linux</a>
+          <a href="/tags/kernel/">kernel</a>
+          </div>
+      <nav class="post-nav">
+        
+        <a class="next" href="/post/creating_debugfs_files/">
+            <span class="next-text nav-default">Creating debugfs files</span>
+            <span class="next-text nav-mobile">Next</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="https://www.twitter.com/nihaal_an" class="iconfont icon-twitter" title="twitter"></a>
+      <a href="https://in.linkedin.com/in/abdun-nihaal-289272143" class="iconfont icon-linkedin" title="linkedin"></a>
+      <a href="https://www.github.com/nifey" class="iconfont icon-github" title="github"></a>
+      <a href="https://www.gitlab.com/nihaal" class="iconfont icon-gitlab" title="gitlab"></a>
+  <a href="https://nihaal.me/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    2016 - 
+    2021<span class="heart"><i class="iconfont icon-heart"></i></span><span>Abdun Nihaal</span>
+  </span>
+</div>
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  <script type="text/javascript" src="/lib/jquery/jquery-3.2.1.min.js"></script>
+  <script type="text/javascript" src="/lib/slideout/slideout-1.0.1.min.js"></script>
+  <script type="text/javascript" src="/lib/fancybox/jquery.fancybox-3.1.20.min.js"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.c99b103c33d1539acf3025e1913697534542c4a5aa5af0ccc20475ed2863603b.js"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>
