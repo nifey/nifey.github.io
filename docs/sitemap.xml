@@ -2,42 +2,49 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://nihaal.me/post/creating_sysfs_files/</loc>
+    <lastmod>2021-11-29T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
     <loc>https://nihaal.me/tags/kernel/</loc>
-    <lastmod>2021-11-20T00:00:00+00:00</lastmod>
+    <lastmod>2021-11-29T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
     <loc>https://nihaal.me/tags/linux/</loc>
-    <lastmod>2021-11-20T00:00:00+00:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://nihaal.me/post/dev_null/</loc>
-    <lastmod>2021-11-20T00:00:00+00:00</lastmod>
+    <lastmod>2021-11-29T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
     <loc>https://nihaal.me/</loc>
-    <lastmod>2021-11-20T00:00:00+00:00</lastmod>
+    <lastmod>2021-11-29T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
     <loc>https://nihaal.me/post/</loc>
-    <lastmod>2021-11-20T00:00:00+00:00</lastmod>
+    <lastmod>2021-11-29T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
     <loc>https://nihaal.me/tags/</loc>
+    <lastmod>2021-11-29T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://nihaal.me/post/dev_null/</loc>
     <lastmod>2021-11-20T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>

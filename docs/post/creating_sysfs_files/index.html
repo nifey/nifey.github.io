@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Creating sysfs files - Nihaal</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="Abdun Nihaal" /><meta name="description" content="The kernel provides a few ways in which userspace programs can get information from the kernel space.
+ procfs: Used to get information about running processes debugfs: Used by kernel developers for debugging sysfs  Sysfs is used for data that is not related to a particular process. It has information about hardware devices attached to the system and about drivers handling those devices.
+Any file added to the sysfs becomes a part of the Linux Application Binary Interface (ABI)." />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.89.2 with theme even" />
+
+
+<link rel="canonical" href="https://nihaal.me/post/creating_sysfs_files/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+<link href="/sass/main.min.f92fd13721ddf72129410fd8250e73152cc6f2438082b6c0208dc24ee7c13fc4.css" rel="stylesheet">
+<link href="/lib/fancybox/jquery.fancybox-3.1.20.min.css" rel="stylesheet">
+
+
+<meta property="og:title" content="Creating sysfs files" />
+<meta property="og:description" content="The kernel provides a few ways in which userspace programs can get information from the kernel space.
+ procfs: Used to get information about running processes debugfs: Used by kernel developers for debugging sysfs  Sysfs is used for data that is not related to a particular process. It has information about hardware devices attached to the system and about drivers handling those devices.
+Any file added to the sysfs becomes a part of the Linux Application Binary Interface (ABI)." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://nihaal.me/post/creating_sysfs_files/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2021-11-29T00:00:00+00:00" />
+<meta property="article:modified_time" content="2021-11-29T00:00:00+00:00" /><meta property="og:site_name" content="Nihaal" />
+
+<meta itemprop="name" content="Creating sysfs files">
+<meta itemprop="description" content="The kernel provides a few ways in which userspace programs can get information from the kernel space.
+ procfs: Used to get information about running processes debugfs: Used by kernel developers for debugging sysfs  Sysfs is used for data that is not related to a particular process. It has information about hardware devices attached to the system and about drivers handling those devices.
+Any file added to the sysfs becomes a part of the Linux Application Binary Interface (ABI)."><meta itemprop="datePublished" content="2021-11-29T00:00:00+00:00" />
+<meta itemprop="dateModified" content="2021-11-29T00:00:00+00:00" />
+<meta itemprop="wordCount" content="1191">
+<meta itemprop="keywords" content="linux,kernel," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Creating sysfs files"/>
+<meta name="twitter:description" content="The kernel provides a few ways in which userspace programs can get information from the kernel space.
+ procfs: Used to get information about running processes debugfs: Used by kernel developers for debugging sysfs  Sysfs is used for data that is not related to a particular process. It has information about hardware devices attached to the system and about drivers handling those devices.
+Any file added to the sysfs becomes a part of the Linux Application Binary Interface (ABI)."/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Nihaal</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a>
+  </ul>
+
+  
+
+
+</nav>
+
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Nihaal</a>
+</div>
+
+
+
+
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li>
+  </ul>
+</nav>
+
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">Creating sysfs files</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 29-11-2021 </span>
+        
+          <span class="more-meta"> 1191 words </span>
+          <span class="more-meta"> 6 mins read </span>
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">Contents</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#creating-sysfs-files">Creating sysfs files</a></li>
+        <li><a href="#an-example-echo-file">An example: Echo file</a>
+          <ul>
+            <li><a href="#echo-dot-c">echo.c</a></li>
+            <li><a href="#testing-echo">Testing echo</a></li>
+          </ul>
+        </li>
+        <li><a href="#race-conditions">Race conditions</a></li>
+        <li><a href="#references">References</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <p>The kernel provides a few ways in which userspace programs can get information from the kernel space.</p>
+<ol>
+<li>procfs: Used to get information about running processes</li>
+<li>debugfs: Used by kernel developers for debugging</li>
+<li>sysfs</li>
+</ol>
+<p>Sysfs is used for data that is not related to a particular process.
+It has information about hardware devices attached to the system and about drivers handling those devices.</p>
+<p>Any file added to the sysfs becomes a part of the Linux Application Binary Interface (ABI).
+This means that applications might start using this file and now it has to be supported (like) forever,
+because kernel developers care about <em>not breaking userspace</em>.</p>
+<p>Most sysfs files are documented under <a href="https://elixir.bootlin.com/linux/latest/source/Documentation/ABI">Documentation/ABI</a>.
+Each entry in files under <a href="https://elixir.bootlin.com/linux/latest/source/Documentation/ABI">Documentation/ABI</a> has information about a sysfs file:</p>
+<ul>
+<li>what it does</li>
+<li>when and in which kernel version it was first introduced</li>
+<li>who or which mailing list to contact if it is not working as expected</li>
+</ul>
+<h2 id="creating-sysfs-files">Creating sysfs files</h2>
+<ol>
+<li>
+<p>Include sysfs.h</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c">   <span class="cp">#include</span><span class="cpf">&lt;linux/sysfs.h&gt;</span><span class="cp">
+</span></code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p>Define show and store functions for the sysfs file</p>
+<p>Each sysfs attribute should have one or both of the following two functions defined.</p>
+<ul>
+<li><strong>Show function</strong>
+<ul>
+<li>defines what is returned when we read from the sysfs file.</li>
+<li>should copy data into the given buffer and return the number of bytes copied into buffer. The buffer is page size long (4096 KB) and we should not copy beyond that size.</li>
+</ul>
+</li>
+<li><strong>Store function</strong>
+<ul>
+<li>defines what happens when we write to the sysfs file.</li>
+<li>should read data from the buffer and return the number of bytes decoded.</li>
+</ul>
+</li>
+</ul>
+<p>The function prototype of show and store functions are shown below.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c">      <span class="k">static</span> <span class="n">ssize_t</span> <span class="nf">var_show</span><span class="p">(</span><span class="k">struct</span> <span class="n">kobject</span> <span class="o">*</span><span class="n">kobj</span><span class="p">,</span> <span class="k">struct</span> <span class="n">kobj_attribute</span> <span class="o">*</span><span class="n">attr</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="n">buf</span><span class="p">);</span>
+      <span class="k">static</span> <span class="n">ssize_t</span> <span class="nf">var_store</span><span class="p">(</span><span class="k">struct</span> <span class="n">kobject</span> <span class="o">*</span><span class="n">kobj</span><span class="p">,</span> <span class="k">struct</span> <span class="n">kobj_attribute</span> <span class="o">*</span><span class="n">attr</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">buf</span><span class="p">,</span> <span class="n">size_t</span> <span class="n">count</span><span class="p">);</span>
+</code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p>Create a kobj_attribute using the __ATTR macro</p>
+<p>The <em>__ATTR</em> macro creates a kobject attribute by taking the name, permissions, show and store functions as arguments.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c">   <span class="k">static</span> <span class="k">struct</span> <span class="n">kobj_attribute</span> <span class="n">var_attribute</span> <span class="o">=</span> <span class="n">__ATTR</span><span class="p">(</span><span class="n">var</span><span class="p">,</span> <span class="mo">0644</span><span class="p">,</span> <span class="n">var_show</span><span class="p">,</span> <span class="n">var_store</span><span class="p">);</span>
+</code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p>Create an attribute group, if creating multiple attributes that have to be created and deleted together</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c">   <span class="k">static</span> <span class="k">struct</span> <span class="n">attribute</span> <span class="o">*</span><span class="n">attrs</span><span class="p">[]</span> <span class="o">=</span> <span class="p">{</span>
+   	<span class="o">&amp;</span><span class="n">var_attribute</span><span class="p">.</span><span class="n">attr</span><span class="p">,</span>
+   	<span class="o">&amp;</span><span class="n">var1_attribute</span><span class="p">.</span><span class="n">attr</span><span class="p">,</span>
+   	<span class="o">&amp;</span><span class="n">var2_attribute</span><span class="p">.</span><span class="n">attr</span><span class="p">,</span>
+   	<span class="p">...,</span>
+   	<span class="nb">NULL</span><span class="p">,</span>
+   <span class="p">};</span>
+   <span class="k">static</span> <span class="k">struct</span> <span class="n">attribute_group</span> <span class="n">attr_group</span> <span class="o">=</span> <span class="p">{</span>
+   	<span class="p">.</span><span class="n">attrs</span> <span class="o">=</span> <span class="n">attrs</span><span class="p">,</span>
+   <span class="p">};</span>
+</code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p>Create a kobject</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c">   <span class="k">static</span> <span class="k">struct</span> <span class="n">kobject</span> <span class="o">*</span><span class="n">var_kobj</span><span class="p">;</span>
+   <span class="n">var_kobj</span> <span class="o">=</span> <span class="n">kobject_create_and_add</span><span class="p">(</span><span class="s">&#34;var&#34;</span><span class="p">,</span> <span class="n">kernel_kobj</span><span class="p">);</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>Kobject stands for kernel object. Inside the kernel, <em>struct kobject</em> is used to represent devices, how they are connected to each other via buses and how they are related to drivers.</p>
+<p>The <em>struct kobject</em> also does reference counting, i.e. it keeps track of how many kernel references exists to the kobject.
+This is required to ensure that the kernel does not remove some kobject that is being used.
+Pointers to <em>struct kobject</em> are accessed using get and put functions which increment and decrement the reference count respectively.</p>
+<p>To create a sysfs file we need a kobject.
+So we create a simple kobject using the <em>kobject_create_and_add</em> function that takes the name of the kobject and the parent kobject as parameters.</p>
+<p>The parent kobject decides the folder under which the sysfs files for this kobject would appear.
+A few toplevel kobjects corresponding to /​sys/kernel, /​sys/mm, etc are defined in <a href="https://elixir.bootlin.com/linux/latest/source/include/linux/kobject.h">include/linux/kobject.h</a>.
+For instance, If we use <em>kernel_kobj</em>, defined in the header file, as the parent kobject then a directory named &ldquo;var&rdquo; will be created under /sys/kernel.</p>
+<p>In the cleanup function of the kernel module, the kobject must be freed by calling <em>kobject_put</em> function.</p>
+</li>
+<li>
+<p>Register attribute group or files</p>
+<p>Once the kobject is created, the sysfs files can be created using <em>sysfs_create_files</em> or <em>sysfs_create_group</em> functions. There are also other functions available for creating sysfs files in <a href="https://elixir.bootlin.com/linux/latest/source/include/linux/sysfs.h">include/linux/sysfs.h</a>.  Most of these functions take in the kobject and attributes as parameters.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c">   <span class="n">retval</span> <span class="o">=</span> <span class="n">sysfs_create_group</span><span class="p">(</span><span class="n">var_kobj</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">attr_group</span><span class="p">);</span>
+   <span class="k">if</span> <span class="p">(</span><span class="n">retval</span><span class="p">)</span> <span class="p">{</span>
+     <span class="c1">// Error
+</span><span class="c1"></span>   <span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div></li>
+</ol>
+<h2 id="an-example-echo-file">An example: Echo file</h2>
+<p>The source code shown below is a kernel module that creates a simple sysfs file that</p>
+<ul>
+<li>When written to, will store upto a page of data</li>
+<li>When read from, will return the data that was last written</li>
+</ul>
+<p>This is the same functionality that was implemented as a <a href="https://nihaal.me/post/misc%5Fchar%5Fdevices/#an-example-echo-device">char device</a> and as a <a href="https://nihaal.me/post/creating%5Fdebugfs%5Ffiles/#an-example-echo-file">debugfs file</a> in previous posts.</p>
+<h3 id="echo-dot-c">echo.c</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span><span class="lnt">62
+</span><span class="lnt">63
+</span><span class="lnt">64
+</span><span class="lnt">65
+</span><span class="lnt">66
+</span><span class="lnt">67
+</span><span class="lnt">68
+</span><span class="lnt">69
+</span><span class="lnt">70
+</span><span class="lnt">71
+</span><span class="lnt">72
+</span><span class="lnt">73
+</span><span class="lnt">74
+</span><span class="lnt">75
+</span><span class="lnt">76
+</span><span class="lnt">77
+</span><span class="lnt">78
+</span><span class="lnt">79
+</span><span class="lnt">80
+</span><span class="lnt">81
+</span><span class="lnt">82
+</span><span class="lnt">83
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="cp">#include</span><span class="cpf">&lt;linux/init.h&gt;</span><span class="cp">
+</span><span class="cp">#include</span><span class="cpf">&lt;linux/kernel.h&gt;</span><span class="cp">
+</span><span class="cp">#include</span><span class="cpf">&lt;linux/module.h&gt;</span><span class="cp">
+</span><span class="cp">#include</span><span class="cpf">&lt;linux/sysfs.h&gt;</span><span class="cp">
+</span><span class="cp">#include</span><span class="cpf">&lt;linux/slab.h&gt;</span><span class="cp">
+</span><span class="cp">#include</span><span class="cpf">&lt;linux/rwsem.h&gt;</span><span class="cp">
+</span><span class="cp"></span><span class="n">MODULE_LICENSE</span><span class="p">(</span><span class="s">&#34;GPL&#34;</span><span class="p">);</span>
+
+<span class="k">static</span> <span class="kt">char</span> <span class="o">*</span><span class="n">echo_buf</span><span class="p">;</span>
+<span class="k">static</span> <span class="nf">DECLARE_RWSEM</span><span class="p">(</span><span class="n">echo_rwlock</span><span class="p">);</span>
+<span class="k">static</span> <span class="k">struct</span> <span class="n">kobject</span> <span class="o">*</span><span class="n">echo_kobj</span><span class="p">;</span>
+
+<span class="k">static</span> <span class="n">ssize_t</span> <span class="nf">echo_show</span><span class="p">(</span><span class="k">struct</span> <span class="n">kobject</span> <span class="o">*</span><span class="n">kobj</span><span class="p">,</span> <span class="k">struct</span> <span class="n">kobj_attribute</span> <span class="o">*</span><span class="n">attr</span><span class="p">,</span>
+			<span class="kt">char</span> <span class="o">*</span><span class="n">buf</span><span class="p">)</span>
+<span class="p">{</span>
+	<span class="n">down_read</span><span class="p">(</span><span class="o">&amp;</span><span class="n">echo_rwlock</span><span class="p">);</span>
+	<span class="n">strncpy</span><span class="p">(</span><span class="n">buf</span><span class="p">,</span> <span class="n">echo_buf</span><span class="p">,</span> <span class="n">PAGE_SIZE</span><span class="p">);</span>
+	<span class="n">up_read</span><span class="p">(</span><span class="o">&amp;</span><span class="n">echo_rwlock</span><span class="p">);</span>
+	<span class="k">return</span> <span class="n">PAGE_SIZE</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="k">static</span> <span class="n">ssize_t</span> <span class="nf">echo_store</span><span class="p">(</span><span class="k">struct</span> <span class="n">kobject</span> <span class="o">*</span><span class="n">kobj</span><span class="p">,</span> <span class="k">struct</span> <span class="n">kobj_attribute</span> <span class="o">*</span><span class="n">attr</span><span class="p">,</span>
+			 <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">buf</span><span class="p">,</span> <span class="n">size_t</span> <span class="n">count</span><span class="p">)</span>
+<span class="p">{</span>
+	<span class="kt">int</span> <span class="n">len</span><span class="p">;</span>
+	<span class="n">down_write</span><span class="p">(</span><span class="o">&amp;</span><span class="n">echo_rwlock</span><span class="p">);</span>
+	<span class="n">memset</span><span class="p">(</span><span class="n">echo_buf</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">PAGE_SIZE</span><span class="p">);</span>
+	<span class="n">len</span> <span class="o">=</span> <span class="p">(</span><span class="n">count</span> <span class="o">&gt;</span> <span class="n">PAGE_SIZE</span><span class="p">)</span><span class="o">?</span> <span class="nl">PAGE_SIZE</span><span class="p">:</span> <span class="n">count</span><span class="p">;</span>
+	<span class="n">strncpy</span><span class="p">(</span><span class="n">echo_buf</span><span class="p">,</span> <span class="n">buf</span><span class="p">,</span> <span class="n">len</span><span class="p">);</span>
+	<span class="n">up_write</span><span class="p">(</span><span class="o">&amp;</span><span class="n">echo_rwlock</span><span class="p">);</span>
+	<span class="k">return</span> <span class="n">len</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="c1">// echo file Permissions : Allow write from root and reads from anyone : 0644
+</span><span class="c1"></span><span class="k">static</span> <span class="k">struct</span> <span class="n">kobj_attribute</span> <span class="n">echo_attribute</span> <span class="o">=</span>
+	<span class="n">__ATTR</span><span class="p">(</span><span class="n">echo</span><span class="p">,</span> <span class="mo">0644</span><span class="p">,</span> <span class="n">echo_show</span><span class="p">,</span> <span class="n">echo_store</span><span class="p">);</span>
+
+<span class="c1">// Create attribute group
+</span><span class="c1"></span><span class="k">static</span> <span class="k">struct</span> <span class="n">attribute</span> <span class="o">*</span><span class="n">attrs</span><span class="p">[]</span> <span class="o">=</span> <span class="p">{</span>
+	<span class="o">&amp;</span><span class="n">echo_attribute</span><span class="p">.</span><span class="n">attr</span><span class="p">,</span>
+	<span class="nb">NULL</span><span class="p">,</span>
+<span class="p">};</span>
+<span class="k">static</span> <span class="k">struct</span> <span class="n">attribute_group</span> <span class="n">attr_group</span> <span class="o">=</span> <span class="p">{</span>
+	<span class="p">.</span><span class="n">attrs</span> <span class="o">=</span> <span class="n">attrs</span><span class="p">,</span>
+<span class="p">};</span>
+
+<span class="k">static</span> <span class="kt">int</span> <span class="n">__init</span> <span class="nf">echo_init</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
+<span class="p">{</span>
+	<span class="kt">int</span> <span class="n">retval</span><span class="p">;</span>
+
+	<span class="c1">// Create &#34;echo&#34; kobject
+</span><span class="c1"></span>	<span class="n">echo_kobj</span> <span class="o">=</span> <span class="n">kobject_create_and_add</span><span class="p">(</span><span class="s">&#34;echo&#34;</span><span class="p">,</span> <span class="n">kernel_kobj</span><span class="p">);</span>
+	<span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">echo_kobj</span><span class="p">)</span>
+		<span class="k">return</span> <span class="o">-</span><span class="n">ENOMEM</span><span class="p">;</span>
+
+	<span class="c1">// Allocate space for echo_buf
+</span><span class="c1"></span>	<span class="n">echo_buf</span> <span class="o">=</span> <span class="p">(</span><span class="kt">char</span><span class="o">*</span><span class="p">)</span> <span class="n">kzalloc</span><span class="p">(</span><span class="n">PAGE_SIZE</span><span class="p">,</span> <span class="n">GFP_KERNEL</span><span class="p">);</span>
+	<span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">echo_buf</span><span class="p">)</span> <span class="p">{</span>
+		<span class="n">printk</span><span class="p">(</span><span class="n">KERN_ERR</span> <span class="s">&#34;echo: Cannot allocate memory for echo file</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
+		<span class="n">kobject_put</span><span class="p">(</span><span class="n">echo_kobj</span><span class="p">);</span>
+		<span class="k">return</span> <span class="o">-</span><span class="n">ENOMEM</span><span class="p">;</span>
+	<span class="p">}</span>
+
+	<span class="n">retval</span> <span class="o">=</span> <span class="n">sysfs_create_group</span><span class="p">(</span><span class="n">echo_kobj</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">attr_group</span><span class="p">);</span>
+	<span class="k">if</span> <span class="p">(</span><span class="n">retval</span><span class="p">)</span> <span class="p">{</span>
+		<span class="n">printk</span><span class="p">(</span><span class="n">KERN_ERR</span> <span class="s">&#34;echo: Cannot register sysfs attribute group</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
+		<span class="n">kfree</span><span class="p">(</span><span class="n">echo_buf</span><span class="p">);</span>
+		<span class="n">kobject_put</span><span class="p">(</span><span class="n">echo_kobj</span><span class="p">);</span>
+	<span class="p">}</span>
+
+	<span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="k">static</span> <span class="kt">void</span> <span class="n">__exit</span> <span class="nf">echo_exit</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
+<span class="p">{</span>
+	<span class="c1">// Deallocate buffer
+</span><span class="c1"></span>	<span class="n">kfree</span><span class="p">(</span><span class="n">echo_buf</span><span class="p">);</span>
+	<span class="c1">// Remove kobject
+</span><span class="c1"></span>	<span class="n">kobject_put</span><span class="p">(</span><span class="n">echo_kobj</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="n">module_init</span><span class="p">(</span><span class="n">echo_init</span><span class="p">);</span>
+<span class="n">module_exit</span><span class="p">(</span><span class="n">echo_exit</span><span class="p">);</span>
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="testing-echo">Testing echo</h3>
+<ul>
+<li>
+<p>Build and load the module</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">  make
+  sudo insmod echo.ko
+  ls /sys/kernel/echo/echo
+  <span class="c1">#.rw-r--r-- 4.1k root 28 Nov 22:34 /sys/kernel/echo/echo</span>
+</code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p>Write to the sysfs file (as root)</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">  <span class="nb">echo</span> <span class="s2">&#34;Good Morning!&#34;</span> <span class="p">|</span> sudo tee /sys/kernel/echo/echo
+</code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p>Read from the sysfs file. It will return what was last written to it.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">  cat /sys/kernel/echo/echo
+  <span class="c1"># Good Morning!</span>
+</code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p>Unload the module</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">  sudo rmmod <span class="nb">echo</span>
+</code></pre></td></tr></table>
+</div>
+</div></li>
+</ul>
+<h2 id="race-conditions">Race conditions</h2>
+<p>I came to know about race conditions with sysfs files in <a href="http://kroah.com/log/blog/2013/06/26/how-to-create-a-sysfs-file-correctly/">Greg KH&rsquo;s blog post on creating sysfs files correctly</a>.
+In that post, he describes how race conditions can happen with sysfs files and how to handle them with default attributes.</p>
+<p>If the sysfs files are created using <em>sysfs_create_files</em> or <em>sysfs_create_group</em> functions when the device or driver is first created, the notification about the new device or driver may be sent to the userspace daemon (like udevd) before the sysfs files have been created. Now if the userspace daemon tries to read the sysfs files, it may not find those expected sysfs files.</p>
+<p>To avoid this, we can set the default attributes field in <em>struct bus, class, device_driver or device</em> before registering them (instead of creating sysfs files using <em>sysfs_create_file</em> or <em>sysfs_create_group</em> in the probe function).</p>
+<h2 id="references">References</h2>
+<ul>
+<li><a href="https://elixir.bootlin.com/linux/latest/source/Documentation/core-api/kobject.rst">Documentation/core-api/kobject.rst</a></li>
+<li><a href="https://elixir.bootlin.com/linux/latest/source/samples/kobject/kobject-example.c">samples/kobject/kobject-example.c</a></li>
+<li><a href="https://lwn.net/images/pdf/LDD3/ch14.pdf">LDD3 Chapter 14</a></li>
+<li><a href="http://kroah.com/log/blog/2013/06/26/how-to-create-a-sysfs-file-correctly/">Greg KH&rsquo;s blog post on creating sysfs files correctly</a></li>
+<li><a href="https://github.com/nifey/nifey.github.io/tree/master/code/creating%5Fsysfs%5Ffiles">Source code of echo module</a></li>
+</ul>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">Author</span>
+    <span class="item-content">Abdun Nihaal</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">LastMod</span>
+    <span class="item-content">
+        29-11-2021
+        
+    </span>
+  </p>
+  
+  
+</div>
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/linux/">linux</a>
+          <a href="/tags/kernel/">kernel</a>
+          </div>
+      <nav class="post-nav">
+        
+        <a class="next" href="/post/dev_null/">
+            <span class="next-text nav-default">Looking inside /dev/null</span>
+            <span class="next-text nav-mobile">Next</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="https://www.twitter.com/nihaal_an" class="iconfont icon-twitter" title="twitter"></a>
+      <a href="https://in.linkedin.com/in/abdun-nihaal-289272143" class="iconfont icon-linkedin" title="linkedin"></a>
+      <a href="https://www.github.com/nifey" class="iconfont icon-github" title="github"></a>
+      <a href="https://www.gitlab.com/nihaal" class="iconfont icon-gitlab" title="gitlab"></a>
+  <a href="https://nihaal.me/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    2016 - 
+    2021<span class="heart"><i class="iconfont icon-heart"></i></span><span>Abdun Nihaal</span>
+  </span>
+</div>
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  <script type="text/javascript" src="/lib/jquery/jquery-3.2.1.min.js"></script>
+  <script type="text/javascript" src="/lib/slideout/slideout-1.0.1.min.js"></script>
+  <script type="text/javascript" src="/lib/fancybox/jquery.fancybox-3.1.20.min.js"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.c99b103c33d1539acf3025e1913697534542c4a5aa5af0ccc20475ed2863603b.js"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>
