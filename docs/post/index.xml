@@ -6,7 +6,27 @@
     <description>Recent content in Posts on Nihaal</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Mon, 29 Nov 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://nihaal.me/post/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 04 Dec 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://nihaal.me/post/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>FOSSHack 2021</title>
+      <link>https://nihaal.me/post/fosshack_2021/</link>
+      <pubDate>Sat, 04 Dec 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://nihaal.me/post/fosshack_2021/</guid>
+      <description>FOSSHack 2021 FOSSHack 2021 is a remote hackathon, organized by FOSSUnited, that happened on 13-14 November. FOSSUnited is a non-profit foundation that seeks to foster more FOSS projects and contributors from India and this hackathon is one such initiative.
+The rules were simple: Build a FOSS project or Work on existing FOSS project during the weekend. The projects would be judged based on factors like technical complexity, completeness and utility.</description>
+    </item>
+    
+    <item>
+      <title>Publishing packages to PyPi</title>
+      <link>https://nihaal.me/post/publish_to_pypi/</link>
+      <pubDate>Sat, 04 Dec 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://nihaal.me/post/publish_to_pypi/</guid>
+      <description>The usability of a programming language depends on many factors and one of them is the availability of good libraries to build on. When libraries are available, we also need a way to search and download libraries with ease. Most modern langauges maintain some form of index to make dependency management easier. Examples include Crates.io for Rust and PyPI for Python.
+Python Package Index (PyPI) is an index and repository of Python packages.</description>
+    </item>
+    
     <item>
       <title>Creating sysfs files</title>
       <link>https://nihaal.me/post/creating_sysfs_files/</link>

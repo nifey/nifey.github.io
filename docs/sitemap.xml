@@ -2,6 +2,62 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://nihaal.me/post/fosshack_2021/</loc>
+    <lastmod>2021-12-04T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://nihaal.me/tags/hackathon/</loc>
+    <lastmod>2021-12-04T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://nihaal.me/tags/ilugc/</loc>
+    <lastmod>2021-12-04T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://nihaal.me/</loc>
+    <lastmod>2021-12-04T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://nihaal.me/post/</loc>
+    <lastmod>2021-12-04T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://nihaal.me/post/publish_to_pypi/</loc>
+    <lastmod>2021-12-04T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://nihaal.me/tags/python/</loc>
+    <lastmod>2021-12-04T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://nihaal.me/tags/</loc>
+    <lastmod>2021-12-04T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
     <loc>https://nihaal.me/post/creating_sysfs_files/</loc>
     <lastmod>2021-11-29T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
@@ -17,27 +73,6 @@
   
   <url>
     <loc>https://nihaal.me/tags/linux/</loc>
-    <lastmod>2021-11-29T00:00:00+00:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://nihaal.me/</loc>
-    <lastmod>2021-11-29T00:00:00+00:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://nihaal.me/post/</loc>
-    <lastmod>2021-11-29T00:00:00+00:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://nihaal.me/tags/</loc>
     <lastmod>2021-11-29T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
@@ -60,13 +95,6 @@
   <url>
     <loc>https://nihaal.me/post/misc_char_devices/</loc>
     <lastmod>2021-11-03T00:00:00+00:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://nihaal.me/tags/python/</loc>
-    <lastmod>2021-10-18T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -114,13 +142,6 @@
   </url>
   
   <url>
-    <loc>https://nihaal.me/tags/hackathon/</loc>
-    <lastmod>2018-09-15T17:50:37+00:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
     <loc>https://nihaal.me/post/2018-09-15-smart-india-hackathon-2018/</loc>
     <lastmod>2018-09-15T17:50:37+00:00</lastmod>
     <changefreq>weekly</changefreq>
@@ -136,13 +157,6 @@
   
   <url>
     <loc>https://nihaal.me/post/2017-11-12-hacktoberfest-and-ilugc/</loc>
-    <lastmod>2017-11-12T13:28:37+00:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://nihaal.me/tags/ilugc/</loc>
     <lastmod>2017-11-12T13:28:37+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
