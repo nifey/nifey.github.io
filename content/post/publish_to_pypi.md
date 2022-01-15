@@ -1,5 +1,5 @@
 +++
-title = "Publishing packages to PyPi"
+title = "Publishing packages to PyPI"
 date = 2021-12-04
 tags = ["python"]
 draft = false
@@ -12,7 +12,7 @@ Most modern langauges maintain some form of index to make dependency management 
 [Python Package Index (PyPI)](https://pypi.org) is an index and repository of Python packages.
 Publishing your Python library or tool on PyPI allows any user to download it with **pip**.
 
-[We](https://nihaal.me/post/fosshack%5F2021#Team) recently published a package ([epub2sphinx](https://pypi.org/project/epub2sphinx/)) on PyPI.
+[We](https://nihaal.me/post/fosshack%5F2021#team) recently published a package ([epub2sphinx](https://pypi.org/project/epub2sphinx/)) on PyPI.
 I'm documenting the steps involved, in the hope that it will be useful for someone or just to me when I forget.
 
 
@@ -204,6 +204,9 @@ To publish newer versions of your package:
        git tag -am "Release version 0.0.1" v0.0.1
        # Or if you prefer writing the tag message in your editor
        git tag -a v0.0.1
+
+       # Push tags to remote
+       git push --tags
     ```
 
     When creating a new release, it is good practice to summarize the changes between the old version and the new version in the tag message.
