@@ -13,9 +13,9 @@
       <pubDate>Fri, 14 Jan 2022 00:00:00 +0000</pubDate>
       
       <guid>https://nihaal.me/post/hardware_compression_algorithms/</guid>
-      <description>This post is a work in progress.
-Compression is a common technique that allows us to reduce the size of data. We use it when we store or send files as zip, 7z or rar archives. It helps reduce the space occupied by files in the filesystem and also to save bandwidth while transferring over a network.
-In general, compression algorithms try to encode redundancy or regularity in data with lesser bits.</description>
+      <description>Compression is a common technique that allows us to reduce the size of data. We use it when we store or send files as zip, 7z or rar archives. It helps reduce the space occupied by files in the filesystem and also to save bandwidth while transferring over a network.
+In general, compression algorithms try to encode redundancy or regularity in data with lesser bits.
+There are many different software compression algorithms available.</description>
     </item>
     
     <item>

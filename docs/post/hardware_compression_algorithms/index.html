@@ -16,9 +16,9 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
 
 
-<meta name="author" content="Abdun Nihaal" /><meta name="description" content="This post is a work in progress.
-Compression is a common technique that allows us to reduce the size of data. We use it when we store or send files as zip, 7z or rar archives. It helps reduce the space occupied by files in the filesystem and also to save bandwidth while transferring over a network.
-In general, compression algorithms try to encode redundancy or regularity in data with lesser bits." />
+<meta name="author" content="Abdun Nihaal" /><meta name="description" content="Compression is a common technique that allows us to reduce the size of data. We use it when we store or send files as zip, 7z or rar archives. It helps reduce the space occupied by files in the filesystem and also to save bandwidth while transferring over a network.
+In general, compression algorithms try to encode redundancy or regularity in data with lesser bits.
+There are many different software compression algorithms available." />
 
 
 
@@ -42,25 +42,25 @@ In general, compression algorithms try to encode redundancy or regularity in dat
 
 
 <meta property="og:title" content="Hardware compression algorithms" />
-<meta property="og:description" content="This post is a work in progress.
-Compression is a common technique that allows us to reduce the size of data. We use it when we store or send files as zip, 7z or rar archives. It helps reduce the space occupied by files in the filesystem and also to save bandwidth while transferring over a network.
-In general, compression algorithms try to encode redundancy or regularity in data with lesser bits." />
+<meta property="og:description" content="Compression is a common technique that allows us to reduce the size of data. We use it when we store or send files as zip, 7z or rar archives. It helps reduce the space occupied by files in the filesystem and also to save bandwidth while transferring over a network.
+In general, compression algorithms try to encode redundancy or regularity in data with lesser bits.
+There are many different software compression algorithms available." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://nihaal.me/post/hardware_compression_algorithms/" /><meta property="article:section" content="post" />
 <meta property="article:published_time" content="2022-01-14T00:00:00+00:00" />
-<meta property="article:modified_time" content="2022-01-14T00:00:00+00:00" /><meta property="og:site_name" content="Nihaal" />
+<meta property="article:modified_time" content="2022-02-01T16:56:23+05:30" /><meta property="og:site_name" content="Nihaal" />
 
 <meta itemprop="name" content="Hardware compression algorithms">
-<meta itemprop="description" content="This post is a work in progress.
-Compression is a common technique that allows us to reduce the size of data. We use it when we store or send files as zip, 7z or rar archives. It helps reduce the space occupied by files in the filesystem and also to save bandwidth while transferring over a network.
-In general, compression algorithms try to encode redundancy or regularity in data with lesser bits."><meta itemprop="datePublished" content="2022-01-14T00:00:00+00:00" />
-<meta itemprop="dateModified" content="2022-01-14T00:00:00+00:00" />
-<meta itemprop="wordCount" content="462">
+<meta itemprop="description" content="Compression is a common technique that allows us to reduce the size of data. We use it when we store or send files as zip, 7z or rar archives. It helps reduce the space occupied by files in the filesystem and also to save bandwidth while transferring over a network.
+In general, compression algorithms try to encode redundancy or regularity in data with lesser bits.
+There are many different software compression algorithms available."><meta itemprop="datePublished" content="2022-01-14T00:00:00+00:00" />
+<meta itemprop="dateModified" content="2022-02-01T16:56:23+05:30" />
+<meta itemprop="wordCount" content="1419">
 <meta itemprop="keywords" content="research," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Hardware compression algorithms"/>
-<meta name="twitter:description" content="This post is a work in progress.
-Compression is a common technique that allows us to reduce the size of data. We use it when we store or send files as zip, 7z or rar archives. It helps reduce the space occupied by files in the filesystem and also to save bandwidth while transferring over a network.
-In general, compression algorithms try to encode redundancy or regularity in data with lesser bits."/>
+<meta name="twitter:description" content="Compression is a common technique that allows us to reduce the size of data. We use it when we store or send files as zip, 7z or rar archives. It helps reduce the space occupied by files in the filesystem and also to save bandwidth while transferring over a network.
+In general, compression algorithms try to encode redundancy or regularity in data with lesser bits.
+There are many different software compression algorithms available."/>
 
 <!--[if lte IE 9]>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
@@ -134,8 +134,8 @@ In general, compression algorithms try to encode redundancy or regularity in dat
       <div class="post-meta">
         <span class="post-time"> 14-01-2022 </span>
         
-          <span class="more-meta"> 462 words </span>
-          <span class="more-meta"> 3 mins read </span>
+          <span class="more-meta"> 1419 words </span>
+          <span class="more-meta"> 7 mins read </span>
         
       </div>
     </header>
@@ -149,6 +149,16 @@ In general, compression algorithms try to encode redundancy or regularity in dat
       <ul>
         <li><a href="#applications-of-compression-in-hardware">Applications of compression in hardware</a></li>
         <li><a href="#redundancy-and-regularity-in-data">Redundancy and Regularity in data</a></li>
+        <li><a href="#algorithms">Algorithms</a>
+          <ul>
+            <li><a href="#frequent-pattern-compression">Frequent Pattern Compression</a></li>
+            <li><a href="#base-delta-immediate">Base Delta Immediate</a></li>
+            <li><a href="#cpack">CPack</a></li>
+            <li><a href="#bit-plane-compression">Bit Plane Compression</a></li>
+            <li><a href="#byte-select-compression">Byte Select Compression</a></li>
+          </ul>
+        </li>
+        <li><a href="#references">References</a></li>
       </ul>
     </li>
   </ul>
@@ -156,17 +166,16 @@ In general, compression algorithms try to encode redundancy or regularity in dat
   </div>
 </div>
     <div class="post-content">
-      <p><em>This post is a work in progress.</em></p>
-<p>Compression is a common technique that allows us to reduce the size of data.
+      <p>Compression is a common technique that allows us to reduce the size of data.
 We use it when we store or send files as <em>zip</em>, <em>7z</em> or <em>rar</em> archives.
 It helps reduce the space occupied by files in the filesystem and also to save bandwidth while transferring over a network.</p>
 <p>In general, compression algorithms try to encode <strong>redundancy or regularity in data</strong> with lesser bits.</p>
 <p>There are many different software compression algorithms available.
-Lempel-Ziv family of algoritms, used in tools like <em>zip</em> and <em>7z</em>, works by replacing repeated chunks of data with a pointer to the first occurrence. This avoids repeating the same chunks of data over and over again.</p>
+Lempel-Ziv family of algorithms, used in tools like <em>zip</em> and <em>7z</em>, works by replacing repeated chunks of data with a pointer to an earlier occurrence. This avoids repeating the same chunks of data over and over again.</p>
 <p>Compression can also be applied at the hardware level, i.e. in microprocessors, system buses (PCIe), etc.
 But algorithms like Lempel-Ziv are too complex to be implemented at this level.
 When implementing at hardware level, we need <em>simple, low latency and parallelizable</em> algorithms.</p>
-<p>In this post, we will look at some of the hardware compression algorithms that has been proposed in literature for cache, memory and link compression.</p>
+<p>In this post, we will look at some of the hardware compression algorithms that have been proposed in literature for cache, memory and link compression.</p>
 <h2 id="applications-of-compression-in-hardware">Applications of compression in hardware</h2>
 <ul>
 <li>Caches are effective in hiding the long latency access to memory.
@@ -185,21 +194,266 @@ Some of the observations that have been used to design hardware compression algo
 <p>Zeroes</p>
 <p>There are a lot of zero values observed. Some reasons for this are:</p>
 <ul>
-<li>During allocation, most operating systems fill pages with zeroes before handing it over to an application to avoid memory leak.</li>
+<li>During allocation, most operating systems fill pages with zeroes before handing it over to an application to avoid memory leaks.</li>
 <li>Variables are usually initialized with zeros, either by the compiler or by the programmer.</li>
 </ul>
 </li>
 <li>
 <p>Most Significant Bits are unused</p>
-<p>Eventhough C compilers usually allocate 4 bytes of memory for an integer, most applications rarely use values that cannot be represented with one or two bytes.
+<p>Even though C compilers usually allocate 4 bytes of memory for an integer, most applications rarely use values that cannot be represented with one or two bytes.
 So the most significant bits are filled with continuous 0s or 1s depending on the sign extension.</p>
 </li>
 <li>
 <p>Low Dynamic Range (Value locality)</p>
 <p>Another observation is that most values that are stored together are close to each other in numeric value.
-The differenece (or <em>Delta</em>) between adjacent or close-by values can be represented with lesser bits than representing the whole numbers.</p>
+The difference (or <em>Delta</em>) between adjacent or close-by values can be represented with lesser bits than representing the whole numbers.</p>
 </li>
 </ol>
+<h2 id="algorithms">Algorithms</h2>
+<h3 id="frequent-pattern-compression">Frequent Pattern Compression</h3>
+<p>Frequent pattern compression tries to encode common patterns within 4 Byte words.
+It exploits the presence of repeated zero words and the fact that most significant bits are usually not used.
+It uses 3 bits of metadata to indicate which pattern to use for the 4B word and some extra data bits depending on the pattern matched with.</p>
+<p>The seven patterns that FPC uses are given in the table below (which is taken from the paper):</p>
+<table>
+<thead>
+<tr>
+<th>Prefix (bits)</th>
+<th>Pattern</th>
+<th>Data size</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>000</td>
+<td>Zero run</td>
+<td>3 bits (up to 8 zeroes)</td>
+</tr>
+<tr>
+<td>001</td>
+<td>4 bit sign extended</td>
+<td>4 bits</td>
+</tr>
+<tr>
+<td>010</td>
+<td>1 byte sign extended</td>
+<td>8 bits</td>
+</tr>
+<tr>
+<td>011</td>
+<td>Halfword sign extended</td>
+<td>16 bits</td>
+</tr>
+<tr>
+<td>100</td>
+<td>Halfword padded with zero halfword</td>
+<td>16 bits (non zero halfword)</td>
+</tr>
+<tr>
+<td>101</td>
+<td>Two halfwords, each a byte sign extended</td>
+<td>16 bits (the two bytes)</td>
+</tr>
+<tr>
+<td>110</td>
+<td>Word with repeated bytes</td>
+<td>8 bits</td>
+</tr>
+<tr>
+<td>111</td>
+<td>Uncompressed word</td>
+<td>32 bits</td>
+</tr>
+</tbody>
+</table>
+<p>Some 4B words and their FPC compressed form is shown below:</p>
+<table>
+<thead>
+<tr>
+<th>4B word (hex)</th>
+<th>Prefix (bits)</th>
+<th>Extra data (hex)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>00000007</td>
+<td>001</td>
+<td>7</td>
+</tr>
+<tr>
+<td>00000071</td>
+<td>010</td>
+<td>71</td>
+</tr>
+<tr>
+<td>FFFF8000</td>
+<td>011</td>
+<td>8000</td>
+</tr>
+<tr>
+<td>94949494</td>
+<td>110</td>
+<td>94</td>
+</tr>
+</tbody>
+</table>
+<h3 id="base-delta-immediate">Base Delta Immediate</h3>
+<p>Base Delta Immediate compression tries to compress data by using <em>low dynamic range</em>.
+The algorithm stores a cacheline as a 4B base value followed by the <em>deltas</em>, i.e. the difference between the actual data and the base value.
+If there is high value locality, the <em>deltas</em> can be represented with less number of bits than required for 4B values.</p>
+<p>For instance, consider a 32B data containing the following 4B values</p>
+<table>
+<thead>
+<tr>
+<th>0x00203008</th>
+<th>0x00203009</th>
+<th>0x0020301F</th>
+<th>0x00203020</th>
+<th>0x00203000</th>
+<th>0x002030F0</th>
+<th>0x002030EE</th>
+<th>0x00203003</th>
+</tr>
+</thead>
+</table>
+<p>After applying BDI compression, we can store it like this:</p>
+<table>
+<thead>
+<tr>
+<th>0x00203008</th>
+<th>0x00</th>
+<th>0x01</th>
+<th>0x17</th>
+<th>0x18</th>
+<th>0xF8</th>
+<th>0xE8</th>
+<th>0xE6</th>
+<th>0xFB</th>
+</tr>
+</thead>
+</table>
+<p>By storing 1B <em>deltas</em> instead of the 4B words, we save 20 bytes.</p>
+<h3 id="cpack">CPack</h3>
+<p>Cache Packer algorithm is a dictionary based algorithm for hardware compression.
+During compression, It constructs a dictionary consisting of 4B words already seen during compression.
+If new 4B word matches partially or fully with a 4B word present in the dictionary, then the algorithm stores
+metadata (to identify which parts match with the dictionary word), index pointing to the matched dictionary entry and the bytes that differ.</p>
+<p>The CPack pattern encodings for a dictionary size of 16, are shown below (taken from the paper):</p>
+<table>
+<thead>
+<tr>
+<th>Prefix (bits)</th>
+<th>Pattern</th>
+<th>Additional Data</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>00</td>
+<td>zzzz  (All zeroes)</td>
+<td></td>
+</tr>
+<tr>
+<td>01</td>
+<td>xxxx  (No match)</td>
+<td>4B data</td>
+</tr>
+<tr>
+<td>10</td>
+<td>mmmm  (Full match)</td>
+<td>4b index</td>
+</tr>
+<tr>
+<td>1100</td>
+<td>mmxx  (2B Partial match)</td>
+<td>4b index + 2B data</td>
+</tr>
+<tr>
+<td>1101</td>
+<td>zzzx  (1B word)</td>
+<td>1B data</td>
+</tr>
+<tr>
+<td>1110</td>
+<td>mmmx  (1B Partial match)</td>
+<td>4b index + 1B data</td>
+</tr>
+</tbody>
+</table>
+<p>For example, consider the following 4 words:</p>
+<table>
+<thead>
+<tr>
+<th>0x12345678</th>
+<th>0x000000F0</th>
+<th>0x12340608</th>
+<th>0x12345678</th>
+</tr>
+</thead>
+</table>
+<p>When compressed with CPack, we get:</p>
+<table>
+<thead>
+<tr>
+<th>0x12345678</th>
+<th>(1101) 0xF0</th>
+<th>(1100) (0000) 0x0608</th>
+<th>(10) (0000)</th>
+</tr>
+</thead>
+</table>
+<p>The dictionary is not stored as it is not needed. Because when compressing a 4B word in a cacheline,
+It is only compared with dictionary entries that were added before (<em>never after</em>) this current word is compressed.
+So during decompression, the dictionary is reconstructed and when a word is about to be decompressed, the dictionary values
+it needs will be in the reconstructed dictionary.</p>
+<h3 id="bit-plane-compression">Bit Plane Compression</h3>
+<p>Bit Plane Compression is an algorithm that works at the bit level, unlike the algorithms discussed above.
+It exploits all three sources of redundancy: zeroes, unused most significant bits and value locality.</p>
+<p>It performs a <em>Delta-Bitplane-XOR</em> transform operation on data to increase its compressibility.
+The <em>Delta-Bitplane-XOR</em> transform creates continuous runs of 0s and 1s which can then be compressed with run length encoding.
+For a 128B (GPU) cacheline, this transform consists of the following three steps:</p>
+<ol>
+<li>
+<p><em>Delta</em></p>
+<p>The cacheline is split into 4B words. The difference or <em>delta</em> of each 4B word with that of the previous word is calculated.
+After this step, the cacheline data of 32 4B words, becomes 31 <em>deltas</em> along with the first 4B word.
+This step exploits value locality in data.</p>
+</li>
+<li>
+<p><em>Bitplane</em></p>
+<p>Bitplane operation is a bitwise operation that looks similar to a matrix transpose operation.
+This is applied on the <em>deltas</em> from the previous stage to create continuous runs of 0s or 1s.</p>
+</li>
+<li>
+<p><em>XOR</em></p>
+<p>The final step performs the XOR of each adjacent bitplane value from the previous step.</p>
+</li>
+</ol>
+<p>BPC works best when the data consists of homogeneous structures.
+Compared to the above algorithms, BPC has higher compression latency (11 DRAM cycles) but gives higher compression ratio,
+especially on GPU workloads, where homogeneous structures are more common.</p>
+<h3 id="byte-select-compression">Byte Select Compression</h3>
+<p>Byte Select Compression is a class of algorithms that uses a set of byte patterns to compress data.
+Each cacheline is compared to see if it matches any of the used patterns.
+If it matches a pattern, only the bytes required to reconstruct it, is stored along with metadata to identify the pattern matched.
+For example, if we use the pattern <em>ABAB</em>, where <em>A</em>, <em>B</em> are different bytes that are repeated in that word, we only have to store
+the two bytes <em>A</em> and <em>B</em>, and also store the pattern number of <em>ABAB</em>.</p>
+<p>The efficacy of byte select compression depends on the set of patterns used.
+And for this, the researchers have come up with a technique to find the most frequent byte patterns from trace data.
+By collecting cache traces of applications, we can find the simplest describing pattern for each cacheline.
+Once we get the list of patterns, now the problem is to select a small set of patterns with high frequency of occurrence, which will be used for byte select compression.</p>
+<p>This differs from other algorithms, in that other compression algorithms depend on human observation of patterns.
+Finding patterns from application data reveals the <em>intricate, non obvious</em> patterns,
+which when used for compression gives higher compression ratio.</p>
+<h2 id="references">References</h2>
+<ul>
+<li><a href="https://minds.wisconsin.edu/bitstream/handle/1793/60388/TR1500.pdf?sequence=1&amp;isAllowed=y">Paper: Frequent Pattern Compression</a></li>
+<li><a href="https://www.cs.toronto.edu/~pekhimenko/courses/csc2231-f17/Papers/BDI.pdf">Paper: Base Delta Immediate</a></li>
+<li><a href="https://ziyang.eecs.umich.edu/~dickrp//publications/chen10aug.pdf">Paper: CPack</a></li>
+<li><a href="https://lph.ece.utexas.edu/merez/uploads/MattanErez/isca2016_bpc.pdf">Paper: Bit Plane Compression</a></li>
+<li><a href="https://dl.acm.org/doi/pdf/10.1145/3462209">Paper: Byte Select Compression</a></li>
+</ul>
 
     </div>
 
@@ -211,7 +465,7 @@ The differenece (or <em>Delta</em>) between adjacent or close-by values can be r
   <p class="copyright-item">
     <span class="item-title">LastMod</span>
     <span class="item-content">
-        14-01-2022
+        01-02-2022
         
     </span>
   </p>
