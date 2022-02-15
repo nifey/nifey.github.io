@@ -1,6 +1,7 @@
 +++
 title = "Using static checkers on Linux Kernel"
 date = 2022-02-15
+tags = ["linux", "kernel"]
 draft = false
 +++
 
