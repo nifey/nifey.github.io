@@ -2,6 +2,20 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://nihaal.me/tags/kernel/</loc>
+    <lastmod>2022-02-15T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://nihaal.me/tags/linux/</loc>
+    <lastmod>2022-02-15T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
     <loc>https://nihaal.me/</loc>
     <lastmod>2022-02-15T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
@@ -10,6 +24,13 @@
   
   <url>
     <loc>https://nihaal.me/post/</loc>
+    <lastmod>2022-02-15T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://nihaal.me/tags/</loc>
     <lastmod>2022-02-15T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
@@ -31,13 +52,6 @@
   
   <url>
     <loc>https://nihaal.me/tags/research/</loc>
-    <lastmod>2022-02-01T16:56:23+05:30</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://nihaal.me/tags/</loc>
     <lastmod>2022-02-01T16:56:23+05:30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
@@ -80,20 +94,6 @@
   
   <url>
     <loc>https://nihaal.me/post/creating_sysfs_files/</loc>
-    <lastmod>2021-11-29T00:00:00+00:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://nihaal.me/tags/kernel/</loc>
-    <lastmod>2021-11-29T00:00:00+00:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://nihaal.me/tags/linux/</loc>
     <lastmod>2021-11-29T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
