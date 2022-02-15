@@ -6,7 +6,17 @@
     <description>Recent content on Nihaal</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Fri, 14 Jan 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://nihaal.me/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 15 Feb 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://nihaal.me/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Using static checkers on Linux Kernel</title>
+      <link>https://nihaal.me/post/static_checker/</link>
+      <pubDate>Tue, 15 Feb 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://nihaal.me/post/static_checker/</guid>
+      <description>One of the hurdles in contributing to Linux kernel as a beginner is to find something to work on. If you are working as a kernel developer or are a part of a kernel mentorship program, this shouldn&amp;rsquo;t be a problem. But for others, the first step is to send a bunch of coding style fixes for warnings reported by checkpatch.
+In addition to checkpatch, there are many other static analysis tools like sparse, coccinelle and smatch, used to analyse source code and find possible bugs.</description>
+    </item>
+    
     <item>
       <title>Hardware compression algorithms</title>
       <link>https://nihaal.me/post/hardware_compression_algorithms/</link>

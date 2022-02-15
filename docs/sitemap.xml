@@ -2,21 +2,28 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>https://nihaal.me/post/hardware_compression_algorithms/</loc>
-    <lastmod>2022-02-01T16:56:23+05:30</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
     <loc>https://nihaal.me/</loc>
-    <lastmod>2022-02-01T16:56:23+05:30</lastmod>
+    <lastmod>2022-02-15T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
     <loc>https://nihaal.me/post/</loc>
+    <lastmod>2022-02-15T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://nihaal.me/post/static_checker/</loc>
+    <lastmod>2022-02-15T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://nihaal.me/post/hardware_compression_algorithms/</loc>
     <lastmod>2022-02-01T16:56:23+05:30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>

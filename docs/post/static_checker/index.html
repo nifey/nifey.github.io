@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Using static checkers on Linux Kernel - Nihaal</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="Abdun Nihaal" /><meta name="description" content="One of the hurdles in contributing to Linux kernel as a beginner is to find something to work on. If you are working as a kernel developer or are a part of a kernel mentorship program, this shouldn&amp;rsquo;t be a problem. But for others, the first step is to send a bunch of coding style fixes for warnings reported by checkpatch.
+In addition to checkpatch, there are many other static analysis tools like sparse, coccinelle and smatch, used to analyse source code and find possible bugs." />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.91.2 with theme even" />
+
+
+<link rel="canonical" href="https://nihaal.me/post/static_checker/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+<link href="/sass/main.min.f92fd13721ddf72129410fd8250e73152cc6f2438082b6c0208dc24ee7c13fc4.css" rel="stylesheet">
+<link href="/lib/fancybox/jquery.fancybox-3.1.20.min.css" rel="stylesheet">
+
+
+<meta property="og:title" content="Using static checkers on Linux Kernel" />
+<meta property="og:description" content="One of the hurdles in contributing to Linux kernel as a beginner is to find something to work on. If you are working as a kernel developer or are a part of a kernel mentorship program, this shouldn&rsquo;t be a problem. But for others, the first step is to send a bunch of coding style fixes for warnings reported by checkpatch.
+In addition to checkpatch, there are many other static analysis tools like sparse, coccinelle and smatch, used to analyse source code and find possible bugs." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://nihaal.me/post/static_checker/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2022-02-15T00:00:00+00:00" />
+<meta property="article:modified_time" content="2022-02-15T00:00:00+00:00" /><meta property="og:site_name" content="Nihaal" />
+
+<meta itemprop="name" content="Using static checkers on Linux Kernel">
+<meta itemprop="description" content="One of the hurdles in contributing to Linux kernel as a beginner is to find something to work on. If you are working as a kernel developer or are a part of a kernel mentorship program, this shouldn&rsquo;t be a problem. But for others, the first step is to send a bunch of coding style fixes for warnings reported by checkpatch.
+In addition to checkpatch, there are many other static analysis tools like sparse, coccinelle and smatch, used to analyse source code and find possible bugs."><meta itemprop="datePublished" content="2022-02-15T00:00:00+00:00" />
+<meta itemprop="dateModified" content="2022-02-15T00:00:00+00:00" />
+<meta itemprop="wordCount" content="1014">
+<meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Using static checkers on Linux Kernel"/>
+<meta name="twitter:description" content="One of the hurdles in contributing to Linux kernel as a beginner is to find something to work on. If you are working as a kernel developer or are a part of a kernel mentorship program, this shouldn&rsquo;t be a problem. But for others, the first step is to send a bunch of coding style fixes for warnings reported by checkpatch.
+In addition to checkpatch, there are many other static analysis tools like sparse, coccinelle and smatch, used to analyse source code and find possible bugs."/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Nihaal</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a>
+  </ul>
+
+  
+
+
+</nav>
+
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Nihaal</a>
+</div>
+
+
+
+
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li>
+  </ul>
+</nav>
+
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">Using static checkers on Linux Kernel</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 15-02-2022 </span>
+        
+          <span class="more-meta"> 1014 words </span>
+          <span class="more-meta"> 5 mins read </span>
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">Contents</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#checkpatch"><a href="https://www.kernel.org/doc/html/latest/dev-tools/checkpatch.html?highlight=coding%20style">Checkpatch</a></a></li>
+        <li><a href="#sparse"><a href="https://www.kernel.org/doc/html/latest/dev-tools/sparse.html">Sparse</a></a></li>
+        <li><a href="#coccinelle"><a href="https://www.kernel.org/doc/html/latest/dev-tools/coccinelle.html">Coccinelle</a></a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <p>One of the hurdles in contributing to Linux kernel as a beginner is to find something to work on.
+If you are working as a kernel developer or are a part of a kernel mentorship program, this shouldn&rsquo;t be a problem. But for others, the first step is to send a bunch of coding style fixes for warnings reported by checkpatch.</p>
+<p>In addition to checkpatch, there are many other static analysis tools like sparse, coccinelle and smatch, used to analyse source code and find possible bugs.
+In this post, I&rsquo;ll show how to use some of these tools to find issues to fix.</p>
+<p>When using static analysis tools to find bugs or issues,</p>
+<ol>
+<li>Verify if there really is an underlying issue that needs fixing.
+Static analysis tools have false positives. Ensure that you are not fixing a false positive.</li>
+<li>Try to solve the underlying issue and not just silence the warning.</li>
+<li>In your commit message, it is better to describe why the change is needed or what problem it is solving, than to say that it fixes some tool&rsquo;s warning. You can mention the tool that reported the warning.</li>
+</ol>
+<h2 id="checkpatch"><a href="https://www.kernel.org/doc/html/latest/dev-tools/checkpatch.html?highlight=coding%20style">Checkpatch</a></h2>
+<p>The kernel has it&rsquo;s own coding style which is described in the <a href="https://www.kernel.org/doc/html/latest/process/coding-style.html">documentation</a>.
+Enforcing a coding style helps, for instance, when grepping through the code base.</p>
+<p>Checkpatch is a perl script, used to check patches and files for coding style violations.
+It is present under the kernel&rsquo;s scripts folder.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># To use it on patches</span>
+./scripts/checkpatch.pl *.patch
+
+<span class="c1"># To use it on files</span>
+./scripts/checkpatch.pl -f file.c
+
+<span class="c1"># To run checkpatch before committing</span>
+git diff <span class="p">|</span> ./scripts/checkpatch.pl
+</code></pre></td></tr></table>
+</div>
+</div><p>If checkpatch finds a coding style violation, it shows a short description, the file, line number and the line that needs to be fixed.
+In the output below, it shows a check to avoid camel case in a function name.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">CHECK: Avoid CamelCase: &lt;rtl8188e_PHY_SetRFReg&gt;
+#14: FILE: drivers/staging/r8188eu/os_dep/ioctl_linux.c:3628:
++		rtl8188e_PHY_SetRFReg(padapter, RF_PATH_A, arg, 0xffffffff, extra_arg);
+
+total: 0 errors, 0 warnings, 1 checks, 12 lines checked
+Your patch has style problems, please review.
+</code></pre></td></tr></table>
+</div>
+</div><p>Fixing checkpatch errors is an easy way to send your first patch, as most checkpatch errors are trivial to fix.
+KernelNewbies site has an excellent writeup on setting up the tools, building the kernel and sending your first patch: <a href="https://kernelnewbies.org/FirstKernelPatch">FirstKernelPatch</a>.</p>
+<ul>
+<li>Not all subsystem maintainers accept checkpatch fixes as it can possibly break working code and also changes the git blame for the lines modified.
+The staging subsystem (<a href="https://elixir.bootlin.com/linux/latest/source/drivers/staging">drivers/staging</a>) is a good place to send checkpatch fixes.</li>
+<li>Some checks like &ldquo;CHECK: line length of 126 exceeds 100 columns&rdquo; are better ignored.
+A KernelNewbies post lists some of the <a href="https://kernelnewbies.org/CheckpatchTips">warnings to ignore</a>.</li>
+</ul>
+<p>When sending patches, always run checkpatch to ensure that they conform to the kernel coding style.
+Patches with style errors are usually rejected.
+To run checkpatch automatically whenever we commit changes, add checkpatch to git&rsquo;s post commit hook, as shown below: (I learnt this from <a href="https://training.linuxfoundation.org/training/a-beginners-guide-to-linux-kernel-development-lfd103/">LFD 103</a>)</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">cat <span class="s">&lt;&lt; EOF &gt; .git/hooks/post-commit
+</span><span class="s">#!/bin/sh
+</span><span class="s">exec git show --format=email HEAD | ./scripts/checkpatch.pl --strict --codespell
+</span><span class="s">EOF</span>
+chmod a+x .git/hooks/post-commit
+
+<span class="c1"># Make changes, stage and commit</span>
+git commit -s -v
+
+<span class="c1"># Post-commit hook will run checkpatch on your code</span>
+<span class="c1"># Fix any errors found and amend to previous commit</span>
+git commit --amend
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="sparse"><a href="https://www.kernel.org/doc/html/latest/dev-tools/sparse.html">Sparse</a></h2>
+<p>Sparse is a semantic parser which uses annotations in the kernel source code to find possible mistakes.
+It can find bugs caused by incorrect locking, endianness mismatch, mixing kernel and user pointers, etc.</p>
+<p>Sparse is available to install in most distributions. The latest development version can be installed from the git repository.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">sudo apt-get install sparse
+
+<span class="c1"># Or from git repository</span>
+git clone git://git.kernel.org/pub/scm/devel/sparse/sparse.git
+<span class="nb">cd</span> sparse
+make
+make install
+</code></pre></td></tr></table>
+</div>
+</div><p>To run sparse checks, we have to set the C argument when compiling the kernel:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># To run sparse on files about to be compiled</span>
+make <span class="nv">C</span><span class="o">=</span><span class="m">1</span>
+<span class="c1"># To run sparse on all files</span>
+make <span class="nv">C</span><span class="o">=</span><span class="m">2</span>
+
+<span class="c1"># To save the warnings to a file</span>
+make <span class="nv">C</span><span class="o">=</span><span class="m">2</span> 2&gt;outfile
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="coccinelle"><a href="https://www.kernel.org/doc/html/latest/dev-tools/coccinelle.html">Coccinelle</a></h2>
+<p>Coccinelle is a tool used for making collateral evolutions i.e. making the same change throughout the code base.
+For example, if we want to ensure that the result of a particular function is checked for null, we can use coccinelle to find locations where it is not checked.</p>
+<p>We can specify code matching and transformation rules as <em>semantic patches</em> written in SmPL (Semantic patch language).
+For instance, the following semantic patch replaces expressions of the form (1 &lt;&lt; X) with BIT(X).</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">@@
+expression e;
+@@
+- (1 &lt;&lt; e)
++ BIT(e)
+</code></pre></td></tr></table>
+</div>
+</div><p>Semantic patches written for the kernel are found in <a href="https://elixir.bootlin.com/linux/latest/source/scripts/coccinelle">scripts/coccinelle</a> directory and can run in four modes:</p>
+<ol>
+<li>report : Reports the issue and file location</li>
+<li>patch : Generates a patch to fix the issue</li>
+<li>context : Displays the context of the issue</li>
+<li>org : Generates an org file report to be viewed in emacs</li>
+</ol>
+<p>Report mode is supported by all kernel semantic patches. The other modes may not be implemented by all kernel semantic patches.</p>
+<p>Coccinelle can be installed from the git repository.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">git clone https://github.com/coccinelle/coccinelle
+<span class="nb">cd</span> coccinelle
+./autogen
+./configure
+make
+sudo make install
+</code></pre></td></tr></table>
+</div>
+</div><p>This installs a command line tool called <strong>spatch</strong> (stands for semantic patch).</p>
+<p>To run coccinelle on the kernel source:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># To run all kernel semantic patches (in report mode (default))</span>
+make coccicheck
+
+<span class="c1"># To run all kernel semantic patches in patch mode</span>
+make coccicheck <span class="nv">MODE</span><span class="o">=</span>patch
+
+<span class="c1"># To run all kernel semantic patches on a directory</span>
+make coccicheck <span class="nv">M</span><span class="o">=</span>drivers/staging/
+
+<span class="c1"># To run a particular semantic patch</span>
+make coccicheck <span class="nv">COCCI</span><span class="o">=</span>scripts/coccinelle/misc/returnvar.cocci
+</code></pre></td></tr></table>
+</div>
+</div><p>We can also directly use spatch and specify a semantic patch with the &ndash;sp-file argument.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># When running kernel semantic patches, set the mode using -D</span>
+spatch --sp-file scripts/coccinelle/misc/returnvar.cocci -D report *.c
+
+<span class="c1"># When running other semantic patches</span>
+spatch --sp-file other.cocci *.c
+</code></pre></td></tr></table>
+</div>
+</div>
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">Author</span>
+    <span class="item-content">Abdun Nihaal</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">LastMod</span>
+    <span class="item-content">
+        15-02-2022
+        
+    </span>
+  </p>
+  
+  
+</div>
+<footer class="post-footer">
+      
+      <nav class="post-nav">
+        
+        <a class="next" href="/post/hardware_compression_algorithms/">
+            <span class="next-text nav-default">Hardware compression algorithms</span>
+            <span class="next-text nav-mobile">Next</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="https://www.twitter.com/nihaal_an" class="iconfont icon-twitter" title="twitter"></a>
+      <a href="https://in.linkedin.com/in/abdun-nihaal-289272143" class="iconfont icon-linkedin" title="linkedin"></a>
+      <a href="https://www.github.com/nifey" class="iconfont icon-github" title="github"></a>
+      <a href="https://www.gitlab.com/nihaal" class="iconfont icon-gitlab" title="gitlab"></a>
+  <a href="https://nihaal.me/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    2016 - 
+    2022<span class="heart"><i class="iconfont icon-heart"></i></span><span>Abdun Nihaal</span>
+  </span>
+</div>
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  <script type="text/javascript" src="/lib/jquery/jquery-3.2.1.min.js"></script>
+  <script type="text/javascript" src="/lib/slideout/slideout-1.0.1.min.js"></script>
+  <script type="text/javascript" src="/lib/fancybox/jquery.fancybox-3.1.20.min.js"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.c99b103c33d1539acf3025e1913697534542c4a5aa5af0ccc20475ed2863603b.js"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>
