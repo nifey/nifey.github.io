@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>TLB;DR Reversing TLBs with TLB desynchronization - Nihaal</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="Abdun Nihaal" /><meta name="description" content="Yesterday, I read an interesting research paper about reverse engineering TLBs using TLB desynchronization. In this post, I&amp;rsquo;ll write briefly about the key ideas and what I found very interesting in the paper.
+You can find the paper here:
+TLB;DR: Enhancing TLB-based Attacks with TLB Desynchronized Reverse Engineering. TLB;DR Source code Reverse engineering CPU internals In the subfield of hardware security that focuses on communicating (covert channels) or leaking (side channels) critical information using timing or storage channels, accurate information about the CPU internals helps create more efficient and reliable channels." />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.105.0 with theme even" />
+
+
+<link rel="canonical" href="https://nihaal.me/post/paper_tlbdr/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+<link href="/sass/main.min.f92fd13721ddf72129410fd8250e73152cc6f2438082b6c0208dc24ee7c13fc4.css" rel="stylesheet">
+<link href="/lib/fancybox/jquery.fancybox-3.1.20.min.css" rel="stylesheet">
+
+
+<meta property="og:title" content="TLB;DR Reversing TLBs with TLB desynchronization" />
+<meta property="og:description" content="Yesterday, I read an interesting research paper about reverse engineering TLBs using TLB desynchronization. In this post, I&rsquo;ll write briefly about the key ideas and what I found very interesting in the paper.
+You can find the paper here:
+TLB;DR: Enhancing TLB-based Attacks with TLB Desynchronized Reverse Engineering. TLB;DR Source code Reverse engineering CPU internals In the subfield of hardware security that focuses on communicating (covert channels) or leaking (side channels) critical information using timing or storage channels, accurate information about the CPU internals helps create more efficient and reliable channels." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://nihaal.me/post/paper_tlbdr/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2022-12-01T00:00:00+00:00" />
+<meta property="article:modified_time" content="2022-12-01T10:26:45+05:30" /><meta property="og:site_name" content="Nihaal" />
+
+<meta itemprop="name" content="TLB;DR Reversing TLBs with TLB desynchronization">
+<meta itemprop="description" content="Yesterday, I read an interesting research paper about reverse engineering TLBs using TLB desynchronization. In this post, I&rsquo;ll write briefly about the key ideas and what I found very interesting in the paper.
+You can find the paper here:
+TLB;DR: Enhancing TLB-based Attacks with TLB Desynchronized Reverse Engineering. TLB;DR Source code Reverse engineering CPU internals In the subfield of hardware security that focuses on communicating (covert channels) or leaking (side channels) critical information using timing or storage channels, accurate information about the CPU internals helps create more efficient and reliable channels."><meta itemprop="datePublished" content="2022-12-01T00:00:00+00:00" />
+<meta itemprop="dateModified" content="2022-12-01T10:26:45+05:30" />
+<meta itemprop="wordCount" content="813">
+<meta itemprop="keywords" content="research,hardware-security," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="TLB;DR Reversing TLBs with TLB desynchronization"/>
+<meta name="twitter:description" content="Yesterday, I read an interesting research paper about reverse engineering TLBs using TLB desynchronization. In this post, I&rsquo;ll write briefly about the key ideas and what I found very interesting in the paper.
+You can find the paper here:
+TLB;DR: Enhancing TLB-based Attacks with TLB Desynchronized Reverse Engineering. TLB;DR Source code Reverse engineering CPU internals In the subfield of hardware security that focuses on communicating (covert channels) or leaking (side channels) critical information using timing or storage channels, accurate information about the CPU internals helps create more efficient and reliable channels."/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Nihaal</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a>
+  </ul>
+
+  
+
+
+</nav>
+
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Nihaal</a>
+</div>
+
+
+
+
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li>
+  </ul>
+</nav>
+
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">TLB;DR Reversing TLBs with TLB desynchronization</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 01-12-2022 </span>
+        
+          <span class="more-meta"> 813 words </span>
+          <span class="more-meta"> 4 mins read </span>
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">Contents</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#reverse-engineering-cpu-internals">Reverse engineering CPU internals</a></li>
+        <li><a href="#tlb-coherency">TLB coherency</a></li>
+        <li><a href="#tlb-desynchronization">TLB desynchronization</a></li>
+        <li><a href="#implementation">Implementation</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <p>Yesterday, I read an interesting research paper about reverse engineering TLBs using TLB desynchronization.
+In this post, I&rsquo;ll write briefly about the key ideas and what I found very interesting in the paper.</p>
+<p>You can find the paper here:</p>
+<ul>
+<li><a href="https://www.usenix.org/conference/usenixsecurity22/presentation/tatar"><strong>TLB;DR: Enhancing TLB-based Attacks with TLB Desynchronized Reverse Engineering</strong></a>.</li>
+<li><a href="https://github.com/vusec/tlbdr">TLB;DR Source code</a></li>
+</ul>
+<h2 id="reverse-engineering-cpu-internals">Reverse engineering CPU internals</h2>
+<p>In the subfield of hardware security that focuses on communicating (covert channels) or leaking (side channels) critical information using timing or storage channels, accurate information about the CPU internals helps create more efficient and reliable channels.
+Information about the size, associativity, set mapping, etc. of caches and TLBs allow the attacker to fine tune their attacks.
+However, most CPU vendors don&rsquo;t disclose such information in detail, and so, attackers resort to reverse engineering these microarchitectural details.
+Reverse engineering hardware structures is usually performed by observing timing differences, which can have a lot of noise.
+In the paper, TLB;DR, the author propose a new method for reverse engineering TLBs with high accuracy.</p>
+<h2 id="tlb-coherency">TLB coherency</h2>
+<p>Translation Lookaside buffers are a critical component in memory virtualization.
+TLBs cache page table entries (PTEs) for fast address translation.
+Each PTE contains two main information: the physical address of the page and permission bits to denote if a process has permission to read, write or execute from a page (NX bit).
+Whenever the operating system remaps a page to a different location or updates the permission of a page, it updates the page table entry.
+But if the PTE is cached in a TLB, it can lead to correctness issues: accessing a different page or performing a write when the write permission has been revoked.
+I&rsquo;m not sure of other architectures, but in x86 architecture, ensuring TLB coherency is the responsibility of the operating system, i.e. whenever the OS updates a PTE, it is resposible for invalidating the corresponding PTE entry from the TLBs.</p>
+<p>In x86, there are two ways to invalidate PTE entries in TLBs</p>
+<ol>
+<li>Perform individual PTE invalidations using special instructions like <em>invlpg</em> or <em>invlpcid</em>.</li>
+<li>Perform a full TLB flush by writing to the <em>CR3</em> register.</li>
+</ol>
+<p>Both of these operations are privileged, i.e. only the kernel can execute it.</p>
+<h2 id="tlb-desynchronization">TLB desynchronization</h2>
+<p>The authors of TLB;DR propose using a technique called TLB desynchronization to accurately reverse engineer TLBs.
+One of the most basic information we need for reverse engineering, is whether a particular entry is present in the TLB or not.
+To get this information, we can change the PTE of a page to map to a different physical page and not perform TLB invalidation. Now when we access that page, if it is a TLB hit (i.e. PTE entry is present in the cache), then it will access data from the originally mapped physical page. If it is a TLB miss, the memory access would cause a page table walk and eventually read data from the newly mapped page.
+By having different data in the physical pages, we can then use the data returned by the memory access to find out accurately it the PTE entry was cached in the TLB.</p>
+<p>This is the key technique proposed in the paper which they then use to reverse engineer multiple aspects of TLBs on different Intel and AMD CPUs. They reverse engineer the inclusivity/exclusivity properties, number of TLB entries, number of sets, associativity, replacement policy and how PCIDs are used.
+They also discover a undisclosed TLB replacement policy used in some Intel CPUs which combines pseudo-LRU with a MRU+1 scheme.</p>
+<h2 id="implementation">Implementation</h2>
+<p>There are a few things about the source code that I found interesting.</p>
+<ul>
+<li>
+<p>First is that since OSes don&rsquo;t allow userspace processes to desynchronize TLBs, the source code consists of a kernel module which performs PTE swapping to perform TLB desynchronization.</p>
+</li>
+<li>
+<p>To reduce interferance from other processes and interrupts, the module disables kernel premption when performing experiments. It uses the following two functions (which I believe are functions defined in the Linux kernel source code) to do that.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">  raw_local_irq_restore(flags);
+</span></span><span class="line"><span class="cl">  preempt_enable();
+</span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p>In trigger.c, the program allocates a large buffer and writes some data to each page to uniquely identify the physical page. I thought this would be some integer that denotes the page number, but I found this:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">  //Write an identifier to each unique physcial page
+</span></span><span class="line"><span class="cl">  //The identifier will be returned when this code is executed
+</span></span><span class="line"><span class="cl">  volatile unsigned char *p1;
+</span></span><span class="line"><span class="cl">  for(i = 0; i &lt; unique_pages; i++){
+</span></span><span class="line"><span class="cl">          p1 = BASE + (4096 * i);
+</span></span><span class="line"><span class="cl">          *(uint16_t *)p1 = 0x9090;
+</span></span><span class="line"><span class="cl">          p1[2] = 0x48; p1[3] = 0xb8;
+</span></span><span class="line"><span class="cl">          *(uint64_t *)(&amp;p1[4]) = i;
+</span></span><span class="line"><span class="cl">          p1[12] = 0xc3;
+</span></span><span class="line"><span class="cl">  }
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>This actually writes some assembly code which returns the unique ID of the page when executed. The advantage of doing it this way is that we can now perform both data access and instruction access to the same page and in both cases identify which physical page we are accessing.</p>
+</li>
+</ul>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">Author</span>
+    <span class="item-content">Abdun Nihaal</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">LastMod</span>
+    <span class="item-content">
+        01-12-2022
+        
+    </span>
+  </p>
+  
+  
+</div>
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/research/">research</a>
+          <a href="/tags/hardware-security/">hardware-security</a>
+          </div>
+      <nav class="post-nav">
+        
+        <a class="next" href="/post/static_checker/">
+            <span class="next-text nav-default">Using static checkers on Linux Kernel</span>
+            <span class="next-text nav-mobile">Next</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="https://www.twitter.com/nihaal_an" class="iconfont icon-twitter" title="twitter"></a>
+      <a href="https://in.linkedin.com/in/abdun-nihaal-289272143" class="iconfont icon-linkedin" title="linkedin"></a>
+      <a href="https://www.github.com/nifey" class="iconfont icon-github" title="github"></a>
+      <a href="https://www.gitlab.com/nihaal" class="iconfont icon-gitlab" title="gitlab"></a>
+  <a href="https://nihaal.me/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    2016 - 
+    2022<span class="heart"><i class="iconfont icon-heart"></i></span><span>Abdun Nihaal</span>
+  </span>
+</div>
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  <script type="text/javascript" src="/lib/jquery/jquery-3.2.1.min.js"></script>
+  <script type="text/javascript" src="/lib/slideout/slideout-1.0.1.min.js"></script>
+  <script type="text/javascript" src="/lib/fancybox/jquery.fancybox-3.1.20.min.js"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.4ae89da218555efa0e7093a20b92017d2e1202b66fff9fc2edf4cb8d44b44c6e.js"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>

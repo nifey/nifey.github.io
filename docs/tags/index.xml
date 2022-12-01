@@ -6,7 +6,25 @@
     <description>Recent content in Tags on Nihaal</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Tue, 15 Feb 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://nihaal.me/tags/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 01 Dec 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://nihaal.me/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>hardware-security</title>
+      <link>https://nihaal.me/tags/hardware-security/</link>
+      <pubDate>Thu, 01 Dec 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://nihaal.me/tags/hardware-security/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>research</title>
+      <link>https://nihaal.me/tags/research/</link>
+      <pubDate>Thu, 01 Dec 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://nihaal.me/tags/research/</guid>
+      <description></description>
+    </item>
+    
     <item>
       <title>kernel</title>
       <link>https://nihaal.me/tags/kernel/</link>
@@ -22,15 +40,6 @@
       <pubDate>Tue, 15 Feb 2022 00:00:00 +0000</pubDate>
       
       <guid>https://nihaal.me/tags/linux/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>research</title>
-      <link>https://nihaal.me/tags/research/</link>
-      <pubDate>Fri, 14 Jan 2022 00:00:00 +0000</pubDate>
-      
-      <guid>https://nihaal.me/tags/research/</guid>
       <description></description>
     </item>
     

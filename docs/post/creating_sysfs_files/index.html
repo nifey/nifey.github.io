@@ -17,7 +17,7 @@
 
 
 <meta name="author" content="Abdun Nihaal" /><meta name="description" content="The kernel provides a few ways in which userspace programs can get information from the kernel space.
- procfs: Used to get information about running processes debugfs: Used by kernel developers for debugging sysfs  Sysfs is used for data that is not related to a particular process. It has information about hardware devices attached to the system and about drivers handling those devices.
+procfs: Used to get information about running processes debugfs: Used by kernel developers for debugging sysfs Sysfs is used for data that is not related to a particular process. It has information about hardware devices attached to the system and about drivers handling those devices.
 Any file added to the sysfs becomes a part of the Linux Application Binary Interface (ABI)." />
 
 
@@ -25,7 +25,7 @@ Any file added to the sysfs becomes a part of the Linux Application Binary Inter
 
 
 
-<meta name="generator" content="Hugo 0.91.2 with theme even" />
+<meta name="generator" content="Hugo 0.105.0 with theme even" />
 
 
 <link rel="canonical" href="https://nihaal.me/post/creating_sysfs_files/" />
@@ -43,7 +43,7 @@ Any file added to the sysfs becomes a part of the Linux Application Binary Inter
 
 <meta property="og:title" content="Creating sysfs files" />
 <meta property="og:description" content="The kernel provides a few ways in which userspace programs can get information from the kernel space.
- procfs: Used to get information about running processes debugfs: Used by kernel developers for debugging sysfs  Sysfs is used for data that is not related to a particular process. It has information about hardware devices attached to the system and about drivers handling those devices.
+procfs: Used to get information about running processes debugfs: Used by kernel developers for debugging sysfs Sysfs is used for data that is not related to a particular process. It has information about hardware devices attached to the system and about drivers handling those devices.
 Any file added to the sysfs becomes a part of the Linux Application Binary Interface (ABI)." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://nihaal.me/post/creating_sysfs_files/" /><meta property="article:section" content="post" />
@@ -52,14 +52,14 @@ Any file added to the sysfs becomes a part of the Linux Application Binary Inter
 
 <meta itemprop="name" content="Creating sysfs files">
 <meta itemprop="description" content="The kernel provides a few ways in which userspace programs can get information from the kernel space.
- procfs: Used to get information about running processes debugfs: Used by kernel developers for debugging sysfs  Sysfs is used for data that is not related to a particular process. It has information about hardware devices attached to the system and about drivers handling those devices.
+procfs: Used to get information about running processes debugfs: Used by kernel developers for debugging sysfs Sysfs is used for data that is not related to a particular process. It has information about hardware devices attached to the system and about drivers handling those devices.
 Any file added to the sysfs becomes a part of the Linux Application Binary Interface (ABI)."><meta itemprop="datePublished" content="2021-11-29T00:00:00+00:00" />
 <meta itemprop="dateModified" content="2021-11-29T00:00:00+00:00" />
-<meta itemprop="wordCount" content="1191">
+<meta itemprop="wordCount" content="1197">
 <meta itemprop="keywords" content="linux,kernel," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Creating sysfs files"/>
 <meta name="twitter:description" content="The kernel provides a few ways in which userspace programs can get information from the kernel space.
- procfs: Used to get information about running processes debugfs: Used by kernel developers for debugging sysfs  Sysfs is used for data that is not related to a particular process. It has information about hardware devices attached to the system and about drivers handling those devices.
+procfs: Used to get information about running processes debugfs: Used by kernel developers for debugging sysfs Sysfs is used for data that is not related to a particular process. It has information about hardware devices attached to the system and about drivers handling those devices.
 Any file added to the sysfs becomes a part of the Linux Application Binary Interface (ABI)."/>
 
 <!--[if lte IE 9]>
@@ -134,7 +134,7 @@ Any file added to the sysfs becomes a part of the Linux Application Binary Inter
       <div class="post-meta">
         <span class="post-time"> 29-11-2021 </span>
         
-          <span class="more-meta"> 1191 words </span>
+          <span class="more-meta"> 1197 words </span>
           <span class="more-meta"> 6 mins read </span>
         
       </div>
@@ -190,8 +190,8 @@ Each entry in files under <a href="https://elixir.bootlin.com/linux/latest/sourc
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c">   <span class="cp">#include</span><span class="cpf">&lt;linux/sysfs.h&gt;</span><span class="cp">
-</span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl">   <span class="cp">#include</span><span class="cpf">&lt;linux/sysfs.h&gt;</span><span class="cp">
+</span></span></span></code></pre></td></tr></table>
 </div>
 </div></li>
 <li>
@@ -218,9 +218,9 @@ Each entry in files under <a href="https://elixir.bootlin.com/linux/latest/sourc
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c">      <span class="k">static</span> <span class="n">ssize_t</span> <span class="nf">var_show</span><span class="p">(</span><span class="k">struct</span> <span class="n">kobject</span> <span class="o">*</span><span class="n">kobj</span><span class="p">,</span> <span class="k">struct</span> <span class="n">kobj_attribute</span> <span class="o">*</span><span class="n">attr</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="n">buf</span><span class="p">);</span>
-      <span class="k">static</span> <span class="n">ssize_t</span> <span class="nf">var_store</span><span class="p">(</span><span class="k">struct</span> <span class="n">kobject</span> <span class="o">*</span><span class="n">kobj</span><span class="p">,</span> <span class="k">struct</span> <span class="n">kobj_attribute</span> <span class="o">*</span><span class="n">attr</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">buf</span><span class="p">,</span> <span class="n">size_t</span> <span class="n">count</span><span class="p">);</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl">      <span class="k">static</span> <span class="n">ssize_t</span> <span class="nf">var_show</span><span class="p">(</span><span class="k">struct</span> <span class="n">kobject</span> <span class="o">*</span><span class="n">kobj</span><span class="p">,</span> <span class="k">struct</span> <span class="n">kobj_attribute</span> <span class="o">*</span><span class="n">attr</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="n">buf</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">      <span class="k">static</span> <span class="n">ssize_t</span> <span class="nf">var_store</span><span class="p">(</span><span class="k">struct</span> <span class="n">kobject</span> <span class="o">*</span><span class="n">kobj</span><span class="p">,</span> <span class="k">struct</span> <span class="n">kobj_attribute</span> <span class="o">*</span><span class="n">attr</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">buf</span><span class="p">,</span> <span class="n">size_t</span> <span class="n">count</span><span class="p">);</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div></li>
 <li>
@@ -231,8 +231,8 @@ Each entry in files under <a href="https://elixir.bootlin.com/linux/latest/sourc
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c">   <span class="k">static</span> <span class="k">struct</span> <span class="n">kobj_attribute</span> <span class="n">var_attribute</span> <span class="o">=</span> <span class="n">__ATTR</span><span class="p">(</span><span class="n">var</span><span class="p">,</span> <span class="mo">0644</span><span class="p">,</span> <span class="n">var_show</span><span class="p">,</span> <span class="n">var_store</span><span class="p">);</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl">   <span class="k">static</span> <span class="k">struct</span> <span class="n">kobj_attribute</span> <span class="n">var_attribute</span> <span class="o">=</span> <span class="n">__ATTR</span><span class="p">(</span><span class="n">var</span><span class="p">,</span> <span class="mo">0644</span><span class="p">,</span> <span class="n">var_show</span><span class="p">,</span> <span class="n">var_store</span><span class="p">);</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div></li>
 <li>
@@ -251,17 +251,17 @@ Each entry in files under <a href="https://elixir.bootlin.com/linux/latest/sourc
 </span><span class="lnt">10
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c">   <span class="k">static</span> <span class="k">struct</span> <span class="n">attribute</span> <span class="o">*</span><span class="n">attrs</span><span class="p">[]</span> <span class="o">=</span> <span class="p">{</span>
-   	<span class="o">&amp;</span><span class="n">var_attribute</span><span class="p">.</span><span class="n">attr</span><span class="p">,</span>
-   	<span class="o">&amp;</span><span class="n">var1_attribute</span><span class="p">.</span><span class="n">attr</span><span class="p">,</span>
-   	<span class="o">&amp;</span><span class="n">var2_attribute</span><span class="p">.</span><span class="n">attr</span><span class="p">,</span>
-   	<span class="p">...,</span>
-   	<span class="nb">NULL</span><span class="p">,</span>
-   <span class="p">};</span>
-   <span class="k">static</span> <span class="k">struct</span> <span class="n">attribute_group</span> <span class="n">attr_group</span> <span class="o">=</span> <span class="p">{</span>
-   	<span class="p">.</span><span class="n">attrs</span> <span class="o">=</span> <span class="n">attrs</span><span class="p">,</span>
-   <span class="p">};</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl">   <span class="k">static</span> <span class="k">struct</span> <span class="n">attribute</span> <span class="o">*</span><span class="n">attrs</span><span class="p">[]</span> <span class="o">=</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">   	<span class="o">&amp;</span><span class="n">var_attribute</span><span class="p">.</span><span class="n">attr</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">   	<span class="o">&amp;</span><span class="n">var1_attribute</span><span class="p">.</span><span class="n">attr</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">   	<span class="o">&amp;</span><span class="n">var2_attribute</span><span class="p">.</span><span class="n">attr</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">   	<span class="p">...,</span>
+</span></span><span class="line"><span class="cl">   	<span class="nb">NULL</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">   <span class="p">};</span>
+</span></span><span class="line"><span class="cl">   <span class="k">static</span> <span class="k">struct</span> <span class="n">attribute_group</span> <span class="n">attr_group</span> <span class="o">=</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">   	<span class="p">.</span><span class="n">attrs</span> <span class="o">=</span> <span class="n">attrs</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">   <span class="p">};</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div></li>
 <li>
@@ -272,9 +272,9 @@ Each entry in files under <a href="https://elixir.bootlin.com/linux/latest/sourc
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c">   <span class="k">static</span> <span class="k">struct</span> <span class="n">kobject</span> <span class="o">*</span><span class="n">var_kobj</span><span class="p">;</span>
-   <span class="n">var_kobj</span> <span class="o">=</span> <span class="n">kobject_create_and_add</span><span class="p">(</span><span class="s">&#34;var&#34;</span><span class="p">,</span> <span class="n">kernel_kobj</span><span class="p">);</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl">   <span class="k">static</span> <span class="k">struct</span> <span class="n">kobject</span> <span class="o">*</span><span class="n">var_kobj</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">   <span class="n">var_kobj</span> <span class="o">=</span> <span class="n">kobject_create_and_add</span><span class="p">(</span><span class="s">&#34;var&#34;</span><span class="p">,</span> <span class="n">kernel_kobj</span><span class="p">);</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>Kobject stands for kernel object. Inside the kernel, <em>struct kobject</em> is used to represent devices, how they are connected to each other via buses and how they are related to drivers.</p>
 <p>The <em>struct kobject</em> also does reference counting, i.e. it keeps track of how many kernel references exists to the kobject.
@@ -298,11 +298,11 @@ For instance, If we use <em>kernel_kobj</em>, defined in the header file, as the
 </span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c">   <span class="n">retval</span> <span class="o">=</span> <span class="n">sysfs_create_group</span><span class="p">(</span><span class="n">var_kobj</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">attr_group</span><span class="p">);</span>
-   <span class="k">if</span> <span class="p">(</span><span class="n">retval</span><span class="p">)</span> <span class="p">{</span>
-     <span class="c1">// Error
-</span><span class="c1"></span>   <span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl">   <span class="n">retval</span> <span class="o">=</span> <span class="n">sysfs_create_group</span><span class="p">(</span><span class="n">var_kobj</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">attr_group</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">   <span class="k">if</span> <span class="p">(</span><span class="n">retval</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">     <span class="c1">// Error
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>   <span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div></li>
 </ol>
@@ -401,90 +401,90 @@ For instance, If we use <em>kernel_kobj</em>, defined in the header file, as the
 </span><span class="lnt">83
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="cp">#include</span><span class="cpf">&lt;linux/init.h&gt;</span><span class="cp">
-</span><span class="cp">#include</span><span class="cpf">&lt;linux/kernel.h&gt;</span><span class="cp">
-</span><span class="cp">#include</span><span class="cpf">&lt;linux/module.h&gt;</span><span class="cp">
-</span><span class="cp">#include</span><span class="cpf">&lt;linux/sysfs.h&gt;</span><span class="cp">
-</span><span class="cp">#include</span><span class="cpf">&lt;linux/slab.h&gt;</span><span class="cp">
-</span><span class="cp">#include</span><span class="cpf">&lt;linux/rwsem.h&gt;</span><span class="cp">
-</span><span class="cp"></span><span class="n">MODULE_LICENSE</span><span class="p">(</span><span class="s">&#34;GPL&#34;</span><span class="p">);</span>
-
-<span class="k">static</span> <span class="kt">char</span> <span class="o">*</span><span class="n">echo_buf</span><span class="p">;</span>
-<span class="k">static</span> <span class="nf">DECLARE_RWSEM</span><span class="p">(</span><span class="n">echo_rwlock</span><span class="p">);</span>
-<span class="k">static</span> <span class="k">struct</span> <span class="n">kobject</span> <span class="o">*</span><span class="n">echo_kobj</span><span class="p">;</span>
-
-<span class="k">static</span> <span class="n">ssize_t</span> <span class="nf">echo_show</span><span class="p">(</span><span class="k">struct</span> <span class="n">kobject</span> <span class="o">*</span><span class="n">kobj</span><span class="p">,</span> <span class="k">struct</span> <span class="n">kobj_attribute</span> <span class="o">*</span><span class="n">attr</span><span class="p">,</span>
-			<span class="kt">char</span> <span class="o">*</span><span class="n">buf</span><span class="p">)</span>
-<span class="p">{</span>
-	<span class="n">down_read</span><span class="p">(</span><span class="o">&amp;</span><span class="n">echo_rwlock</span><span class="p">);</span>
-	<span class="n">strncpy</span><span class="p">(</span><span class="n">buf</span><span class="p">,</span> <span class="n">echo_buf</span><span class="p">,</span> <span class="n">PAGE_SIZE</span><span class="p">);</span>
-	<span class="n">up_read</span><span class="p">(</span><span class="o">&amp;</span><span class="n">echo_rwlock</span><span class="p">);</span>
-	<span class="k">return</span> <span class="n">PAGE_SIZE</span><span class="p">;</span>
-<span class="p">}</span>
-
-<span class="k">static</span> <span class="n">ssize_t</span> <span class="nf">echo_store</span><span class="p">(</span><span class="k">struct</span> <span class="n">kobject</span> <span class="o">*</span><span class="n">kobj</span><span class="p">,</span> <span class="k">struct</span> <span class="n">kobj_attribute</span> <span class="o">*</span><span class="n">attr</span><span class="p">,</span>
-			 <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">buf</span><span class="p">,</span> <span class="n">size_t</span> <span class="n">count</span><span class="p">)</span>
-<span class="p">{</span>
-	<span class="kt">int</span> <span class="n">len</span><span class="p">;</span>
-	<span class="n">down_write</span><span class="p">(</span><span class="o">&amp;</span><span class="n">echo_rwlock</span><span class="p">);</span>
-	<span class="n">memset</span><span class="p">(</span><span class="n">echo_buf</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">PAGE_SIZE</span><span class="p">);</span>
-	<span class="n">len</span> <span class="o">=</span> <span class="p">(</span><span class="n">count</span> <span class="o">&gt;</span> <span class="n">PAGE_SIZE</span><span class="p">)</span><span class="o">?</span> <span class="nl">PAGE_SIZE</span><span class="p">:</span> <span class="n">count</span><span class="p">;</span>
-	<span class="n">strncpy</span><span class="p">(</span><span class="n">echo_buf</span><span class="p">,</span> <span class="n">buf</span><span class="p">,</span> <span class="n">len</span><span class="p">);</span>
-	<span class="n">up_write</span><span class="p">(</span><span class="o">&amp;</span><span class="n">echo_rwlock</span><span class="p">);</span>
-	<span class="k">return</span> <span class="n">len</span><span class="p">;</span>
-<span class="p">}</span>
-
-<span class="c1">// echo file Permissions : Allow write from root and reads from anyone : 0644
-</span><span class="c1"></span><span class="k">static</span> <span class="k">struct</span> <span class="n">kobj_attribute</span> <span class="n">echo_attribute</span> <span class="o">=</span>
-	<span class="n">__ATTR</span><span class="p">(</span><span class="n">echo</span><span class="p">,</span> <span class="mo">0644</span><span class="p">,</span> <span class="n">echo_show</span><span class="p">,</span> <span class="n">echo_store</span><span class="p">);</span>
-
-<span class="c1">// Create attribute group
-</span><span class="c1"></span><span class="k">static</span> <span class="k">struct</span> <span class="n">attribute</span> <span class="o">*</span><span class="n">attrs</span><span class="p">[]</span> <span class="o">=</span> <span class="p">{</span>
-	<span class="o">&amp;</span><span class="n">echo_attribute</span><span class="p">.</span><span class="n">attr</span><span class="p">,</span>
-	<span class="nb">NULL</span><span class="p">,</span>
-<span class="p">};</span>
-<span class="k">static</span> <span class="k">struct</span> <span class="n">attribute_group</span> <span class="n">attr_group</span> <span class="o">=</span> <span class="p">{</span>
-	<span class="p">.</span><span class="n">attrs</span> <span class="o">=</span> <span class="n">attrs</span><span class="p">,</span>
-<span class="p">};</span>
-
-<span class="k">static</span> <span class="kt">int</span> <span class="n">__init</span> <span class="nf">echo_init</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
-<span class="p">{</span>
-	<span class="kt">int</span> <span class="n">retval</span><span class="p">;</span>
-
-	<span class="c1">// Create &#34;echo&#34; kobject
-</span><span class="c1"></span>	<span class="n">echo_kobj</span> <span class="o">=</span> <span class="n">kobject_create_and_add</span><span class="p">(</span><span class="s">&#34;echo&#34;</span><span class="p">,</span> <span class="n">kernel_kobj</span><span class="p">);</span>
-	<span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">echo_kobj</span><span class="p">)</span>
-		<span class="k">return</span> <span class="o">-</span><span class="n">ENOMEM</span><span class="p">;</span>
-
-	<span class="c1">// Allocate space for echo_buf
-</span><span class="c1"></span>	<span class="n">echo_buf</span> <span class="o">=</span> <span class="p">(</span><span class="kt">char</span><span class="o">*</span><span class="p">)</span> <span class="n">kzalloc</span><span class="p">(</span><span class="n">PAGE_SIZE</span><span class="p">,</span> <span class="n">GFP_KERNEL</span><span class="p">);</span>
-	<span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">echo_buf</span><span class="p">)</span> <span class="p">{</span>
-		<span class="n">printk</span><span class="p">(</span><span class="n">KERN_ERR</span> <span class="s">&#34;echo: Cannot allocate memory for echo file</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
-		<span class="n">kobject_put</span><span class="p">(</span><span class="n">echo_kobj</span><span class="p">);</span>
-		<span class="k">return</span> <span class="o">-</span><span class="n">ENOMEM</span><span class="p">;</span>
-	<span class="p">}</span>
-
-	<span class="n">retval</span> <span class="o">=</span> <span class="n">sysfs_create_group</span><span class="p">(</span><span class="n">echo_kobj</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">attr_group</span><span class="p">);</span>
-	<span class="k">if</span> <span class="p">(</span><span class="n">retval</span><span class="p">)</span> <span class="p">{</span>
-		<span class="n">printk</span><span class="p">(</span><span class="n">KERN_ERR</span> <span class="s">&#34;echo: Cannot register sysfs attribute group</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
-		<span class="n">kfree</span><span class="p">(</span><span class="n">echo_buf</span><span class="p">);</span>
-		<span class="n">kobject_put</span><span class="p">(</span><span class="n">echo_kobj</span><span class="p">);</span>
-	<span class="p">}</span>
-
-	<span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
-<span class="p">}</span>
-
-<span class="k">static</span> <span class="kt">void</span> <span class="n">__exit</span> <span class="nf">echo_exit</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
-<span class="p">{</span>
-	<span class="c1">// Deallocate buffer
-</span><span class="c1"></span>	<span class="n">kfree</span><span class="p">(</span><span class="n">echo_buf</span><span class="p">);</span>
-	<span class="c1">// Remove kobject
-</span><span class="c1"></span>	<span class="n">kobject_put</span><span class="p">(</span><span class="n">echo_kobj</span><span class="p">);</span>
-<span class="p">}</span>
-
-<span class="n">module_init</span><span class="p">(</span><span class="n">echo_init</span><span class="p">);</span>
-<span class="n">module_exit</span><span class="p">(</span><span class="n">echo_exit</span><span class="p">);</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="cp">#include</span><span class="cpf">&lt;linux/init.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span><span class="cpf">&lt;linux/kernel.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span><span class="cpf">&lt;linux/module.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span><span class="cpf">&lt;linux/sysfs.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span><span class="cpf">&lt;linux/slab.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span><span class="cpf">&lt;linux/rwsem.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="n">MODULE_LICENSE</span><span class="p">(</span><span class="s">&#34;GPL&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">static</span> <span class="kt">char</span> <span class="o">*</span><span class="n">echo_buf</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">static</span> <span class="nf">DECLARE_RWSEM</span><span class="p">(</span><span class="n">echo_rwlock</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="k">static</span> <span class="k">struct</span> <span class="n">kobject</span> <span class="o">*</span><span class="n">echo_kobj</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">static</span> <span class="n">ssize_t</span> <span class="nf">echo_show</span><span class="p">(</span><span class="k">struct</span> <span class="n">kobject</span> <span class="o">*</span><span class="n">kobj</span><span class="p">,</span> <span class="k">struct</span> <span class="n">kobj_attribute</span> <span class="o">*</span><span class="n">attr</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">			<span class="kt">char</span> <span class="o">*</span><span class="n">buf</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="n">down_read</span><span class="p">(</span><span class="o">&amp;</span><span class="n">echo_rwlock</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">	<span class="n">strncpy</span><span class="p">(</span><span class="n">buf</span><span class="p">,</span> <span class="n">echo_buf</span><span class="p">,</span> <span class="n">PAGE_SIZE</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">	<span class="n">up_read</span><span class="p">(</span><span class="o">&amp;</span><span class="n">echo_rwlock</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="n">PAGE_SIZE</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">static</span> <span class="n">ssize_t</span> <span class="nf">echo_store</span><span class="p">(</span><span class="k">struct</span> <span class="n">kobject</span> <span class="o">*</span><span class="n">kobj</span><span class="p">,</span> <span class="k">struct</span> <span class="n">kobj_attribute</span> <span class="o">*</span><span class="n">attr</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">			 <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">buf</span><span class="p">,</span> <span class="n">size_t</span> <span class="n">count</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="kt">int</span> <span class="n">len</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="n">down_write</span><span class="p">(</span><span class="o">&amp;</span><span class="n">echo_rwlock</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">	<span class="n">memset</span><span class="p">(</span><span class="n">echo_buf</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">PAGE_SIZE</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">	<span class="n">len</span> <span class="o">=</span> <span class="p">(</span><span class="n">count</span> <span class="o">&gt;</span> <span class="n">PAGE_SIZE</span><span class="p">)</span><span class="o">?</span> <span class="nl">PAGE_SIZE</span><span class="p">:</span> <span class="n">count</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="n">strncpy</span><span class="p">(</span><span class="n">echo_buf</span><span class="p">,</span> <span class="n">buf</span><span class="p">,</span> <span class="n">len</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">	<span class="n">up_write</span><span class="p">(</span><span class="o">&amp;</span><span class="n">echo_rwlock</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="n">len</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// echo file Permissions : Allow write from root and reads from anyone : 0644
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">static</span> <span class="k">struct</span> <span class="n">kobj_attribute</span> <span class="n">echo_attribute</span> <span class="o">=</span>
+</span></span><span class="line"><span class="cl">	<span class="n">__ATTR</span><span class="p">(</span><span class="n">echo</span><span class="p">,</span> <span class="mo">0644</span><span class="p">,</span> <span class="n">echo_show</span><span class="p">,</span> <span class="n">echo_store</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// Create attribute group
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">static</span> <span class="k">struct</span> <span class="n">attribute</span> <span class="o">*</span><span class="n">attrs</span><span class="p">[]</span> <span class="o">=</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="o">&amp;</span><span class="n">echo_attribute</span><span class="p">.</span><span class="n">attr</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">	<span class="nb">NULL</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl"><span class="k">static</span> <span class="k">struct</span> <span class="n">attribute_group</span> <span class="n">attr_group</span> <span class="o">=</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="p">.</span><span class="n">attrs</span> <span class="o">=</span> <span class="n">attrs</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">static</span> <span class="kt">int</span> <span class="n">__init</span> <span class="nf">echo_init</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="kt">int</span> <span class="n">retval</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="c1">// Create &#34;echo&#34; kobject
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="n">echo_kobj</span> <span class="o">=</span> <span class="n">kobject_create_and_add</span><span class="p">(</span><span class="s">&#34;echo&#34;</span><span class="p">,</span> <span class="n">kernel_kobj</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">	<span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">echo_kobj</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">		<span class="k">return</span> <span class="o">-</span><span class="n">ENOMEM</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="c1">// Allocate space for echo_buf
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="n">echo_buf</span> <span class="o">=</span> <span class="p">(</span><span class="kt">char</span><span class="o">*</span><span class="p">)</span> <span class="n">kzalloc</span><span class="p">(</span><span class="n">PAGE_SIZE</span><span class="p">,</span> <span class="n">GFP_KERNEL</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">	<span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">echo_buf</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="n">printk</span><span class="p">(</span><span class="n">KERN_ERR</span> <span class="s">&#34;echo: Cannot allocate memory for echo file</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">		<span class="n">kobject_put</span><span class="p">(</span><span class="n">echo_kobj</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">		<span class="k">return</span> <span class="o">-</span><span class="n">ENOMEM</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="n">retval</span> <span class="o">=</span> <span class="n">sysfs_create_group</span><span class="p">(</span><span class="n">echo_kobj</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">attr_group</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">	<span class="k">if</span> <span class="p">(</span><span class="n">retval</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="n">printk</span><span class="p">(</span><span class="n">KERN_ERR</span> <span class="s">&#34;echo: Cannot register sysfs attribute group</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">		<span class="n">kfree</span><span class="p">(</span><span class="n">echo_buf</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">		<span class="n">kobject_put</span><span class="p">(</span><span class="n">echo_kobj</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">static</span> <span class="kt">void</span> <span class="n">__exit</span> <span class="nf">echo_exit</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="c1">// Deallocate buffer
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="n">kfree</span><span class="p">(</span><span class="n">echo_buf</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">	<span class="c1">// Remove kobject
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="n">kobject_put</span><span class="p">(</span><span class="n">echo_kobj</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">module_init</span><span class="p">(</span><span class="n">echo_init</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="n">module_exit</span><span class="p">(</span><span class="n">echo_exit</span><span class="p">);</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h3 id="testing-echo">Testing echo</h3>
 <ul>
@@ -498,11 +498,11 @@ For instance, If we use <em>kernel_kobj</em>, defined in the header file, as the
 </span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">  make
-  sudo insmod echo.ko
-  ls /sys/kernel/echo/echo
-  <span class="c1">#.rw-r--r-- 4.1k root 28 Nov 22:34 /sys/kernel/echo/echo</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">  make
+</span></span><span class="line"><span class="cl">  sudo insmod echo.ko
+</span></span><span class="line"><span class="cl">  ls /sys/kernel/echo/echo
+</span></span><span class="line"><span class="cl">  <span class="c1">#.rw-r--r-- 4.1k root 28 Nov 22:34 /sys/kernel/echo/echo</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div></li>
 <li>
@@ -512,8 +512,8 @@ For instance, If we use <em>kernel_kobj</em>, defined in the header file, as the
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">  <span class="nb">echo</span> <span class="s2">&#34;Good Morning!&#34;</span> <span class="p">|</span> sudo tee /sys/kernel/echo/echo
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">  <span class="nb">echo</span> <span class="s2">&#34;Good Morning!&#34;</span> <span class="p">|</span> sudo tee /sys/kernel/echo/echo
+</span></span></code></pre></td></tr></table>
 </div>
 </div></li>
 <li>
@@ -524,9 +524,9 @@ For instance, If we use <em>kernel_kobj</em>, defined in the header file, as the
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">  cat /sys/kernel/echo/echo
-  <span class="c1"># Good Morning!</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">  cat /sys/kernel/echo/echo
+</span></span><span class="line"><span class="cl">  <span class="c1"># Good Morning!</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div></li>
 <li>
@@ -536,8 +536,8 @@ For instance, If we use <em>kernel_kobj</em>, defined in the header file, as the
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">  sudo rmmod <span class="nb">echo</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">  sudo rmmod <span class="nb">echo</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div></li>
 </ul>
@@ -641,7 +641,7 @@ In that post, he describes how race conditions can happen with sysfs files and h
 
 
 
-<script type="text/javascript" src="/js/main.min.c99b103c33d1539acf3025e1913697534542c4a5aa5af0ccc20475ed2863603b.js"></script>
+<script type="text/javascript" src="/js/main.min.4ae89da218555efa0e7093a20b92017d2e1202b66fff9fc2edf4cb8d44b44c6e.js"></script>
 
 
 

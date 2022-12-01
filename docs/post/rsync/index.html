@@ -24,7 +24,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.91.2 with theme even" />
+<meta name="generator" content="Hugo 0.105.0 with theme even" />
 
 
 <link rel="canonical" href="https://nihaal.me/post/rsync/" />
@@ -214,8 +214,8 @@ The general format of the command is shown below.</p>
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">rsync <span class="o">[</span>options<span class="o">]</span> /path/to/source/folder /path/to/backup/folder
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">rsync <span class="o">[</span>options<span class="o">]</span> /path/to/source/folder /path/to/backup/folder
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="when-to-use-rsync">When to use RSync</h2>
 <p>RSync tries to transfer only the difference between the current file and the file in the backup folder.
@@ -327,11 +327,11 @@ and data (/home) to the backup folder.</p>
 </span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">sudo rsync -aAXv <span class="se">\
-</span><span class="se"></span>--exclude<span class="o">={</span><span class="s2">&#34;/dev/*&#34;</span>,<span class="s2">&#34;/proc/*&#34;</span>,<span class="s2">&#34;/sys/*&#34;</span>,<span class="s2">&#34;/tmp/*&#34;</span>,<span class="se">\
-</span><span class="se"></span>           <span class="s2">&#34;/run/*&#34;</span>,<span class="s2">&#34;/mnt/*&#34;</span>,<span class="s2">&#34;/media/*&#34;</span>,<span class="s2">&#34;/lost+found&#34;</span><span class="o">}</span> <span class="se">\
-</span><span class="se"></span>/ /path/to/backup/folder
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo rsync -aAXv <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>--exclude<span class="o">={</span><span class="s2">&#34;/dev/*&#34;</span>,<span class="s2">&#34;/proc/*&#34;</span>,<span class="s2">&#34;/sys/*&#34;</span>,<span class="s2">&#34;/tmp/*&#34;</span>,<span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>           <span class="s2">&#34;/run/*&#34;</span>,<span class="s2">&#34;/mnt/*&#34;</span>,<span class="s2">&#34;/media/*&#34;</span>,<span class="s2">&#34;/lost+found&#34;</span><span class="o">}</span> <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>/ /path/to/backup/folder
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>We exclude files in mounted partitions (/mnt/*), directories populated at runtime (/proc/*,/sys/*) and filesystem specific folders like lost+found.
 The -A option syncs the Access Control Lists of the files and -X option syncs the extended attributes of the files.</p>
@@ -342,8 +342,8 @@ The -A option syncs the Access Control Lists of the files and -X option syncs th
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">rsync -ave ssh /path/to/source/folder user@remote:~/backup/folder
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">rsync -ave ssh /path/to/source/folder user@remote:~/backup/folder
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h3 id="incremental-backup">Incremental backup</h3>
 <p>When used with the <em>-</em>-delete option, we can make the backup folder to be an exact replica of the source folder.</p>
@@ -352,8 +352,8 @@ The -A option syncs the Access Control Lists of the files and -X option syncs th
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">rsync -arvhP --delete /path/to/source/folder /path/to/backup/folder
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">rsync -arvhP --delete /path/to/source/folder /path/to/backup/folder
+</span></span></code></pre></td></tr></table>
 </div>
 </div>
     </div>
@@ -441,7 +441,7 @@ The -A option syncs the Access Control Lists of the files and -X option syncs th
 
 
 
-<script type="text/javascript" src="/js/main.min.c99b103c33d1539acf3025e1913697534542c4a5aa5af0ccc20475ed2863603b.js"></script>
+<script type="text/javascript" src="/js/main.min.4ae89da218555efa0e7093a20b92017d2e1202b66fff9fc2edf4cb8d44b44c6e.js"></script>
 
 
 

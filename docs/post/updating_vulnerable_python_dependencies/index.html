@@ -17,15 +17,16 @@
 
 
 <meta name="author" content="Abdun Nihaal" /><meta name="description" content="Finding vulnerable dependencies Safety-db is a database that keeps track of vulnerable python packages and version information. It is updated once a month. They also provide a tool called safety, that checks if the installed packages or packages in requirements.txt are identified as vulnerable using the safety-db.
-  Install safety
-1  pip install safety     Use safety to check all packages in the current virtual enviroment" />
+Install safety
+1 pip install safety Use safety to check all packages in the current virtual enviroment
+1 safety check Use safety to only check the dependencies listed in requirements." />
 
 
 
 
 
 
-<meta name="generator" content="Hugo 0.91.2 with theme even" />
+<meta name="generator" content="Hugo 0.105.0 with theme even" />
 
 
 <link rel="canonical" href="https://nihaal.me/post/updating_vulnerable_python_dependencies/" />
@@ -43,8 +44,9 @@
 
 <meta property="og:title" content="Updating vulnerable Python dependencies" />
 <meta property="og:description" content="Finding vulnerable dependencies Safety-db is a database that keeps track of vulnerable python packages and version information. It is updated once a month. They also provide a tool called safety, that checks if the installed packages or packages in requirements.txt are identified as vulnerable using the safety-db.
-  Install safety
-1  pip install safety     Use safety to check all packages in the current virtual enviroment" />
+Install safety
+1 pip install safety Use safety to check all packages in the current virtual enviroment
+1 safety check Use safety to only check the dependencies listed in requirements." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://nihaal.me/post/updating_vulnerable_python_dependencies/" /><meta property="article:section" content="post" />
 <meta property="article:published_time" content="2021-10-18T00:00:00+00:00" />
@@ -52,15 +54,17 @@
 
 <meta itemprop="name" content="Updating vulnerable Python dependencies">
 <meta itemprop="description" content="Finding vulnerable dependencies Safety-db is a database that keeps track of vulnerable python packages and version information. It is updated once a month. They also provide a tool called safety, that checks if the installed packages or packages in requirements.txt are identified as vulnerable using the safety-db.
-  Install safety
-1  pip install safety     Use safety to check all packages in the current virtual enviroment"><meta itemprop="datePublished" content="2021-10-18T00:00:00+00:00" />
+Install safety
+1 pip install safety Use safety to check all packages in the current virtual enviroment
+1 safety check Use safety to only check the dependencies listed in requirements."><meta itemprop="datePublished" content="2021-10-18T00:00:00+00:00" />
 <meta itemprop="dateModified" content="2021-10-18T00:00:00+00:00" />
 <meta itemprop="wordCount" content="389">
 <meta itemprop="keywords" content="python," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Updating vulnerable Python dependencies"/>
 <meta name="twitter:description" content="Finding vulnerable dependencies Safety-db is a database that keeps track of vulnerable python packages and version information. It is updated once a month. They also provide a tool called safety, that checks if the installed packages or packages in requirements.txt are identified as vulnerable using the safety-db.
-  Install safety
-1  pip install safety     Use safety to check all packages in the current virtual enviroment"/>
+Install safety
+1 pip install safety Use safety to check all packages in the current virtual enviroment
+1 safety check Use safety to only check the dependencies listed in requirements."/>
 
 <!--[if lte IE 9]>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
@@ -170,8 +174,8 @@ are identified as vulnerable using the safety-db.</p>
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">pip install safety
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">pip install safety
+</span></span></code></pre></td></tr></table>
 </div>
 </div></li>
 <li>
@@ -181,8 +185,8 @@ are identified as vulnerable using the safety-db.</p>
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">safety check
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">safety check
+</span></span></code></pre></td></tr></table>
 </div>
 </div></li>
 <li>
@@ -192,8 +196,8 @@ are identified as vulnerable using the safety-db.</p>
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">safety check -r requirements.txt
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">safety check -r requirements.txt
+</span></span></code></pre></td></tr></table>
 </div>
 </div></li>
 </ul>
@@ -226,31 +230,31 @@ are identified as vulnerable using the safety-db.</p>
 </span><span class="lnt">24
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-txt" data-lang="txt">+==============================================================================+
-|                                                                              |
-|                               /$$$$$$            /$$                         |
-|                              /$$__  $$          | $$                         |
-|           /$$$$$$$  /$$$$$$ | $$  \__//$$$$$$  /$$$$$$   /$$   /$$           |
-|          /$$_____/ |____  $$| $$$$   /$$__  $$|_  $$_/  | $$  | $$           |
-|         |  $$$$$$   /$$$$$$$| $$_/  | $$$$$$$$  | $$    | $$  | $$           |
-|          \____  $$ /$$__  $$| $$    | $$_____/  | $$ /$$| $$  | $$           |
-|          /$$$$$$$/|  $$$$$$$| $$    |  $$$$$$$  |  $$$$/|  $$$$$$$           |
-|         |_______/  \_______/|__/     \_______/   \___/   \____  $$           |
-|                                                          /$$  | $$           |
-|                                                         |  $$$$$$/           |
-|  by pyup.io                                              \______/            |
-|                                                                              |
-+==============================================================================+
-| REPORT                                                                       |
-| checked 63 packages, using free DB (updated once a month)                    |
-+============================+===========+==========================+==========+
-| package                    | installed | affected                 | ID       |
-+============================+===========+==========================+==========+
-| pillow                     | 8.3.1     | &gt;=5.2.0,&lt;8.3.2           | 41271    |
-| pillow                     | 8.3.1     | &gt;=7.1.0,&lt;8.3.2           | 41277    |
-| pip                        | 20.3.4    | &lt;21.1                    | 40291    |
-+==============================================================================+
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-txt" data-lang="txt"><span class="line"><span class="cl">+==============================================================================+
+</span></span><span class="line"><span class="cl">|                                                                              |
+</span></span><span class="line"><span class="cl">|                               /$$$$$$            /$$                         |
+</span></span><span class="line"><span class="cl">|                              /$$__  $$          | $$                         |
+</span></span><span class="line"><span class="cl">|           /$$$$$$$  /$$$$$$ | $$  \__//$$$$$$  /$$$$$$   /$$   /$$           |
+</span></span><span class="line"><span class="cl">|          /$$_____/ |____  $$| $$$$   /$$__  $$|_  $$_/  | $$  | $$           |
+</span></span><span class="line"><span class="cl">|         |  $$$$$$   /$$$$$$$| $$_/  | $$$$$$$$  | $$    | $$  | $$           |
+</span></span><span class="line"><span class="cl">|          \____  $$ /$$__  $$| $$    | $$_____/  | $$ /$$| $$  | $$           |
+</span></span><span class="line"><span class="cl">|          /$$$$$$$/|  $$$$$$$| $$    |  $$$$$$$  |  $$$$/|  $$$$$$$           |
+</span></span><span class="line"><span class="cl">|         |_______/  \_______/|__/     \_______/   \___/   \____  $$           |
+</span></span><span class="line"><span class="cl">|                                                          /$$  | $$           |
+</span></span><span class="line"><span class="cl">|                                                         |  $$$$$$/           |
+</span></span><span class="line"><span class="cl">|  by pyup.io                                              \______/            |
+</span></span><span class="line"><span class="cl">|                                                                              |
+</span></span><span class="line"><span class="cl">+==============================================================================+
+</span></span><span class="line"><span class="cl">| REPORT                                                                       |
+</span></span><span class="line"><span class="cl">| checked 63 packages, using free DB (updated once a month)                    |
+</span></span><span class="line"><span class="cl">+============================+===========+==========================+==========+
+</span></span><span class="line"><span class="cl">| package                    | installed | affected                 | ID       |
+</span></span><span class="line"><span class="cl">+============================+===========+==========================+==========+
+</span></span><span class="line"><span class="cl">| pillow                     | 8.3.1     | &gt;=5.2.0,&lt;8.3.2           | 41271    |
+</span></span><span class="line"><span class="cl">| pillow                     | 8.3.1     | &gt;=7.1.0,&lt;8.3.2           | 41277    |
+</span></span><span class="line"><span class="cl">| pip                        | 20.3.4    | &lt;21.1                    | 40291    |
+</span></span><span class="line"><span class="cl">+==============================================================================+
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="updating-dependencies">Updating dependencies</h2>
 <p>To update the dependencies we can use the pip-upgrade tool.
@@ -263,8 +267,8 @@ pip-upgrade updates the dependency package to the latest version and also update
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">pip install pip-upgrader
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">pip install pip-upgrader
+</span></span></code></pre></td></tr></table>
 </div>
 </div></li>
 <li>
@@ -274,8 +278,8 @@ pip-upgrade updates the dependency package to the latest version and also update
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">pip-upgrade requirements.txt
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">pip-upgrade requirements.txt
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>If the requirements.txt file is not provided, it expects to find it in the current directory.</p>
 </li>
@@ -286,8 +290,8 @@ pip-upgrade updates the dependency package to the latest version and also update
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">pip-upgrade requirements.txt -p pillow
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">pip-upgrade requirements.txt -p pillow
+</span></span></code></pre></td></tr></table>
 </div>
 </div></li>
 </ul>
@@ -388,7 +392,7 @@ So when updating dependencies, It is always a good idea to check if the applicat
 
 
 
-<script type="text/javascript" src="/js/main.min.c99b103c33d1539acf3025e1913697534542c4a5aa5af0ccc20475ed2863603b.js"></script>
+<script type="text/javascript" src="/js/main.min.4ae89da218555efa0e7093a20b92017d2e1202b66fff9fc2edf4cb8d44b44c6e.js"></script>
 
 
 

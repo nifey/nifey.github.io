@@ -24,7 +24,7 @@ Python Package Index (PyPI) is an index and repository of Python packages." />
 
 
 
-<meta name="generator" content="Hugo 0.91.2 with theme even" />
+<meta name="generator" content="Hugo 0.105.0 with theme even" />
 
 
 <link rel="canonical" href="https://nihaal.me/post/publish_to_pypi/" />
@@ -194,8 +194,8 @@ You can always add more functionality in later releases.</p>
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">  include LICENSE
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">  include LICENSE
+</span></span></code></pre></td></tr></table>
 </div>
 </div></li>
 <li>
@@ -235,34 +235,34 @@ It uses the contents of README.md as the <em>long_description</em> and the conte
 </span><span class="lnt">27
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python">  <span class="kn">from</span> <span class="nn">setuptools</span> <span class="kn">import</span> <span class="n">setup</span><span class="p">,</span> <span class="n">find_packages</span>
-
-  <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&#34;README.md&#34;</span><span class="p">,</span> <span class="s2">&#34;r&#34;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">&#34;utf-8&#34;</span><span class="p">)</span> <span class="k">as</span> <span class="n">fh</span><span class="p">:</span>
-      <span class="n">long_description</span> <span class="o">=</span> <span class="n">fh</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
-  <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&#34;requirements.txt&#34;</span><span class="p">,</span> <span class="s2">&#34;r&#34;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">&#34;utf-8&#34;</span><span class="p">)</span> <span class="k">as</span> <span class="n">fh</span><span class="p">:</span>
-      <span class="n">requirements</span> <span class="o">=</span> <span class="n">fh</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
-
-  <span class="n">setup</span><span class="p">(</span>
-      <span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;&lt;package_name&gt;&#39;</span><span class="p">,</span>
-      <span class="n">version</span> <span class="o">=</span> <span class="s1">&#39;0.0.1&#39;</span><span class="p">,</span>
-      <span class="n">author</span><span class="o">=</span><span class="s1">&#39;&lt;author name&gt;&#39;</span><span class="p">,</span>
-      <span class="n">author_email</span><span class="o">=</span><span class="s1">&#39;&lt;author email&gt;&#39;</span><span class="p">,</span>
-      <span class="n">license</span> <span class="o">=</span> <span class="s1">&#39;&lt;license&gt;&#39;</span><span class="p">,</span>
-      <span class="n">description</span> <span class="o">=</span> <span class="s1">&#39;&lt;short description&gt;&#39;</span><span class="p">,</span>
-      <span class="n">long_description</span> <span class="o">=</span> <span class="n">long_description</span><span class="p">,</span>
-      <span class="n">long_description_content_type</span> <span class="o">=</span> <span class="s2">&#34;text/markdown&#34;</span><span class="p">,</span>
-      <span class="n">url</span> <span class="o">=</span> <span class="s1">&#39;&lt;link to package repository&gt;&#39;</span><span class="p">,</span>
-      <span class="n">project_urls</span><span class="o">=</span><span class="p">{</span>
-          <span class="s2">&#34;Bug Tracker&#34;</span><span class="p">:</span> <span class="s2">&#34;&lt;bug tracker page&gt;&#34;</span><span class="p">,</span>
-      <span class="p">},</span>
-      <span class="n">classifiers</span><span class="o">=</span><span class="p">[</span>
-          <span class="s2">&#34;Programming Language :: Python :: 3&#34;</span><span class="p">,</span>
-          <span class="s2">&#34;&lt;Other classifiers&gt;&#34;</span><span class="p">,</span>
-      <span class="p">],</span>
-      <span class="n">packages</span> <span class="o">=</span> <span class="n">find_packages</span><span class="p">(),</span>
-      <span class="n">install_requires</span> <span class="o">=</span> <span class="p">[</span><span class="n">requirements</span><span class="p">],</span>
-  <span class="p">)</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl">  <span class="kn">from</span> <span class="nn">setuptools</span> <span class="kn">import</span> <span class="n">setup</span><span class="p">,</span> <span class="n">find_packages</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&#34;README.md&#34;</span><span class="p">,</span> <span class="s2">&#34;r&#34;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">&#34;utf-8&#34;</span><span class="p">)</span> <span class="k">as</span> <span class="n">fh</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">      <span class="n">long_description</span> <span class="o">=</span> <span class="n">fh</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">  <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&#34;requirements.txt&#34;</span><span class="p">,</span> <span class="s2">&#34;r&#34;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">&#34;utf-8&#34;</span><span class="p">)</span> <span class="k">as</span> <span class="n">fh</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">      <span class="n">requirements</span> <span class="o">=</span> <span class="n">fh</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="n">setup</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">      <span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;&lt;package_name&gt;&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="n">version</span> <span class="o">=</span> <span class="s1">&#39;0.0.1&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="n">author</span><span class="o">=</span><span class="s1">&#39;&lt;author name&gt;&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="n">author_email</span><span class="o">=</span><span class="s1">&#39;&lt;author email&gt;&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="n">license</span> <span class="o">=</span> <span class="s1">&#39;&lt;license&gt;&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="n">description</span> <span class="o">=</span> <span class="s1">&#39;&lt;short description&gt;&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="n">long_description</span> <span class="o">=</span> <span class="n">long_description</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="n">long_description_content_type</span> <span class="o">=</span> <span class="s2">&#34;text/markdown&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="n">url</span> <span class="o">=</span> <span class="s1">&#39;&lt;link to package repository&gt;&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="n">project_urls</span><span class="o">=</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">          <span class="s2">&#34;Bug Tracker&#34;</span><span class="p">:</span> <span class="s2">&#34;&lt;bug tracker page&gt;&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="p">},</span>
+</span></span><span class="line"><span class="cl">      <span class="n">classifiers</span><span class="o">=</span><span class="p">[</span>
+</span></span><span class="line"><span class="cl">          <span class="s2">&#34;Programming Language :: Python :: 3&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">          <span class="s2">&#34;&lt;Other classifiers&gt;&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="p">],</span>
+</span></span><span class="line"><span class="cl">      <span class="n">packages</span> <span class="o">=</span> <span class="n">find_packages</span><span class="p">(),</span>
+</span></span><span class="line"><span class="cl">      <span class="n">install_requires</span> <span class="o">=</span> <span class="p">[</span><span class="n">requirements</span><span class="p">],</span>
+</span></span><span class="line"><span class="cl">  <span class="p">)</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><ul>
 <li>Classifiers make it easy for people to search on PyPI.
@@ -285,8 +285,8 @@ In the case of Source distribution, the source code of our package is downloaded
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">python setup.py sdist bdist_wheel
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">python setup.py sdist bdist_wheel
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>This will generate package files under <em>dist</em> directory.</p>
 <div class="highlight"><div class="chroma">
@@ -296,10 +296,10 @@ In the case of Source distribution, the source code of our package is downloaded
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">ls dist
-<span class="c1"># package-0.0.1-py3-none-any.whl</span>
-<span class="c1"># package-0.0.1.tar.gz</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">ls dist
+</span></span><span class="line"><span class="cl"><span class="c1"># package-0.0.1-py3-none-any.whl</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># package-0.0.1.tar.gz</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h3 id="3-dot-upload-to-pypi">3. Upload to PyPI</h3>
 <ul>
@@ -316,8 +316,8 @@ It can be installed using pip.</p>
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">  pip install twine
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">  pip install twine
+</span></span></code></pre></td></tr></table>
 </div>
 </div></li>
 <li>
@@ -328,8 +328,8 @@ It can be installed using pip.</p>
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">  twine check dist/*
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">  twine check dist/*
+</span></span></code></pre></td></tr></table>
 </div>
 </div></li>
 <li>
@@ -342,8 +342,8 @@ It will prompt for name, email, etc and create a GPG key.</p>
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">  gpg --full-generate-key
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">  gpg --full-generate-key
+</span></span></code></pre></td></tr></table>
 </div>
 </div></li>
 <li>
@@ -357,8 +357,8 @@ This allows us to see how it would look like on the PyPI site without affecting 
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">  twine upload -r testpypi dist/*
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">  twine upload -r testpypi dist/*
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>The -r flag specifies the repository to upload to, which is PyPI by default.</p>
 </li>
@@ -369,8 +369,8 @@ This allows us to see how it would look like on the PyPI site without affecting 
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">  twine upload dist/*
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">  twine upload dist/*
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>The above command will prompt for your PyPI username and password, and then upload the package files under <em>dist</em> directory to PyPI.</p>
 </li>
@@ -393,14 +393,14 @@ This allows us to see how it would look like on the PyPI site without affecting 
 </span><span class="lnt">7
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">   pip install bump
-   <span class="c1"># To change 1.2.3 to 2.0.0</span>
-   bump --major --reset
-   <span class="c1"># To change 1.2.3 to 1.3.0</span>
-   bump --minor --reset
-   <span class="c1"># To change 1.2.3 to 1.2.4</span>
-   bump --patch
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">   pip install bump
+</span></span><span class="line"><span class="cl">   <span class="c1"># To change 1.2.3 to 2.0.0</span>
+</span></span><span class="line"><span class="cl">   bump --major --reset
+</span></span><span class="line"><span class="cl">   <span class="c1"># To change 1.2.3 to 1.3.0</span>
+</span></span><span class="line"><span class="cl">   bump --minor --reset
+</span></span><span class="line"><span class="cl">   <span class="c1"># To change 1.2.3 to 1.2.4</span>
+</span></span><span class="line"><span class="cl">   bump --patch
+</span></span></code></pre></td></tr></table>
 </div>
 </div></li>
 <li>
@@ -411,9 +411,9 @@ This allows us to see how it would look like on the PyPI site without affecting 
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">   rm dist/*
-   python setup.py sdist bdist_wheel
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">   rm dist/*
+</span></span><span class="line"><span class="cl">   python setup.py sdist bdist_wheel
+</span></span></code></pre></td></tr></table>
 </div>
 </div></li>
 <li>
@@ -424,9 +424,9 @@ This allows us to see how it would look like on the PyPI site without affecting 
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">   twine check dist/*
-   twine upload dist/*
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">   twine check dist/*
+</span></span><span class="line"><span class="cl">   twine upload dist/*
+</span></span></code></pre></td></tr></table>
 </div>
 </div></li>
 <li>
@@ -442,13 +442,13 @@ This allows us to see how it would look like on the PyPI site without affecting 
 </span><span class="lnt">6
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">   git tag -am <span class="s2">&#34;Release version 0.0.1&#34;</span> v0.0.1
-   <span class="c1"># Or if you prefer writing the tag message in your editor</span>
-   git tag -a v0.0.1
-
-   <span class="c1"># Push tags to remote</span>
-   git push --tags
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">   git tag -am <span class="s2">&#34;Release version 0.0.1&#34;</span> v0.0.1
+</span></span><span class="line"><span class="cl">   <span class="c1"># Or if you prefer writing the tag message in your editor</span>
+</span></span><span class="line"><span class="cl">   git tag -a v0.0.1
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">   <span class="c1"># Push tags to remote</span>
+</span></span><span class="line"><span class="cl">   git push --tags
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>When creating a new release, it is good practice to summarize the changes between the old version and the new version in the tag message.</p>
 </li>
@@ -547,7 +547,7 @@ This allows us to see how it would look like on the PyPI site without affecting 
 
 
 
-<script type="text/javascript" src="/js/main.min.c99b103c33d1539acf3025e1913697534542c4a5aa5af0ccc20475ed2863603b.js"></script>
+<script type="text/javascript" src="/js/main.min.4ae89da218555efa0e7093a20b92017d2e1202b66fff9fc2edf4cb8d44b44c6e.js"></script>
 
 
 

@@ -26,7 +26,7 @@ Loadable kernel modules Linux kernel allows us to load modules to the kernel whi
 
 
 
-<meta name="generator" content="Hugo 0.91.2 with theme even" />
+<meta name="generator" content="Hugo 0.105.0 with theme even" />
 
 
 <link rel="canonical" href="https://nihaal.me/post/ec5/" />
@@ -198,8 +198,8 @@ We can view the stream of uevent messages using udevadm:</p>
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh">$ sudo udevadm monitor --kernel
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">$ sudo udevadm monitor --kernel
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>udevd processes these uevent messages and is responsible for</p>
 <ul>
@@ -216,8 +216,8 @@ For example, the alias of my USB keyboard is usb:v03F0p0324d0104dc00dsc00dp00ic0
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">$ modprobe usb:v03F0p0324d0104dc00dsc00dp00ic03isc01ip01in00
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ modprobe usb:v03F0p0324d0104dc00dsc00dp00ic03isc01ip01in00
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h3 id="2-dot-modprobe">2. modprobe</h3>
 <p>Modprobe is a userspace utility used for loading kernel modules.
@@ -243,18 +243,18 @@ During compilation, the module device table of each driver is encoded as a modal
 </span><span class="lnt">11
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh">$ modinfo usbhid <span class="p">|</span> head
-filename:       /lib/modules/5.14.2-arch1-2/kernel/drivers/hid/usbhid/usbhid.ko.zst
-license:        GPL
-description:    USB HID core driver
-author:         Jiri Kosina
-author:         Vojtech Pavlik
-author:         Andreas Gal
-srcversion:     538A7DD58A0E86450F80FB8
-<span class="hl">alias:          usb:v*p*d*dc*dsc*dp*ic03isc*ip*in*
-</span>depends:
-retpoline:      Y
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">$ modinfo usbhid <span class="p">|</span> head
+</span></span><span class="line"><span class="cl">filename:       /lib/modules/5.14.2-arch1-2/kernel/drivers/hid/usbhid/usbhid.ko.zst
+</span></span><span class="line"><span class="cl">license:        GPL
+</span></span><span class="line"><span class="cl">description:    USB HID core driver
+</span></span><span class="line"><span class="cl">author:         Jiri Kosina
+</span></span><span class="line"><span class="cl">author:         Vojtech Pavlik
+</span></span><span class="line"><span class="cl">author:         Andreas Gal
+</span></span><span class="line"><span class="cl">srcversion:     538A7DD58A0E86450F80FB8
+</span></span><span class="line hl"><span class="cl">alias:          usb:v*p*d*dc*dsc*dp*ic03isc*ip*in*
+</span></span><span class="line"><span class="cl">depends:
+</span></span><span class="line"><span class="cl">retpoline:      Y
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>The modalias of every module is present in the module.alias and module.builtin.alias files
 present in  /lib/modules/`uname -r`.</p>
@@ -268,13 +268,13 @@ present in  /lib/modules/`uname -r`.</p>
 </span><span class="lnt">6
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh">$ cat /lib/modules/<span class="sb">`</span>uname -r<span class="sb">`</span>/modules.alias <span class="p">|</span> grep -C <span class="m">2</span> usbhid
-<span class="nb">alias</span> platform:HID-SENSOR-2000e2 hid_sensor_custom
-<span class="nb">alias</span> platform:HID-SENSOR-2000e1 hid_sensor_custom
-<span class="hl"><span class="nb">alias</span> usb:v*p*d*dc*dsc*dp*ic03isc*ip*in* usbhid
-</span><span class="nb">alias</span> acpi*:PNP0C50:* i2c_hid_acpi
-<span class="nb">alias</span> acpi*:ACPI0C50:* i2c_hid_acpi
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">$ cat /lib/modules/<span class="sb">`</span>uname -r<span class="sb">`</span>/modules.alias <span class="p">|</span> grep -C <span class="m">2</span> usbhid
+</span></span><span class="line"><span class="cl"><span class="nb">alias</span> platform:HID-SENSOR-2000e2 hid_sensor_custom
+</span></span><span class="line"><span class="cl"><span class="nb">alias</span> platform:HID-SENSOR-2000e1 hid_sensor_custom
+</span></span><span class="line hl"><span class="cl"><span class="nb">alias</span> usb:v*p*d*dc*dsc*dp*ic03isc*ip*in* usbhid
+</span></span><span class="line"><span class="cl"><span class="nb">alias</span> acpi*:PNP0C50:* i2c_hid_acpi
+</span></span><span class="line"><span class="cl"><span class="nb">alias</span> acpi*:ACPI0C50:* i2c_hid_acpi
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>So now all modprobe has to do to load the correct modules is to go through the module.alias file
 and load modules with a modalias that matches the modalias passed by udevd.</p>
@@ -285,9 +285,9 @@ and load modules with a modalias that matches the modalias passed by udevd.</p>
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">$ modprobe -R usb:v03F0p0324d0104dc00dsc00dp00ic03isc01ip01in00
-usbhid
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ modprobe -R usb:v03F0p0324d0104dc00dsc00dp00ic03isc01ip01in00
+</span></span><span class="line"><span class="cl">usbhid
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="difference-between-modprobe-and-insmod">Difference between modprobe and insmod</h2>
 <p><strong>modprobe</strong> and <strong>insmod</strong> are the two userspace utilities used to load kernel modules.
@@ -329,9 +329,9 @@ The driver that handles USB keyboards is <strong>usbhid</strong> (hid stands for
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh">$ udevadm info -n /dev/input/by-id/usb-your-keyboard-name <span class="p">|</span> grep -i driver
-E: <span class="nv">ID_USB_DRIVER</span><span class="o">=</span>usbhid
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">$ udevadm info -n /dev/input/by-id/usb-your-keyboard-name <span class="p">|</span> grep -i driver
+</span></span><span class="line"><span class="cl">E: <span class="nv">ID_USB_DRIVER</span><span class="o">=</span>usbhid
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>Usually, for every module, we can find a directory or C file with the module name in the kernel source.
 The source code of usbhid module is present under drivers/hid/usbhid.
@@ -349,13 +349,13 @@ We can find the device table entry for USB keyboards in that file.</p>
 </span><span class="lnt">6
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="k">static</span> <span class="k">const</span> <span class="k">struct</span> <span class="n">usb_device_id</span> <span class="n">hello_id_table</span><span class="p">[]</span> <span class="o">=</span> <span class="p">{</span>
-  <span class="p">{</span> <span class="n">USB_INTERFACE_INFO</span><span class="p">(</span><span class="n">USB_INTERFACE_CLASS_HID</span><span class="p">,</span> <span class="n">USB_INTERFACE_SUBCLASS_BOOT</span><span class="p">,</span>
-                       <span class="n">USB_INTERFACE_PROTOCOL_KEYBOARD</span><span class="p">)</span> <span class="p">},</span>
-  <span class="p">{</span> <span class="p">}</span>						<span class="cm">/* Terminating entry */</span>
-<span class="p">};</span>
-<span class="n">MODULE_DEVICE_TABLE</span><span class="p">(</span><span class="n">usb</span><span class="p">,</span> <span class="n">hello_id_table</span><span class="p">);</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="k">static</span> <span class="k">const</span> <span class="k">struct</span> <span class="n">usb_device_id</span> <span class="n">hello_id_table</span><span class="p">[]</span> <span class="o">=</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="p">{</span> <span class="n">USB_INTERFACE_INFO</span><span class="p">(</span><span class="n">USB_INTERFACE_CLASS_HID</span><span class="p">,</span> <span class="n">USB_INTERFACE_SUBCLASS_BOOT</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                       <span class="n">USB_INTERFACE_PROTOCOL_KEYBOARD</span><span class="p">)</span> <span class="p">},</span>
+</span></span><span class="line"><span class="cl">  <span class="p">{</span> <span class="p">}</span>						<span class="cm">/* Terminating entry */</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl"><span class="n">MODULE_DEVICE_TABLE</span><span class="p">(</span><span class="n">usb</span><span class="p">,</span> <span class="n">hello_id_table</span><span class="p">);</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>I compiled the hello world module after adding the above snippet.
 After compilation, running modinfo shows us an alias entry.</p>
@@ -375,19 +375,19 @@ After compilation, running modinfo shows us an alias entry.</p>
 </span><span class="lnt">12
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh">$ modinfo hello.ko
-filename:       /home/nihaal/lk/hello.ko
-version:        1.0
-description:    Hello world kernel module that loads automatically when USB keyboard is plugged in
-author:         Abdun Nihaal
-license:        GPL
-srcversion:     2D34CB10D98468A6F260278
-<span class="hl">alias:          usb:v*p*d*dc*dsc*dp*ic03isc01ip01in*
-</span>depends:
-retpoline:      Y
-name:           hello
-vermagic:       5.14.2-arch1-2 SMP preempt mod_unload
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">$ modinfo hello.ko
+</span></span><span class="line"><span class="cl">filename:       /home/nihaal/lk/hello.ko
+</span></span><span class="line"><span class="cl">version:        1.0
+</span></span><span class="line"><span class="cl">description:    Hello world kernel module that loads automatically when USB keyboard is plugged in
+</span></span><span class="line"><span class="cl">author:         Abdun Nihaal
+</span></span><span class="line"><span class="cl">license:        GPL
+</span></span><span class="line"><span class="cl">srcversion:     2D34CB10D98468A6F260278
+</span></span><span class="line hl"><span class="cl">alias:          usb:v*p*d*dc*dsc*dp*ic03isc01ip01in*
+</span></span><span class="line"><span class="cl">depends:
+</span></span><span class="line"><span class="cl">retpoline:      Y
+</span></span><span class="line"><span class="cl">name:           hello
+</span></span><span class="line"><span class="cl">vermagic:       5.14.2-arch1-2 SMP preempt mod_unload
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h3 id="2-dot-make-modprobe-detect-the-new-driver">2. Make modprobe detect the new driver</h3>
 <p>To make modprobe detect our module, we have to copy the module (.ko file) into the default module
@@ -400,9 +400,9 @@ the module.alias file.</p>
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">sudo cp hello.ko /lib/modules/<span class="sb">`</span>uname -r<span class="sb">`</span>/
-depmod -A
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo cp hello.ko /lib/modules/<span class="sb">`</span>uname -r<span class="sb">`</span>/
+</span></span><span class="line"><span class="cl">depmod -A
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>Now modprobe will be able to load our module and will load it automatically when a USB keyboard is plugged in.</p>
 <h2 id="references">References</h2>
@@ -499,7 +499,7 @@ depmod -A
 
 
 
-<script type="text/javascript" src="/js/main.min.c99b103c33d1539acf3025e1913697534542c4a5aa5af0ccc20475ed2863603b.js"></script>
+<script type="text/javascript" src="/js/main.min.4ae89da218555efa0e7093a20b92017d2e1202b66fff9fc2edf4cb8d44b44c6e.js"></script>
 
 
 

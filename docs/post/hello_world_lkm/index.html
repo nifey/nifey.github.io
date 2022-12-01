@@ -24,7 +24,7 @@ The advantage of using kernel modules is that it can be loaded to and unloaded f
 
 
 
-<meta name="generator" content="Hugo 0.91.2 with theme even" />
+<meta name="generator" content="Hugo 0.105.0 with theme even" />
 
 
 <link rel="canonical" href="https://nihaal.me/post/hello_world_lkm/" />
@@ -52,7 +52,7 @@ The advantage of using kernel modules is that it can be loaded to and unloaded f
 <meta itemprop="description" content="A Loadable Kernel Module (LKM) is a piece of code that can be loaded to a running kernel to add additional functionality to the kernel. The code that runs as a kernel module will be executed with kernel privileges. Most operating system kernels support kernel modules.
 The advantage of using kernel modules is that it can be loaded to and unloaded from the kernel without the need to recompile or reboot the kernel."><meta itemprop="datePublished" content="2020-01-31T10:42:00+05:30" />
 <meta itemprop="dateModified" content="2020-01-31T10:42:00+05:30" />
-<meta itemprop="wordCount" content="795">
+<meta itemprop="wordCount" content="797">
 <meta itemprop="keywords" content="linux,kernel," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Hello world Linux Kernel Module"/>
 <meta name="twitter:description" content="A Loadable Kernel Module (LKM) is a piece of code that can be loaded to a running kernel to add additional functionality to the kernel. The code that runs as a kernel module will be executed with kernel privileges. Most operating system kernels support kernel modules.
@@ -130,7 +130,7 @@ The advantage of using kernel modules is that it can be loaded to and unloaded f
       <div class="post-meta">
         <span class="post-time"> 31-01-2020 </span>
         
-          <span class="more-meta"> 795 words </span>
+          <span class="more-meta"> 797 words </span>
           <span class="more-meta"> 4 mins read </span>
         
       </div>
@@ -171,10 +171,10 @@ But thankfully, kernel modules can only be loaded and unloaded with superuser pr
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="cp">#include</span><span class="cpf">&lt;linux/init.h&gt;</span><span class="cp">
-</span><span class="cp">#include</span><span class="cpf">&lt;linux/kernel.h&gt;</span><span class="cp">
-</span><span class="cp">#include</span><span class="cpf">&lt;linux/module.h&gt;</span><span class="cp">
-</span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="cp">#include</span><span class="cpf">&lt;linux/init.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span><span class="cpf">&lt;linux/kernel.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span><span class="cpf">&lt;linux/module.h&gt;</span><span class="cp">
+</span></span></span></code></pre></td></tr></table>
 </div>
 </div><p>Linux kernel provides us macros to add information about the kernel module. We can add information like the author, description, license and version of the module.</p>
 <div class="highlight"><div class="chroma">
@@ -185,11 +185,11 @@ But thankfully, kernel modules can only be loaded and unloaded with superuser pr
 </span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="n">MODULE_LICENSE</span><span class="p">(</span><span class="s">&#34;GPL&#34;</span><span class="p">);</span>
-<span class="n">MODULE_AUTHOR</span><span class="p">(</span><span class="s">&#34;Abdun Nihaal&#34;</span><span class="p">);</span>
-<span class="n">MODULE_DESCRIPTION</span><span class="p">(</span><span class="s">&#34;Hello world module&#34;</span><span class="p">);</span>
-<span class="n">MODULE_VERSION</span><span class="p">(</span><span class="s">&#34;1.0&#34;</span><span class="p">);</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="n">MODULE_LICENSE</span><span class="p">(</span><span class="s">&#34;GPL&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="n">MODULE_AUTHOR</span><span class="p">(</span><span class="s">&#34;Abdun Nihaal&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="n">MODULE_DESCRIPTION</span><span class="p">(</span><span class="s">&#34;Hello world module&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="n">MODULE_VERSION</span><span class="p">(</span><span class="s">&#34;1.0&#34;</span><span class="p">);</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>Unlike other C programs, kernel modules don&rsquo;t have a main function. Instead the module&rsquo;s functions are invoked whenever necessary.</p>
 <p>The kernel execute an initialization function when a module is loaded and a cleanup function when the module is unloaded. Let&rsquo;s  write the init function first.
@@ -203,12 +203,12 @@ The initialization function should be a static function marked with <code>__init
 </span><span class="lnt">5
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="k">static</span> <span class="kt">int</span> <span class="n">__init</span> <span class="nf">hello_init</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
-<span class="p">{</span>
-        <span class="n">printk</span><span class="p">(</span><span class="n">KERN_INFO</span> <span class="s">&#34;Hello from kernel module</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
-        <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="k">static</span> <span class="kt">int</span> <span class="n">__init</span> <span class="nf">hello_init</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">printk</span><span class="p">(</span><span class="n">KERN_INFO</span> <span class="s">&#34;Hello from kernel module</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>The printk function is like the kernel version of printf. We cannot use printf in a kernel module because inside the kernel we cannot call the C standard library.
 So we use printk function provided by the kernel to print information. printk allows us to print messages to the kernel log (which can be viewed using <code>dmesg</code> command).
@@ -224,11 +224,11 @@ Here again, we just use printk to print a message and return.</p>
 </span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="k">static</span> <span class="kt">void</span> <span class="n">__exit</span> <span class="nf">hello_exit</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
-<span class="p">{</span>
-        <span class="n">printk</span><span class="p">(</span><span class="n">KERN_INFO</span> <span class="s">&#34;Bye from kernel module</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
-<span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="k">static</span> <span class="kt">void</span> <span class="n">__exit</span> <span class="nf">hello_exit</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">printk</span><span class="p">(</span><span class="n">KERN_INFO</span> <span class="s">&#34;Bye from kernel module</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>Finally we use some macros to specify the initialization and cleanup functions of this module.</p>
 <div class="highlight"><div class="chroma">
@@ -237,9 +237,9 @@ Here again, we just use printk to print a message and return.</p>
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="n">module_init</span><span class="p">(</span><span class="n">hello_init</span><span class="p">);</span>
-<span class="n">module_exit</span><span class="p">(</span><span class="n">hello_exit</span><span class="p">);</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="n">module_init</span><span class="p">(</span><span class="n">hello_init</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="n">module_exit</span><span class="p">(</span><span class="n">hello_exit</span><span class="p">);</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>Save this file as hello.c</p>
 <h2 id="building-the-kernel-module">Building the Kernel module</h2>
@@ -254,13 +254,13 @@ Here again, we just use printk to print a message and return.</p>
 </span><span class="lnt">6
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-makefile" data-lang="makefile"><span class="nv">obj-m</span> <span class="o">:=</span> hello.o
-
-<span class="nf">all</span><span class="o">:</span>
-        make -C /lib/modules/<span class="k">$(</span>shell uname -r<span class="k">)</span>/build <span class="nv">M</span><span class="o">=</span><span class="k">$(</span>PWD<span class="k">)</span> modules
-<span class="nf">clean</span><span class="o">:</span>
-        make -C /lib/modules/<span class="k">$(</span>shell uname -r<span class="k">)</span>/build <span class="nv">M</span><span class="o">=</span><span class="k">$(</span>PWD<span class="k">)</span> clean
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-makefile" data-lang="makefile"><span class="line"><span class="cl"><span class="nv">obj-m</span> <span class="o">:=</span> hello.o
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nf">all</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">        make -C /lib/modules/<span class="k">$(</span>shell uname -r<span class="k">)</span>/build <span class="nv">M</span><span class="o">=</span><span class="k">$(</span>PWD<span class="k">)</span> modules
+</span></span><span class="line"><span class="cl"><span class="nf">clean</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">        make -C /lib/modules/<span class="k">$(</span>shell uname -r<span class="k">)</span>/build <span class="nv">M</span><span class="o">=</span><span class="k">$(</span>PWD<span class="k">)</span> clean
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>Run <code>make</code> to build the kernel module. This will create a new file with .ko (Kernel Object) extension.</p>
 <figure><img src="/ox-hugo/lkm_make.png"/>
@@ -280,8 +280,8 @@ Here again, we just use printk to print a message and return.</p>
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">modinfo hello.ko
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">modinfo hello.ko
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>This displays the information that we provided using the macros.
 <img src="/ox-hugo/lkm_modinfo.png" alt=""></p>
@@ -293,9 +293,9 @@ You can check if the module has been loaded using <code>lsmod</code>.</p>
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">sudo insmod hello.ko
-lsmod <span class="p">|</span> grep hello
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo insmod hello.ko
+</span></span><span class="line"><span class="cl">lsmod <span class="p">|</span> grep hello
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>Check the kernel log to see if our hello world message is printed.</p>
 <div class="highlight"><div class="chroma">
@@ -303,8 +303,8 @@ lsmod <span class="p">|</span> grep hello
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">dmesg
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">dmesg
+</span></span></code></pre></td></tr></table>
 </div>
 </div><figure><img src="/ox-hugo/lkm_insmod.png"/>
 </figure>
@@ -316,9 +316,9 @@ lsmod <span class="p">|</span> grep hello
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">sudo rmmod hello
-lsmod <span class="p">|</span> grep hello
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo rmmod hello
+</span></span><span class="line"><span class="cl">lsmod <span class="p">|</span> grep hello
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>Now if we check the kernel log we can see the message printed in the exit function.</p>
 <div class="highlight"><div class="chroma">
@@ -326,8 +326,8 @@ lsmod <span class="p">|</span> grep hello
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">dmesg
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">dmesg
+</span></span></code></pre></td></tr></table>
 </div>
 </div><figure><img src="/ox-hugo/lkm_rmmod.png"/>
 </figure>
@@ -423,7 +423,7 @@ We can write a pseudo character device like the <code>/dev/random</code> (which 
 
 
 
-<script type="text/javascript" src="/js/main.min.c99b103c33d1539acf3025e1913697534542c4a5aa5af0ccc20475ed2863603b.js"></script>
+<script type="text/javascript" src="/js/main.min.4ae89da218555efa0e7093a20b92017d2e1202b66fff9fc2edf4cb8d44b44c6e.js"></script>
 
 
 

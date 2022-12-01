@@ -6,7 +6,18 @@
     <description>Recent content in Posts on Nihaal</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Tue, 15 Feb 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://nihaal.me/post/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 01 Dec 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://nihaal.me/post/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>TLB;DR Reversing TLBs with TLB desynchronization</title>
+      <link>https://nihaal.me/post/paper_tlbdr/</link>
+      <pubDate>Thu, 01 Dec 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://nihaal.me/post/paper_tlbdr/</guid>
+      <description>Yesterday, I read an interesting research paper about reverse engineering TLBs using TLB desynchronization. In this post, I&amp;rsquo;ll write briefly about the key ideas and what I found very interesting in the paper.
+You can find the paper here:
+TLB;DR: Enhancing TLB-based Attacks with TLB Desynchronized Reverse Engineering. TLB;DR Source code Reverse engineering CPU internals In the subfield of hardware security that focuses on communicating (covert channels) or leaking (side channels) critical information using timing or storage channels, accurate information about the CPU internals helps create more efficient and reliable channels.</description>
+    </item>
+    
     <item>
       <title>Using static checkers on Linux Kernel</title>
       <link>https://nihaal.me/post/static_checker/</link>
@@ -55,7 +66,7 @@ Python Package Index (PyPI) is an index and repository of Python packages.</desc
       
       <guid>https://nihaal.me/post/creating_sysfs_files/</guid>
       <description>The kernel provides a few ways in which userspace programs can get information from the kernel space.
- procfs: Used to get information about running processes debugfs: Used by kernel developers for debugging sysfs  Sysfs is used for data that is not related to a particular process. It has information about hardware devices attached to the system and about drivers handling those devices.
+procfs: Used to get information about running processes debugfs: Used by kernel developers for debugging sysfs Sysfs is used for data that is not related to a particular process. It has information about hardware devices attached to the system and about drivers handling those devices.
 Any file added to the sysfs becomes a part of the Linux Application Binary Interface (ABI).</description>
     </item>
     
@@ -78,7 +89,7 @@ To simplify access to hardware, Unix, by design, exposes most of the hardware de
       <description>debugfs debugfs is a pseudo-filesystem used for kernel debugging. It is usually mounted at /sys/kernel/debug. debugfs contains files that allow us to read debugging information.
 By default, only the root user can cd into the /sys/kernel/debug directory.
 To change it to allow the current user to cd into debugfs, we can remount it with uid set to the current user&amp;rsquo;s uid.
-1 2 3  sudo umount /sys/kernel/debug sudo mount -t debugfs none /sys/kernel/debug -o uid=`echo $UID` cd /sys/kernel/debug   Creating debugfs entries Creating debugfs files is similar to creating character device files.</description>
+1 2 3 sudo umount /sys/kernel/debug sudo mount -t debugfs none /sys/kernel/debug -o uid=`echo $UID` cd /sys/kernel/debug Creating debugfs entries Creating debugfs files is similar to creating character device files.</description>
     </item>
     
     <item>
@@ -88,7 +99,7 @@ To change it to allow the current user to cd into debugfs, we can remount it wit
       
       <guid>https://nihaal.me/post/misc_char_devices/</guid>
       <description>Character Devices, Major and Minor numbers Based on granularity of access, there are two classes of devices:
- Character devices are accessed as a stream of bytes. Eg: Keyboards Block devices are accessed in blocks. For instance, hard disks transfer data in blocks of multiple bytes at a time.  The kernel uses major and minor numbers to identify the attached hardware devices. Major number usually tells us the type of device.</description>
+Character devices are accessed as a stream of bytes. Eg: Keyboards Block devices are accessed in blocks. For instance, hard disks transfer data in blocks of multiple bytes at a time. The kernel uses major and minor numbers to identify the attached hardware devices. Major number usually tells us the type of device. Minor numbers are used to differentiate two or more devices with the same major number.</description>
     </item>
     
     <item>
@@ -98,8 +109,9 @@ To change it to allow the current user to cd into debugfs, we can remount it wit
       
       <guid>https://nihaal.me/post/updating_vulnerable_python_dependencies/</guid>
       <description>Finding vulnerable dependencies Safety-db is a database that keeps track of vulnerable python packages and version information. It is updated once a month. They also provide a tool called safety, that checks if the installed packages or packages in requirements.txt are identified as vulnerable using the safety-db.
-  Install safety
-1  pip install safety     Use safety to check all packages in the current virtual enviroment</description>
+Install safety
+1 pip install safety Use safety to check all packages in the current virtual enviroment
+1 safety check Use safety to only check the dependencies listed in requirements.</description>
     </item>
     
     <item>
@@ -183,7 +195,7 @@ Mozilla is a global community of passionate people working to protect the web as
       <guid>https://nihaal.me/post/2016-12-17-my-goals-for-the-next-6-months/</guid>
       <description>In this post, I am sharing my goals for the next 6 months.
 The reason I&amp;rsquo;m doing this is to keep myself motivated and also to let other mozillians know what I&amp;rsquo;m up to.
- Learn Rust. Learning more about the rust language is my first priority. In this 6 months I want to learn about:  Unit Testing Networking in rust basics of functional programming If possible, using threads in rust   Contribute to some simple, open source rust projects.</description>
+Learn Rust. Learning more about the rust language is my first priority. In this 6 months I want to learn about: Unit Testing Networking in rust basics of functional programming If possible, using threads in rust Contribute to some simple, open source rust projects.</description>
     </item>
     
     <item>
