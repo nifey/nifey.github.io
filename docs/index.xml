@@ -6,7 +6,18 @@
     <description>Recent content on Nihaal</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Thu, 01 Dec 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://nihaal.me/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 03 Dec 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://nihaal.me/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Linux kernel fuzzing</title>
+      <link>https://nihaal.me/post/kernel_fuzzing/</link>
+      <pubDate>Sat, 03 Dec 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://nihaal.me/post/kernel_fuzzing/</guid>
+      <description>In this post, we&amp;rsquo;ll see how fuzzing is used for finding different types of bugs in the Linux kernel. This post consists of my notes taken from the talk by Andrey Konavalov about Linux fuzzing.
+Operating systems kernels are complex. Testing kernels is of prime importance since any vulnerability in the kernel can lead to compromising the whole system.
+Fuzzing is a dynamic program analysis technique, used to find bugs in software.</description>
+    </item>
+    
     <item>
       <title>TLB;DR Reversing TLBs with TLB desynchronization</title>
       <link>https://nihaal.me/post/paper_tlbdr/</link>
