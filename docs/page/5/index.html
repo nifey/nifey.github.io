@@ -118,113 +118,22 @@
           <section id="posts" class="posts">
     <article class="post">
   <header class="post-header">
-    <h1 class="post-title"><a class="post-link" href="/post/fosshack_2021/">FOSSHack 2021</a></h1>
+    <h1 class="post-title"><a class="post-link" href="/post/2016-11-15-hello-world-getting-started-with-rust/">Hello World: Getting started with Rust</a></h1>
     <div class="post-meta">
-      <span class="post-time"> 04-12-2021 </span>
+      <span class="post-time"> 15-11-2016 </span>
       
-        <span class="more-meta"> 1057 words </span>
-        <span class="more-meta"> 5 mins read </span>
+        <span class="more-meta"> 396 words </span>
+        <span class="more-meta"> 2 mins read </span>
     </div>
   </header>
   
   <div class="post-content">
     <div class="post-summary">
-      FOSSHack 2021 FOSSHack 2021 is a remote hackathon, organized by FOSSUnited, that happened on 13-14 November. FOSSUnited is a non-profit foundation that seeks to foster more FOSS projects and contributors from India and this hackathon is one such initiative.
-The rules were simple: Build a FOSS project or Work on existing FOSS project during the weekend. The projects would be judged based on factors like technical complexity, completeness and utility.
+      The Rust programming language Rust is a system programming language that focusses on three aspects: Speed, Safety and Concurrency. It is being developed by an active community of programmers. Its development is officially sponsored by Mozilla.
+Installing rust First, we have to install the rust compiler which is called rustc and cargo ,rust&rsquo;s package manager. I recommend installing rustc and cargo using rustup. Why rustup? Before answering that I have to mention that rustc comes in three versions : Stable , Beta and Nightly.
     </div>
     <div class="read-more">
-      <a href="/post/fosshack_2021/" class="read-more-link">Read more...</a>
-    </div>
-  </div>
-</article>
-
-    <article class="post">
-  <header class="post-header">
-    <h1 class="post-title"><a class="post-link" href="/post/publish_to_pypi/">Publishing packages to PyPI</a></h1>
-    <div class="post-meta">
-      <span class="post-time"> 04-12-2021 </span>
-      
-        <span class="more-meta"> 1115 words </span>
-        <span class="more-meta"> 6 mins read </span>
-    </div>
-  </header>
-  
-  <div class="post-content">
-    <div class="post-summary">
-      The usability of a programming language depends on many factors and one of them is the availability of good libraries to build on. When libraries are available, we also need a way to search and download libraries with ease. Most modern langauges maintain some form of index to make dependency management easier. Examples include Crates.io for Rust and PyPI for Python.
-Python Package Index (PyPI) is an index and repository of Python packages.
-    </div>
-    <div class="read-more">
-      <a href="/post/publish_to_pypi/" class="read-more-link">Read more...</a>
-    </div>
-  </div>
-</article>
-
-    <article class="post">
-  <header class="post-header">
-    <h1 class="post-title"><a class="post-link" href="/post/creating_sysfs_files/">Creating sysfs files</a></h1>
-    <div class="post-meta">
-      <span class="post-time"> 29-11-2021 </span>
-      
-        <span class="more-meta"> 1197 words </span>
-        <span class="more-meta"> 6 mins read </span>
-    </div>
-  </header>
-  
-  <div class="post-content">
-    <div class="post-summary">
-      The kernel provides a few ways in which userspace programs can get information from the kernel space.
-procfs: Used to get information about running processes debugfs: Used by kernel developers for debugging sysfs Sysfs is used for data that is not related to a particular process. It has information about hardware devices attached to the system and about drivers handling those devices.
-Any file added to the sysfs becomes a part of the Linux Application Binary Interface (ABI).
-    </div>
-    <div class="read-more">
-      <a href="/post/creating_sysfs_files/" class="read-more-link">Read more...</a>
-    </div>
-  </div>
-</article>
-
-    <article class="post">
-  <header class="post-header">
-    <h1 class="post-title"><a class="post-link" href="/post/dev_null/">Looking inside /dev/null</a></h1>
-    <div class="post-meta">
-      <span class="post-time"> 20-11-2021 </span>
-      
-        <span class="more-meta"> 630 words </span>
-        <span class="more-meta"> 3 mins read </span>
-    </div>
-  </header>
-  
-  <div class="post-content">
-    <div class="post-summary">
-      Accessing hardware devices like files An important role of the operating system is to allow the user applications to access hardware resources. It has to allow the user programs to use hardware while also ensuring that the applications have permissions to access it and don&rsquo;t misuse them.
-To simplify access to hardware, Unix, by design, exposes most of the hardware devices to userspace as device files, usually present under /dev directory.
-    </div>
-    <div class="read-more">
-      <a href="/post/dev_null/" class="read-more-link">Read more...</a>
-    </div>
-  </div>
-</article>
-
-    <article class="post">
-  <header class="post-header">
-    <h1 class="post-title"><a class="post-link" href="/post/creating_debugfs_files/">Creating debugfs files</a></h1>
-    <div class="post-meta">
-      <span class="post-time"> 06-11-2021 </span>
-      
-        <span class="more-meta"> 908 words </span>
-        <span class="more-meta"> 5 mins read </span>
-    </div>
-  </header>
-  
-  <div class="post-content">
-    <div class="post-summary">
-      debugfs debugfs is a pseudo-filesystem used for kernel debugging. It is usually mounted at /sys/kernel/debug. debugfs contains files that allow us to read debugging information.
-By default, only the root user can cd into the /sys/kernel/debug directory.
-To change it to allow the current user to cd into debugfs, we can remount it with uid set to the current user&rsquo;s uid.
-1 2 3 sudo umount /sys/kernel/debug sudo mount -t debugfs none /sys/kernel/debug -o uid=`echo $UID` cd /sys/kernel/debug Creating debugfs entries Creating debugfs files is similar to creating character device files.
-    </div>
-    <div class="read-more">
-      <a href="/post/creating_debugfs_files/" class="read-more-link">Read more...</a>
+      <a href="/post/2016-11-15-hello-world-getting-started-with-rust/" class="read-more-link">Read more...</a>
     </div>
   </div>
 </article>
@@ -232,14 +141,11 @@ To change it to allow the current user to cd into debugfs, we can remount it wit
     </section>
   
   <nav class="pagination">
-    <a class="prev" href="/">
+    <a class="prev" href="/page/4/">
         <i class="iconfont icon-left"></i>
         <span class="prev-text">Prev</span>
       </a>
-    <a class="next" href="/page/3/">
-        <span class="next-text">Next</span>
-        <i class="iconfont icon-right"></i>
-      </a>
+    
   </nav>
         </div>
         

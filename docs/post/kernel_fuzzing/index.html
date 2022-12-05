@@ -48,13 +48,13 @@ Fuzzing is a dynamic program analysis technique, used to find bugs in software."
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://nihaal.me/post/kernel_fuzzing/" /><meta property="article:section" content="post" />
 <meta property="article:published_time" content="2022-12-03T00:00:00+00:00" />
-<meta property="article:modified_time" content="2022-12-03T10:24:54+05:30" /><meta property="og:site_name" content="Nihaal" />
+<meta property="article:modified_time" content="2022-12-05T09:43:59+05:30" /><meta property="og:site_name" content="Nihaal" />
 
 <meta itemprop="name" content="Linux kernel fuzzing">
 <meta itemprop="description" content="In this post, we&rsquo;ll see how fuzzing is used for finding different types of bugs in the Linux kernel. This post consists of my notes taken from the talk by Andrey Konavalov about Linux fuzzing.
 Operating systems kernels are complex. Testing kernels is of prime importance since any vulnerability in the kernel can lead to compromising the whole system.
 Fuzzing is a dynamic program analysis technique, used to find bugs in software."><meta itemprop="datePublished" content="2022-12-03T00:00:00+00:00" />
-<meta itemprop="dateModified" content="2022-12-03T10:24:54+05:30" />
+<meta itemprop="dateModified" content="2022-12-05T09:43:59+05:30" />
 <meta itemprop="wordCount" content="749">
 <meta itemprop="keywords" content="linux,kernel," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Linux kernel fuzzing"/>
@@ -195,16 +195,24 @@ The other external ways of input to the kernel include network packets, file sys
 <p>It does not suffice to generate random inputs.
 A good fuzzer needs to generate random inputs that are most likely to crash the program and also goes through different execution paths of the program.</p>
 <ul>
-<li>Structure aware: Input generation process needs to be aware of the structure of arguments.
-Most system calls takes some C structure as argument. The input generated should follow the semantics of the structure.</li>
-<li>Coverage guided fuzzing: To detect a large number of bugs, fuzzing needs to have good coverage.
+<li>
+<p><em>Structure aware</em>: Input generation process needs to be aware of the structure of arguments.
+Most system calls takes some C structure as argument. The input generated should follow the semantics of the structure.</p>
+</li>
+<li>
+<p><em>Coverage guided fuzzing</em>: To detect a large number of bugs, fuzzing needs to have good coverage.
 In coverage guided fuzzing, the input generation process uses a corpus of valid inputs and mutates them.
 If a mutated input is found to increase coverage, then it is added into the corpus.
-This process is repeated to increase the fuzzing coverage.</li>
-<li>API aware: System calls act like an API. For example, the open syscall returns a file descriptor which is then used in subsequent syscalls.
-The input generation must understand this API to generate valid programs that can test deeper parts of the kernel code.</li>
-<li>Script aware: Linux kernel has internal script languages like BPF.
-The input generation process should understand and generate valid programs in the script language which can then be passed through syscalls.</li>
+This process is repeated to increase the fuzzing coverage.</p>
+</li>
+<li>
+<p><em>API aware</em>: System calls act like an API. For example, the open syscall returns a file descriptor which is then used in subsequent syscalls.
+The input generation must understand this API to generate valid programs that can test deeper parts of the kernel code.</p>
+</li>
+<li>
+<p><em>Script aware</em>: Linux kernel has internal script languages like BPF.
+The input generation process should understand and generate valid programs in the script language which can then be passed through syscalls.</p>
+</li>
 </ul>
 <h2 id="detecting-crashes">Detecting crashes</h2>
 <p>During fuzzing, bugs can be detected by dynamic program analysis tools or by programmer inserted checks (BUG_ON, WARN_ON).
@@ -260,7 +268,7 @@ reproducer for the crash which will help in checking if a patch has fixed the bu
   <p class="copyright-item">
     <span class="item-title">LastMod</span>
     <span class="item-content">
-        03-12-2022
+        05-12-2022
         
     </span>
   </p>
@@ -273,7 +281,11 @@ reproducer for the crash which will help in checking if a patch has fixed the bu
           <a href="/tags/kernel/">kernel</a>
           </div>
       <nav class="post-nav">
-        
+        <a class="prev" href="/post/kernel_sanitizers/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">Kernel Sanitizers</span>
+            <span class="prev-text nav-mobile">Prev</span>
+          </a>
         <a class="next" href="/post/paper_tlbdr/">
             <span class="next-text nav-default">TLB;DR Reversing TLBs with TLB desynchronization</span>
             <span class="next-text nav-mobile">Next</span>

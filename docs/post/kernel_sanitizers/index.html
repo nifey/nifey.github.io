@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Kernel Sanitizers - Nihaal</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="Abdun Nihaal" /><meta name="description" content="When fuzzing a program by feeding random inputs to it, we need a mechanism to tell when the program is doing unexpected things. Sanitizers help detect bugs in the program at runtime. They are usually used along with fuzzing to detect bugs in programs.
+The two roles of sanitizers:
+Detect incorrect program behaviour: like accessing memory that the program is not supposed to access Report incorrect behaviour: To be useful, the sanitizer needs to report useful information (like the stack trace and ) that makes it easier to understand and fix the bug." />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.105.0 with theme even" />
+
+
+<link rel="canonical" href="https://nihaal.me/post/kernel_sanitizers/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+<link href="/sass/main.min.f92fd13721ddf72129410fd8250e73152cc6f2438082b6c0208dc24ee7c13fc4.css" rel="stylesheet">
+<link href="/lib/fancybox/jquery.fancybox-3.1.20.min.css" rel="stylesheet">
+
+
+<meta property="og:title" content="Kernel Sanitizers" />
+<meta property="og:description" content="When fuzzing a program by feeding random inputs to it, we need a mechanism to tell when the program is doing unexpected things. Sanitizers help detect bugs in the program at runtime. They are usually used along with fuzzing to detect bugs in programs.
+The two roles of sanitizers:
+Detect incorrect program behaviour: like accessing memory that the program is not supposed to access Report incorrect behaviour: To be useful, the sanitizer needs to report useful information (like the stack trace and ) that makes it easier to understand and fix the bug." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://nihaal.me/post/kernel_sanitizers/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2022-12-05T00:00:00+00:00" />
+<meta property="article:modified_time" content="2022-12-05T10:26:39+05:30" /><meta property="og:site_name" content="Nihaal" />
+
+<meta itemprop="name" content="Kernel Sanitizers">
+<meta itemprop="description" content="When fuzzing a program by feeding random inputs to it, we need a mechanism to tell when the program is doing unexpected things. Sanitizers help detect bugs in the program at runtime. They are usually used along with fuzzing to detect bugs in programs.
+The two roles of sanitizers:
+Detect incorrect program behaviour: like accessing memory that the program is not supposed to access Report incorrect behaviour: To be useful, the sanitizer needs to report useful information (like the stack trace and ) that makes it easier to understand and fix the bug."><meta itemprop="datePublished" content="2022-12-05T00:00:00+00:00" />
+<meta itemprop="dateModified" content="2022-12-05T10:26:39+05:30" />
+<meta itemprop="wordCount" content="463">
+<meta itemprop="keywords" content="linux,kernel," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Kernel Sanitizers"/>
+<meta name="twitter:description" content="When fuzzing a program by feeding random inputs to it, we need a mechanism to tell when the program is doing unexpected things. Sanitizers help detect bugs in the program at runtime. They are usually used along with fuzzing to detect bugs in programs.
+The two roles of sanitizers:
+Detect incorrect program behaviour: like accessing memory that the program is not supposed to access Report incorrect behaviour: To be useful, the sanitizer needs to report useful information (like the stack trace and ) that makes it easier to understand and fix the bug."/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Nihaal</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a>
+  </ul>
+
+  
+
+
+</nav>
+
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Nihaal</a>
+</div>
+
+
+
+
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li>
+  </ul>
+</nav>
+
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">Kernel Sanitizers</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 05-12-2022 </span>
+        
+          <span class="more-meta"> 463 words </span>
+          <span class="more-meta"> 3 mins read </span>
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">Contents</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#kasan-kernel-address-sanitizer">KASAN: Kernel address sanitizer</a></li>
+        <li><a href="#kmsan-kernel-memory-sanitizer">KMSAN: Kernel memory sanitizer</a></li>
+        <li><a href="#kcsan-kernel-concurrency-sanitizer">KCSAN: Kernel concurrency sanitizer</a></li>
+        <li><a href="#ubsan-undefined-behaviour-sanitizer">UBSAN: Undefined behaviour sanitizer</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <p>When fuzzing a program by feeding random inputs to it, we need a mechanism to tell when the program is doing unexpected things.
+Sanitizers help detect bugs in the program at runtime.
+They are usually used along with fuzzing to detect bugs in programs.</p>
+<p>The two roles of sanitizers:</p>
+<ul>
+<li><em>Detect incorrect program behaviour</em>: like accessing memory that the program is not supposed to access</li>
+<li><em>Report incorrect behaviour</em>: To be useful, the sanitizer needs to report useful information (like the stack trace and ) that makes it easier to understand and fix the bug.</li>
+</ul>
+<p>The Linux kernel supports a number of sanitizers, each focussing on a different class of bugs.</p>
+<h2 id="kasan-kernel-address-sanitizer">KASAN: Kernel address sanitizer</h2>
+<p><strong>Detects</strong> : Use after free, Out of bounds reads/writes</p>
+<p><strong>Implementation</strong>: Compiler instrumentation and Shadow memory</p>
+<p><strong>Overheads</strong> : 1/8 of memory used, performance overhead due to memory access checks</p>
+<p>KASAN is of three types. Generic KASAN uses compiler instrumentation. In addition there is a software and hardware tag based variants that reduce the performance overheads of runtime memory access checking.</p>
+<ul>
+<li>
+<p><strong>Shadow memory</strong>: KASAN uses a shadow memory to record if it is valid to access a region of memory. It hooks to the <em>alloc</em> and <em>free</em> calls of memory allocators, and updates the shadow memory with access information during every allocation and deallocation.</p>
+<p>It reserves a byte in shadow memory for every 8 bytes of memory, which is then used to store how many bytes starting from the beginning is unpoisoned. The byte stores negative values to denote memory that should not be accessed.</p>
+</li>
+<li>
+<p><strong>Memory access checks</strong>: Before every memory access (or at the beginning of each control flow block, I&rsquo;m not sure which exactly), KASAN adds code to check the shadow memory to ensure that the memory accesses are performed on valid unpoisoned memory. If not, it crashes the kernel after printing a report.</p>
+</li>
+<li>
+<p><strong>Red zones between objects</strong>: To detect out of bound accesses, KASAN inserts <em>red zones</em>, i.e. inaccessible zones between objects. This helps detect accesses that read or write to memory regions outside the allocated region.</p>
+</li>
+<li>
+<p><strong>Quarantine</strong>: To detect dangling pointers (which causes use after free bugs), KASAN prevents reallocating a freed object immediately. Instead it waits for some time before reallocating the same memory to a different object. If there is any memory access to the region during this time window, it is most likely a dangling pointer dereference.</p>
+<p>KASAN supports a outline configuration (CONFIG_KASAN_OUTLINE), where it creates a function to check the memory access and calls it instead of inlining the code into every function. This reduces the kernel image size but increases performance overheads due to additional function calls.</p>
+</li>
+</ul>
+<h2 id="kmsan-kernel-memory-sanitizer">KMSAN: Kernel memory sanitizer</h2>
+<p><strong>Detects</strong> : Uninitialized memory</p>
+<h2 id="kcsan-kernel-concurrency-sanitizer">KCSAN: Kernel concurrency sanitizer</h2>
+<p><strong>Detects</strong> : Data races</p>
+<h2 id="ubsan-undefined-behaviour-sanitizer">UBSAN: Undefined behaviour sanitizer</h2>
+<p><strong>Detects</strong> : Variable overflows, alignment issues</p>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">Author</span>
+    <span class="item-content">Abdun Nihaal</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">LastMod</span>
+    <span class="item-content">
+        05-12-2022
+        
+    </span>
+  </p>
+  
+  
+</div>
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/linux/">linux</a>
+          <a href="/tags/kernel/">kernel</a>
+          </div>
+      <nav class="post-nav">
+        
+        <a class="next" href="/post/kernel_fuzzing/">
+            <span class="next-text nav-default">Linux kernel fuzzing</span>
+            <span class="next-text nav-mobile">Next</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="https://www.twitter.com/nihaal_an" class="iconfont icon-twitter" title="twitter"></a>
+      <a href="https://in.linkedin.com/in/abdun-nihaal-289272143" class="iconfont icon-linkedin" title="linkedin"></a>
+      <a href="https://www.github.com/nifey" class="iconfont icon-github" title="github"></a>
+      <a href="https://www.gitlab.com/nihaal" class="iconfont icon-gitlab" title="gitlab"></a>
+  <a href="https://nihaal.me/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    2016 - 
+    2022<span class="heart"><i class="iconfont icon-heart"></i></span><span>Abdun Nihaal</span>
+  </span>
+</div>
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  <script type="text/javascript" src="/lib/jquery/jquery-3.2.1.min.js"></script>
+  <script type="text/javascript" src="/lib/slideout/slideout-1.0.1.min.js"></script>
+  <script type="text/javascript" src="/lib/fancybox/jquery.fancybox-3.1.20.min.js"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.4ae89da218555efa0e7093a20b92017d2e1202b66fff9fc2edf4cb8d44b44c6e.js"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>
