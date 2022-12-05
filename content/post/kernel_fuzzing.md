@@ -1,7 +1,7 @@
 +++
 title = "Linux kernel fuzzing"
 date = 2022-12-03
-lastmod = 2022-12-03T10:24:54+05:30
+lastmod = 2022-12-05T09:43:59+05:30
 tags = ["linux", "kernel"]
 draft = false
 +++
@@ -54,15 +54,18 @@ The other external ways of input to the kernel include network packets, file sys
 It does not suffice to generate random inputs.
 A good fuzzer needs to generate random inputs that are most likely to crash the program and also goes through different execution paths of the program.
 
--   Structure aware: Input generation process needs to be aware of the structure of arguments.
+-   _Structure aware_: Input generation process needs to be aware of the structure of arguments.
     Most system calls takes some C structure as argument. The input generated should follow the semantics of the structure.
--   Coverage guided fuzzing: To detect a large number of bugs, fuzzing needs to have good coverage.
+
+-   _Coverage guided fuzzing_: To detect a large number of bugs, fuzzing needs to have good coverage.
     In coverage guided fuzzing, the input generation process uses a corpus of valid inputs and mutates them.
     If a mutated input is found to increase coverage, then it is added into the corpus.
     This process is repeated to increase the fuzzing coverage.
--   API aware: System calls act like an API. For example, the open syscall returns a file descriptor which is then used in subsequent syscalls.
+
+-   _API aware_: System calls act like an API. For example, the open syscall returns a file descriptor which is then used in subsequent syscalls.
     The input generation must understand this API to generate valid programs that can test deeper parts of the kernel code.
--   Script aware: Linux kernel has internal script languages like BPF.
+
+-   _Script aware_: Linux kernel has internal script languages like BPF.
     The input generation process should understand and generate valid programs in the script language which can then be passed through syscalls.
 
 
