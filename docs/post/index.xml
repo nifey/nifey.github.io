@@ -6,7 +6,18 @@
     <description>Recent content in Posts on Nihaal</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Mon, 05 Dec 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://nihaal.me/post/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 06 Dec 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://nihaal.me/post/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>How to do research?</title>
+      <link>https://nihaal.me/post/how_to_research/</link>
+      <pubDate>Tue, 06 Dec 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://nihaal.me/post/how_to_research/</guid>
+      <description>Disclaimer: I&amp;rsquo;m no expert in this. This post is just to collect all my thoughts and lessons learnt from random talks and blogs, about research.
+What is research?
+Research is producing new knowledge. The aim of research is to do something novel (new) and useful. The purpose of literature survey is to ensure that whatever idea we come up with is new and has not been proposed before. And the purpose of evaluations is to show that our idea or technique is useful.</description>
+    </item>
+    
     <item>
       <title>Kernel Sanitizers</title>
       <link>https://nihaal.me/post/kernel_sanitizers/</link>
