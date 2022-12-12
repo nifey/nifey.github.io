@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>syzkaller on Nihaal</title>
+    <link>https://nihaal.me/tags/syzkaller/</link>
+    <description>Recent content in syzkaller on Nihaal</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Mon, 12 Dec 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://nihaal.me/tags/syzkaller/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Finding bugs with Syzkaller</title>
+      <link>https://nihaal.me/post/syzkaller/</link>
+      <pubDate>Mon, 12 Dec 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://nihaal.me/post/syzkaller/</guid>
+      <description>Syzkaller is an unsupervised, grammar based, coverage guided fuzzer used for fuzzing operating system kernels. It primarily performs system call fuzzing, but it can also be used for fuzzing USB and network packets. It is currently used for continuous fuzzing of Linux, Android and other BSD kernels.
+Automated: Syzkaller can automatically restart crashed virtual machines and also create a reproducer for the crashes. Coverage guided: Syzkaller gets coverage information using the KCOV infrastructure, which is built into the kernel.</description>
+    </item>
+    
+  </channel>
+</rss>
