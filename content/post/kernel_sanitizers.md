@@ -1,8 +1,8 @@
 +++
 title = "Kernel Sanitizers"
 date = 2022-12-05
-lastmod = 2022-12-06T12:00:26+05:30
-tags = ["linux", "kernel"]
+lastmod = 2022-12-12T10:12:24+05:30
+tags = ["fuzzing", "linux", "kernel"]
 draft = false
 +++
 
@@ -81,3 +81,8 @@ Any excess free space inside the page allocated, is filled with some fixed value
 
 The advantage of KFENCE is that it does not perform checks on every memory accesses, instead it uses the page fault mechanism to detect illegal accesses.
 Moreover, it samples the memory objects and picks only a few for checking accesses.
+
+
+## References {#references}
+
+-   [Dynamic Program Analysis for Fun and Profit](https://www.youtube.com/watch?v=ufcyOkgFZ2Q)

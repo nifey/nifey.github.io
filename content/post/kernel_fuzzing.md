@@ -1,8 +1,8 @@
 +++
 title = "Linux kernel fuzzing"
 date = 2022-12-03
-lastmod = 2022-12-05T09:43:59+05:30
-tags = ["linux", "kernel"]
+lastmod = 2022-12-12T10:11:08+05:30
+tags = ["fuzzing", "linux", "kernel"]
 draft = false
 +++
 
