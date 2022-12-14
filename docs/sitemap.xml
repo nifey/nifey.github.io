@@ -2,6 +2,48 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://nihaal.me/post/coccinelle/</loc>
+    <lastmod>2022-12-14T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://nihaal.me/tags/kernel/</loc>
+    <lastmod>2022-12-14T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://nihaal.me/tags/linux/</loc>
+    <lastmod>2022-12-14T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://nihaal.me/</loc>
+    <lastmod>2022-12-14T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://nihaal.me/post/</loc>
+    <lastmod>2022-12-14T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://nihaal.me/tags/</loc>
+    <lastmod>2022-12-14T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
     <loc>https://nihaal.me/post/syzkaller/</loc>
     <lastmod>2022-12-12T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
@@ -16,29 +58,8 @@
   </url>
   
   <url>
-    <loc>https://nihaal.me/</loc>
-    <lastmod>2022-12-12T10:12:24+05:30</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://nihaal.me/post/</loc>
-    <lastmod>2022-12-12T10:12:24+05:30</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
     <loc>https://nihaal.me/tags/syzkaller/</loc>
     <lastmod>2022-12-12T00:00:00+00:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://nihaal.me/tags/</loc>
-    <lastmod>2022-12-12T10:12:24+05:30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -58,21 +79,7 @@
   </url>
   
   <url>
-    <loc>https://nihaal.me/tags/kernel/</loc>
-    <lastmod>2022-12-12T10:12:24+05:30</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
     <loc>https://nihaal.me/post/kernel_sanitizers/</loc>
-    <lastmod>2022-12-12T10:12:24+05:30</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://nihaal.me/tags/linux/</loc>
     <lastmod>2022-12-12T10:12:24+05:30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>

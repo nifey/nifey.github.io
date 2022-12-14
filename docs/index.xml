@@ -6,7 +6,17 @@
     <description>Recent content on Nihaal</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Mon, 12 Dec 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://nihaal.me/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 14 Dec 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://nihaal.me/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Coccinelle</title>
+      <link>https://nihaal.me/post/coccinelle/</link>
+      <pubDate>Wed, 14 Dec 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://nihaal.me/post/coccinelle/</guid>
+      <description>Coccinelle is static analysis tool used for semantic pattern matching and automated transformation of C programs. It is written in OCaml. Unlike other pattern matching tools like grep which use regular expressions, Coccinelle understands C syntax and can find semantic code pattern in the source code and automatically transform them, irrespective of the name of identifiers, comments or formatting.
+Coccinelle is intraprocedural, i.e. all its matching and transformation happens within functions.</description>
+    </item>
+    
     <item>
       <title>Finding bugs with Syzkaller</title>
       <link>https://nihaal.me/post/syzkaller/</link>
