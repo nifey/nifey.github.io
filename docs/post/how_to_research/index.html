@@ -55,7 +55,7 @@ Research is producing new knowledge. The aim of research is to do something nove
 What is research?
 Research is producing new knowledge. The aim of research is to do something novel (new) and useful. The purpose of literature survey is to ensure that whatever idea we come up with is new and has not been proposed before. And the purpose of evaluations is to show that our idea or technique is useful."><meta itemprop="datePublished" content="2022-12-06T00:00:00+00:00" />
 <meta itemprop="dateModified" content="2022-12-06T00:00:00+00:00" />
-<meta itemprop="wordCount" content="435">
+<meta itemprop="wordCount" content="675">
 <meta itemprop="keywords" content="research," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="How to do research?"/>
 <meta name="twitter:description" content="Disclaimer: I&rsquo;m no expert in this. This post is just to collect all my thoughts and lessons learnt from random talks and blogs, about research.
@@ -134,8 +134,8 @@ Research is producing new knowledge. The aim of research is to do something nove
       <div class="post-meta">
         <span class="post-time"> 06-12-2022 </span>
         
-          <span class="more-meta"> 435 words </span>
-          <span class="more-meta"> 3 mins read </span>
+          <span class="more-meta"> 675 words </span>
+          <span class="more-meta"> 4 mins read </span>
         
       </div>
     </header>
@@ -150,7 +150,7 @@ Research is producing new knowledge. The aim of research is to do something nove
         <li><a href="#input">Input</a></li>
         <li><a href="#processing">Processing</a>
           <ul>
-            <li><a href="#coming-up-with-new-ideas">Coming up with new ideas</a></li>
+            <li><a href="#coming-up-with-new-ideas-to-work-on">Coming up with new ideas to work on</a></li>
             <li><a href="#automation">Automation</a></li>
           </ul>
         </li>
@@ -180,18 +180,55 @@ We can also get it from other documents, blogs and conference presentations.</p>
 <p>Some of the general skills you will need as a researcher are</p>
 <ol>
 <li>Touch typing</li>
-<li>LaTeX: Use for typesetting all your reports, papers, slides, etc. LaTeX (and bibtex) allows us to forget about formatting, citation styles, etc and focus on the content. Most conferences provide LaTeX templates for their papers that follows the conference formatting guidelines. If you use their template, you don&rsquo;t have to worry about the conference&rsquo;s formatting guidelines at all.</li>
+<li>LaTeX: for typesetting all your reports, papers, slides, etc. LaTeX (and bibtex) allows us to forget about formatting, citation styles, etc and focus on the content. Most conferences provide LaTeX templates for their papers that follows the conference formatting guidelines. If you use their template, you don&rsquo;t have to worry about the conference&rsquo;s formatting guidelines at all.</li>
 <li>Writing: You will be spending a lot of time writing about things. So it&rsquo;s better to get good at it.</li>
 </ol>
 <h2 id="processing">Processing</h2>
-<h3 id="coming-up-with-new-ideas">Coming up with new ideas</h3>
+<h3 id="coming-up-with-new-ideas-to-work-on">Coming up with new ideas to work on</h3>
 <p>This is the crux of research. How do we come up with something new?
 There are a few strategies.</p>
 <ol>
-<li>Borrow from a different context/subject</li>
-<li>Identify gaps: The table method
-This was suggested to me by Prof.Rupesh Nasre. It involves creating a table, where columns and rows represent different dimensions of the problem. Now we classify all the existing works in the area based on these two (or more) dimensions. Finally, identify boxes where there are not much work done.</li>
-<li>Identify all possible techniques that could be used to solve a problem</li>
+<li>
+<p>Classify existing works and identify gaps (the table method):</p>
+<p>This was suggested to me by Prof. Rupesh Nasre. It involves creating a table, where columns and rows represent different dimensions of the problem.
+Now we classify all the existing works in the area based on these two (or more) dimensions.
+Finally, identify boxes where there are not much work done and explore those areas.</p>
+</li>
+<li>
+<p>Identify all possible techniques that could be used to solve a problem</p>
+</li>
+<li>
+<p>Borrow ideas from a different subject or context</p>
+<p>Examples of such works that I&rsquo;ve come across are:</p>
+<ul>
+<li><em>Theory and Practice of Finding Eviction Sets</em> by Vila, et. al:
+<em>Threshold group testing</em> is a concept from statistics which is used in testing a group of blood samples with
+lesser number of tests. This works propose a technique for finding minimal eviction sets for microarchitectural attacks by using threshold group testing.</li>
+</ul>
+</li>
+<li>
+<p>If there are two main techniques to do something, propose a hybrid of the two.</p>
+<p>Often, there are some problems where there are two main, opposing techniques that
+make different tradeoffs. One option to explore in such problems, is to combine and use both techniques together.
+Examples of such works that I&rsquo;ve come across are:</p>
+<ul>
+<li><em>Agile Paging: Exceeding the Best of Nested and Shadow Paging</em> by Gandhi, et. al:
+This work combines the two main techniques used for paging in virtualized systems: Nested paging and Shadow paging.</li>
+<li><em>A tale of two erasure codes in HDFS</em> by Xia, et. al:
+This work combines and uses two different erasure codes: a fast code (which is faster but has size overheads)
+and a compact code (which is compact but is slower).</li>
+</ul>
+</li>
+<li>
+<p>Apply AI/ML to your (systems) problem 😜. Because why not? And don&rsquo;t forget to mention that you are the first to use AI/ML for that problem.</p>
+</li>
+<li>
+<p>Build something that the research community can use.</p>
+<ul>
+<li>Simulators</li>
+<li>Benchmark suites</li>
+</ul>
+</li>
 </ol>
 <h3 id="automation">Automation</h3>
 <p>When evaluating, it helps to automate as much as possible.

@@ -52,7 +52,7 @@ Coccinelle is intraprocedural, i.e. all its matching and transformation happens 
 <meta itemprop="description" content="Coccinelle is static analysis tool used for semantic pattern matching and automated transformation of C programs. It is written in OCaml. Unlike other pattern matching tools like grep which use regular expressions, Coccinelle understands C syntax and can find semantic code pattern in the source code and automatically transform them, irrespective of the name of identifiers, comments or formatting.
 Coccinelle is intraprocedural, i.e. all its matching and transformation happens within functions."><meta itemprop="datePublished" content="2022-12-14T00:00:00+00:00" />
 <meta itemprop="dateModified" content="2022-12-14T00:00:00+00:00" />
-<meta itemprop="wordCount" content="702">
+<meta itemprop="wordCount" content="896">
 <meta itemprop="keywords" content="linux,kernel," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Coccinelle"/>
 <meta name="twitter:description" content="Coccinelle is static analysis tool used for semantic pattern matching and automated transformation of C programs. It is written in OCaml. Unlike other pattern matching tools like grep which use regular expressions, Coccinelle understands C syntax and can find semantic code pattern in the source code and automatically transform them, irrespective of the name of identifiers, comments or formatting.
@@ -130,8 +130,8 @@ Coccinelle is intraprocedural, i.e. all its matching and transformation happens 
       <div class="post-meta">
         <span class="post-time"> 14-12-2022 </span>
         
-          <span class="more-meta"> 702 words </span>
-          <span class="more-meta"> 4 mins read </span>
+          <span class="more-meta"> 896 words </span>
+          <span class="more-meta"> 5 mins read </span>
         
       </div>
     </header>
@@ -179,8 +179,10 @@ For example, a change in the arguments used for a function needs updating all th
 Similarly, there could be old deprecated functions that need to be replaced by new alternatives.</p>
 </li>
 </ol>
-<p>Coccinelle uses SmPL (Semantic Patch Language) to detect and fix bugs using a form of pattern matching.
-The syntax is similar to C and Patch language (+,-,etc)</p>
+<p>Coccinelle takes as input the C program files that need to be matched and transformed, and a <em>semantic patch</em>.
+Semantic patches are coccinelle scripts written in Semantic Patch Language (SmPL), that specifies the code pattern that needs to be matched
+and the code transformation that needs to be performed.
+The syntax of semantic patches is similar to C and the notations used in patches (eg: <em>+</em> to denote added lines and <em>-</em> to denote deleted lines).</p>
 <h2 id="installing-and-using-coccinelle">Installing and using Coccinelle</h2>
 <ul>
 <li>
@@ -247,7 +249,7 @@ We use spatch for applying semantic patches.</p>
 <li>Writing semantic patches
 <ul>
 <li>Write a patch for the change</li>
-<li>Abstract of unneeded code with &hellip;</li>
+<li>Abstract unneeded code with &hellip;</li>
 <li>Abstract over identifiers, expressions and constants with metavariables</li>
 <li>Check for matches and refine incrementally for special cases</li>
 </ul>
@@ -258,42 +260,43 @@ We use spatch for applying semantic patches.</p>
 <li>Metavariable declaration</li>
 <li>Transformation specification</li>
 </ol>
-<h3 id="metavariable-declaration">Metavariable declaration</h3>
+<p>The general structure of a rule is given below: (The rule name is optional.)</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
-</span><span class="lnt">5
-</span><span class="lnt">6
-</span><span class="lnt">7
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">   @&lt;name of the rule&gt;@
-</span></span><span class="line"><span class="cl">   metavariable_type name;
-</span></span><span class="line"><span class="cl">   @@
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">   @depends on rule1||rule2@@
-</span></span><span class="line"><span class="cl">   metavariable_type name;
-</span></span><span class="line"><span class="cl">   @@
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">@rule_name@
+</span></span><span class="line"><span class="cl">// Metavariable declaration
+</span></span><span class="line"><span class="cl">@@
+</span></span><span class="line"><span class="cl">// Transformation specification
 </span></span></code></pre></td></tr></table>
 </div>
-</div><h3 id="transformation-specification">Transformation specification</h3>
-<ul>
-<li>On the leftmost column, we can have
+</div><h3 id="metavariable-declaration">Metavariable declaration</h3>
+<p>Metavariables are used to abstract over identifiers, expressions, constants and types.
+For example, if I use a metavariable of type <em>expression</em> , it can match over any C expression.
+We can also use metavariables of a specific struct or type defined in the program.</p>
+<h3 id="transformation-specification">Transformation specification</h3>
 <ul>
 <li>
-<ul>
-<li>to denote addition of a line</li>
-</ul>
+<p>Matching code</p>
+<p>We can use (three) dot symbols: <strong>&hellip;</strong> to match any code. This allows us to match lines irrespective of
+the code present between the lines.
+However, in some situations, we may want to restrict the code that we want to skip.
+For this, we can use the <strong>when</strong> clause along with the dots.</p>
 </li>
 <li>
+<p>Transforming code</p>
+<p>The left most column specifies the transformation that needs to be performed.
+The following symbols have special meaning when used as the first character in a line:</p>
 <ul>
-<li>to denote removal of a line</li>
-</ul>
-</li>
-<li>* to denote lines of interest</li>
+<li><strong>+</strong>  adds the line to the matched code</li>
+<li><strong>-</strong>   removes the matched line</li>
+<li><strong>*</strong>   highlights the matched line</li>
+<li>Disjunction: We can also specify multiple possible match patterns using the symbols <strong>( | )</strong> in the first column</li>
 </ul>
 </li>
 </ul>
