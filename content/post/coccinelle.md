@@ -22,8 +22,10 @@ It can be used for
     For example, a change in the arguments used for a function needs updating all the points in the code where that function is called.
     Similarly, there could be old deprecated functions that need to be replaced by new alternatives.
 
-Coccinelle uses SmPL (Semantic Patch Language) to detect and fix bugs using a form of pattern matching.
-The syntax is similar to C and Patch language (+,-,etc)
+Coccinelle takes as input the C program files that need to be matched and transformed, and a _semantic patch_.
+Semantic patches are coccinelle scripts written in Semantic Patch Language (SmPL), that specifies the code pattern that needs to be matched
+and the code transformation that needs to be performed.
+The syntax of semantic patches is similar to C and the notations used in patches (eg: _+_ to denote added lines and _-_ to denote deleted lines).
 
 
 ## Installing and using Coccinelle {#installing-and-using-coccinelle}
@@ -66,7 +68,7 @@ The syntax is similar to C and Patch language (+,-,etc)
 
 -   Writing semantic patches
     -   Write a patch for the change
-    -   Abstract of unneeded code with ...
+    -   Abstract unneeded code with ...
     -   Abstract over identifiers, expressions and constants with metavariables
     -   Check for matches and refine incrementally for special cases
 
@@ -75,26 +77,41 @@ A semantic patch consists of many _rules_ and each rule consists of two parts:
 1.  Metavariable declaration
 2.  Transformation specification
 
+The general structure of a rule is given below: (The rule name is optional.)
+
+```Coccinelle
+@rule_name@
+// Metavariable declaration
+@@
+// Transformation specification
+```
+
 
 ### Metavariable declaration {#metavariable-declaration}
 
-```Coccinelle
-   @<name of the rule>@
-   metavariable_type name;
-   @@
-
-   @depends on rule1||rule2@@
-   metavariable_type name;
-   @@
-```
+Metavariables are used to abstract over identifiers, expressions, constants and types.
+For example, if I use a metavariable of type _expression_ , it can match over any C expression.
+We can also use metavariables of a specific struct or type defined in the program.
 
 
 ### Transformation specification {#transformation-specification}
 
--   On the leftmost column, we can have
-    -   + to denote addition of a line
-    -   - to denote removal of a line
-    -   \* to denote lines of interest
+-   Matching code
+
+    We can use (three) dot symbols: **...** to match any code. This allows us to match lines irrespective of
+    the code present between the lines.
+    However, in some situations, we may want to restrict the code that we want to skip.
+    For this, we can use the **when** clause along with the dots.
+
+-   Transforming code
+
+    The left most column specifies the transformation that needs to be performed.
+    The following symbols have special meaning when used as the first character in a line:
+
+    -   **+**  adds the line to the matched code
+    -   **-**   removes the matched line
+    -   **\***   highlights the matched line
+    -   Disjunction: We can also specify multiple possible match patterns using the symbols **( | )** in the first column
 
 
 ### Rule dependencies {#rule-dependencies}

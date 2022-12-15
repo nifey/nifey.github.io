@@ -31,22 +31,49 @@ We can also get it from other documents, blogs and conference presentations.
 Some of the general skills you will need as a researcher are
 
 1.  Touch typing
-2.  LaTeX: Use for typesetting all your reports, papers, slides, etc. LaTeX (and bibtex) allows us to forget about formatting, citation styles, etc and focus on the content. Most conferences provide LaTeX templates for their papers that follows the conference formatting guidelines. If you use their template, you don't have to worry about the conference's formatting guidelines at all.
+2.  LaTeX: for typesetting all your reports, papers, slides, etc. LaTeX (and bibtex) allows us to forget about formatting, citation styles, etc and focus on the content. Most conferences provide LaTeX templates for their papers that follows the conference formatting guidelines. If you use their template, you don't have to worry about the conference's formatting guidelines at all.
 3.  Writing: You will be spending a lot of time writing about things. So it's better to get good at it.
 
 
 ## Processing {#processing}
 
 
-### Coming up with new ideas {#coming-up-with-new-ideas}
+### Coming up with new ideas to work on {#coming-up-with-new-ideas-to-work-on}
 
 This is the crux of research. How do we come up with something new?
 There are a few strategies.
 
-1.  Borrow from a different context/subject
-2.  Identify gaps: The table method
-    This was suggested to me by Prof.Rupesh Nasre. It involves creating a table, where columns and rows represent different dimensions of the problem. Now we classify all the existing works in the area based on these two (or more) dimensions. Finally, identify boxes where there are not much work done.
-3.  Identify all possible techniques that could be used to solve a problem
+1.  Classify existing works and identify gaps (the table method):
+
+    This was suggested to me by Prof. Rupesh Nasre. It involves creating a table, where columns and rows represent different dimensions of the problem.
+    Now we classify all the existing works in the area based on these two (or more) dimensions.
+    Finally, identify boxes where there are not much work done and explore those areas.
+2.  Identify all possible techniques that could be used to solve a problem
+3.  Borrow ideas from a different subject or context
+
+    Examples of such works that I've come across are:
+
+    -   _Theory and Practice of Finding Eviction Sets_ by Vila, et. al:
+        _Threshold group testing_ is a concept from statistics which is used in testing a group of blood samples with
+        lesser number of tests. This works propose a technique for finding minimal eviction sets for microarchitectural attacks by using threshold group testing.
+
+4.  If there are two main techniques to do something, propose a hybrid of the two.
+
+      Often, there are some problems where there are two main, opposing techniques that
+    make different tradeoffs. One option to explore in such problems, is to combine and use both techniques together.
+      Examples of such works that I've come across are:
+
+    -   _Agile Paging: Exceeding the Best of Nested and Shadow Paging_ by Gandhi, et. al:
+        This work combines the two main techniques used for paging in virtualized systems: Nested paging and Shadow paging.
+    -   _A tale of two erasure codes in HDFS_ by Xia, et. al:
+        This work combines and uses two different erasure codes: a fast code (which is faster but has size overheads)
+        and a compact code (which is compact but is slower).
+
+5.  Apply AI/ML to your (systems) problem 😜. Because why not? And don't forget to mention that you are the first to use AI/ML for that problem.
+
+6.  Build something that the research community can use.
+    -   Simulators
+    -   Benchmark suites
 
 
 ### Automation {#automation}
