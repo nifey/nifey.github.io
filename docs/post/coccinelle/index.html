@@ -52,7 +52,7 @@ Coccinelle is intraprocedural, i.e. all its matching and transformation happens 
 <meta itemprop="description" content="Coccinelle is static analysis tool used for semantic pattern matching and automated transformation of C programs. It is written in OCaml. Unlike other pattern matching tools like grep which use regular expressions, Coccinelle understands C syntax and can find semantic code pattern in the source code and automatically transform them, irrespective of the name of identifiers, comments or formatting.
 Coccinelle is intraprocedural, i.e. all its matching and transformation happens within functions."><meta itemprop="datePublished" content="2022-12-14T00:00:00+00:00" />
 <meta itemprop="dateModified" content="2022-12-14T00:00:00+00:00" />
-<meta itemprop="wordCount" content="896">
+<meta itemprop="wordCount" content="1155">
 <meta itemprop="keywords" content="linux,kernel," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Coccinelle"/>
 <meta name="twitter:description" content="Coccinelle is static analysis tool used for semantic pattern matching and automated transformation of C programs. It is written in OCaml. Unlike other pattern matching tools like grep which use regular expressions, Coccinelle understands C syntax and can find semantic code pattern in the source code and automatically transform them, irrespective of the name of identifiers, comments or formatting.
@@ -130,8 +130,8 @@ Coccinelle is intraprocedural, i.e. all its matching and transformation happens 
       <div class="post-meta">
         <span class="post-time"> 14-12-2022 </span>
         
-          <span class="more-meta"> 896 words </span>
-          <span class="more-meta"> 5 mins read </span>
+          <span class="more-meta"> 1155 words </span>
+          <span class="more-meta"> 6 mins read </span>
         
       </div>
     </header>
@@ -146,13 +146,12 @@ Coccinelle is intraprocedural, i.e. all its matching and transformation happens 
         <li><a href="#installing-and-using-coccinelle">Installing and using Coccinelle</a></li>
         <li><a href="#writing-semantic-patches">Writing Semantic patches</a>
           <ul>
-            <li><a href="#metavariable-declaration">Metavariable declaration</a></li>
-            <li><a href="#transformation-specification">Transformation specification</a></li>
+            <li><a href="#rules-syntax">Rules syntax</a></li>
             <li><a href="#rule-dependencies">Rule dependencies</a></li>
             <li><a href="#advanced-features">Advanced features</a></li>
           </ul>
         </li>
-        <li><a href="#examples">Examples</a></li>
+        <li><a href="#coccinelle-internals">Coccinelle Internals</a></li>
         <li><a href="#references">References</a></li>
       </ul>
     </li>
@@ -165,7 +164,8 @@ Coccinelle is intraprocedural, i.e. all its matching and transformation happens 
 It is written in OCaml.
 Unlike other pattern matching tools like grep which use regular expressions, Coccinelle understands C syntax and
 can find semantic code pattern in the source code and automatically transform them, irrespective of the name of identifiers, comments or formatting.</p>
-<p>Coccinelle is <em>intraprocedural</em>, i.e. all its matching and transformation happens within functions.</p>
+<p>Coccinelle is <em>intraprocedural</em>, i.e. all its matching and transformation happens within functions.
+Coccinelle also does not expand C macros.</p>
 <p>It can be used for</p>
 <ol>
 <li>
@@ -249,12 +249,13 @@ We use spatch for applying semantic patches.</p>
 <li>Writing semantic patches
 <ul>
 <li>Write a patch for the change</li>
-<li>Abstract unneeded code with &hellip;</li>
-<li>Abstract over identifiers, expressions and constants with metavariables</li>
+<li>Abstract unneeded code with <em>dots</em> (&hellip;)</li>
+<li>Abstract over identifiers, expressions and constants with <em>metavariables</em></li>
 <li>Check for matches and refine incrementally for special cases</li>
 </ul>
 </li>
 </ul>
+<h3 id="rules-syntax">Rules syntax</h3>
 <p>A semantic patch consists of many <em>rules</em> and each rule consists of two parts:</p>
 <ol>
 <li>Metavariable declaration</li>
@@ -275,11 +276,11 @@ We use spatch for applying semantic patches.</p>
 </span></span><span class="line"><span class="cl">// Transformation specification
 </span></span></code></pre></td></tr></table>
 </div>
-</div><h3 id="metavariable-declaration">Metavariable declaration</h3>
+</div><h4 id="metavariable-declaration">Metavariable declaration</h4>
 <p>Metavariables are used to abstract over identifiers, expressions, constants and types.
 For example, if I use a metavariable of type <em>expression</em> , it can match over any C expression.
 We can also use metavariables of a specific struct or type defined in the program.</p>
-<h3 id="transformation-specification">Transformation specification</h3>
+<h4 id="transformation-specification">Transformation specification</h4>
 <ul>
 <li>
 <p>Matching code</p>
@@ -287,6 +288,11 @@ We can also use metavariables of a specific struct or type defined in the progra
 the code present between the lines.
 However, in some situations, we may want to restrict the code that we want to skip.
 For this, we can use the <strong>when</strong> clause along with the dots.</p>
+<ul>
+<li><strong>&hellip;</strong> matches any code</li>
+<li><strong>&lt;&hellip; x &hellip;&gt;</strong> matches the expression represented by <em>x</em>, zero or more times.</li>
+<li><strong>&lt;+&hellip; x &hellip;+&gt;</strong> matches the expression represented by <em>x</em>, one or more times.</li>
+</ul>
 </li>
 <li>
 <p>Transforming code</p>
@@ -296,25 +302,14 @@ The following symbols have special meaning when used as the first character in a
 <li><strong>+</strong>  adds the line to the matched code</li>
 <li><strong>-</strong>   removes the matched line</li>
 <li><strong>*</strong>   highlights the matched line</li>
-<li>Disjunction: We can also specify multiple possible match patterns using the symbols <strong>( | )</strong> in the first column</li>
+<li><strong>( | )</strong> Disjunction allows us to specify multiple possible match patterns</li>
 </ul>
 </li>
 </ul>
-<h3 id="rule-dependencies">Rule dependencies</h3>
-<h3 id="advanced-features">Advanced features</h3>
-<ul>
-<li>Embedding Python/Ocaml scripts</li>
-<li>Isomorphism</li>
-<li>Position metavariables</li>
-<li>Adding constraints using when</li>
-<li>Iterations</li>
-</ul>
-<h2 id="examples">Examples</h2>
+<h4 id="examples">Examples</h4>
 <ol>
-<li>Hello World example</li>
-</ol>
-<p>The following script removes 1 &lt;&lt; c in lines and replaces with BIT(c) where c
-can be any number</p>
+<li>
+<p>Replace expressions of the form 1 &lt;&lt; C with the macro BIT(C) where C is any constant.</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -325,19 +320,18 @@ can be any number</p>
 </span><span class="lnt">6
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">   @@
-</span></span><span class="line"><span class="cl">   constant c;
-</span></span><span class="line"><span class="cl">   @@
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">      @@
+</span></span><span class="line"><span class="cl">      constant C;
+</span></span><span class="line"><span class="cl">      @@
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">   - 1 &lt;&lt; c
-</span></span><span class="line"><span class="cl">   + BIT(c)
+</span></span><span class="line"><span class="cl">      - 1 &lt;&lt; C
+</span></span><span class="line"><span class="cl">​      + BIT(C)
 </span></span></code></pre></td></tr></table>
 </div>
-</div><ol>
-<li>Use of disjunctions and expressions</li>
-</ol>
-<p>But c can be an expression like (3*somevar), in that case we use an expression
-Here we also use a disjunction | operator</p>
+</div></li>
+<li>
+<p>Using <em>disjunction</em>: Replace expressions of the form 1 &lt;&lt; C with BIT(C) where C is any constant, and
+replace expressions of the form 1 &lt;&lt; E with BIT(E) where E is any expression.</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
@@ -354,26 +348,80 @@ Here we also use a disjunction | operator</p>
 </span><span class="lnt">12
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">   @@
-</span></span><span class="line"><span class="cl">   constant c;
-</span></span><span class="line"><span class="cl">   expression E;
-</span></span><span class="line"><span class="cl">   @@
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">      @@
+</span></span><span class="line"><span class="cl">      constant C;
+</span></span><span class="line"><span class="cl">      expression E;
+</span></span><span class="line"><span class="cl">      @@
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">   {
-</span></span><span class="line"><span class="cl">   - 1 &lt;&lt; c
-</span></span><span class="line"><span class="cl">   + BIT(c)
-</span></span><span class="line"><span class="cl">   |
-</span></span><span class="line"><span class="cl">   - 1 &lt;&lt; E
-</span></span><span class="line"><span class="cl">   + BIT(E)
-</span></span><span class="line"><span class="cl">   }
+</span></span><span class="line"><span class="cl">      {
+</span></span><span class="line"><span class="cl">​      - 1 &lt;&lt; C
+</span></span><span class="line"><span class="cl">​      + BIT(C)
+</span></span><span class="line"><span class="cl">      |
+</span></span><span class="line"><span class="cl">​      - 1 &lt;&lt; E
+</span></span><span class="line"><span class="cl">​      + BIT(E)
+</span></span><span class="line"><span class="cl">      }
 </span></span></code></pre></td></tr></table>
 </div>
-</div><ol>
-<li>Use of depends</li>
+</div></li>
+<li>
+<p>Using <em>identifiers</em> and <em>dots</em>: Replace assignment to a local variable followed by immediate return of that value,
+by simply the return statement.
+Notice here, we don&rsquo;t care about what the arguments of the function is, and so we can use dots there.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">      @@
+</span></span><span class="line"><span class="cl">      identifier f;
+</span></span><span class="line"><span class="cl">      expression r;
+</span></span><span class="line"><span class="cl">      @@
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">      - r = f(...);
+</span></span><span class="line"><span class="cl">​      + return f(...);
+</span></span><span class="line"><span class="cl">​      - return r;
+</span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p>Matching zero or more function calls using <strong>&lt;&hellip; &hellip;&gt;</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">      @@
+</span></span><span class="line"><span class="cl">      identifier f;
+</span></span><span class="line"><span class="cl">      @@
+</span></span><span class="line"><span class="cl">      *f(...)
+</span></span><span class="line"><span class="cl">      {
+</span></span><span class="line"><span class="cl">      &lt;...
+</span></span><span class="line"><span class="cl">​      * g(...)
+</span></span><span class="line"><span class="cl">      ...&gt;
+</span></span><span class="line"><span class="cl">      }
+</span></span></code></pre></td></tr></table>
+</div>
+</div></li>
 </ol>
-<p>The following example checks if BITS is used in the file and only then replaces
-otherwise it doesn&rsquo;t do anything
-&hellip; can be use to match any code that we don&rsquo;t care about</p>
+<h3 id="rule-dependencies">Rule dependencies</h3>
+<p>We can specify dependency between rules. This allows matching a rule only if another rule has been matched.
+For example, the following sematic patch has two rules. The first rule matches if the BIT macro is used anywhere
+in the file. If it is used, then the second rule which <em>depends</em> on the first rule converts expressions 1 &lt;&lt; E into BIT(E).</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
@@ -400,64 +448,59 @@ otherwise it doesn&rsquo;t do anything
 </span></span><span class="line"><span class="cl">   + BIT(E)
 </span></span></code></pre></td></tr></table>
 </div>
-</div><ol>
-<li>Use of identifiers</li>
-</ol>
-<p>The following example compresses return statement lines</p>
+</div><p>We can also pass values between rules with dependency using <strong>&lt;&lt;</strong> syntax.</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span><span class="lnt">6
-</span><span class="lnt">7
-</span><span class="lnt">8
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">   @@
-</span></span><span class="line"><span class="cl">   identifier f;
-</span></span><span class="line"><span class="cl">   expression r;
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">   @usesbit@
+</span></span><span class="line"><span class="cl">   expression E;
+</span></span><span class="line"><span class="cl">   @@
+</span></span><span class="line"><span class="cl">   1 &lt;&lt; E
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">   @depends on usesbit@
+</span></span><span class="line"><span class="cl">   expression E &lt;&lt; usesbit.E;
 </span></span><span class="line"><span class="cl">   @@
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">   - r = f(...);
-</span></span><span class="line"><span class="cl">   + return f(...);
-</span></span><span class="line"><span class="cl">   - return r;
+</span></span><span class="line"><span class="cl">   - 1 &lt;&lt; E
+</span></span><span class="line"><span class="cl">   + BIT(E)
 </span></span></code></pre></td></tr></table>
 </div>
-</div><p>To match multiple instances use &lt;&hellip; &hellip;&gt;
-The following code highlights every function call inside every function</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span><span class="lnt">6
-</span><span class="lnt">7
-</span><span class="lnt">8
-</span><span class="lnt">9
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">   @@
-</span></span><span class="line"><span class="cl">   identifier f;
-</span></span><span class="line"><span class="cl">   @@
-</span></span><span class="line"><span class="cl">   *f(...)
-</span></span><span class="line"><span class="cl">   {
-</span></span><span class="line"><span class="cl">   &lt;...
-</span></span><span class="line"><span class="cl">   * g(...)
-</span></span><span class="line"><span class="cl">   ...&gt;
-</span></span><span class="line"><span class="cl">   }
-</span></span></code></pre></td></tr></table>
-</div>
-</div><h2 id="references">References</h2>
+</div><h3 id="advanced-features">Advanced features</h3>
 <ul>
+<li>Embedding Python/Ocaml scripts</li>
+<li>Isomorphism</li>
+<li>Position metavariables</li>
+<li>Adding constraints using when</li>
+<li>Iterations</li>
+</ul>
+<h2 id="coccinelle-internals">Coccinelle Internals</h2>
+<p>In <a href="https://web.imt-atlantique.fr/x-info/coccinelle/stuart_thesis.pdf">Hunting bugs with Coccinelle</a>, it is mentioned that Coccinelle has three parts:</p>
+<ol>
+<li>A C parser that converts C code into an <em>Abstract Syntax Tree</em> (AST) and a <em>Control Flow Graph</em> (CFG), without expanding all macros.</li>
+<li>A parser that converts semantic patches into a formula expressed in Computation Tree Logic with existentially quantified program variables (CTL-VW).
+I don&rsquo;t know what CTL-VW is, but I&rsquo;m guessing it is a way to mathematically express code patterns in a program with multiple execution paths.</li>
+<li>A model checker that compares the CTL-VW formula with the AST and performs any modifications if specified.</li>
+</ol>
+<p>After the modifications are done, the AST and CFG are unparsed to produce the modified C code.</p>
+<h2 id="references">References</h2>
+<ul>
+<li><a href="https://www.youtube.com/watch?v=buZrNd6XkEw">Julia Lawall: An Introduction to Coccinelle Bug Finding and Code Evolution for the Linux Kernel</a></li>
 <li><a href="https://www.youtube.com/watch?v=2sfJ9HNlU5w">Coccinelle: Finding bugs in the Linux Kernel - Vaishali Thakkar - FOSSASIA Summit 2017</a></li>
 <li><a href="https://www.youtube.com/watch?v=xA5FBvuCvMs">Keynote: Inside the Mind of a Coccinelle Programmer by Julia Lawall, Developer of Coccinelle</a></li>
 <li><a href="http://coccinellery.org">http://coccinellery.org</a></li>
-<li><a href="https://www.youtube.com/watch?v=buZrNd6XkEw">Julia Lawall: An Introduction to Coccinelle Bug Finding and Code Evolution for the Linux Kernel</a></li>
+<li><a href="https://web.imt-atlantique.fr/x-info/coccinelle/stuart_thesis.pdf">Hunting bugs with Coccinelle</a> (Henrik Stuart&rsquo;s Thesis)</li>
 </ul>
 
     </div>
