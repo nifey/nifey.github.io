@@ -11,6 +11,7 @@ Unlike other pattern matching tools like grep which use regular expressions, Coc
 can find semantic code pattern in the source code and automatically transform them, irrespective of the name of identifiers, comments or formatting.
 
 Coccinelle is _intraprocedural_, i.e. all its matching and transformation happens within functions.
+Coccinelle also does not expand C macros.
 
 It can be used for
 
@@ -68,9 +69,12 @@ The syntax of semantic patches is similar to C and the notations used in patches
 
 -   Writing semantic patches
     -   Write a patch for the change
-    -   Abstract unneeded code with ...
-    -   Abstract over identifiers, expressions and constants with metavariables
+    -   Abstract unneeded code with _dots_ (...)
+    -   Abstract over identifiers, expressions and constants with _metavariables_
     -   Check for matches and refine incrementally for special cases
+
+
+### Rules syntax {#rules-syntax}
 
 A semantic patch consists of many _rules_ and each rule consists of two parts:
 
@@ -87,14 +91,14 @@ The general structure of a rule is given below: (The rule name is optional.)
 ```
 
 
-### Metavariable declaration {#metavariable-declaration}
+#### Metavariable declaration {#metavariable-declaration}
 
 Metavariables are used to abstract over identifiers, expressions, constants and types.
 For example, if I use a metavariable of type _expression_ , it can match over any C expression.
 We can also use metavariables of a specific struct or type defined in the program.
 
 
-### Transformation specification {#transformation-specification}
+#### Transformation specification {#transformation-specification}
 
 -   Matching code
 
@@ -102,6 +106,10 @@ We can also use metavariables of a specific struct or type defined in the progra
     the code present between the lines.
     However, in some situations, we may want to restrict the code that we want to skip.
     For this, we can use the **when** clause along with the dots.
+
+    -   **...** matches any code
+    -   **&lt;... x ...&gt;** matches the expression represented by _x_, zero or more times.
+    -   **&lt;+... x ...+&gt;** matches the expression represented by _x_, one or more times.
 
 -   Transforming code
 
@@ -111,62 +119,75 @@ We can also use metavariables of a specific struct or type defined in the progra
     -   **+**  adds the line to the matched code
     -   **-**   removes the matched line
     -   **\***   highlights the matched line
-    -   Disjunction: We can also specify multiple possible match patterns using the symbols **( | )** in the first column
+    -   **( | )** Disjunction allows us to specify multiple possible match patterns
+
+
+#### Examples {#examples}
+
+1.  Replace expressions of the form 1 &lt;&lt; C with the macro BIT(C) where C is any constant.
+
+    ```Coccinelle
+          @@
+          constant C;
+          @@
+
+          - 1 << C
+    ​      + BIT(C)
+    ```
+
+2.  Using _disjunction_: Replace expressions of the form 1 &lt;&lt; C with BIT(C) where C is any constant, and
+    replace expressions of the form 1 &lt;&lt; E with BIT(E) where E is any expression.
+
+    ```Coccinelle
+          @@
+          constant C;
+          expression E;
+          @@
+
+          {
+    ​      - 1 << C
+    ​      + BIT(C)
+          |
+    ​      - 1 << E
+    ​      + BIT(E)
+          }
+    ```
+
+3.  Using _identifiers_ and _dots_: Replace assignment to a local variable followed by immediate return of that value,
+    by simply the return statement.
+    Notice here, we don't care about what the arguments of the function is, and so we can use dots there.
+
+    ```Coccinelle
+          @@
+          identifier f;
+          expression r;
+          @@
+
+          - r = f(...);
+    ​      + return f(...);
+    ​      - return r;
+    ```
+
+4.  Matching zero or more function calls using **&lt;... ...&gt;**
+
+    ```Coccinelle
+          @@
+          identifier f;
+          @@
+          *f(...)
+          {
+          <...
+    ​      * g(...)
+          ...>
+          }
+    ```
 
 
 ### Rule dependencies {#rule-dependencies}
 
-
-### Advanced features {#advanced-features}
-
--   Embedding Python/Ocaml scripts
--   Isomorphism
--   Position metavariables
--   Adding constraints using when
--   Iterations
-
-
-## Examples {#examples}
-
-1.  Hello World example
-
-The following script removes 1 &lt;&lt; c in lines and replaces with BIT(c) where c
-can be any number
-
-```Coccinelle
-   @@
-   constant c;
-   @@
-
-   - 1 << c
-   + BIT(c)
-```
-
-1.  Use of disjunctions and expressions
-
-But c can be an expression like (3\*somevar), in that case we use an expression
-Here we also use a disjunction | operator
-
-```Coccinelle
-   @@
-   constant c;
-   expression E;
-   @@
-
-   {
-   - 1 << c
-   + BIT(c)
-   |
-   - 1 << E
-   + BIT(E)
-   }
-```
-
-1.  Use of depends
-
-The following example checks if BITS is used in the file and only then replaces
-otherwise it doesn't do anything
-... can be use to match any code that we don't care about
+We can specify dependency between rules. This allows matching a rule only if another rule has been matched.
+For example, the following sematic patch has two rules. The first rule matches if the BIT macro is used anywhere
+in the file. If it is used, then the second rule which _depends_ on the first rule converts expressions 1 &lt;&lt; E into BIT(E).
 
 ```Coccinelle
    @usesbit@
@@ -181,40 +202,48 @@ otherwise it doesn't do anything
    + BIT(E)
 ```
 
-1.  Use of identifiers
-
-The following example compresses return statement lines
+We can also pass values between rules with dependency using **&lt;&lt;** syntax.
 
 ```Coccinelle
+   @usesbit@
+   expression E;
    @@
-   identifier f;
-   expression r;
+   1 << E
+
+   @depends on usesbit@
+   expression E << usesbit.E;
    @@
 
-   - r = f(...);
-   + return f(...);
-   - return r;
+   - 1 << E
+   + BIT(E)
 ```
 
-To match multiple instances use &lt;... ...&gt;
-The following code highlights every function call inside every function
 
-```Coccinelle
-   @@
-   identifier f;
-   @@
-   *f(...)
-   {
-   <...
-   * g(...)
-   ...>
-   }
-```
+### Advanced features {#advanced-features}
+
+-   Embedding Python/Ocaml scripts
+-   Isomorphism
+-   Position metavariables
+-   Adding constraints using when
+-   Iterations
+
+
+## Coccinelle Internals {#coccinelle-internals}
+
+In [Hunting bugs with Coccinelle](https://web.imt-atlantique.fr/x-info/coccinelle/stuart_thesis.pdf), it is mentioned that Coccinelle has three parts:
+
+1.  A C parser that converts C code into an _Abstract Syntax Tree_ (AST) and a _Control Flow Graph_ (CFG), without expanding all macros.
+2.  A parser that converts semantic patches into a formula expressed in Computation Tree Logic with existentially quantified program variables (CTL-VW).
+    I don't know what CTL-VW is, but I'm guessing it is a way to mathematically express code patterns in a program with multiple execution paths.
+3.  A model checker that compares the CTL-VW formula with the AST and performs any modifications if specified.
+
+After the modifications are done, the AST and CFG are unparsed to produce the modified C code.
 
 
 ## References {#references}
 
+-   [Julia Lawall: An Introduction to Coccinelle Bug Finding and Code Evolution for the Linux Kernel](https://www.youtube.com/watch?v=buZrNd6XkEw)
 -   [Coccinelle: Finding bugs in the Linux Kernel - Vaishali Thakkar - FOSSASIA Summit 2017](https://www.youtube.com/watch?v=2sfJ9HNlU5w)
 -   [Keynote: Inside the Mind of a Coccinelle Programmer by Julia Lawall, Developer of Coccinelle](https://www.youtube.com/watch?v=xA5FBvuCvMs)
 -   <http://coccinellery.org>
--   [Julia Lawall: An Introduction to Coccinelle Bug Finding and Code Evolution for the Linux Kernel](https://www.youtube.com/watch?v=buZrNd6XkEw)
+-   [Hunting bugs with Coccinelle](https://web.imt-atlantique.fr/x-info/coccinelle/stuart_thesis.pdf) (Henrik Stuart's Thesis)
