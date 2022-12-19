@@ -69,11 +69,20 @@ There are a few strategies.
         This work combines and uses two different erasure codes: a fast code (which is faster but has size overheads)
         and a compact code (which is compact but is slower).
 
-5.  Apply AI/ML to your (systems) problem 😜. Because why not? And don't forget to mention that you are the first to use AI/ML for that problem.
+5.  Combine all the individual techniques for solving your problem into a framework that uses all of the techniques together,
+     switches between the techniques dynamically, or uses some of the techniques based on heuristics
+    Examples of such works that I've come across are:
+    -   _A Framework for Memory Oversubscription Management in Graphics Processing Units_ by Li, et. al:
+        Combines three different techniques: Pre eviction, Core throttling and Memory compression to reduce
+        unified memory overheads during oversubscription.
 
-6.  Build something that the research community can use.
+6.  Create or discover something that the research community can use.
     -   Simulators
     -   Benchmark suites
+    -   Performance models
+    -   Taxonomy
+
+7.  Apply AI/ML to your (systems) problem 😜. Because why not? And don't forget to mention that you are the first to use AI/ML for that problem.
 
 
 ### Automation {#automation}

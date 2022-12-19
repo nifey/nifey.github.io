@@ -108,6 +108,7 @@ We can also use metavariables of a specific struct or type defined in the progra
     For this, we can use the **when** clause along with the dots.
 
     -   **...** matches any code
+    -   **... when != e** matches any code which is not equivalent to the expression e.
     -   **&lt;... x ...&gt;** matches the expression represented by _x_, zero or more times.
     -   **&lt;+... x ...+&gt;** matches the expression represented by _x_, one or more times.
 
@@ -183,7 +184,10 @@ We can also use metavariables of a specific struct or type defined in the progra
     ```
 
 
-### Rule dependencies {#rule-dependencies}
+### Advanced features {#advanced-features}
+
+
+#### Rule dependencies {#rule-dependencies}
 
 We can specify dependency between rules. This allows matching a rule only if another rule has been matched.
 For example, the following sematic patch has two rules. The first rule matches if the BIT macro is used anywhere
@@ -202,7 +206,7 @@ in the file. If it is used, then the second rule which _depends_ on the first ru
    + BIT(E)
 ```
 
-We can also pass values between rules with dependency using **&lt;&lt;** syntax.
+We can also pass values between rules with dependency using **&lt;&lt;** syntax inside the metavariable declaration.
 
 ```Coccinelle
    @usesbit@
@@ -219,13 +223,78 @@ We can also pass values between rules with dependency using **&lt;&lt;** syntax.
 ```
 
 
-### Advanced features {#advanced-features}
+#### Isomorphisms {#isomorphisms}
 
--   Embedding Python/Ocaml scripts
--   Isomorphism
--   Position metavariables
--   Adding constraints using when
--   Iterations
+Coccinelle can also find and match code that is equivalent to the expression that we want to match. These statements that are semantically equivalent are called _Isomorphisms_.
+For example, the following statements are equivalent and so when we try to match _(x==NULL)_, Coccinelle also tries to match the other three statements.
+
+```c
+!x  <=>  x == NULL  <=>  NULL == x;
+```
+
+Coccinelle provides a set of default isomorphisms in _/usr/lib/coccinelle/standard.iso_.
+We can use custom isomorphisms by writing them in a file, let's say in custom.iso and using it in the semantic patches with **using** keyword. We can apply a custom isomorphism file-wide or for a specific rule.
+
+```coccinelle
+using "custom.iso"
+@rule1@
+expression e;
+@@
+*e
+```
+
+```coccinelle
+@rule1 using "custom.iso"@
+expression e;
+@@
+*e
+```
+
+
+#### Embedding Python or Ocaml scripts {#embedding-python-or-ocaml-scripts}
+
+We can also embed scripts written in Python or OCaml, inside the semantic patches and have them run when specific rules are matched.
+The rules that contain script code should uses **script:python** or **script:ocaml** in the rulename part.
+
+```coccinelle
+@zero_variable@
+identifier i;
+@@
+i = 0;
+
+@script:python depends on zero_variable@
+i << zero_variable.i;
+@@
+print (f"Identifier {i} was set to zero")
+```
+
+
+#### Position metavariables {#position-metavariables}
+
+Coccinelle also provides _position_ metavariables that can be attached to other metavariables (by appending with @) to find and print the position of the match
+inside the file.
+
+```coccinelle
+@zero_variable@
+identifier i;
+position p;
+@@
+i@p = 0;
+
+@script:python depends on zero_variable@
+i << zero_variable.i;
+p << zero_variable.p;
+@@
+
+print (f"Identifier {i} was set to zero in file {p[0].file}, in function {p[0].current_element} at line {p[0].line}.")
+```
+
+
+#### Universal and Existential quantification {#universal-and-existential-quantification}
+
+todo
+
+-   when with exists and strict
 
 
 ## Coccinelle Internals {#coccinelle-internals}
