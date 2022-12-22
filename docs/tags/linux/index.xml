@@ -6,7 +6,17 @@
     <description>Recent content in linux on Nihaal</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Wed, 14 Dec 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://nihaal.me/tags/linux/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 20 Dec 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://nihaal.me/tags/linux/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Fixing syzbot bugs</title>
+      <link>https://nihaal.me/post/fixing_syzbot_bugs/</link>
+      <pubDate>Tue, 20 Dec 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://nihaal.me/post/fixing_syzbot_bugs/</guid>
+      <description>Syzbot is an automated fuzzing infrastructure that uses Syzkaller to perform continuous fuzzing, primarily on the Linux kernel. Whenever it finds bugs, Syzbot reports it to the relevant mailing list. It also has a public dashboard where it lists all the open bugs that needs to be fixed.
+Syzbot is quite effective in finding bugs in the kernel but due to the large number of bugs being found, many of them don&amp;rsquo;t get fixed in time.</description>
+    </item>
+    
     <item>
       <title>Coccinelle</title>
       <link>https://nihaal.me/post/coccinelle/</link>

@@ -118,6 +118,28 @@
           <section id="posts" class="posts">
     <article class="post">
   <header class="post-header">
+    <h1 class="post-title"><a class="post-link" href="/post/fixing_syzbot_bugs/">Fixing syzbot bugs</a></h1>
+    <div class="post-meta">
+      <span class="post-time"> 20-12-2022 </span>
+      
+        <span class="more-meta"> 708 words </span>
+        <span class="more-meta"> 4 mins read </span>
+    </div>
+  </header>
+  
+  <div class="post-content">
+    <div class="post-summary">
+      Syzbot is an automated fuzzing infrastructure that uses Syzkaller to perform continuous fuzzing, primarily on the Linux kernel. Whenever it finds bugs, Syzbot reports it to the relevant mailing list. It also has a public dashboard where it lists all the open bugs that needs to be fixed.
+Syzbot is quite effective in finding bugs in the kernel but due to the large number of bugs being found, many of them don&rsquo;t get fixed in time.
+    </div>
+    <div class="read-more">
+      <a href="/post/fixing_syzbot_bugs/" class="read-more-link">Read more...</a>
+    </div>
+  </div>
+</article>
+
+    <article class="post">
+  <header class="post-header">
     <h1 class="post-title"><a class="post-link" href="/post/coccinelle/">Coccinelle</a></h1>
     <div class="post-meta">
       <span class="post-time"> 14-12-2022 </span>
@@ -202,29 +224,6 @@ Detect incorrect program behaviour: like accessing memory that the program is no
     </div>
     <div class="read-more">
       <a href="/post/kernel_sanitizers/" class="read-more-link">Read more...</a>
-    </div>
-  </div>
-</article>
-
-    <article class="post">
-  <header class="post-header">
-    <h1 class="post-title"><a class="post-link" href="/post/kernel_fuzzing/">Linux kernel fuzzing</a></h1>
-    <div class="post-meta">
-      <span class="post-time"> 03-12-2022 </span>
-      
-        <span class="more-meta"> 749 words </span>
-        <span class="more-meta"> 4 mins read </span>
-    </div>
-  </header>
-  
-  <div class="post-content">
-    <div class="post-summary">
-      In this post, we&rsquo;ll see how fuzzing is used for finding different types of bugs in the Linux kernel. This post consists of my notes taken from the talk by Andrey Konavalov about Linux fuzzing.
-Operating systems kernels are complex. Testing kernels is of prime importance since any vulnerability in the kernel can lead to compromising the whole system.
-Fuzzing is a dynamic program analysis technique, used to find bugs in software.
-    </div>
-    <div class="read-more">
-      <a href="/post/kernel_fuzzing/" class="read-more-link">Read more...</a>
     </div>
   </div>
 </article>

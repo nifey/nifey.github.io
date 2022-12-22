@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Fixing syzbot bugs - Nihaal</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="Abdun Nihaal" /><meta name="description" content="Syzbot is an automated fuzzing infrastructure that uses Syzkaller to perform continuous fuzzing, primarily on the Linux kernel. Whenever it finds bugs, Syzbot reports it to the relevant mailing list. It also has a public dashboard where it lists all the open bugs that needs to be fixed.
+Syzbot is quite effective in finding bugs in the kernel but due to the large number of bugs being found, many of them don&amp;rsquo;t get fixed in time." />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.105.0 with theme even" />
+
+
+<link rel="canonical" href="https://nihaal.me/post/fixing_syzbot_bugs/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+<link href="/sass/main.min.f92fd13721ddf72129410fd8250e73152cc6f2438082b6c0208dc24ee7c13fc4.css" rel="stylesheet">
+<link href="/lib/fancybox/jquery.fancybox-3.1.20.min.css" rel="stylesheet">
+
+
+<meta property="og:title" content="Fixing syzbot bugs" />
+<meta property="og:description" content="Syzbot is an automated fuzzing infrastructure that uses Syzkaller to perform continuous fuzzing, primarily on the Linux kernel. Whenever it finds bugs, Syzbot reports it to the relevant mailing list. It also has a public dashboard where it lists all the open bugs that needs to be fixed.
+Syzbot is quite effective in finding bugs in the kernel but due to the large number of bugs being found, many of them don&rsquo;t get fixed in time." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://nihaal.me/post/fixing_syzbot_bugs/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2022-12-20T00:00:00+00:00" />
+<meta property="article:modified_time" content="2022-12-20T00:00:00+00:00" /><meta property="og:site_name" content="Nihaal" />
+
+<meta itemprop="name" content="Fixing syzbot bugs">
+<meta itemprop="description" content="Syzbot is an automated fuzzing infrastructure that uses Syzkaller to perform continuous fuzzing, primarily on the Linux kernel. Whenever it finds bugs, Syzbot reports it to the relevant mailing list. It also has a public dashboard where it lists all the open bugs that needs to be fixed.
+Syzbot is quite effective in finding bugs in the kernel but due to the large number of bugs being found, many of them don&rsquo;t get fixed in time."><meta itemprop="datePublished" content="2022-12-20T00:00:00+00:00" />
+<meta itemprop="dateModified" content="2022-12-20T00:00:00+00:00" />
+<meta itemprop="wordCount" content="708">
+<meta itemprop="keywords" content="linux,kernel,fuzzing," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Fixing syzbot bugs"/>
+<meta name="twitter:description" content="Syzbot is an automated fuzzing infrastructure that uses Syzkaller to perform continuous fuzzing, primarily on the Linux kernel. Whenever it finds bugs, Syzbot reports it to the relevant mailing list. It also has a public dashboard where it lists all the open bugs that needs to be fixed.
+Syzbot is quite effective in finding bugs in the kernel but due to the large number of bugs being found, many of them don&rsquo;t get fixed in time."/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Nihaal</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a>
+  </ul>
+
+  
+
+
+</nav>
+
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Nihaal</a>
+</div>
+
+
+
+
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li>
+  </ul>
+</nav>
+
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">Fixing syzbot bugs</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 20-12-2022 </span>
+        
+          <span class="more-meta"> 708 words </span>
+          <span class="more-meta"> 4 mins read </span>
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">Contents</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#0-dot-setup-your-system">0. Setup your system</a></li>
+        <li><a href="#1-dot-find-a-bug-to-fix">1. Find a bug to fix</a></li>
+        <li><a href="#2-dot-reproduce-the-bug-on-your-system">2. Reproduce the bug on your system</a></li>
+        <li><a href="#3-dot-find-the-cause-of-the-bug">3. Find the cause of the bug</a></li>
+        <li><a href="#4-dot-create-and-test-your-patch-with-syzbot">4. Create and test your patch with Syzbot</a></li>
+        <li><a href="#5-dot-send-your-patch">5. Send your patch</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <p>Syzbot is an automated fuzzing infrastructure that uses Syzkaller to perform continuous fuzzing, primarily on the Linux kernel.
+Whenever it finds bugs, Syzbot reports it to the relevant mailing list.
+It also has a <a href="https://syzkaller.appspot.com/">public dashboard</a> where it lists all the open bugs that needs to be fixed.</p>
+<p>Syzbot is quite effective in finding bugs in the kernel but due to the large number of bugs being found, many of them don&rsquo;t get fixed in time. And so, we can help fix those bugs.
+In this post, I&rsquo;ll share the general approaches and steps in fixing Syzbot bugs.</p>
+<h2 id="0-dot-setup-your-system">0. Setup your system</h2>
+<p>Before we can start fixing bugs, we need to have a Qemu virtual machine setup along with my favorite tool for debugging: kgdb.</p>
+<ul>
+<li>First, download the Linux source code and compile it.</li>
+<li>Then install and boot the compiled kernel in a virtual machine using Qemu. We also need a root filesystem for this.</li>
+<li>Finally, install gdb and set up kgdb.</li>
+</ul>
+<h2 id="1-dot-find-a-bug-to-fix">1. Find a bug to fix</h2>
+<p>Pick a bug that</p>
+<ul>
+<li>was recently encountered (in the latest kernels) by Syzbot</li>
+<li>has a reproducer. Because, otherwise the bug would be harder to fix.
+The reproducer program can also act as a test case for the patch that solves the issue.</li>
+<li>is not yet fixed and no one else is currently trying to fix it. This is to avoid duplicated effort.
+To check, see if there are any replies to the syzbot mail to the mailing list, any
+patch testing requests on the syzbot dashboard, or any patches in the mailing list that
+mentions this bug in it&rsquo;s Reported-by tag. We don&rsquo;t want to spend time fixing a bug, only to realize that it has already been fixed.</li>
+<li>is in your subsystem or bug class of your interest (Stick to one subsystem or bug class if possible)</li>
+</ul>
+<h2 id="2-dot-reproduce-the-bug-on-your-system">2. Reproduce the bug on your system</h2>
+<p>Once you have picked a bug to fix, we have to reproduce the bug on our machine.
+If we cannot reproduce the bug, we cannot fix it.</p>
+<ul>
+<li>Find if the bug is present in mainline or linux-next and checkout to the appropriate branch.</li>
+<li>Compile the kernel with the respective sanitizer that detected the bug (KASAN, KMSAN, etc).</li>
+<li>Run the reproducer on the compiled kernel in a virtual machine and test if the bug is detected.</li>
+</ul>
+<p>If you are able to reliably reproduce the bug then you can try fixing it.</p>
+<h2 id="3-dot-find-the-cause-of-the-bug">3. Find the cause of the bug</h2>
+<ul>
+<li>
+<p>Compare different reports of the same bug to see if you can get some information
+For example, we can try to answer questions like these:</p>
+<ul>
+<li>Is the stack trace changing across reports or is it the same?
+(i.e. can the bug be triggered from different code paths or only in a particular path)</li>
+<li>Is the buggy access happenning at the same offset?</li>
+<li>Is there anything similar or different across the reports? If yes, why?</li>
+</ul>
+</li>
+<li>
+<p>Go down the stack trace and see what conditions needs to be true for this path to occur.
+(Shuah Khan suggested this during the LFX mentorship meetings.)
+For example, in the simplified example below, we can infer that since the buggy function is on
+the true branch of the if-else, the if condition must be true for the bug to happen.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl">       <span class="k">if</span> <span class="p">(</span><span class="n">some_bool</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  	<span class="c1">// Buggy function is called from this path
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  	<span class="n">buggy_function</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">       <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">          <span class="n">some_function</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">       <span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p>Use kgdb to debug the kernel. Set a breakpoint right before the bug and look around to see what is causing the bug.</p>
+</li>
+<li>
+<p>Minimize the reproducer manually. Try to remove some system calls or operations from the reproducer while ensuring that the reproducer still
+causes the bug.</p>
+</li>
+</ul>
+<h2 id="4-dot-create-and-test-your-patch-with-syzbot">4. Create and test your patch with Syzbot</h2>
+<p>Once you have identified the root cause of the bug, we can create a patch to fix it.
+Make the change that fixes the bug. Test it locally using the reproducer program to see if the change actually fixed the bug.
+Then you can send your patch to Syzbot for testing.</p>
+<h2 id="5-dot-send-your-patch">5. Send your patch</h2>
+<p>Don&rsquo;t forget to add the Reported-by or Reported-and-tested-by tag to give credit to syzbot.
+You can also look around the code to see if there are any other similar bugs.</p>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">Author</span>
+    <span class="item-content">Abdun Nihaal</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">LastMod</span>
+    <span class="item-content">
+        20-12-2022
+        
+    </span>
+  </p>
+  
+  
+</div>
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/linux/">linux</a>
+          <a href="/tags/kernel/">kernel</a>
+          <a href="/tags/fuzzing/">fuzzing</a>
+          </div>
+      <nav class="post-nav">
+        
+        <a class="next" href="/post/coccinelle/">
+            <span class="next-text nav-default">Coccinelle</span>
+            <span class="next-text nav-mobile">Next</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="https://www.twitter.com/nihaal_an" class="iconfont icon-twitter" title="twitter"></a>
+      <a href="https://in.linkedin.com/in/abdun-nihaal-289272143" class="iconfont icon-linkedin" title="linkedin"></a>
+      <a href="https://www.github.com/nifey" class="iconfont icon-github" title="github"></a>
+      <a href="https://www.gitlab.com/nihaal" class="iconfont icon-gitlab" title="gitlab"></a>
+  <a href="https://nihaal.me/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    2016 - 
+    2022<span class="heart"><i class="iconfont icon-heart"></i></span><span>Abdun Nihaal</span>
+  </span>
+</div>
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  <script type="text/javascript" src="/lib/jquery/jquery-3.2.1.min.js"></script>
+  <script type="text/javascript" src="/lib/slideout/slideout-1.0.1.min.js"></script>
+  <script type="text/javascript" src="/lib/fancybox/jquery.fancybox-3.1.20.min.js"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.4ae89da218555efa0e7093a20b92017d2e1202b66fff9fc2edf4cb8d44b44c6e.js"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>
