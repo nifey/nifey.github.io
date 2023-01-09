@@ -24,7 +24,7 @@ Character devices are accessed as a stream of bytes. Eg: Keyboards Block devices
 
 
 
-<meta name="generator" content="Hugo 0.105.0 with theme even" />
+<meta name="generator" content="Hugo 0.108.0 with theme even" />
 
 
 <link rel="canonical" href="https://nihaal.me/post/misc_char_devices/" />
@@ -47,7 +47,6 @@ Character devices are accessed as a stream of bytes. Eg: Keyboards Block devices
 <meta property="og:url" content="https://nihaal.me/post/misc_char_devices/" /><meta property="article:section" content="post" />
 <meta property="article:published_time" content="2021-11-03T00:00:00+00:00" />
 <meta property="article:modified_time" content="2021-11-03T00:00:00+00:00" /><meta property="og:site_name" content="Nihaal" />
-
 <meta itemprop="name" content="Misc character devices">
 <meta itemprop="description" content="Character Devices, Major and Minor numbers Based on granularity of access, there are two classes of devices:
 Character devices are accessed as a stream of bytes. Eg: Keyboards Block devices are accessed in blocks. For instance, hard disks transfer data in blocks of multiple bytes at a time. The kernel uses major and minor numbers to identify the attached hardware devices. Major number usually tells us the type of device. Minor numbers are used to differentiate two or more devices with the same major number."><meta itemprop="datePublished" content="2021-11-03T00:00:00+00:00" />
@@ -233,7 +232,7 @@ Also, All misc devices share the same major number: 10 (defined as MISC_MAJOR).<
 </span></span><span class="line"><span class="cl">	<span class="k">struct</span> <span class="n">device</span> <span class="o">*</span><span class="n">this_device</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">	<span class="k">const</span> <span class="k">struct</span> <span class="n">attribute_group</span> <span class="o">**</span><span class="n">groups</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">	<span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">nodename</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">	<span class="n">umode_t</span> <span class="n">mode</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="kt">umode_t</span> <span class="n">mode</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="p">};</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="k">extern</span> <span class="kt">int</span> <span class="nf">misc_register</span><span class="p">(</span><span class="k">struct</span> <span class="n">miscdevice</span> <span class="o">*</span><span class="n">misc</span><span class="p">);</span>
@@ -288,9 +287,9 @@ Also, All misc devices share the same major number: 10 (defined as MISC_MAJOR).<
 </span></span></span><span class="line"><span class="cl"><span class="cp">#include</span><span class="cpf">&lt;linux/string.h&gt;        // For string helper functions</span><span class="cp">
 </span></span></span><span class="line"><span class="cl"><span class="cp">#include</span><span class="cpf">&lt;linux/rwsem.h&gt;         // For reader-writers lock</span><span class="cp">
 </span></span></span><span class="line"><span class="cl"><span class="cp"></span>
-</span></span><span class="line"><span class="cl"><span class="n">MODULE_LICENSE</span><span class="p">(</span><span class="s">&#34;GPL&#34;</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl"><span class="n">MODULE_AUTHOR</span><span class="p">(</span><span class="s">&#34;Nihaal&#34;</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl"><span class="n">MODULE_DESCRIPTION</span><span class="p">(</span><span class="s">&#34;Misc char driver&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="nf">MODULE_LICENSE</span><span class="p">(</span><span class="s">&#34;GPL&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="nf">MODULE_AUTHOR</span><span class="p">(</span><span class="s">&#34;Nihaal&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="nf">MODULE_DESCRIPTION</span><span class="p">(</span><span class="s">&#34;Misc char driver&#34;</span><span class="p">);</span>
 </span></span></code></pre></td></tr></table>
 </div>
 </div><h4 id="buffer-allocation-and-locking">Buffer allocation and Locking</h4>
@@ -358,8 +357,8 @@ So we use <em>copy_to_user</em> function to copy data from the kernel address sp
 </span><span class="lnt">19
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="n">ssize_t</span> <span class="nf">echo_read</span> <span class="p">(</span><span class="k">struct</span> <span class="n">file</span> <span class="o">*</span><span class="n">filp</span><span class="p">,</span> <span class="kt">char</span> <span class="n">__user</span> <span class="o">*</span> <span class="n">user_buffer</span><span class="p">,</span> <span class="n">size_t</span> <span class="n">size</span><span class="p">,</span> <span class="n">loff_t</span> <span class="o">*</span> <span class="n">file_pos</span><span class="p">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">	<span class="n">size_t</span> <span class="n">len</span><span class="p">,</span> <span class="n">ret</span><span class="p">;</span>
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="kt">ssize_t</span> <span class="nf">echo_read</span> <span class="p">(</span><span class="k">struct</span> <span class="n">file</span> <span class="o">*</span><span class="n">filp</span><span class="p">,</span> <span class="kt">char</span> <span class="n">__user</span> <span class="o">*</span> <span class="n">user_buffer</span><span class="p">,</span> <span class="kt">size_t</span> <span class="n">size</span><span class="p">,</span> <span class="kt">loff_t</span> <span class="o">*</span> <span class="n">file_pos</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="kt">size_t</span> <span class="n">len</span><span class="p">,</span> <span class="n">ret</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">	<span class="c1">// Check if a page of data has been read already
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="k">if</span> <span class="p">((</span><span class="o">*</span><span class="n">file_pos</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="n">PAGE_SIZE</span><span class="p">)</span> <span class="p">{</span>
@@ -367,14 +366,14 @@ So we use <em>copy_to_user</em> function to copy data from the kernel address sp
 </span></span><span class="line"><span class="cl">	<span class="p">}</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">	<span class="c1">// Acquire read lock
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="n">down_read</span><span class="p">(</span><span class="o">&amp;</span><span class="n">echo_rwlock</span><span class="p">);</span>
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="nf">down_read</span><span class="p">(</span><span class="o">&amp;</span><span class="n">echo_rwlock</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">	<span class="n">len</span> <span class="o">=</span> <span class="p">(</span><span class="n">size</span> <span class="o">&gt;</span> <span class="n">PAGE_SIZE</span><span class="p">)</span><span class="o">?</span> <span class="nl">PAGE_SIZE</span><span class="p">:</span> <span class="n">size</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">	<span class="c1">// Copy data to user buffer
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="n">ret</span> <span class="o">=</span> <span class="n">copy_to_user</span><span class="p">(</span><span class="n">user_buffer</span><span class="p">,</span> <span class="n">kernel_buffer</span><span class="p">,</span> <span class="n">len</span><span class="p">);</span>
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="n">ret</span> <span class="o">=</span> <span class="nf">copy_to_user</span><span class="p">(</span><span class="n">user_buffer</span><span class="p">,</span> <span class="n">kernel_buffer</span><span class="p">,</span> <span class="n">len</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">	<span class="n">len</span> <span class="o">=</span> <span class="n">len</span> <span class="o">-</span> <span class="n">ret</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">	<span class="o">*</span><span class="n">file_pos</span> <span class="o">+=</span> <span class="n">len</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">	<span class="c1">// Release read lock
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="n">up_read</span><span class="p">(</span><span class="o">&amp;</span><span class="n">echo_rwlock</span><span class="p">);</span>
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="nf">up_read</span><span class="p">(</span><span class="o">&amp;</span><span class="n">echo_rwlock</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="n">len</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></td></tr></table>
@@ -417,8 +416,8 @@ The write function should</p>
 </span><span class="lnt">20
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="n">ssize_t</span> <span class="nf">echo_write</span> <span class="p">(</span><span class="k">struct</span> <span class="n">file</span> <span class="o">*</span><span class="n">filp</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span> <span class="n">__user</span> <span class="o">*</span> <span class="n">user_buffer</span><span class="p">,</span> <span class="n">size_t</span> <span class="n">size</span><span class="p">,</span> <span class="n">loff_t</span> <span class="o">*</span> <span class="n">file_pos</span><span class="p">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">	<span class="n">size_t</span> <span class="n">len</span><span class="p">,</span> <span class="n">ret</span><span class="p">;</span>
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="kt">ssize_t</span> <span class="nf">echo_write</span> <span class="p">(</span><span class="k">struct</span> <span class="n">file</span> <span class="o">*</span><span class="n">filp</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span> <span class="n">__user</span> <span class="o">*</span> <span class="n">user_buffer</span><span class="p">,</span> <span class="kt">size_t</span> <span class="n">size</span><span class="p">,</span> <span class="kt">loff_t</span> <span class="o">*</span> <span class="n">file_pos</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="kt">size_t</span> <span class="n">len</span><span class="p">,</span> <span class="n">ret</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">	<span class="c1">// Check if a page of data has been written already
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="k">if</span> <span class="p">((</span><span class="o">*</span><span class="n">file_pos</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="n">PAGE_SIZE</span><span class="p">)</span> <span class="p">{</span>
@@ -426,15 +425,15 @@ The write function should</p>
 </span></span><span class="line"><span class="cl">	<span class="p">}</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">	<span class="c1">// Acquire write lock
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="n">down_write</span><span class="p">(</span><span class="o">&amp;</span><span class="n">echo_rwlock</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">	<span class="n">memset</span><span class="p">(</span><span class="n">kernel_buffer</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">PAGE_SIZE</span><span class="p">);</span>
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="nf">down_write</span><span class="p">(</span><span class="o">&amp;</span><span class="n">echo_rwlock</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">	<span class="nf">memset</span><span class="p">(</span><span class="n">kernel_buffer</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">PAGE_SIZE</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">	<span class="n">len</span> <span class="o">=</span> <span class="p">(</span><span class="n">size</span> <span class="o">&gt;</span> <span class="n">PAGE_SIZE</span><span class="p">)</span><span class="o">?</span> <span class="nl">PAGE_SIZE</span><span class="p">:</span> <span class="n">size</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">	<span class="c1">// Copy data to kernel buffer
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="n">ret</span> <span class="o">=</span> <span class="n">copy_from_user</span><span class="p">(</span><span class="n">kernel_buffer</span><span class="p">,</span> <span class="n">user_buffer</span><span class="p">,</span> <span class="n">len</span><span class="p">);</span>
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="n">ret</span> <span class="o">=</span> <span class="nf">copy_from_user</span><span class="p">(</span><span class="n">kernel_buffer</span><span class="p">,</span> <span class="n">user_buffer</span><span class="p">,</span> <span class="n">len</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">	<span class="n">len</span> <span class="o">=</span> <span class="n">len</span> <span class="o">-</span> <span class="n">ret</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">	<span class="o">*</span><span class="n">file_pos</span> <span class="o">+=</span> <span class="n">len</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">	<span class="c1">// Release write lock
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="n">up_write</span><span class="p">(</span><span class="o">&amp;</span><span class="n">echo_rwlock</span><span class="p">);</span>
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="nf">up_write</span><span class="p">(</span><span class="o">&amp;</span><span class="n">echo_rwlock</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="n">len</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></td></tr></table>
@@ -531,13 +530,13 @@ If the function returns 0, then the device has been created successfully.</p>
 <pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="k">static</span> <span class="kt">int</span> <span class="n">__init</span> <span class="nf">echo_init</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl">	<span class="c1">// Allocate a page sized buffer
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="n">kernel_buffer</span> <span class="o">=</span> <span class="p">(</span><span class="kt">char</span><span class="o">*</span><span class="p">)</span> <span class="n">kzalloc</span><span class="p">(</span><span class="n">PAGE_SIZE</span><span class="p">,</span> <span class="n">GFP_KERNEL</span><span class="p">);</span>
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="n">kernel_buffer</span> <span class="o">=</span> <span class="p">(</span><span class="kt">char</span><span class="o">*</span><span class="p">)</span> <span class="nf">kzalloc</span><span class="p">(</span><span class="n">PAGE_SIZE</span><span class="p">,</span> <span class="n">GFP_KERNEL</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">	<span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">kernel_buffer</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">		<span class="k">return</span> <span class="o">-</span><span class="n">ENOMEM</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">	<span class="c1">// Register misc char device
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="k">if</span><span class="p">(</span><span class="n">misc_register</span><span class="p">(</span><span class="o">&amp;</span><span class="n">echo_device</span><span class="p">))</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">      <span class="n">kfree</span><span class="p">(</span><span class="n">kernel_buffer</span><span class="p">);</span>
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="k">if</span><span class="p">(</span><span class="nf">misc_register</span><span class="p">(</span><span class="o">&amp;</span><span class="n">echo_device</span><span class="p">))</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nf">kfree</span><span class="p">(</span><span class="n">kernel_buffer</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">		<span class="k">return</span> <span class="o">-</span><span class="n">ENODEV</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">	<span class="p">}</span>
 </span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
@@ -546,13 +545,13 @@ If the function returns 0, then the device has been created successfully.</p>
 </span></span><span class="line"><span class="cl"><span class="k">static</span> <span class="kt">void</span> <span class="n">__exit</span> <span class="nf">echo_exit</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl">	<span class="c1">// Free buffer
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="n">kfree</span><span class="p">(</span><span class="n">kernel_buffer</span><span class="p">);</span>
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="nf">kfree</span><span class="p">(</span><span class="n">kernel_buffer</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">	<span class="c1">// Unregister misc char device
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="n">misc_deregister</span><span class="p">(</span><span class="o">&amp;</span><span class="n">echo_device</span><span class="p">);</span>
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="nf">misc_deregister</span><span class="p">(</span><span class="o">&amp;</span><span class="n">echo_device</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="n">module_init</span><span class="p">(</span><span class="n">echo_init</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl"><span class="n">module_exit</span><span class="p">(</span><span class="n">echo_exit</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="nf">module_init</span><span class="p">(</span><span class="n">echo_init</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="nf">module_exit</span><span class="p">(</span><span class="n">echo_exit</span><span class="p">);</span>
 </span></span></code></pre></td></tr></table>
 </div>
 </div><h3 id="makefile">Makefile</h3>
@@ -708,7 +707,7 @@ If the function returns 0, then the device has been created successfully.</p>
   <span class="copyright-year">
     &copy; 
     2016 - 
-    2022<span class="heart"><i class="iconfont icon-heart"></i></span><span>Abdun Nihaal</span>
+    2023<span class="heart"><i class="iconfont icon-heart"></i></span><span>Abdun Nihaal</span>
   </span>
 </div>
 

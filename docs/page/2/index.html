@@ -23,7 +23,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.105.0 with theme even" />
+<meta name="generator" content="Hugo 0.108.0 with theme even" />
 
 
 <link rel="canonical" href="https://nihaal.me/" />
@@ -45,7 +45,6 @@
 <meta property="og:description" content="" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://nihaal.me/" /><meta property="og:site_name" content="Nihaal" />
-
 <meta itemprop="name" content="Nihaal">
 <meta itemprop="description" content=""><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Nihaal"/>
@@ -116,6 +115,29 @@
       <div class="content-wrapper">
         <div id="content" class="content">
           <section id="posts" class="posts">
+    <article class="post">
+  <header class="post-header">
+    <h1 class="post-title"><a class="post-link" href="/post/kernel_sanitizers/">Kernel Sanitizers</a></h1>
+    <div class="post-meta">
+      <span class="post-time"> 05-12-2022 </span>
+      
+        <span class="more-meta"> 891 words </span>
+        <span class="more-meta"> 5 mins read </span>
+    </div>
+  </header>
+  
+  <div class="post-content">
+    <div class="post-summary">
+      When fuzzing a program by feeding random inputs to it, we need a mechanism to tell when the program is doing unexpected things. Sanitizers help detect bugs in the program at runtime. They are usually used along with fuzzing to detect bugs in programs.
+The two roles of sanitizers:
+Detect incorrect program behaviour: like accessing memory that the program is not supposed to access Report incorrect behaviour: To be useful, the sanitizer needs to report useful information (like the stack trace and ) that makes it easier to understand and fix the bug.
+    </div>
+    <div class="read-more">
+      <a href="/post/kernel_sanitizers/" class="read-more-link">Read more...</a>
+    </div>
+  </div>
+</article>
+
     <article class="post">
   <header class="post-header">
     <h1 class="post-title"><a class="post-link" href="/post/kernel_fuzzing/">Linux kernel fuzzing</a></h1>
@@ -207,28 +229,6 @@ There are many different software compression algorithms available.
   </div>
 </article>
 
-    <article class="post">
-  <header class="post-header">
-    <h1 class="post-title"><a class="post-link" href="/post/fosshack_2021/">FOSSHack 2021</a></h1>
-    <div class="post-meta">
-      <span class="post-time"> 04-12-2021 </span>
-      
-        <span class="more-meta"> 1057 words </span>
-        <span class="more-meta"> 5 mins read </span>
-    </div>
-  </header>
-  
-  <div class="post-content">
-    <div class="post-summary">
-      FOSSHack 2021 FOSSHack 2021 is a remote hackathon, organized by FOSSUnited, that happened on 13-14 November. FOSSUnited is a non-profit foundation that seeks to foster more FOSS projects and contributors from India and this hackathon is one such initiative.
-The rules were simple: Build a FOSS project or Work on existing FOSS project during the weekend. The projects would be judged based on factors like technical complexity, completeness and utility.
-    </div>
-    <div class="read-more">
-      <a href="/post/fosshack_2021/" class="read-more-link">Read more...</a>
-    </div>
-  </div>
-</article>
-
     </section>
   
   <nav class="pagination">
@@ -271,7 +271,7 @@ The rules were simple: Build a FOSS project or Work on existing FOSS project dur
   <span class="copyright-year">
     &copy; 
     2016 - 
-    2022<span class="heart"><i class="iconfont icon-heart"></i></span><span>Abdun Nihaal</span>
+    2023<span class="heart"><i class="iconfont icon-heart"></i></span><span>Abdun Nihaal</span>
   </span>
 </div>
 

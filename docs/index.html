@@ -23,7 +23,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.105.0 with theme even" />
+<meta name="generator" content="Hugo 0.108.0 with theme even" />
 
 
 <link rel="canonical" href="https://nihaal.me/" />
@@ -45,7 +45,6 @@
 <meta property="og:description" content="" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://nihaal.me/" /><meta property="og:site_name" content="Nihaal" />
-
 <meta itemprop="name" content="Nihaal">
 <meta itemprop="description" content=""><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Nihaal"/>
@@ -116,6 +115,28 @@
       <div class="content-wrapper">
         <div id="content" class="content">
           <section id="posts" class="posts">
+    <article class="post">
+  <header class="post-header">
+    <h1 class="post-title"><a class="post-link" href="/post/kernel_defences/">Kernel defences</a></h1>
+    <div class="post-meta">
+      <span class="post-time"> 09-01-2023 </span>
+      
+        <span class="more-meta"> 368 words </span>
+        <span class="more-meta"> 2 mins read </span>
+    </div>
+  </header>
+  
+  <div class="post-content">
+    <div class="post-summary">
+      Usually when an attacker exploits a vulnerability, the attack starts out as a Illegal memory access or Control flow hijack, which the attacker would use to write to sensitive memory locations or execute arbitrary code in supervisor mode, to try to increase privileges in the system.
+Illegal memory accesses are memory accesses which the programmer didn&rsquo;t intend to happen, which allows attackers to read or write to some memory locations. Illegal memory accesses can be classified on three aspects:
+    </div>
+    <div class="read-more">
+      <a href="/post/kernel_defences/" class="read-more-link">Read more...</a>
+    </div>
+  </div>
+</article>
+
     <article class="post">
   <header class="post-header">
     <h1 class="post-title"><a class="post-link" href="/post/fixing_syzbot_bugs/">Fixing syzbot bugs</a></h1>
@@ -205,29 +226,6 @@ Research is producing new knowledge. The aim of research is to do something nove
   </div>
 </article>
 
-    <article class="post">
-  <header class="post-header">
-    <h1 class="post-title"><a class="post-link" href="/post/kernel_sanitizers/">Kernel Sanitizers</a></h1>
-    <div class="post-meta">
-      <span class="post-time"> 05-12-2022 </span>
-      
-        <span class="more-meta"> 891 words </span>
-        <span class="more-meta"> 5 mins read </span>
-    </div>
-  </header>
-  
-  <div class="post-content">
-    <div class="post-summary">
-      When fuzzing a program by feeding random inputs to it, we need a mechanism to tell when the program is doing unexpected things. Sanitizers help detect bugs in the program at runtime. They are usually used along with fuzzing to detect bugs in programs.
-The two roles of sanitizers:
-Detect incorrect program behaviour: like accessing memory that the program is not supposed to access Report incorrect behaviour: To be useful, the sanitizer needs to report useful information (like the stack trace and ) that makes it easier to understand and fix the bug.
-    </div>
-    <div class="read-more">
-      <a href="/post/kernel_sanitizers/" class="read-more-link">Read more...</a>
-    </div>
-  </div>
-</article>
-
     </section>
   
   <nav class="pagination">
@@ -267,7 +265,7 @@ Detect incorrect program behaviour: like accessing memory that the program is no
   <span class="copyright-year">
     &copy; 
     2016 - 
-    2022<span class="heart"><i class="iconfont icon-heart"></i></span><span>Abdun Nihaal</span>
+    2023<span class="heart"><i class="iconfont icon-heart"></i></span><span>Abdun Nihaal</span>
   </span>
 </div>
 

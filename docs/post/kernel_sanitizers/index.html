@@ -25,7 +25,7 @@ Detect incorrect program behaviour: like accessing memory that the program is no
 
 
 
-<meta name="generator" content="Hugo 0.105.0 with theme even" />
+<meta name="generator" content="Hugo 0.108.0 with theme even" />
 
 
 <link rel="canonical" href="https://nihaal.me/post/kernel_sanitizers/" />
@@ -49,7 +49,6 @@ Detect incorrect program behaviour: like accessing memory that the program is no
 <meta property="og:url" content="https://nihaal.me/post/kernel_sanitizers/" /><meta property="article:section" content="post" />
 <meta property="article:published_time" content="2022-12-05T00:00:00+00:00" />
 <meta property="article:modified_time" content="2022-12-17T09:25:43+05:30" /><meta property="og:site_name" content="Nihaal" />
-
 <meta itemprop="name" content="Kernel Sanitizers">
 <meta itemprop="description" content="When fuzzing a program by feeding random inputs to it, we need a mechanism to tell when the program is doing unexpected things. Sanitizers help detect bugs in the program at runtime. They are usually used along with fuzzing to detect bugs in programs.
 The two roles of sanitizers:
@@ -206,7 +205,7 @@ Negative values stored in shadow memory indicates illegal access and different n
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="n">shadow</span> <span class="o">=</span> <span class="n">p</span> <span class="o">&gt;&gt;</span> <span class="mi">3</span> <span class="o">+</span> <span class="mh">0xdffffc000000</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">  <span class="c1">// Check shadow bytes
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="k">if</span> <span class="p">(</span><span class="o">*</span><span class="n">shadow</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">    <span class="n">kasan_report</span><span class="p">(</span><span class="n">p</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">kasan_report</span><span class="p">(</span><span class="n">p</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">  <span class="o">*</span><span class="n">p</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="c1">// Original memory access
 </span></span></span></code></pre></td></tr></table>
@@ -314,7 +313,7 @@ Moreover, it samples the memory objects and picks only a few for checking access
   <span class="copyright-year">
     &copy; 
     2016 - 
-    2022<span class="heart"><i class="iconfont icon-heart"></i></span><span>Abdun Nihaal</span>
+    2023<span class="heart"><i class="iconfont icon-heart"></i></span><span>Abdun Nihaal</span>
   </span>
 </div>
 

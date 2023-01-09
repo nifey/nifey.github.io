@@ -25,7 +25,7 @@ TLB;DR: Enhancing TLB-based Attacks with TLB Desynchronized Reverse Engineering.
 
 
 
-<meta name="generator" content="Hugo 0.105.0 with theme even" />
+<meta name="generator" content="Hugo 0.108.0 with theme even" />
 
 
 <link rel="canonical" href="https://nihaal.me/post/paper_tlbdr/" />
@@ -49,7 +49,6 @@ TLB;DR: Enhancing TLB-based Attacks with TLB Desynchronized Reverse Engineering.
 <meta property="og:url" content="https://nihaal.me/post/paper_tlbdr/" /><meta property="article:section" content="post" />
 <meta property="article:published_time" content="2022-12-01T00:00:00+00:00" />
 <meta property="article:modified_time" content="2022-12-02T11:17:59+05:30" /><meta property="og:site_name" content="Nihaal" />
-
 <meta itemprop="name" content="TLB;DR Reversing TLBs with TLB desynchronization">
 <meta itemprop="description" content="Yesterday, I read an interesting research paper about reverse engineering TLBs using TLB desynchronization. In this post, I&rsquo;ll write briefly about the key ideas and what I found very interesting in the paper.
 You can find the paper here:
@@ -205,8 +204,8 @@ They also discover a undisclosed TLB replacement policy used in some Intel CPUs 
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-C" data-lang="C"><span class="line"><span class="cl">  <span class="n">raw_local_irq_restore</span><span class="p">(</span><span class="n">flags</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">  <span class="n">preempt_enable</span><span class="p">();</span>
+<pre tabindex="0" class="chroma"><code class="language-C" data-lang="C"><span class="line"><span class="cl">  <span class="nf">raw_local_irq_restore</span><span class="p">(</span><span class="n">flags</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">preempt_enable</span><span class="p">();</span>
 </span></span></code></pre></td></tr></table>
 </div>
 </div></li>
@@ -336,58 +335,58 @@ In addition, the NX bit in the page table entries, which prevents execution of c
 </span></span></span><span class="line"><span class="cl"><span class="cm">  */</span>
 </span></span><span class="line"><span class="cl">  <span class="kt">int</span> <span class="nf">seperate_itlb_and_dtlb</span><span class="p">(</span><span class="kt">int</span> <span class="n">ways</span><span class="p">){</span>
 </span></span><span class="line"><span class="cl">  	<span class="c1">// 1. Disable SMEP since we will be executing from userspace pages
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  	<span class="n">disable_smep</span><span class="p">();</span>
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  	<span class="nf">disable_smep</span><span class="p">();</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">  	<span class="c1">// 2. Flush TLBs by writing to CR3
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>  	<span class="n">u64</span> <span class="n">cr3k</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">  	<span class="n">cr3k</span> <span class="o">=</span> <span class="n">getcr3</span><span class="p">();</span>
-</span></span><span class="line"><span class="cl">  	<span class="n">setcr3</span><span class="p">(</span><span class="n">cr3k</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  	<span class="n">cr3k</span> <span class="o">=</span> <span class="nf">getcr3</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">  	<span class="nf">setcr3</span><span class="p">(</span><span class="n">cr3k</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">  	<span class="c1">// 3. Pick a random page from the allocated buffer and clear NX bit
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>  	<span class="k">volatile</span> <span class="kt">unsigned</span> <span class="kt">long</span> <span class="n">addr</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">  	<span class="kt">unsigned</span> <span class="kt">long</span> <span class="n">random_offset</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">  	<span class="n">get_random_bytes</span><span class="p">(</span><span class="o">&amp;</span><span class="n">random_offset</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">random_offset</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">  	<span class="nf">get_random_bytes</span><span class="p">(</span><span class="o">&amp;</span><span class="n">random_offset</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">random_offset</span><span class="p">));</span>
 </span></span><span class="line"><span class="cl">  	<span class="c1">//Take a random page out of the first 1000 ones
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>  	<span class="n">addr</span> <span class="o">=</span> <span class="p">(</span><span class="kt">void</span> <span class="o">*</span><span class="p">)</span><span class="n">BASE</span> <span class="o">+</span> <span class="p">(</span><span class="mi">4096</span> <span class="o">*</span> <span class="p">(</span><span class="n">random_offset</span> <span class="o">%</span> <span class="mi">1000</span><span class="p">));</span>
 </span></span><span class="line"><span class="cl">  	<span class="c1">//If the PTE of our address is at the end of a page table, resample
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>  	<span class="kt">int</span> <span class="n">difference</span> <span class="o">=</span> <span class="p">((</span><span class="n">addr</span> <span class="o">-</span> <span class="p">(</span><span class="kt">unsigned</span> <span class="kt">long</span><span class="p">)</span><span class="n">BASE</span><span class="p">)</span> <span class="o">/</span> <span class="mi">4096</span><span class="p">)</span> <span class="o">%</span> <span class="mi">512</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">  	<span class="k">while</span><span class="p">(</span><span class="n">difference</span> <span class="o">%</span> <span class="mi">512</span> <span class="o">==</span> <span class="mi">511</span><span class="p">){</span>
-</span></span><span class="line"><span class="cl">  		<span class="n">get_random_bytes</span><span class="p">(</span><span class="o">&amp;</span><span class="n">random_offset</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">random_offset</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">  		<span class="nf">get_random_bytes</span><span class="p">(</span><span class="o">&amp;</span><span class="n">random_offset</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">random_offset</span><span class="p">));</span>
 </span></span><span class="line"><span class="cl">  		<span class="n">addr</span> <span class="o">=</span> <span class="p">(</span><span class="kt">void</span> <span class="o">*</span><span class="p">)</span><span class="n">BASE</span> <span class="o">+</span> <span class="p">(</span><span class="mi">4096</span> <span class="o">*</span> <span class="p">(</span><span class="n">random_offset</span> <span class="o">%</span> <span class="mi">1000</span><span class="p">));</span>
 </span></span><span class="line"><span class="cl">  		<span class="n">difference</span> <span class="o">=</span> <span class="p">((</span><span class="n">addr</span> <span class="o">-</span> <span class="p">(</span><span class="kt">unsigned</span> <span class="kt">long</span><span class="p">)</span><span class="n">BASE</span><span class="p">)</span> <span class="o">/</span> <span class="mi">4096</span><span class="p">)</span> <span class="o">%</span> <span class="mi">512</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">  	<span class="p">}</span>
 </span></span><span class="line"><span class="cl">  	<span class="c1">//Perform the page walk
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>  	<span class="k">struct</span> <span class="n">ptwalk</span> <span class="n">walk</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">  	<span class="n">resolve_va</span><span class="p">(</span><span class="n">addr</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">walk</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">  	<span class="n">clear_nx</span><span class="p">(</span><span class="n">walk</span><span class="p">.</span><span class="n">pgd</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  	<span class="nf">resolve_va</span><span class="p">(</span><span class="n">addr</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">walk</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  	<span class="nf">clear_nx</span><span class="p">(</span><span class="n">walk</span><span class="p">.</span><span class="n">pgd</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">  	<span class="c1">// 4. Disable kernel preemption in claim_cpu()
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  	<span class="n">down_write</span><span class="p">(</span><span class="n">TLBDR_MMLOCK</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">  	<span class="n">claim_cpu</span><span class="p">();</span>
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  	<span class="nf">down_write</span><span class="p">(</span><span class="n">TLBDR_MMLOCK</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  	<span class="nf">claim_cpu</span><span class="p">();</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">  	<span class="c1">// 5. Here is where the actual experiment starts
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>  	<span class="c1">// 5.1 Load the PTE into the DTLB by reading from the page address.
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>  	<span class="c1">//     Store the physical page id returned in original.
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  	<span class="kt">int</span> <span class="n">original</span> <span class="o">=</span> <span class="n">read</span><span class="p">(</span><span class="n">addr</span><span class="p">);</span>
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  	<span class="kt">int</span> <span class="n">original</span> <span class="o">=</span> <span class="nf">read</span><span class="p">(</span><span class="n">addr</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">  	<span class="c1">// 5.2 Desync the TLB by swapping PTEs with adjacent page
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  	<span class="n">switch_pages</span><span class="p">(</span><span class="n">walk</span><span class="p">.</span><span class="n">pte</span><span class="p">,</span> <span class="n">walk</span><span class="p">.</span><span class="n">pte</span> <span class="o">+</span> <span class="mi">1</span><span class="p">);</span>
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  	<span class="nf">switch_pages</span><span class="p">(</span><span class="n">walk</span><span class="p">.</span><span class="n">pte</span><span class="p">,</span> <span class="n">walk</span><span class="p">.</span><span class="n">pte</span> <span class="o">+</span> <span class="mi">1</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">  	<span class="c1">// 5.3 Issue additional data loads to evict the DTLB entry from L1
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>  	<span class="k">volatile</span> <span class="kt">int</span> <span class="n">i</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">  	<span class="k">for</span><span class="p">(</span><span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">ways</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">){</span>
-</span></span><span class="line"><span class="cl">  		<span class="n">read</span><span class="p">((</span><span class="kt">void</span> <span class="o">*</span><span class="p">)</span><span class="n">BASE</span> <span class="o">+</span> <span class="p">(</span><span class="mi">4096</span> <span class="o">*</span> <span class="p">((</span><span class="n">random_offset</span> <span class="o">%</span> <span class="mi">1000</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span> <span class="o">+</span> <span class="p">(</span><span class="n">i</span> <span class="o">*</span> <span class="mi">2</span><span class="p">))));</span>
+</span></span><span class="line"><span class="cl">  		<span class="nf">read</span><span class="p">((</span><span class="kt">void</span> <span class="o">*</span><span class="p">)</span><span class="n">BASE</span> <span class="o">+</span> <span class="p">(</span><span class="mi">4096</span> <span class="o">*</span> <span class="p">((</span><span class="n">random_offset</span> <span class="o">%</span> <span class="mi">1000</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span> <span class="o">+</span> <span class="p">(</span><span class="n">i</span> <span class="o">*</span> <span class="mi">2</span><span class="p">))));</span>
 </span></span><span class="line"><span class="cl">  	<span class="p">}</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">  	<span class="c1">// 5.4 Perform a instruction fetch for the same address
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>  	<span class="c1">//     Store the physical page id in curr
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  	<span class="kt">int</span> <span class="n">curr</span> <span class="o">=</span> <span class="n">execute</span><span class="p">(</span><span class="n">addr</span><span class="p">);</span>
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  	<span class="kt">int</span> <span class="n">curr</span> <span class="o">=</span> <span class="nf">execute</span><span class="p">(</span><span class="n">addr</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">  	<span class="c1">// 6. Reenable kernel preemption and undo PTE swapping
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  	<span class="n">give_up_cpu</span><span class="p">();</span>
-</span></span><span class="line"><span class="cl">  	<span class="n">switch_pages</span><span class="p">(</span><span class="n">walk</span><span class="p">.</span><span class="n">pte</span><span class="p">,</span> <span class="n">walk</span><span class="p">.</span><span class="n">pte</span> <span class="o">+</span> <span class="mi">1</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">  	<span class="n">up_write</span><span class="p">(</span><span class="n">TLBDR_MMLOCK</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">  	<span class="n">setcr3</span><span class="p">(</span><span class="n">cr3k</span><span class="p">);</span>
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  	<span class="nf">give_up_cpu</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">  	<span class="nf">switch_pages</span><span class="p">(</span><span class="n">walk</span><span class="p">.</span><span class="n">pte</span><span class="p">,</span> <span class="n">walk</span><span class="p">.</span><span class="n">pte</span> <span class="o">+</span> <span class="mi">1</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  	<span class="nf">up_write</span><span class="p">(</span><span class="n">TLBDR_MMLOCK</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  	<span class="nf">setcr3</span><span class="p">(</span><span class="n">cr3k</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">  	<span class="c1">// 7. If the instruction fetch was a TLB hit (i.e. original == curr), then there exists a shared TLB
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>  	<span class="c1">//    Else if it was a TLB miss (i.e. original != curr), then there is no shared TLB
@@ -468,7 +467,7 @@ In addition, the NX bit in the page table entries, which prevents execution of c
   <span class="copyright-year">
     &copy; 
     2016 - 
-    2022<span class="heart"><i class="iconfont icon-heart"></i></span><span>Abdun Nihaal</span>
+    2023<span class="heart"><i class="iconfont icon-heart"></i></span><span>Abdun Nihaal</span>
   </span>
 </div>
 

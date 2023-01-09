@@ -24,7 +24,7 @@ Syzbot is quite effective in finding bugs in the kernel but due to the large num
 
 
 
-<meta name="generator" content="Hugo 0.105.0 with theme even" />
+<meta name="generator" content="Hugo 0.108.0 with theme even" />
 
 
 <link rel="canonical" href="https://nihaal.me/post/fixing_syzbot_bugs/" />
@@ -47,7 +47,6 @@ Syzbot is quite effective in finding bugs in the kernel but due to the large num
 <meta property="og:url" content="https://nihaal.me/post/fixing_syzbot_bugs/" /><meta property="article:section" content="post" />
 <meta property="article:published_time" content="2022-12-20T00:00:00+00:00" />
 <meta property="article:modified_time" content="2022-12-20T00:00:00+00:00" /><meta property="og:site_name" content="Nihaal" />
-
 <meta itemprop="name" content="Fixing syzbot bugs">
 <meta itemprop="description" content="Syzbot is an automated fuzzing infrastructure that uses Syzkaller to perform continuous fuzzing, primarily on the Linux kernel. Whenever it finds bugs, Syzbot reports it to the relevant mailing list. It also has a public dashboard where it lists all the open bugs that needs to be fixed.
 Syzbot is quite effective in finding bugs in the kernel but due to the large number of bugs being found, many of them don&rsquo;t get fixed in time."><meta itemprop="datePublished" content="2022-12-20T00:00:00+00:00" />
@@ -249,9 +248,9 @@ the true branch of the if-else, the if condition must be true for the bug to hap
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl">       <span class="k">if</span> <span class="p">(</span><span class="n">some_bool</span><span class="p">)</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">  	<span class="c1">// Buggy function is called from this path
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  	<span class="n">buggy_function</span><span class="p">();</span>
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  	<span class="nf">buggy_function</span><span class="p">();</span>
 </span></span><span class="line"><span class="cl">       <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">          <span class="n">some_function</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">          <span class="nf">some_function</span><span class="p">();</span>
 </span></span><span class="line"><span class="cl">       <span class="p">}</span>
 </span></span></code></pre></td></tr></table>
 </div>
@@ -314,7 +313,11 @@ You can also look around the code to see if there are any other similar bugs.</p
           <a href="/tags/fuzzing/">fuzzing</a>
           </div>
       <nav class="post-nav">
-        
+        <a class="prev" href="/post/kernel_defences/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">Kernel defences</span>
+            <span class="prev-text nav-mobile">Prev</span>
+          </a>
         <a class="next" href="/post/coccinelle/">
             <span class="next-text nav-default">Coccinelle</span>
             <span class="next-text nav-mobile">Next</span>
@@ -357,7 +360,7 @@ You can also look around the code to see if there are any other similar bugs.</p
   <span class="copyright-year">
     &copy; 
     2016 - 
-    2022<span class="heart"><i class="iconfont icon-heart"></i></span><span>Abdun Nihaal</span>
+    2023<span class="heart"><i class="iconfont icon-heart"></i></span><span>Abdun Nihaal</span>
   </span>
 </div>
 

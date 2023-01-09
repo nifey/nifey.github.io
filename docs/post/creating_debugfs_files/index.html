@@ -26,7 +26,7 @@ To change it to allow the current user to cd into debugfs, we can remount it wit
 
 
 
-<meta name="generator" content="Hugo 0.105.0 with theme even" />
+<meta name="generator" content="Hugo 0.108.0 with theme even" />
 
 
 <link rel="canonical" href="https://nihaal.me/post/creating_debugfs_files/" />
@@ -51,7 +51,6 @@ To change it to allow the current user to cd into debugfs, we can remount it wit
 <meta property="og:url" content="https://nihaal.me/post/creating_debugfs_files/" /><meta property="article:section" content="post" />
 <meta property="article:published_time" content="2021-11-06T00:00:00+00:00" />
 <meta property="article:modified_time" content="2021-11-06T00:00:00+00:00" /><meta property="og:site_name" content="Nihaal" />
-
 <meta itemprop="name" content="Creating debugfs files">
 <meta itemprop="description" content="debugfs debugfs is a pseudo-filesystem used for kernel debugging. It is usually mounted at /sys/kernel/debug. debugfs contains files that allow us to read debugging information.
 By default, only the root user can cd into the /sys/kernel/debug directory.
@@ -215,8 +214,8 @@ The return value of these functions must be checked with <em>IS_ERR</em> macro t
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl">  <span class="n">root_dentry</span> <span class="o">=</span> <span class="n">debugfs_create_dir</span><span class="p">(</span><span class="s">&#34;hello&#34;</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="p">(</span><span class="n">IS_ERR</span><span class="p">(</span><span class="n">root_dentry</span><span class="p">))</span>
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl">  <span class="n">root_dentry</span> <span class="o">=</span> <span class="nf">debugfs_create_dir</span><span class="p">(</span><span class="s">&#34;hello&#34;</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="p">(</span><span class="nf">IS_ERR</span><span class="p">(</span><span class="n">root_dentry</span><span class="p">))</span>
 </span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="o">-</span><span class="n">ENODEV</span><span class="p">;</span>
 </span></span></code></pre></td></tr></table>
 </div>
@@ -230,7 +229,7 @@ The return value of these functions must be checked with <em>IS_ERR</em> macro t
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl">  <span class="k">struct</span> <span class="n">dentry</span> <span class="o">*</span><span class="nf">debugfs_create_file</span><span class="p">(</span><span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">name</span><span class="p">,</span> <span class="n">umode_t</span> <span class="n">mode</span><span class="p">,</span>
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl">  <span class="k">struct</span> <span class="n">dentry</span> <span class="o">*</span><span class="nf">debugfs_create_file</span><span class="p">(</span><span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">name</span><span class="p">,</span> <span class="kt">umode_t</span> <span class="n">mode</span><span class="p">,</span>
 </span></span><span class="line"><span class="cl">                                     <span class="k">struct</span> <span class="n">dentry</span> <span class="o">*</span><span class="n">parent</span><span class="p">,</span> <span class="kt">void</span> <span class="o">*</span><span class="n">data</span><span class="p">,</span>
 </span></span><span class="line"><span class="cl">                                     <span class="k">const</span> <span class="k">struct</span> <span class="n">file_operations</span> <span class="o">*</span><span class="n">fops</span><span class="p">);</span>
 </span></span></code></pre></td></tr></table>
@@ -260,15 +259,15 @@ The return value of these functions must be checked with <em>IS_ERR</em> macro t
 </span><span class="lnt">10
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl">  <span class="kt">void</span> <span class="nf">debugfs_create_u8</span><span class="p">(</span><span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">name</span><span class="p">,</span> <span class="n">umode_t</span> <span class="n">mode</span><span class="p">,</span> <span class="k">struct</span> <span class="n">dentry</span> <span class="o">*</span><span class="n">parent</span><span class="p">,</span>
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl">  <span class="kt">void</span> <span class="nf">debugfs_create_u8</span><span class="p">(</span><span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">name</span><span class="p">,</span> <span class="kt">umode_t</span> <span class="n">mode</span><span class="p">,</span> <span class="k">struct</span> <span class="n">dentry</span> <span class="o">*</span><span class="n">parent</span><span class="p">,</span>
 </span></span><span class="line"><span class="cl">                         <span class="n">u8</span> <span class="o">*</span><span class="n">value</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">  <span class="kt">void</span> <span class="nf">debugfs_create_u16</span><span class="p">(</span><span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">name</span><span class="p">,</span> <span class="n">umode_t</span> <span class="n">mode</span><span class="p">,</span> <span class="k">struct</span> <span class="n">dentry</span> <span class="o">*</span><span class="n">parent</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="kt">void</span> <span class="nf">debugfs_create_u16</span><span class="p">(</span><span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">name</span><span class="p">,</span> <span class="kt">umode_t</span> <span class="n">mode</span><span class="p">,</span> <span class="k">struct</span> <span class="n">dentry</span> <span class="o">*</span><span class="n">parent</span><span class="p">,</span>
 </span></span><span class="line"><span class="cl">                          <span class="n">u16</span> <span class="o">*</span><span class="n">value</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">  <span class="kt">void</span> <span class="nf">debugfs_create_u32</span><span class="p">(</span><span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">name</span><span class="p">,</span> <span class="n">umode_t</span> <span class="n">mode</span><span class="p">,</span> <span class="k">struct</span> <span class="n">dentry</span> <span class="o">*</span><span class="n">parent</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="kt">void</span> <span class="nf">debugfs_create_u32</span><span class="p">(</span><span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">name</span><span class="p">,</span> <span class="kt">umode_t</span> <span class="n">mode</span><span class="p">,</span> <span class="k">struct</span> <span class="n">dentry</span> <span class="o">*</span><span class="n">parent</span><span class="p">,</span>
 </span></span><span class="line"><span class="cl">                          <span class="n">u32</span> <span class="o">*</span><span class="n">value</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">  <span class="kt">void</span> <span class="nf">debugfs_create_u64</span><span class="p">(</span><span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">name</span><span class="p">,</span> <span class="n">umode_t</span> <span class="n">mode</span><span class="p">,</span> <span class="k">struct</span> <span class="n">dentry</span> <span class="o">*</span><span class="n">parent</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="kt">void</span> <span class="nf">debugfs_create_u64</span><span class="p">(</span><span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">name</span><span class="p">,</span> <span class="kt">umode_t</span> <span class="n">mode</span><span class="p">,</span> <span class="k">struct</span> <span class="n">dentry</span> <span class="o">*</span><span class="n">parent</span><span class="p">,</span>
 </span></span><span class="line"><span class="cl">                          <span class="n">u64</span> <span class="o">*</span><span class="n">value</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">  <span class="kt">void</span> <span class="nf">debugfs_create_ulong</span><span class="p">(</span><span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">name</span><span class="p">,</span> <span class="n">umode_t</span> <span class="n">mode</span><span class="p">,</span> <span class="k">struct</span> <span class="n">dentry</span> <span class="o">*</span><span class="n">parent</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="kt">void</span> <span class="nf">debugfs_create_ulong</span><span class="p">(</span><span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">name</span><span class="p">,</span> <span class="kt">umode_t</span> <span class="n">mode</span><span class="p">,</span> <span class="k">struct</span> <span class="n">dentry</span> <span class="o">*</span><span class="n">parent</span><span class="p">,</span>
 </span></span><span class="line"><span class="cl">                            <span class="kt">unsigned</span> <span class="kt">long</span> <span class="o">*</span><span class="n">value</span><span class="p">);</span>
 </span></span></code></pre></td></tr></table>
 </div>
@@ -391,44 +390,44 @@ I have highlighted the lines that are related to debugfs operations.</p>
 </span></span></span><span class="line"><span class="cl"><span class="cp">#include</span><span class="cpf">&lt;linux/slab.h&gt;</span><span class="cp">
 </span></span></span><span class="line"><span class="cl"><span class="cp">#include</span><span class="cpf">&lt;linux/rwsem.h&gt;</span><span class="cp">
 </span></span></span><span class="line"><span class="cl"><span class="cp"></span>
-</span></span><span class="line"><span class="cl"><span class="n">MODULE_LICENSE</span><span class="p">(</span><span class="s">&#34;GPL&#34;</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl"><span class="n">MODULE_AUTHOR</span><span class="p">(</span><span class="s">&#34;Nihaal&#34;</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl"><span class="n">MODULE_DESCRIPTION</span><span class="p">(</span><span class="s">&#34;Creating debugfs files&#34;</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl"><span class="n">MODULE_VERSION</span><span class="p">(</span><span class="s">&#34;1.0&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="nf">MODULE_LICENSE</span><span class="p">(</span><span class="s">&#34;GPL&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="nf">MODULE_AUTHOR</span><span class="p">(</span><span class="s">&#34;Nihaal&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="nf">MODULE_DESCRIPTION</span><span class="p">(</span><span class="s">&#34;Creating debugfs files&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="nf">MODULE_VERSION</span><span class="p">(</span><span class="s">&#34;1.0&#34;</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="k">static</span> <span class="kt">char</span> <span class="o">*</span><span class="n">echo_buf</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="k">static</span> <span class="nf">DECLARE_RWSEM</span><span class="p">(</span><span class="n">echo_rwlock</span><span class="p">);</span>
 </span></span><span class="line hl"><span class="cl"><span class="k">static</span> <span class="k">struct</span> <span class="n">dentry</span> <span class="o">*</span><span class="n">root_dentry</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="n">ssize_t</span> <span class="nf">echo_read</span> <span class="p">(</span><span class="k">struct</span> <span class="n">file</span> <span class="o">*</span><span class="n">filp</span><span class="p">,</span> <span class="kt">char</span> <span class="n">__user</span> <span class="o">*</span> <span class="n">buf</span><span class="p">,</span> <span class="n">size_t</span> <span class="n">size</span><span class="p">,</span> <span class="n">loff_t</span> <span class="o">*</span> <span class="n">f_pos</span><span class="p">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">	<span class="n">size_t</span> <span class="n">len</span><span class="p">,</span> <span class="n">ret</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kt">ssize_t</span> <span class="nf">echo_read</span> <span class="p">(</span><span class="k">struct</span> <span class="n">file</span> <span class="o">*</span><span class="n">filp</span><span class="p">,</span> <span class="kt">char</span> <span class="n">__user</span> <span class="o">*</span> <span class="n">buf</span><span class="p">,</span> <span class="kt">size_t</span> <span class="n">size</span><span class="p">,</span> <span class="kt">loff_t</span> <span class="o">*</span> <span class="n">f_pos</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="kt">size_t</span> <span class="n">len</span><span class="p">,</span> <span class="n">ret</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">	<span class="k">if</span> <span class="p">((</span><span class="o">*</span><span class="n">f_pos</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="n">PAGE_SIZE</span><span class="p">)</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">		<span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">	<span class="p">}</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">	<span class="n">down_read</span><span class="p">(</span><span class="o">&amp;</span><span class="n">echo_rwlock</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">	<span class="nf">down_read</span><span class="p">(</span><span class="o">&amp;</span><span class="n">echo_rwlock</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">	<span class="n">len</span> <span class="o">=</span> <span class="p">(</span><span class="n">size</span> <span class="o">&gt;</span> <span class="n">PAGE_SIZE</span><span class="p">)</span><span class="o">?</span> <span class="nl">PAGE_SIZE</span><span class="p">:</span> <span class="n">size</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">	<span class="n">ret</span> <span class="o">=</span> <span class="n">copy_to_user</span><span class="p">(</span><span class="n">buf</span><span class="p">,</span> <span class="n">echo_buf</span><span class="p">,</span> <span class="n">len</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">	<span class="n">ret</span> <span class="o">=</span> <span class="nf">copy_to_user</span><span class="p">(</span><span class="n">buf</span><span class="p">,</span> <span class="n">echo_buf</span><span class="p">,</span> <span class="n">len</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">	<span class="n">len</span> <span class="o">=</span> <span class="n">len</span> <span class="o">-</span> <span class="n">ret</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">	<span class="o">*</span><span class="n">f_pos</span> <span class="o">+=</span> <span class="n">len</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">	<span class="n">up_read</span><span class="p">(</span><span class="o">&amp;</span><span class="n">echo_rwlock</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">	<span class="nf">up_read</span><span class="p">(</span><span class="o">&amp;</span><span class="n">echo_rwlock</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="n">len</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="n">ssize_t</span> <span class="nf">echo_write</span> <span class="p">(</span><span class="k">struct</span> <span class="n">file</span> <span class="o">*</span><span class="n">filp</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span> <span class="n">__user</span> <span class="o">*</span> <span class="n">buf</span><span class="p">,</span> <span class="n">size_t</span> <span class="n">size</span><span class="p">,</span> <span class="n">loff_t</span> <span class="o">*</span> <span class="n">f_pos</span><span class="p">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">	<span class="n">size_t</span> <span class="n">len</span><span class="p">,</span> <span class="n">ret</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kt">ssize_t</span> <span class="nf">echo_write</span> <span class="p">(</span><span class="k">struct</span> <span class="n">file</span> <span class="o">*</span><span class="n">filp</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span> <span class="n">__user</span> <span class="o">*</span> <span class="n">buf</span><span class="p">,</span> <span class="kt">size_t</span> <span class="n">size</span><span class="p">,</span> <span class="kt">loff_t</span> <span class="o">*</span> <span class="n">f_pos</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="kt">size_t</span> <span class="n">len</span><span class="p">,</span> <span class="n">ret</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">	<span class="k">if</span> <span class="p">((</span><span class="o">*</span><span class="n">f_pos</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="n">PAGE_SIZE</span><span class="p">)</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">		<span class="k">return</span> <span class="o">-</span><span class="n">ENOMEM</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">	<span class="p">}</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">	<span class="n">down_write</span><span class="p">(</span><span class="o">&amp;</span><span class="n">echo_rwlock</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">	<span class="n">memset</span><span class="p">(</span><span class="n">echo_buf</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">PAGE_SIZE</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">	<span class="nf">down_write</span><span class="p">(</span><span class="o">&amp;</span><span class="n">echo_rwlock</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">	<span class="nf">memset</span><span class="p">(</span><span class="n">echo_buf</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">PAGE_SIZE</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">	<span class="n">len</span> <span class="o">=</span> <span class="p">(</span><span class="n">size</span> <span class="o">&gt;</span> <span class="n">PAGE_SIZE</span><span class="p">)</span><span class="o">?</span> <span class="nl">PAGE_SIZE</span><span class="p">:</span> <span class="n">size</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">	<span class="n">ret</span> <span class="o">=</span> <span class="n">copy_from_user</span><span class="p">(</span><span class="n">echo_buf</span><span class="p">,</span> <span class="n">buf</span><span class="p">,</span> <span class="n">len</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">	<span class="n">ret</span> <span class="o">=</span> <span class="nf">copy_from_user</span><span class="p">(</span><span class="n">echo_buf</span><span class="p">,</span> <span class="n">buf</span><span class="p">,</span> <span class="n">len</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">	<span class="n">len</span> <span class="o">=</span> <span class="n">len</span> <span class="o">-</span> <span class="n">ret</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">	<span class="o">*</span><span class="n">f_pos</span> <span class="o">+=</span> <span class="n">len</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">	<span class="n">up_write</span><span class="p">(</span><span class="o">&amp;</span><span class="n">echo_rwlock</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">	<span class="nf">up_write</span><span class="p">(</span><span class="o">&amp;</span><span class="n">echo_rwlock</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="n">len</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span><span class="line"><span class="cl">
@@ -440,19 +439,19 @@ I have highlighted the lines that are related to debugfs operations.</p>
 </span></span><span class="line"><span class="cl"><span class="k">static</span> <span class="kt">int</span> <span class="n">__init</span> <span class="nf">echo_init</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line hl"><span class="cl">	<span class="c1">// Create &#34;hello&#34; directory
-</span></span></span><span class="line hl"><span class="cl"><span class="c1"></span>	<span class="n">root_dentry</span> <span class="o">=</span> <span class="n">debugfs_create_dir</span><span class="p">(</span><span class="s">&#34;hello&#34;</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">);</span>
-</span></span><span class="line hl"><span class="cl">	<span class="k">if</span> <span class="p">(</span><span class="n">IS_ERR</span><span class="p">(</span><span class="n">root_dentry</span><span class="p">))</span>
+</span></span></span><span class="line hl"><span class="cl"><span class="c1"></span>	<span class="n">root_dentry</span> <span class="o">=</span> <span class="nf">debugfs_create_dir</span><span class="p">(</span><span class="s">&#34;hello&#34;</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">);</span>
+</span></span><span class="line hl"><span class="cl">	<span class="k">if</span> <span class="p">(</span><span class="nf">IS_ERR</span><span class="p">(</span><span class="n">root_dentry</span><span class="p">))</span>
 </span></span><span class="line hl"><span class="cl">		<span class="k">return</span> <span class="o">-</span><span class="n">ENODEV</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">	<span class="c1">// Allocate buffer
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="n">echo_buf</span> <span class="o">=</span> <span class="p">(</span><span class="kt">char</span><span class="o">*</span><span class="p">)</span> <span class="n">kzalloc</span><span class="p">(</span><span class="n">PAGE_SIZE</span><span class="p">,</span> <span class="n">GFP_KERNEL</span><span class="p">);</span>
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="n">echo_buf</span> <span class="o">=</span> <span class="p">(</span><span class="kt">char</span><span class="o">*</span><span class="p">)</span> <span class="nf">kzalloc</span><span class="p">(</span><span class="n">PAGE_SIZE</span><span class="p">,</span> <span class="n">GFP_KERNEL</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">	<span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">echo_buf</span><span class="p">)</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">		<span class="k">return</span> <span class="o">-</span><span class="n">ENOMEM</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">	<span class="p">}</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line hl"><span class="cl">	<span class="c1">// Create echo file
-</span></span></span><span class="line hl"><span class="cl"><span class="c1"></span>	<span class="k">if</span> <span class="p">(</span><span class="n">IS_ERR</span><span class="p">(</span><span class="n">debugfs_create_file</span><span class="p">(</span><span class="s">&#34;echo&#34;</span><span class="p">,</span> <span class="p">(</span><span class="n">S_IRUGO</span><span class="o">|</span><span class="n">S_IWUGO</span><span class="p">),</span> <span class="n">root_dentry</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">echo_fops</span><span class="p">)))</span> <span class="p">{</span>
-</span></span><span class="line hl"><span class="cl">		<span class="n">kfree</span><span class="p">(</span><span class="n">echo_buf</span><span class="p">);</span>
+</span></span></span><span class="line hl"><span class="cl"><span class="c1"></span>	<span class="k">if</span> <span class="p">(</span><span class="nf">IS_ERR</span><span class="p">(</span><span class="nf">debugfs_create_file</span><span class="p">(</span><span class="s">&#34;echo&#34;</span><span class="p">,</span> <span class="p">(</span><span class="n">S_IRUGO</span><span class="o">|</span><span class="n">S_IWUGO</span><span class="p">),</span> <span class="n">root_dentry</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">echo_fops</span><span class="p">)))</span> <span class="p">{</span>
+</span></span><span class="line hl"><span class="cl">		<span class="nf">kfree</span><span class="p">(</span><span class="n">echo_buf</span><span class="p">);</span>
 </span></span><span class="line hl"><span class="cl">		<span class="k">return</span> <span class="o">-</span><span class="n">ENODEV</span><span class="p">;</span>
 </span></span><span class="line hl"><span class="cl">	<span class="p">}</span>
 </span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
@@ -460,14 +459,14 @@ I have highlighted the lines that are related to debugfs operations.</p>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="k">static</span> <span class="kt">void</span> <span class="n">__exit</span> <span class="nf">echo_exit</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
-</span></span><span class="line"><span class="cl">	<span class="n">kfree</span><span class="p">(</span><span class="n">echo_buf</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">	<span class="nf">kfree</span><span class="p">(</span><span class="n">echo_buf</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line hl"><span class="cl">	<span class="c1">// Recursively remove debugfs entries
-</span></span></span><span class="line hl"><span class="cl"><span class="c1"></span>	<span class="n">debugfs_remove</span><span class="p">(</span><span class="n">root_dentry</span><span class="p">);</span>
+</span></span></span><span class="line hl"><span class="cl"><span class="c1"></span>	<span class="nf">debugfs_remove</span><span class="p">(</span><span class="n">root_dentry</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="n">module_init</span><span class="p">(</span><span class="n">echo_init</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl"><span class="n">module_exit</span><span class="p">(</span><span class="n">echo_exit</span><span class="p">);</span></span></span></code></pre></td></tr></table>
+</span></span><span class="line"><span class="cl"><span class="nf">module_init</span><span class="p">(</span><span class="n">echo_init</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="nf">module_exit</span><span class="p">(</span><span class="n">echo_exit</span><span class="p">);</span></span></span></code></pre></td></tr></table>
 </div>
 </div>
 <h3 id="testing-echo">Testing echo</h3>
@@ -602,7 +601,7 @@ I have highlighted the lines that are related to debugfs operations.</p>
   <span class="copyright-year">
     &copy; 
     2016 - 
-    2022<span class="heart"><i class="iconfont icon-heart"></i></span><span>Abdun Nihaal</span>
+    2023<span class="heart"><i class="iconfont icon-heart"></i></span><span>Abdun Nihaal</span>
   </span>
 </div>
 
