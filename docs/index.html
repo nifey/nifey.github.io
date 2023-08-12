@@ -23,7 +23,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.108.0 with theme even" />
+<meta name="generator" content="Hugo 0.111.3 with theme even" />
 
 
 <link rel="canonical" href="https://nihaal.me/" />
@@ -117,6 +117,27 @@
           <section id="posts" class="posts">
     <article class="post">
   <header class="post-header">
+    <h1 class="post-title"><a class="post-link" href="/post/sed/">Notes on Sed</a></h1>
+    <div class="post-meta">
+      <span class="post-time"> 12-08-2023 </span>
+      
+        <span class="more-meta"> 510 words </span>
+        <span class="more-meta"> 3 mins read </span>
+    </div>
+  </header>
+  
+  <div class="post-content">
+    <div class="post-summary">
+      Sed Stream EDitor, UNIX utility Based on ed (line oriented text editor) Used commonly for find and replace based on Regular expressions Useful for processing and transforming logs Can also be used inside vim for find and replace Basic usage 1 2 3 4 5 6 7 cat file | sed &#39;s/hello/world/&#39; sed &#39;s/hello/world/&#39; file sed file -e &#39;s/hello/world/&#39; sed &#39;s/hello/world/&#39; -i file	# Inline (will replace in the file) cat file | sed &#39;/REGEX/d&#39;	# Delete lines matching a regular expression Regular expression syntax Language to represent string patterns Useful beyond sed (eg: grepping through source code) Basic regex: Specify characters to match &lsquo;a&rsquo; matches character a [a-z] matches lowercase alphabets [a-zA-Z0-9] matches alphabets and numbers [abc] matches characters a b c [^abc] matches anything except characters a b c Specify count of characters to match * -&gt; Zero or more instances \+ -&gt; One or more instances ?
+    </div>
+    <div class="read-more">
+      <a href="/post/sed/" class="read-more-link">Read more...</a>
+    </div>
+  </div>
+</article>
+
+    <article class="post">
+  <header class="post-header">
     <h1 class="post-title"><a class="post-link" href="/post/kernel_defences/">Kernel defences</a></h1>
     <div class="post-meta">
       <span class="post-time"> 09-01-2023 </span>
@@ -199,29 +220,6 @@ Automated: Syzkaller can automatically restart crashed virtual machines and also
     </div>
     <div class="read-more">
       <a href="/post/syzkaller/" class="read-more-link">Read more...</a>
-    </div>
-  </div>
-</article>
-
-    <article class="post">
-  <header class="post-header">
-    <h1 class="post-title"><a class="post-link" href="/post/how_to_research/">How to do research?</a></h1>
-    <div class="post-meta">
-      <span class="post-time"> 06-12-2022 </span>
-      
-        <span class="more-meta"> 754 words </span>
-        <span class="more-meta"> 4 mins read </span>
-    </div>
-  </header>
-  
-  <div class="post-content">
-    <div class="post-summary">
-      Disclaimer: I&rsquo;m no expert in this. This post is just to collect all my thoughts and lessons learnt from random talks and blogs, about research.
-What is research?
-Research is producing new knowledge. The aim of research is to do something novel (new) and useful. The purpose of literature survey is to ensure that whatever idea we come up with is new and has not been proposed before. And the purpose of evaluations is to show that our idea or technique is useful.
-    </div>
-    <div class="read-more">
-      <a href="/post/how_to_research/" class="read-more-link">Read more...</a>
     </div>
   </div>
 </article>

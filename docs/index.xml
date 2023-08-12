@@ -6,7 +6,16 @@
     <description>Recent content on Nihaal</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Mon, 09 Jan 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://nihaal.me/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 12 Aug 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://nihaal.me/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Notes on Sed</title>
+      <link>https://nihaal.me/post/sed/</link>
+      <pubDate>Sat, 12 Aug 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://nihaal.me/post/sed/</guid>
+      <description>Sed Stream EDitor, UNIX utility Based on ed (line oriented text editor) Used commonly for find and replace based on Regular expressions Useful for processing and transforming logs Can also be used inside vim for find and replace Basic usage 1 2 3 4 5 6 7 cat file | sed &amp;#39;s/hello/world/&amp;#39; sed &amp;#39;s/hello/world/&amp;#39; file sed file -e &amp;#39;s/hello/world/&amp;#39; sed &amp;#39;s/hello/world/&amp;#39; -i file	# Inline (will replace in the file) cat file | sed &amp;#39;/REGEX/d&amp;#39;	# Delete lines matching a regular expression Regular expression syntax Language to represent string patterns Useful beyond sed (eg: grepping through source code) Basic regex: Specify characters to match &amp;lsquo;a&amp;rsquo; matches character a [a-z] matches lowercase alphabets [a-zA-Z0-9] matches alphabets and numbers [abc] matches characters a b c [^abc] matches anything except characters a b c Specify count of characters to match * -&amp;gt; Zero or more instances \+ -&amp;gt; One or more instances ?</description>
+    </item>
+    
     <item>
       <title>Kernel defences</title>
       <link>https://nihaal.me/post/kernel_defences/</link>
