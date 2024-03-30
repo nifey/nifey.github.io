@@ -11,7 +11,7 @@ Disclaimer: I'm no expert in this. This post is just to collect all my thoughts 
 
 Research is producing new knowledge.
 The aim of research is to do something **novel** (new) and **useful**.
-The purpose of literature survey is to ensure that whatever idea we come up with is new and has not been proposed before.
+The purpose of literature survey is to ensure that our idea is new and has not been proposed before.
 And the purpose of evaluations is to show that our idea or technique is useful.
 
 **How to do research?**
@@ -23,7 +23,7 @@ The research process: I like to think of the process as a pipeline. It's kind of
 3.  **Output**: writing about your ideas (in papers mainly), presenting your ideas to other researchers and discussing them.
 
 
-## Input {#input}
+## 1. Input {#1-dot-input}
 
 The primary source of ideas and information is research papers.
 We can also get it from other documents, blogs and conference presentations.
@@ -35,7 +35,7 @@ Some of the general skills you will need as a researcher are
 3.  Writing: You will be spending a lot of time writing about things. So it's better to get good at it.
 
 
-## Processing {#processing}
+## 2. Processing {#2-dot-processing}
 
 
 ### Coming up with new ideas to work on {#coming-up-with-new-ideas-to-work-on}
@@ -82,7 +82,36 @@ There are a few strategies.
     -   Performance models
     -   Taxonomy
 
-7.  Apply AI/ML to your (systems) problem 😜. Because why not? And don't forget to mention that you are the first to use AI/ML for that problem.
+7.  Study anamolies
+    During your experiments, if you find some benchmark behaving unexpectedly, dig deeper into it and try to explain what is causing that behaviour.
+
+8.  Study failures
+    If it turns out that the idea does not perform well, find out the reason why it doesn't perform well.
+    This could give insights for modifying the design to perform better.
+
+9.  Apply AI/ML to your (systems) problem 😜. Because why not? And don't forget to mention that you are the first to use AI/ML for that problem.
+
+
+### Strong inference {#strong-inference}
+
+-   When you find an interesting observation, come up with multiple hypotheses that can explain the observation and
+    perform experiments to falsify the hypotheses, one by one.
+    This prevents confirmation bias from attachment to the first hypothesis.
+
+
+### Evaluation {#evaluation}
+
+This is where we try to answer: Is my idea useful?
+The evaluation process is different in different fields, even between subfields.
+
+-   Choose the right evaluation methodology
+    -   When measuring performance on real systems (as opposed to deterministic simulators),
+        minimize operating system noise by (i) isolating CPUs using isolcpu boot parameter in Linux
+        (ii) Take multiple measurements and use the mean.
+
+-   Choose the right metrics
+    -   Use the right mean (arithmetic, geometric or harmonic mean) to aggregate your results.
+-   Choose the right benchmarks
 
 
 ### Automation {#automation}
@@ -90,3 +119,54 @@ There are a few strategies.
 When evaluating, it helps to automate as much as possible.
 Especially in systems research, where evaluation usually involves combining multiple software tools together to perform something.
 We can automate running experiments, collecting logs/output and generating some basic plots out of the data so that you can reason about the results visually.
+
+
+## 3. Output {#3-dot-output}
+
+
+### Paper writing {#paper-writing}
+
+-   Motivation
+    -   Use a motivating example to convey the challenges and intuitions behind your solution.
+-   Evaluation
+    -   **Explain anamolies**: If any of your benchmarks perform in a anomolous way, i.e. it performs unexpectedly,
+        then give (possible) reasons, preferably backed by other supporting results.
+    -   **Explain empirical observations**: If you make any empirical observation, **explain why** with some examples.
+        Just giving an observation backed by data is not enough, we need to show some insights into why the observation holds.
+    -   **Organize the evaluation section based on research questions** (Learnt from StateFuzz paper):
+        In the beginning of the evaluation section, summarize the experiments and list down the Questions that you will be answering in
+        the evalution section and also mention in which section they are answered.
+-   Writing your first draft
+    -   **Imagine nobody is going to read your paper**: If you don't feel like writing, or if you are procrastinating on writing, chances are high that you are worried about what people
+        would think when they read your paper.
+        This worry is unproductive and we don't need this, atleast not when writing the first draft.
+        So, _imagine that nobody is going to read your paper and that you are going to throw it away after you finish writing_.
+        This can help keep the words flowing. You can always edit and revise the paper later.
+-   Small LaTeX things to remember
+    -   When quoting use backticks for beginning quote \`\` ...quoted_text... "
+    -   Use &sect; Section symbol (\\​S in LaTeX) instead of repeating section everywhere.
+-   Related works section
+
+    The purpose of related works section is (1) to show that you have read the other state-of-the-art techniques used for,
+    or related to the problem you are solving and (2) to show that your work is different and novel from the existing literature.
+
+    -   Clearly mention how your technique is different from other closely related works.
+    -   Use a table comparing existing works with tick and cross symbols, and show how your work fills the gap better.
+
+{{% youtube "1AYxMbYZQ1Y" %}}
+
+### Presenting
+
+{{% youtube "sT_-owjKIbA" %}}
+
+## Artifact submission
+- [Artifact Evaluation: Tips for Authors](https://blog.padhye.org/Artifact-Evaluation-Tips-for-Authors/)
+
+## Other resources
+
+{{% youtube "q_rEqcO7hMY" %}}
+{{% youtube "a1zDuOPkMSw" %}}
+
+-   [How to Have a Bad Career in Research/Academia](https://people.eecs.berkeley.edu/~pattrsn/talks/BadCareer.pdf) (David Patterson)
+-   [Increasing your research impact](https://www.sigarch.org/increasing-your-research-impact/) (Mark D. Hill)
+-   [How to do great research](https://greatresearch.org/)
