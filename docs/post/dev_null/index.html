@@ -24,7 +24,7 @@ To simplify access to hardware, Unix, by design, exposes most of the hardware de
 
 
 
-<meta name="generator" content="Hugo 0.111.3 with theme even" />
+<meta name="generator" content="Hugo 0.121.2 with theme even" />
 
 
 <link rel="canonical" href="https://nihaal.me/post/dev_null/" />
@@ -46,14 +46,14 @@ To simplify access to hardware, Unix, by design, exposes most of the hardware de
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://nihaal.me/post/dev_null/" /><meta property="article:section" content="post" />
 <meta property="article:published_time" content="2021-11-20T00:00:00+00:00" />
-<meta property="article:modified_time" content="2021-11-20T00:00:00+00:00" /><meta property="og:site_name" content="Nihaal" />
+<meta property="article:modified_time" content="2021-11-20T00:00:00+00:00" />
+
 <meta itemprop="name" content="Looking inside /dev/null">
 <meta itemprop="description" content="Accessing hardware devices like files An important role of the operating system is to allow the user applications to access hardware resources. It has to allow the user programs to use hardware while also ensuring that the applications have permissions to access it and don&rsquo;t misuse them.
 To simplify access to hardware, Unix, by design, exposes most of the hardware devices to userspace as device files, usually present under /dev directory."><meta itemprop="datePublished" content="2021-11-20T00:00:00+00:00" />
 <meta itemprop="dateModified" content="2021-11-20T00:00:00+00:00" />
-<meta itemprop="wordCount" content="630">
-<meta itemprop="keywords" content="linux,kernel," /><meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="Looking inside /dev/null"/>
+<meta itemprop="wordCount" content="612">
+<meta itemprop="keywords" content="linux,kernel," /><meta name="twitter:card" content="summary"/><meta name="twitter:title" content="Looking inside /dev/null"/>
 <meta name="twitter:description" content="Accessing hardware devices like files An important role of the operating system is to allow the user applications to access hardware resources. It has to allow the user programs to use hardware while also ensuring that the applications have permissions to access it and don&rsquo;t misuse them.
 To simplify access to hardware, Unix, by design, exposes most of the hardware devices to userspace as device files, usually present under /dev directory."/>
 
@@ -129,7 +129,7 @@ To simplify access to hardware, Unix, by design, exposes most of the hardware de
       <div class="post-meta">
         <span class="post-time"> 20-11-2021 </span>
         
-          <span class="more-meta"> 630 words </span>
+          <span class="more-meta"> 612 words </span>
           <span class="more-meta"> 3 mins read </span>
         
       </div>
@@ -186,57 +186,27 @@ This device file is special because it has no associated hardware.
 <li>When we write to it, the data is discarded.</li>
 </ul>
 <p>The most common usecase of /dev/null is discarding the output of a command by redirecting it to /dev/null.</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34;going into the void&#34;</span> &gt; /dev/null
-</span></span></code></pre></td></tr></table>
-</div>
-</div><p>The definitions of some special device files including /dev/null, /dev/zero and /dev/random can be found in <a href="https://elixir.bootlin.com/linux/latest/source/drivers/char/mem.c">drivers/char/mem.c</a>.
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>echo <span style="color:#e6db74">&#34;going into the void&#34;</span> &gt; /dev/null
+</span></span></code></pre></div><p>The definitions of some special device files including /dev/null, /dev/zero and /dev/random can be found in <a href="https://elixir.bootlin.com/linux/latest/source/drivers/char/mem.c">drivers/char/mem.c</a>.
 Here we will look at the read and write functions of /dev/null, which are used when a process invokes a read or write system call (respectively) on /dev/null device file.</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span><span class="lnt">17
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="k">static</span> <span class="kt">ssize_t</span> <span class="nf">read_null</span><span class="p">(</span><span class="k">struct</span> <span class="n">file</span> <span class="o">*</span><span class="n">file</span><span class="p">,</span> <span class="kt">char</span> <span class="n">__user</span> <span class="o">*</span><span class="n">buf</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">			 <span class="kt">size_t</span> <span class="n">count</span><span class="p">,</span> <span class="kt">loff_t</span> <span class="o">*</span><span class="n">ppos</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="p">{</span>
-</span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="k">static</span> <span class="kt">ssize_t</span> <span class="nf">write_null</span><span class="p">(</span><span class="k">struct</span> <span class="n">file</span> <span class="o">*</span><span class="n">file</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span> <span class="n">__user</span> <span class="o">*</span><span class="n">buf</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">			  <span class="kt">size_t</span> <span class="n">count</span><span class="p">,</span> <span class="kt">loff_t</span> <span class="o">*</span><span class="n">ppos</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="p">{</span>
-</span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="n">count</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="k">static</span> <span class="k">const</span> <span class="k">struct</span> <span class="n">file_operations</span> <span class="n">null_fops</span> <span class="o">=</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">	<span class="p">.</span><span class="n">read</span>		<span class="o">=</span> <span class="n">read_null</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">	<span class="p">.</span><span class="n">write</span>		<span class="o">=</span> <span class="n">write_null</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">	<span class="c1">//...
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">};</span>
-</span></span></code></pre></td></tr></table>
-</div>
-</div><h3 id="read-null">read_null</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="color:#66d9ef">static</span> <span style="color:#66d9ef">ssize_t</span> <span style="color:#a6e22e">read_null</span>(<span style="color:#66d9ef">struct</span> file <span style="color:#f92672">*</span>file, <span style="color:#66d9ef">char</span> __user <span style="color:#f92672">*</span>buf,
+</span></span><span style="display:flex;"><span>			 <span style="color:#66d9ef">size_t</span> count, <span style="color:#66d9ef">loff_t</span> <span style="color:#f92672">*</span>ppos)
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">static</span> <span style="color:#66d9ef">ssize_t</span> <span style="color:#a6e22e">write_null</span>(<span style="color:#66d9ef">struct</span> file <span style="color:#f92672">*</span>file, <span style="color:#66d9ef">const</span> <span style="color:#66d9ef">char</span> __user <span style="color:#f92672">*</span>buf,
+</span></span><span style="display:flex;"><span>			  <span style="color:#66d9ef">size_t</span> count, <span style="color:#66d9ef">loff_t</span> <span style="color:#f92672">*</span>ppos)
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">return</span> count;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">static</span> <span style="color:#66d9ef">const</span> <span style="color:#66d9ef">struct</span> file_operations null_fops <span style="color:#f92672">=</span> {
+</span></span><span style="display:flex;"><span>	.read		<span style="color:#f92672">=</span> read_null,
+</span></span><span style="display:flex;"><span>	.write		<span style="color:#f92672">=</span> write_null,
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e">//...
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>};
+</span></span></code></pre></div><h3 id="read-null">read_null</h3>
 <p>The read function of <em>file_operations</em> structure is expected to copy <em>count</em> bytes of device data into the userspace buffer <em>buf</em>, update the file position <em>ppos</em> and return the number of bytes written to the buffer.
 The read function of /dev/null, does not copy anything to the buffer. It just returns 0 everytime, which indicates that the end of file has been reached.</p>
 <h3 id="write-null">write_null</h3>
@@ -314,7 +284,7 @@ It simply returns <em>count</em>.</p>
   <span class="copyright-year">
     &copy; 
     2016 - 
-    2023<span class="heart"><i class="iconfont icon-heart"></i></span><span>Abdun Nihaal</span>
+    2024<span class="heart"><i class="iconfont icon-heart"></i></span><span>Abdun Nihaal</span>
   </span>
 </div>
 

@@ -25,7 +25,7 @@ TLB;DR: Enhancing TLB-based Attacks with TLB Desynchronized Reverse Engineering.
 
 
 
-<meta name="generator" content="Hugo 0.111.3 with theme even" />
+<meta name="generator" content="Hugo 0.121.2 with theme even" />
 
 
 <link rel="canonical" href="https://nihaal.me/post/paper_tlbdr/" />
@@ -48,15 +48,15 @@ TLB;DR: Enhancing TLB-based Attacks with TLB Desynchronized Reverse Engineering.
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://nihaal.me/post/paper_tlbdr/" /><meta property="article:section" content="post" />
 <meta property="article:published_time" content="2022-12-01T00:00:00+00:00" />
-<meta property="article:modified_time" content="2022-12-02T11:17:59+05:30" /><meta property="og:site_name" content="Nihaal" />
+<meta property="article:modified_time" content="2022-12-02T11:17:59+05:30" />
+
 <meta itemprop="name" content="TLB;DR Reversing TLBs with TLB desynchronization">
 <meta itemprop="description" content="Yesterday, I read an interesting research paper about reverse engineering TLBs using TLB desynchronization. In this post, I&rsquo;ll write briefly about the key ideas and what I found very interesting in the paper.
 You can find the paper here:
 TLB;DR: Enhancing TLB-based Attacks with TLB Desynchronized Reverse Engineering. TLB;DR Source code Reverse engineering CPU internals In the subfield of hardware security that focuses on communicating (covert channels) or leaking (side channels) critical information using timing or storage channels, accurate information about the CPU internals helps create more efficient and reliable channels."><meta itemprop="datePublished" content="2022-12-01T00:00:00+00:00" />
 <meta itemprop="dateModified" content="2022-12-02T11:17:59+05:30" />
-<meta itemprop="wordCount" content="1380">
-<meta itemprop="keywords" content="research,hardware-security," /><meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="TLB;DR Reversing TLBs with TLB desynchronization"/>
+<meta itemprop="wordCount" content="1299">
+<meta itemprop="keywords" content="research,hardware-security," /><meta name="twitter:card" content="summary"/><meta name="twitter:title" content="TLB;DR Reversing TLBs with TLB desynchronization"/>
 <meta name="twitter:description" content="Yesterday, I read an interesting research paper about reverse engineering TLBs using TLB desynchronization. In this post, I&rsquo;ll write briefly about the key ideas and what I found very interesting in the paper.
 You can find the paper here:
 TLB;DR: Enhancing TLB-based Attacks with TLB Desynchronized Reverse Engineering. TLB;DR Source code Reverse engineering CPU internals In the subfield of hardware security that focuses on communicating (covert channels) or leaking (side channels) critical information using timing or storage channels, accurate information about the CPU internals helps create more efficient and reliable channels."/>
@@ -133,7 +133,7 @@ TLB;DR: Enhancing TLB-based Attacks with TLB Desynchronized Reverse Engineering.
       <div class="post-meta">
         <span class="post-time"> 01-12-2022 </span>
         
-          <span class="more-meta"> 1380 words </span>
+          <span class="more-meta"> 1299 words </span>
           <span class="more-meta"> 7 mins read </span>
         
       </div>
@@ -198,203 +198,98 @@ They also discover a undisclosed TLB replacement policy used in some Intel CPUs 
 </li>
 <li>
 <p>To reduce interference from other processes and interrupts, the module disables kernel preemption when performing experiments. It uses the following two functions (which I believe are functions defined in the Linux kernel source code) to do that:</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-C" data-lang="C"><span class="line"><span class="cl">  <span class="nf">raw_local_irq_restore</span><span class="p">(</span><span class="n">flags</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">  <span class="nf">preempt_enable</span><span class="p">();</span>
-</span></span></code></pre></td></tr></table>
-</div>
-</div></li>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-C" data-lang="C"><span style="display:flex;"><span>  <span style="color:#a6e22e">raw_local_irq_restore</span>(flags);
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">preempt_enable</span>();
+</span></span></code></pre></div></li>
 <li>
 <p>In trigger.c, the program allocates a large buffer and writes some data to each page to uniquely identify the physical page. I thought this would be some integer that denotes the page number, but I found this:</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-C" data-lang="C"><span class="line"><span class="cl">  <span class="c1">//Write an identifier to each unique physcial page
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="c1">//The identifier will be returned when this code is executed
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="k">volatile</span> <span class="kt">unsigned</span> <span class="kt">char</span> <span class="o">*</span><span class="n">p1</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">  <span class="k">for</span><span class="p">(</span><span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">unique_pages</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">){</span>
-</span></span><span class="line"><span class="cl">          <span class="n">p1</span> <span class="o">=</span> <span class="n">BASE</span> <span class="o">+</span> <span class="p">(</span><span class="mi">4096</span> <span class="o">*</span> <span class="n">i</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">          <span class="o">*</span><span class="p">(</span><span class="kt">uint16_t</span> <span class="o">*</span><span class="p">)</span><span class="n">p1</span> <span class="o">=</span> <span class="mh">0x9090</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">          <span class="n">p1</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="mh">0x48</span><span class="p">;</span> <span class="n">p1</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="mh">0xb8</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">          <span class="o">*</span><span class="p">(</span><span class="kt">uint64_t</span> <span class="o">*</span><span class="p">)(</span><span class="o">&amp;</span><span class="n">p1</span><span class="p">[</span><span class="mi">4</span><span class="p">])</span> <span class="o">=</span> <span class="n">i</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">          <span class="n">p1</span><span class="p">[</span><span class="mi">12</span><span class="p">]</span> <span class="o">=</span> <span class="mh">0xc3</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">  <span class="p">}</span>
-</span></span></code></pre></td></tr></table>
-</div>
-</div><p>This actually writes x86 assembly code which returns the unique ID of the page when executed. The advantage of doing it this way is that we can now perform both data access and instruction access to the same page and in both cases identify which physical page we are accessing.
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-C" data-lang="C"><span style="display:flex;"><span>  <span style="color:#75715e">//Write an identifier to each unique physcial page
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  <span style="color:#75715e">//The identifier will be returned when this code is executed
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  <span style="color:#66d9ef">volatile</span> <span style="color:#66d9ef">unsigned</span> <span style="color:#66d9ef">char</span> <span style="color:#f92672">*</span>p1;
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">for</span>(i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; i <span style="color:#f92672">&lt;</span> unique_pages; i<span style="color:#f92672">++</span>){
+</span></span><span style="display:flex;"><span>          p1 <span style="color:#f92672">=</span> BASE <span style="color:#f92672">+</span> (<span style="color:#ae81ff">4096</span> <span style="color:#f92672">*</span> i);
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">*</span>(<span style="color:#66d9ef">uint16_t</span> <span style="color:#f92672">*</span>)p1 <span style="color:#f92672">=</span> <span style="color:#ae81ff">0x9090</span>;
+</span></span><span style="display:flex;"><span>          p1[<span style="color:#ae81ff">2</span>] <span style="color:#f92672">=</span> <span style="color:#ae81ff">0x48</span>; p1[<span style="color:#ae81ff">3</span>] <span style="color:#f92672">=</span> <span style="color:#ae81ff">0xb8</span>;
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">*</span>(<span style="color:#66d9ef">uint64_t</span> <span style="color:#f92672">*</span>)(<span style="color:#f92672">&amp;</span>p1[<span style="color:#ae81ff">4</span>]) <span style="color:#f92672">=</span> i;
+</span></span><span style="display:flex;"><span>          p1[<span style="color:#ae81ff">12</span>] <span style="color:#f92672">=</span> <span style="color:#ae81ff">0xc3</span>;
+</span></span><span style="display:flex;"><span>  }
+</span></span></code></pre></div><p>This actually writes x86 assembly code which returns the unique ID of the page when executed. The advantage of doing it this way is that we can now perform both data access and instruction access to the same page and in both cases identify which physical page we are accessing.
 For example, if the value stored in <em>i</em> is <em>0x1234</em>, the following assembly code gets written to the page.</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">  ❯ echo -en &#34;\x90\x90\x48\xb8\x34\x12\x00\x00\x00\x00\x00\x00\xc3&#34; | disasm -c amd64
-</span></span><span class="line"><span class="cl">     0:    90                             nop
-</span></span><span class="line"><span class="cl">     1:    90                             nop
-</span></span><span class="line"><span class="cl">     2:    48 b8 34 12 00 00 00 00 00 00  movabs rax,  0x1234
-</span></span><span class="line"><span class="cl">     c:    c3                             ret
-</span></span></code></pre></td></tr></table>
-</div>
-</div><p>Since this code is written in userspace pages and needs to be executed in kernel mode during the experiments, they have to disable <em>Supervisor Mode Execution Prevention (SMEP)</em> which is a defence mechanism that prevents executing userspace code when executing in supervisor mode.
+<pre tabindex="0"><code class="language-nil" data-lang="nil">  ❯ echo -en &#34;\x90\x90\x48\xb8\x34\x12\x00\x00\x00\x00\x00\x00\xc3&#34; | disasm -c amd64
+     0:    90                             nop
+     1:    90                             nop
+     2:    48 b8 34 12 00 00 00 00 00 00  movabs rax,  0x1234
+     c:    c3                             ret
+</code></pre><p>Since this code is written in userspace pages and needs to be executed in kernel mode during the experiments, they have to disable <em>Supervisor Mode Execution Prevention (SMEP)</em> which is a defence mechanism that prevents executing userspace code when executing in supervisor mode.
 In addition, the NX bit in the page table entries, which prevents execution of code from dirty pages (to avoid shellcode execution), has to be cleared before performing experiments.</p>
 </li>
 <li>
 <p>An experiment from <em>AMD/mmuctl/source/experiments.c</em> to test the presence of a shared TLB.</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span><span class="lnt">17
-</span><span class="lnt">18
-</span><span class="lnt">19
-</span><span class="lnt">20
-</span><span class="lnt">21
-</span><span class="lnt">22
-</span><span class="lnt">23
-</span><span class="lnt">24
-</span><span class="lnt">25
-</span><span class="lnt">26
-</span><span class="lnt">27
-</span><span class="lnt">28
-</span><span class="lnt">29
-</span><span class="lnt">30
-</span><span class="lnt">31
-</span><span class="lnt">32
-</span><span class="lnt">33
-</span><span class="lnt">34
-</span><span class="lnt">35
-</span><span class="lnt">36
-</span><span class="lnt">37
-</span><span class="lnt">38
-</span><span class="lnt">39
-</span><span class="lnt">40
-</span><span class="lnt">41
-</span><span class="lnt">42
-</span><span class="lnt">43
-</span><span class="lnt">44
-</span><span class="lnt">45
-</span><span class="lnt">46
-</span><span class="lnt">47
-</span><span class="lnt">48
-</span><span class="lnt">49
-</span><span class="lnt">50
-</span><span class="lnt">51
-</span><span class="lnt">52
-</span><span class="lnt">53
-</span><span class="lnt">54
-</span><span class="lnt">55
-</span><span class="lnt">56
-</span><span class="lnt">57
-</span><span class="lnt">58
-</span><span class="lnt">59
-</span><span class="lnt">60
-</span><span class="lnt">61
-</span><span class="lnt">62
-</span><span class="lnt">63
-</span><span class="lnt">64
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl">  <span class="cm">/*
-</span></span></span><span class="line"><span class="cl"><span class="cm">  	This function tests whether an PTE cached in response to a data load
-</span></span></span><span class="line"><span class="cl"><span class="cm">  	can be used for a consequent instruction fetch.
-</span></span></span><span class="line"><span class="cl"><span class="cm">  	It is explained in Section A.1 of the paper.
-</span></span></span><span class="line"><span class="cl"><span class="cm">  */</span>
-</span></span><span class="line"><span class="cl">  <span class="kt">int</span> <span class="nf">seperate_itlb_and_dtlb</span><span class="p">(</span><span class="kt">int</span> <span class="n">ways</span><span class="p">){</span>
-</span></span><span class="line"><span class="cl">  	<span class="c1">// 1. Disable SMEP since we will be executing from userspace pages
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  	<span class="nf">disable_smep</span><span class="p">();</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">  	<span class="c1">// 2. Flush TLBs by writing to CR3
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  	<span class="n">u64</span> <span class="n">cr3k</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">  	<span class="n">cr3k</span> <span class="o">=</span> <span class="nf">getcr3</span><span class="p">();</span>
-</span></span><span class="line"><span class="cl">  	<span class="nf">setcr3</span><span class="p">(</span><span class="n">cr3k</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">  	<span class="c1">// 3. Pick a random page from the allocated buffer and clear NX bit
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  	<span class="k">volatile</span> <span class="kt">unsigned</span> <span class="kt">long</span> <span class="n">addr</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">  	<span class="kt">unsigned</span> <span class="kt">long</span> <span class="n">random_offset</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">  	<span class="nf">get_random_bytes</span><span class="p">(</span><span class="o">&amp;</span><span class="n">random_offset</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">random_offset</span><span class="p">));</span>
-</span></span><span class="line"><span class="cl">  	<span class="c1">//Take a random page out of the first 1000 ones
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  	<span class="n">addr</span> <span class="o">=</span> <span class="p">(</span><span class="kt">void</span> <span class="o">*</span><span class="p">)</span><span class="n">BASE</span> <span class="o">+</span> <span class="p">(</span><span class="mi">4096</span> <span class="o">*</span> <span class="p">(</span><span class="n">random_offset</span> <span class="o">%</span> <span class="mi">1000</span><span class="p">));</span>
-</span></span><span class="line"><span class="cl">  	<span class="c1">//If the PTE of our address is at the end of a page table, resample
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  	<span class="kt">int</span> <span class="n">difference</span> <span class="o">=</span> <span class="p">((</span><span class="n">addr</span> <span class="o">-</span> <span class="p">(</span><span class="kt">unsigned</span> <span class="kt">long</span><span class="p">)</span><span class="n">BASE</span><span class="p">)</span> <span class="o">/</span> <span class="mi">4096</span><span class="p">)</span> <span class="o">%</span> <span class="mi">512</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">  	<span class="k">while</span><span class="p">(</span><span class="n">difference</span> <span class="o">%</span> <span class="mi">512</span> <span class="o">==</span> <span class="mi">511</span><span class="p">){</span>
-</span></span><span class="line"><span class="cl">  		<span class="nf">get_random_bytes</span><span class="p">(</span><span class="o">&amp;</span><span class="n">random_offset</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">random_offset</span><span class="p">));</span>
-</span></span><span class="line"><span class="cl">  		<span class="n">addr</span> <span class="o">=</span> <span class="p">(</span><span class="kt">void</span> <span class="o">*</span><span class="p">)</span><span class="n">BASE</span> <span class="o">+</span> <span class="p">(</span><span class="mi">4096</span> <span class="o">*</span> <span class="p">(</span><span class="n">random_offset</span> <span class="o">%</span> <span class="mi">1000</span><span class="p">));</span>
-</span></span><span class="line"><span class="cl">  		<span class="n">difference</span> <span class="o">=</span> <span class="p">((</span><span class="n">addr</span> <span class="o">-</span> <span class="p">(</span><span class="kt">unsigned</span> <span class="kt">long</span><span class="p">)</span><span class="n">BASE</span><span class="p">)</span> <span class="o">/</span> <span class="mi">4096</span><span class="p">)</span> <span class="o">%</span> <span class="mi">512</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">  	<span class="p">}</span>
-</span></span><span class="line"><span class="cl">  	<span class="c1">//Perform the page walk
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  	<span class="k">struct</span> <span class="n">ptwalk</span> <span class="n">walk</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">  	<span class="nf">resolve_va</span><span class="p">(</span><span class="n">addr</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">walk</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">  	<span class="nf">clear_nx</span><span class="p">(</span><span class="n">walk</span><span class="p">.</span><span class="n">pgd</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">  	<span class="c1">// 4. Disable kernel preemption in claim_cpu()
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  	<span class="nf">down_write</span><span class="p">(</span><span class="n">TLBDR_MMLOCK</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">  	<span class="nf">claim_cpu</span><span class="p">();</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">  	<span class="c1">// 5. Here is where the actual experiment starts
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  	<span class="c1">// 5.1 Load the PTE into the DTLB by reading from the page address.
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  	<span class="c1">//     Store the physical page id returned in original.
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  	<span class="kt">int</span> <span class="n">original</span> <span class="o">=</span> <span class="nf">read</span><span class="p">(</span><span class="n">addr</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">  	<span class="c1">// 5.2 Desync the TLB by swapping PTEs with adjacent page
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  	<span class="nf">switch_pages</span><span class="p">(</span><span class="n">walk</span><span class="p">.</span><span class="n">pte</span><span class="p">,</span> <span class="n">walk</span><span class="p">.</span><span class="n">pte</span> <span class="o">+</span> <span class="mi">1</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">  	<span class="c1">// 5.3 Issue additional data loads to evict the DTLB entry from L1
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  	<span class="k">volatile</span> <span class="kt">int</span> <span class="n">i</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">  	<span class="k">for</span><span class="p">(</span><span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">ways</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">){</span>
-</span></span><span class="line"><span class="cl">  		<span class="nf">read</span><span class="p">((</span><span class="kt">void</span> <span class="o">*</span><span class="p">)</span><span class="n">BASE</span> <span class="o">+</span> <span class="p">(</span><span class="mi">4096</span> <span class="o">*</span> <span class="p">((</span><span class="n">random_offset</span> <span class="o">%</span> <span class="mi">1000</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span> <span class="o">+</span> <span class="p">(</span><span class="n">i</span> <span class="o">*</span> <span class="mi">2</span><span class="p">))));</span>
-</span></span><span class="line"><span class="cl">  	<span class="p">}</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">  	<span class="c1">// 5.4 Perform a instruction fetch for the same address
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  	<span class="c1">//     Store the physical page id in curr
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  	<span class="kt">int</span> <span class="n">curr</span> <span class="o">=</span> <span class="nf">execute</span><span class="p">(</span><span class="n">addr</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">  	<span class="c1">// 6. Reenable kernel preemption and undo PTE swapping
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  	<span class="nf">give_up_cpu</span><span class="p">();</span>
-</span></span><span class="line"><span class="cl">  	<span class="nf">switch_pages</span><span class="p">(</span><span class="n">walk</span><span class="p">.</span><span class="n">pte</span><span class="p">,</span> <span class="n">walk</span><span class="p">.</span><span class="n">pte</span> <span class="o">+</span> <span class="mi">1</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">  	<span class="nf">up_write</span><span class="p">(</span><span class="n">TLBDR_MMLOCK</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">  	<span class="nf">setcr3</span><span class="p">(</span><span class="n">cr3k</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">  	<span class="c1">// 7. If the instruction fetch was a TLB hit (i.e. original == curr), then there exists a shared TLB
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  	<span class="c1">//    Else if it was a TLB miss (i.e. original != curr), then there is no shared TLB
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  	<span class="k">return</span> <span class="o">!!</span><span class="p">(</span><span class="n">original</span> <span class="o">==</span> <span class="n">curr</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">  <span class="p">}</span>
-</span></span></code></pre></td></tr></table>
-</div>
-</div></li>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span>  <span style="color:#75715e">/*
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">  	This function tests whether an PTE cached in response to a data load
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">  	can be used for a consequent instruction fetch.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">  	It is explained in Section A.1 of the paper.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">  */</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">int</span> <span style="color:#a6e22e">seperate_itlb_and_dtlb</span>(<span style="color:#66d9ef">int</span> ways){
+</span></span><span style="display:flex;"><span>  	<span style="color:#75715e">// 1. Disable SMEP since we will be executing from userspace pages
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  	<span style="color:#a6e22e">disable_smep</span>();
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  	<span style="color:#75715e">// 2. Flush TLBs by writing to CR3
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  	u64 cr3k;
+</span></span><span style="display:flex;"><span>  	cr3k <span style="color:#f92672">=</span> <span style="color:#a6e22e">getcr3</span>();
+</span></span><span style="display:flex;"><span>  	<span style="color:#a6e22e">setcr3</span>(cr3k);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  	<span style="color:#75715e">// 3. Pick a random page from the allocated buffer and clear NX bit
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  	<span style="color:#66d9ef">volatile</span> <span style="color:#66d9ef">unsigned</span> <span style="color:#66d9ef">long</span> addr;
+</span></span><span style="display:flex;"><span>  	<span style="color:#66d9ef">unsigned</span> <span style="color:#66d9ef">long</span> random_offset;
+</span></span><span style="display:flex;"><span>  	<span style="color:#a6e22e">get_random_bytes</span>(<span style="color:#f92672">&amp;</span>random_offset, <span style="color:#66d9ef">sizeof</span>(random_offset));
+</span></span><span style="display:flex;"><span>  	<span style="color:#75715e">//Take a random page out of the first 1000 ones
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  	addr <span style="color:#f92672">=</span> (<span style="color:#66d9ef">void</span> <span style="color:#f92672">*</span>)BASE <span style="color:#f92672">+</span> (<span style="color:#ae81ff">4096</span> <span style="color:#f92672">*</span> (random_offset <span style="color:#f92672">%</span> <span style="color:#ae81ff">1000</span>));
+</span></span><span style="display:flex;"><span>  	<span style="color:#75715e">//If the PTE of our address is at the end of a page table, resample
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  	<span style="color:#66d9ef">int</span> difference <span style="color:#f92672">=</span> ((addr <span style="color:#f92672">-</span> (<span style="color:#66d9ef">unsigned</span> <span style="color:#66d9ef">long</span>)BASE) <span style="color:#f92672">/</span> <span style="color:#ae81ff">4096</span>) <span style="color:#f92672">%</span> <span style="color:#ae81ff">512</span>;
+</span></span><span style="display:flex;"><span>  	<span style="color:#66d9ef">while</span>(difference <span style="color:#f92672">%</span> <span style="color:#ae81ff">512</span> <span style="color:#f92672">==</span> <span style="color:#ae81ff">511</span>){
+</span></span><span style="display:flex;"><span>  		<span style="color:#a6e22e">get_random_bytes</span>(<span style="color:#f92672">&amp;</span>random_offset, <span style="color:#66d9ef">sizeof</span>(random_offset));
+</span></span><span style="display:flex;"><span>  		addr <span style="color:#f92672">=</span> (<span style="color:#66d9ef">void</span> <span style="color:#f92672">*</span>)BASE <span style="color:#f92672">+</span> (<span style="color:#ae81ff">4096</span> <span style="color:#f92672">*</span> (random_offset <span style="color:#f92672">%</span> <span style="color:#ae81ff">1000</span>));
+</span></span><span style="display:flex;"><span>  		difference <span style="color:#f92672">=</span> ((addr <span style="color:#f92672">-</span> (<span style="color:#66d9ef">unsigned</span> <span style="color:#66d9ef">long</span>)BASE) <span style="color:#f92672">/</span> <span style="color:#ae81ff">4096</span>) <span style="color:#f92672">%</span> <span style="color:#ae81ff">512</span>;
+</span></span><span style="display:flex;"><span>  	}
+</span></span><span style="display:flex;"><span>  	<span style="color:#75715e">//Perform the page walk
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  	<span style="color:#66d9ef">struct</span> ptwalk walk;
+</span></span><span style="display:flex;"><span>  	<span style="color:#a6e22e">resolve_va</span>(addr, <span style="color:#f92672">&amp;</span>walk, <span style="color:#ae81ff">0</span>);
+</span></span><span style="display:flex;"><span>  	<span style="color:#a6e22e">clear_nx</span>(walk.pgd);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  	<span style="color:#75715e">// 4. Disable kernel preemption in claim_cpu()
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  	<span style="color:#a6e22e">down_write</span>(TLBDR_MMLOCK);
+</span></span><span style="display:flex;"><span>  	<span style="color:#a6e22e">claim_cpu</span>();
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  	<span style="color:#75715e">// 5. Here is where the actual experiment starts
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  	<span style="color:#75715e">// 5.1 Load the PTE into the DTLB by reading from the page address.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  	<span style="color:#75715e">//     Store the physical page id returned in original.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  	<span style="color:#66d9ef">int</span> original <span style="color:#f92672">=</span> <span style="color:#a6e22e">read</span>(addr);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  	<span style="color:#75715e">// 5.2 Desync the TLB by swapping PTEs with adjacent page
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  	<span style="color:#a6e22e">switch_pages</span>(walk.pte, walk.pte <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  	<span style="color:#75715e">// 5.3 Issue additional data loads to evict the DTLB entry from L1
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  	<span style="color:#66d9ef">volatile</span> <span style="color:#66d9ef">int</span> i;
+</span></span><span style="display:flex;"><span>  	<span style="color:#66d9ef">for</span>(i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; i <span style="color:#f92672">&lt;</span> ways; i<span style="color:#f92672">++</span>){
+</span></span><span style="display:flex;"><span>  		<span style="color:#a6e22e">read</span>((<span style="color:#66d9ef">void</span> <span style="color:#f92672">*</span>)BASE <span style="color:#f92672">+</span> (<span style="color:#ae81ff">4096</span> <span style="color:#f92672">*</span> ((random_offset <span style="color:#f92672">%</span> <span style="color:#ae81ff">1000</span>) <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span> <span style="color:#f92672">+</span> (i <span style="color:#f92672">*</span> <span style="color:#ae81ff">2</span>))));
+</span></span><span style="display:flex;"><span>  	}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  	<span style="color:#75715e">// 5.4 Perform a instruction fetch for the same address
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  	<span style="color:#75715e">//     Store the physical page id in curr
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  	<span style="color:#66d9ef">int</span> curr <span style="color:#f92672">=</span> <span style="color:#a6e22e">execute</span>(addr);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  	<span style="color:#75715e">// 6. Reenable kernel preemption and undo PTE swapping
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  	<span style="color:#a6e22e">give_up_cpu</span>();
+</span></span><span style="display:flex;"><span>  	<span style="color:#a6e22e">switch_pages</span>(walk.pte, walk.pte <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>);
+</span></span><span style="display:flex;"><span>  	<span style="color:#a6e22e">up_write</span>(TLBDR_MMLOCK);
+</span></span><span style="display:flex;"><span>  	<span style="color:#a6e22e">setcr3</span>(cr3k);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  	<span style="color:#75715e">// 7. If the instruction fetch was a TLB hit (i.e. original == curr), then there exists a shared TLB
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  	<span style="color:#75715e">//    Else if it was a TLB miss (i.e. original != curr), then there is no shared TLB
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  	<span style="color:#66d9ef">return</span> <span style="color:#f92672">!!</span>(original <span style="color:#f92672">==</span> curr);
+</span></span><span style="display:flex;"><span>  }
+</span></span></code></pre></div></li>
 </ul>
 
     </div>
@@ -467,7 +362,7 @@ In addition, the NX bit in the page table entries, which prevents execution of c
   <span class="copyright-year">
     &copy; 
     2016 - 
-    2023<span class="heart"><i class="iconfont icon-heart"></i></span><span>Abdun Nihaal</span>
+    2024<span class="heart"><i class="iconfont icon-heart"></i></span><span>Abdun Nihaal</span>
   </span>
 </div>
 

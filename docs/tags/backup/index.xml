@@ -6,16 +6,14 @@
     <description>Recent content in backup on Nihaal</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Sat, 19 Jun 2021 11:16:00 +0530</lastBuildDate><atom:link href="https://nihaal.me/tags/backup/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 19 Jun 2021 11:16:00 +0530</lastBuildDate>
+    <atom:link href="https://nihaal.me/tags/backup/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Backing up files with RSync</title>
       <link>https://nihaal.me/post/rsync/</link>
       <pubDate>Sat, 19 Jun 2021 11:16:00 +0530</pubDate>
-      
       <guid>https://nihaal.me/post/rsync/</guid>
-      <description>You need a backup When was the last time you took a backup of your files? Thanks to technology, today, we can store thousands of photos and videos in a single pen drive. Digital files are easy to store, but they are also easy to lose. And that is why we all need to take regular backup of our files.
-3-2-1 Backup Strategy 3-2-1 Backup strategy is a general rule of thumb that says it is better to have atleast 3 copies of our files.</description>
+      <description>You need a backup When was the last time you took a backup of your files? Thanks to technology, today, we can store thousands of photos and videos in a single pen drive. Digital files are easy to store, but they are also easy to lose. And that is why we all need to take regular backup of our files.&#xA;3-2-1 Backup Strategy 3-2-1 Backup strategy is a general rule of thumb that says it is better to have atleast 3 copies of our files.</description>
     </item>
-    
   </channel>
 </rss>

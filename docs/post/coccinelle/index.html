@@ -24,7 +24,7 @@ Coccinelle is intraprocedural, i.e. all its matching and transformation happens 
 
 
 
-<meta name="generator" content="Hugo 0.111.3 with theme even" />
+<meta name="generator" content="Hugo 0.121.2 with theme even" />
 
 
 <link rel="canonical" href="https://nihaal.me/post/coccinelle/" />
@@ -46,14 +46,14 @@ Coccinelle is intraprocedural, i.e. all its matching and transformation happens 
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://nihaal.me/post/coccinelle/" /><meta property="article:section" content="post" />
 <meta property="article:published_time" content="2022-12-14T00:00:00+00:00" />
-<meta property="article:modified_time" content="2022-12-14T00:00:00+00:00" /><meta property="og:site_name" content="Nihaal" />
+<meta property="article:modified_time" content="2022-12-14T00:00:00+00:00" />
+
 <meta itemprop="name" content="Coccinelle">
 <meta itemprop="description" content="Coccinelle is static analysis tool used for semantic pattern matching and automated transformation of C programs. It is written in OCaml. Unlike other pattern matching tools like grep which use regular expressions, Coccinelle understands C syntax and can find semantic code pattern in the source code and automatically transform them, irrespective of the name of identifiers, comments or formatting.
 Coccinelle is intraprocedural, i.e. all its matching and transformation happens within functions."><meta itemprop="datePublished" content="2022-12-14T00:00:00+00:00" />
 <meta itemprop="dateModified" content="2022-12-14T00:00:00+00:00" />
-<meta itemprop="wordCount" content="1456">
-<meta itemprop="keywords" content="linux,kernel," /><meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="Coccinelle"/>
+<meta itemprop="wordCount" content="1355">
+<meta itemprop="keywords" content="linux,kernel," /><meta name="twitter:card" content="summary"/><meta name="twitter:title" content="Coccinelle"/>
 <meta name="twitter:description" content="Coccinelle is static analysis tool used for semantic pattern matching and automated transformation of C programs. It is written in OCaml. Unlike other pattern matching tools like grep which use regular expressions, Coccinelle understands C syntax and can find semantic code pattern in the source code and automatically transform them, irrespective of the name of identifiers, comments or formatting.
 Coccinelle is intraprocedural, i.e. all its matching and transformation happens within functions."/>
 
@@ -129,7 +129,7 @@ Coccinelle is intraprocedural, i.e. all its matching and transformation happens 
       <div class="post-meta">
         <span class="post-time"> 14-12-2022 </span>
         
-          <span class="more-meta"> 1456 words </span>
+          <span class="more-meta"> 1355 words </span>
           <span class="more-meta"> 7 mins read </span>
         
       </div>
@@ -185,62 +185,28 @@ The syntax of semantic patches is similar to C and the notations used in patches
 <ul>
 <li>
 <p>To install coccinelle from source</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span><span class="lnt">6
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">  git clone https://github.com/coccinelle/coccinelle
-</span></span><span class="line"><span class="cl">  <span class="nb">cd</span> coccinelle
-</span></span><span class="line"><span class="cl">  ./autogen
-</span></span><span class="line"><span class="cl">  ./configure
-</span></span><span class="line"><span class="cl">  make
-</span></span><span class="line"><span class="cl">  sudo make install
-</span></span></code></pre></td></tr></table>
-</div>
-</div><p>This will install a tool called <strong>spatch</strong>, which is like the <em>patch</em> tool but for semantic patches.
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>  git clone https://github.com/coccinelle/coccinelle
+</span></span><span style="display:flex;"><span>  cd coccinelle
+</span></span><span style="display:flex;"><span>  ./autogen
+</span></span><span style="display:flex;"><span>  ./configure
+</span></span><span style="display:flex;"><span>  make
+</span></span><span style="display:flex;"><span>  sudo make install
+</span></span></code></pre></div><p>This will install a tool called <strong>spatch</strong>, which is like the <em>patch</em> tool but for semantic patches.
 We use spatch for applying semantic patches.</p>
 </li>
 <li>
 <p>To check if your semantic patch is valid:</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">  spatch --parse-cocci your_patch.cocci
-</span></span></code></pre></td></tr></table>
-</div>
-</div></li>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>  spatch --parse-cocci your_patch.cocci
+</span></span></code></pre></div></li>
 <li>
 <p>To apply or run your patch on a file or directory:</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">  spatch --sp-file your_patch.cocci file.c
-</span></span><span class="line"><span class="cl">  spatch --sp-file your_patch.cocci --dir directory
-</span></span></code></pre></td></tr></table>
-</div>
-</div></li>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>  spatch --sp-file your_patch.cocci file.c
+</span></span><span style="display:flex;"><span>  spatch --sp-file your_patch.cocci --dir directory
+</span></span></code></pre></div></li>
 <li>
 <p>To set a virtual dependency (like report,patch,org) use -D flag:</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">  spatch -D report --sp-file your_patch.cocci file.c
-</span></span></code></pre></td></tr></table>
-</div>
-</div></li>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>  spatch -D report --sp-file your_patch.cocci file.c
+</span></span></code></pre></div></li>
 </ul>
 <h2 id="writing-semantic-patches">Writing Semantic patches</h2>
 <ul>
@@ -260,21 +226,11 @@ We use spatch for applying semantic patches.</p>
 <li>Transformation specification</li>
 </ol>
 <p>The general structure of a rule is given below: (The rule name is optional.)</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">@rule_name@
-</span></span><span class="line"><span class="cl">// Metavariable declaration
-</span></span><span class="line"><span class="cl">@@
-</span></span><span class="line"><span class="cl">// Transformation specification
-</span></span></code></pre></td></tr></table>
-</div>
-</div><h4 id="metavariable-declaration">Metavariable declaration</h4>
+<pre tabindex="0"><code class="language-Coccinelle" data-lang="Coccinelle">@rule_name@
+// Metavariable declaration
+@@
+// Transformation specification
+</code></pre><h4 id="metavariable-declaration">Metavariable declaration</h4>
 <p>Metavariables are used to abstract over identifiers, expressions, constants and types.
 For example, if I use a metavariable of type <em>expression</em> , it can match over any C expression.
 We can also use metavariables of a specific struct or type defined in the program.</p>
@@ -309,278 +265,125 @@ The following symbols have special meaning when used as the first character in a
 <ol>
 <li>
 <p>Replace expressions of the form 1 &lt;&lt; C with the macro BIT(C) where C is any constant.</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span><span class="lnt">6
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">      @@
-</span></span><span class="line"><span class="cl">      constant C;
-</span></span><span class="line"><span class="cl">      @@
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">      - 1 &lt;&lt; C
-</span></span><span class="line"><span class="cl">​      + BIT(C)
-</span></span></code></pre></td></tr></table>
-</div>
-</div></li>
+<pre tabindex="0"><code class="language-Coccinelle" data-lang="Coccinelle">      @@
+      constant C;
+      @@
+
+      - 1 &lt;&lt; C
+​      + BIT(C)
+</code></pre></li>
 <li>
 <p>Using <em>disjunction</em>: Replace expressions of the form 1 &lt;&lt; C with BIT(C) where C is any constant, and
 replace expressions of the form 1 &lt;&lt; E with BIT(E) where E is any expression.</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">      @@
-</span></span><span class="line"><span class="cl">      constant C;
-</span></span><span class="line"><span class="cl">      expression E;
-</span></span><span class="line"><span class="cl">      @@
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">      {
-</span></span><span class="line"><span class="cl">​      - 1 &lt;&lt; C
-</span></span><span class="line"><span class="cl">​      + BIT(C)
-</span></span><span class="line"><span class="cl">      |
-</span></span><span class="line"><span class="cl">​      - 1 &lt;&lt; E
-</span></span><span class="line"><span class="cl">​      + BIT(E)
-</span></span><span class="line"><span class="cl">      }
-</span></span></code></pre></td></tr></table>
-</div>
-</div></li>
+<pre tabindex="0"><code class="language-Coccinelle" data-lang="Coccinelle">      @@
+      constant C;
+      expression E;
+      @@
+
+      {
+​      - 1 &lt;&lt; C
+​      + BIT(C)
+      |
+​      - 1 &lt;&lt; E
+​      + BIT(E)
+      }
+</code></pre></li>
 <li>
 <p>Using <em>identifiers</em> and <em>dots</em>: Replace assignment to a local variable followed by immediate return of that value,
 by simply the return statement.
 Notice here, we don&rsquo;t care about what the arguments of the function is, and so we can use dots there.</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span><span class="lnt">6
-</span><span class="lnt">7
-</span><span class="lnt">8
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">      @@
-</span></span><span class="line"><span class="cl">      identifier f;
-</span></span><span class="line"><span class="cl">      expression r;
-</span></span><span class="line"><span class="cl">      @@
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">      - r = f(...);
-</span></span><span class="line"><span class="cl">​      + return f(...);
-</span></span><span class="line"><span class="cl">​      - return r;
-</span></span></code></pre></td></tr></table>
-</div>
-</div></li>
+<pre tabindex="0"><code class="language-Coccinelle" data-lang="Coccinelle">      @@
+      identifier f;
+      expression r;
+      @@
+
+      - r = f(...);
+​      + return f(...);
+​      - return r;
+</code></pre></li>
 <li>
 <p>Matching zero or more function calls using <strong>&lt;&hellip; &hellip;&gt;</strong></p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span><span class="lnt">6
-</span><span class="lnt">7
-</span><span class="lnt">8
-</span><span class="lnt">9
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">      @@
-</span></span><span class="line"><span class="cl">      identifier f;
-</span></span><span class="line"><span class="cl">      @@
-</span></span><span class="line"><span class="cl">      *f(...)
-</span></span><span class="line"><span class="cl">      {
-</span></span><span class="line"><span class="cl">      &lt;...
-</span></span><span class="line"><span class="cl">​      * g(...)
-</span></span><span class="line"><span class="cl">      ...&gt;
-</span></span><span class="line"><span class="cl">      }
-</span></span></code></pre></td></tr></table>
-</div>
-</div></li>
+<pre tabindex="0"><code class="language-Coccinelle" data-lang="Coccinelle">      @@
+      identifier f;
+      @@
+      *f(...)
+      {
+      &lt;...
+​      * g(...)
+      ...&gt;
+      }
+</code></pre></li>
 </ol>
 <h3 id="advanced-features">Advanced features</h3>
 <h4 id="rule-dependencies">Rule dependencies</h4>
 <p>We can specify dependency between rules. This allows matching a rule only if another rule has been matched.
 For example, the following sematic patch has two rules. The first rule matches if the BIT macro is used anywhere
 in the file. If it is used, then the second rule which <em>depends</em> on the first rule converts expressions 1 &lt;&lt; E into BIT(E).</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">   @usesbit@
-</span></span><span class="line"><span class="cl">   @@
-</span></span><span class="line"><span class="cl">   BIT(...)
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">   @depends on usesbit@
-</span></span><span class="line"><span class="cl">   expression E;
-</span></span><span class="line"><span class="cl">   @@
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">   - 1 &lt;&lt; E
-</span></span><span class="line"><span class="cl">   + BIT(E)
-</span></span></code></pre></td></tr></table>
-</div>
-</div><p>We can also pass values between rules with dependency using <strong>&lt;&lt;</strong> syntax inside the metavariable declaration.</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">   @usesbit@
-</span></span><span class="line"><span class="cl">   expression E;
-</span></span><span class="line"><span class="cl">   @@
-</span></span><span class="line"><span class="cl">   1 &lt;&lt; E
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">   @depends on usesbit@
-</span></span><span class="line"><span class="cl">   expression E &lt;&lt; usesbit.E;
-</span></span><span class="line"><span class="cl">   @@
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">   - 1 &lt;&lt; E
-</span></span><span class="line"><span class="cl">   + BIT(E)
-</span></span></code></pre></td></tr></table>
-</div>
-</div><h4 id="isomorphisms">Isomorphisms</h4>
+<pre tabindex="0"><code class="language-Coccinelle" data-lang="Coccinelle">   @usesbit@
+   @@
+   BIT(...)
+
+   @depends on usesbit@
+   expression E;
+   @@
+
+   - 1 &lt;&lt; E
+   + BIT(E)
+</code></pre><p>We can also pass values between rules with dependency using <strong>&lt;&lt;</strong> syntax inside the metavariable declaration.</p>
+<pre tabindex="0"><code class="language-Coccinelle" data-lang="Coccinelle">   @usesbit@
+   expression E;
+   @@
+   1 &lt;&lt; E
+
+   @depends on usesbit@
+   expression E &lt;&lt; usesbit.E;
+   @@
+
+   - 1 &lt;&lt; E
+   + BIT(E)
+</code></pre><h4 id="isomorphisms">Isomorphisms</h4>
 <p>Coccinelle can also find and match code that is equivalent to the expression that we want to match. These statements that are semantically equivalent are called <em>Isomorphisms</em>.
 For example, the following statements are equivalent and so when we try to match <em>(x==NULL)</em>, Coccinelle also tries to match the other three statements.</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="o">!</span><span class="n">x</span>  <span class="o">&lt;=&gt;</span>  <span class="n">x</span> <span class="o">==</span> <span class="nb">NULL</span>  <span class="o">&lt;=&gt;</span>  <span class="nb">NULL</span> <span class="o">==</span> <span class="n">x</span><span class="p">;</span>
-</span></span></code></pre></td></tr></table>
-</div>
-</div><p>Coccinelle provides a set of default isomorphisms in <em>/usr/lib/coccinelle/standard.iso</em>.
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="color:#f92672">!</span>x  <span style="color:#f92672">&lt;=&gt;</span>  x <span style="color:#f92672">==</span> NULL  <span style="color:#f92672">&lt;=&gt;</span>  NULL <span style="color:#f92672">==</span> x;
+</span></span></code></pre></div><p>Coccinelle provides a set of default isomorphisms in <em>/usr/lib/coccinelle/standard.iso</em>.
 We can use custom isomorphisms by writing them in a file, let&rsquo;s say in custom.iso and using it in the semantic patches with <strong>using</strong> keyword. We can apply a custom isomorphism file-wide or for a specific rule.</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">using &#34;custom.iso&#34;
-</span></span><span class="line"><span class="cl">@rule1@
-</span></span><span class="line"><span class="cl">expression e;
-</span></span><span class="line"><span class="cl">@@
-</span></span><span class="line"><span class="cl">*e
-</span></span></code></pre></td></tr></table>
-</div>
-</div><div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">@rule1 using &#34;custom.iso&#34;@
-</span></span><span class="line"><span class="cl">expression e;
-</span></span><span class="line"><span class="cl">@@
-</span></span><span class="line"><span class="cl">*e
-</span></span></code></pre></td></tr></table>
-</div>
-</div><h4 id="embedding-python-or-ocaml-scripts">Embedding Python or Ocaml scripts</h4>
+<pre tabindex="0"><code class="language-coccinelle" data-lang="coccinelle">using &#34;custom.iso&#34;
+@rule1@
+expression e;
+@@
+*e
+</code></pre><pre tabindex="0"><code class="language-coccinelle" data-lang="coccinelle">@rule1 using &#34;custom.iso&#34;@
+expression e;
+@@
+*e
+</code></pre><h4 id="embedding-python-or-ocaml-scripts">Embedding Python or Ocaml scripts</h4>
 <p>We can also embed scripts written in Python or OCaml, inside the semantic patches and have them run when specific rules are matched.
 The rules that contain script code should uses <strong>script:python</strong> or <strong>script:ocaml</strong> in the rulename part.</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span><span class="lnt">6
-</span><span class="lnt">7
-</span><span class="lnt">8
-</span><span class="lnt">9
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">@zero_variable@
-</span></span><span class="line"><span class="cl">identifier i;
-</span></span><span class="line"><span class="cl">@@
-</span></span><span class="line"><span class="cl">i = 0;
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">@script:python depends on zero_variable@
-</span></span><span class="line"><span class="cl">i &lt;&lt; zero_variable.i;
-</span></span><span class="line"><span class="cl">@@
-</span></span><span class="line"><span class="cl">print (f&#34;Identifier {i} was set to zero&#34;)
-</span></span></code></pre></td></tr></table>
-</div>
-</div><h4 id="position-metavariables">Position metavariables</h4>
+<pre tabindex="0"><code class="language-coccinelle" data-lang="coccinelle">@zero_variable@
+identifier i;
+@@
+i = 0;
+
+@script:python depends on zero_variable@
+i &lt;&lt; zero_variable.i;
+@@
+print (f&#34;Identifier {i} was set to zero&#34;)
+</code></pre><h4 id="position-metavariables">Position metavariables</h4>
 <p>Coccinelle also provides <em>position</em> metavariables that can be attached to other metavariables (by appending with @) to find and print the position of the match
 inside the file.</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">@zero_variable@
-</span></span><span class="line"><span class="cl">identifier i;
-</span></span><span class="line"><span class="cl">position p;
-</span></span><span class="line"><span class="cl">@@
-</span></span><span class="line"><span class="cl">i@p = 0;
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">@script:python depends on zero_variable@
-</span></span><span class="line"><span class="cl">i &lt;&lt; zero_variable.i;
-</span></span><span class="line"><span class="cl">p &lt;&lt; zero_variable.p;
-</span></span><span class="line"><span class="cl">@@
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">print (f&#34;Identifier {i} was set to zero in file {p[0].file}, in function {p[0].current_element} at line {p[0].line}.&#34;)
-</span></span></code></pre></td></tr></table>
-</div>
-</div><h4 id="universal-and-existential-quantification">Universal and Existential quantification</h4>
+<pre tabindex="0"><code class="language-coccinelle" data-lang="coccinelle">@zero_variable@
+identifier i;
+position p;
+@@
+i@p = 0;
+
+@script:python depends on zero_variable@
+i &lt;&lt; zero_variable.i;
+p &lt;&lt; zero_variable.p;
+@@
+
+print (f&#34;Identifier {i} was set to zero in file {p[0].file}, in function {p[0].current_element} at line {p[0].line}.&#34;)
+</code></pre><h4 id="universal-and-existential-quantification">Universal and Existential quantification</h4>
 <p>todo</p>
 <ul>
 <li>when with exists and strict</li>
@@ -673,7 +476,7 @@ I don&rsquo;t know what CTL-VW is, but I&rsquo;m guessing it is a way to mathema
   <span class="copyright-year">
     &copy; 
     2016 - 
-    2023<span class="heart"><i class="iconfont icon-heart"></i></span><span>Abdun Nihaal</span>
+    2024<span class="heart"><i class="iconfont icon-heart"></i></span><span>Abdun Nihaal</span>
   </span>
 </div>
 

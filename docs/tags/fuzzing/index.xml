@@ -6,48 +6,35 @@
     <description>Recent content in fuzzing on Nihaal</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Tue, 20 Dec 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://nihaal.me/tags/fuzzing/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 20 Dec 2022 00:00:00 +0000</lastBuildDate>
+    <atom:link href="https://nihaal.me/tags/fuzzing/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Fixing syzbot bugs</title>
       <link>https://nihaal.me/post/fixing_syzbot_bugs/</link>
       <pubDate>Tue, 20 Dec 2022 00:00:00 +0000</pubDate>
-      
       <guid>https://nihaal.me/post/fixing_syzbot_bugs/</guid>
-      <description>Syzbot is an automated fuzzing infrastructure that uses Syzkaller to perform continuous fuzzing, primarily on the Linux kernel. Whenever it finds bugs, Syzbot reports it to the relevant mailing list. It also has a public dashboard where it lists all the open bugs that needs to be fixed.
-Syzbot is quite effective in finding bugs in the kernel but due to the large number of bugs being found, many of them don&amp;rsquo;t get fixed in time.</description>
+      <description>Syzbot is an automated fuzzing infrastructure that uses Syzkaller to perform continuous fuzzing, primarily on the Linux kernel. Whenever it finds bugs, Syzbot reports it to the relevant mailing list. It also has a public dashboard where it lists all the open bugs that needs to be fixed.&#xA;Syzbot is quite effective in finding bugs in the kernel but due to the large number of bugs being found, many of them don&amp;rsquo;t get fixed in time.</description>
     </item>
-    
     <item>
       <title>Finding bugs with Syzkaller</title>
       <link>https://nihaal.me/post/syzkaller/</link>
       <pubDate>Mon, 12 Dec 2022 00:00:00 +0000</pubDate>
-      
       <guid>https://nihaal.me/post/syzkaller/</guid>
-      <description>Syzkaller is an unsupervised, grammar based, coverage guided fuzzer used for fuzzing operating system kernels. It primarily performs system call fuzzing, but it can also be used for fuzzing USB and network packets. It is currently used for continuous fuzzing of Linux, Android and other BSD kernels.
-Automated: Syzkaller can automatically restart crashed virtual machines and also create a reproducer for the crashes. Coverage guided: Syzkaller gets coverage information using the KCOV infrastructure, which is built into the kernel.</description>
+      <description>Syzkaller is an unsupervised, grammar based, coverage guided fuzzer used for fuzzing operating system kernels. It primarily performs system call fuzzing, but it can also be used for fuzzing USB and network packets. It is currently used for continuous fuzzing of Linux, Android and other BSD kernels.&#xA;Automated: Syzkaller can automatically restart crashed virtual machines and also create a reproducer for the crashes. Coverage guided: Syzkaller gets coverage information using the KCOV infrastructure, which is built into the kernel.</description>
     </item>
-    
     <item>
       <title>Kernel Sanitizers</title>
       <link>https://nihaal.me/post/kernel_sanitizers/</link>
       <pubDate>Mon, 05 Dec 2022 00:00:00 +0000</pubDate>
-      
       <guid>https://nihaal.me/post/kernel_sanitizers/</guid>
-      <description>When fuzzing a program by feeding random inputs to it, we need a mechanism to tell when the program is doing unexpected things. Sanitizers help detect bugs in the program at runtime. They are usually used along with fuzzing to detect bugs in programs.
-The two roles of sanitizers:
-Detect incorrect program behaviour: like accessing memory that the program is not supposed to access Report incorrect behaviour: To be useful, the sanitizer needs to report useful information (like the stack trace and ) that makes it easier to understand and fix the bug.</description>
+      <description>When fuzzing a program by feeding random inputs to it, we need a mechanism to tell when the program is doing unexpected things. Sanitizers help detect bugs in the program at runtime. They are usually used along with fuzzing to detect bugs in programs.&#xA;The two roles of sanitizers:&#xA;Detect incorrect program behaviour: like accessing memory that the program is not supposed to access Report incorrect behaviour: To be useful, the sanitizer needs to report useful information (like the stack trace and ) that makes it easier to understand and fix the bug.</description>
     </item>
-    
     <item>
       <title>Linux kernel fuzzing</title>
       <link>https://nihaal.me/post/kernel_fuzzing/</link>
       <pubDate>Sat, 03 Dec 2022 00:00:00 +0000</pubDate>
-      
       <guid>https://nihaal.me/post/kernel_fuzzing/</guid>
-      <description>In this post, we&amp;rsquo;ll see how fuzzing is used for finding different types of bugs in the Linux kernel. This post consists of my notes taken from the talk by Andrey Konavalov about Linux fuzzing.
-Operating systems kernels are complex. Testing kernels is of prime importance since any vulnerability in the kernel can lead to compromising the whole system.
-Fuzzing is a dynamic program analysis technique, used to find bugs in software.</description>
+      <description>In this post, we&amp;rsquo;ll see how fuzzing is used for finding different types of bugs in the Linux kernel. This post consists of my notes taken from the talk by Andrey Konavalov about Linux fuzzing.&#xA;Operating systems kernels are complex. Testing kernels is of prime importance since any vulnerability in the kernel can lead to compromising the whole system.&#xA;Fuzzing is a dynamic program analysis technique, used to find bugs in software.</description>
     </item>
-    
   </channel>
 </rss>

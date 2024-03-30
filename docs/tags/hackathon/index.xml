@@ -6,26 +6,21 @@
     <description>Recent content in hackathon on Nihaal</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Sat, 04 Dec 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://nihaal.me/tags/hackathon/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 04 Dec 2021 00:00:00 +0000</lastBuildDate>
+    <atom:link href="https://nihaal.me/tags/hackathon/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>FOSSHack 2021</title>
       <link>https://nihaal.me/post/fosshack_2021/</link>
       <pubDate>Sat, 04 Dec 2021 00:00:00 +0000</pubDate>
-      
       <guid>https://nihaal.me/post/fosshack_2021/</guid>
-      <description>FOSSHack 2021 FOSSHack 2021 is a remote hackathon, organized by FOSSUnited, that happened on 13-14 November. FOSSUnited is a non-profit foundation that seeks to foster more FOSS projects and contributors from India and this hackathon is one such initiative.
-The rules were simple: Build a FOSS project or Work on existing FOSS project during the weekend. The projects would be judged based on factors like technical complexity, completeness and utility.</description>
+      <description>FOSSHack 2021 FOSSHack 2021 is a remote hackathon, organized by FOSSUnited, that happened on 13-14 November. FOSSUnited is a non-profit foundation that seeks to foster more FOSS projects and contributors from India and this hackathon is one such initiative.&#xA;The rules were simple: Build a FOSS project or Work on existing FOSS project during the weekend. The projects would be judged based on factors like technical complexity, completeness and utility.</description>
     </item>
-    
     <item>
       <title>Smart India Hackathon 2018</title>
       <link>https://nihaal.me/post/2018-09-15-smart-india-hackathon-2018/</link>
       <pubDate>Sat, 15 Sep 2018 17:50:37 +0000</pubDate>
-      
       <guid>https://nihaal.me/post/2018-09-15-smart-india-hackathon-2018/</guid>
-      <description>Smart India Hackathon 2018 In January this year, I along with my friends got an opportunity to participate in the Smart India Hackathon 2018. In this blog post, I want to share my experience of attending this hackathon and the lessons we learnt.
-Smart India Hackathon is a 36-hour hackathon organized by the government of India. It is an opportunity for students to use their innovative ideas to solve real-world problems.</description>
+      <description>Smart India Hackathon 2018 In January this year, I along with my friends got an opportunity to participate in the Smart India Hackathon 2018. In this blog post, I want to share my experience of attending this hackathon and the lessons we learnt.&#xA;Smart India Hackathon is a 36-hour hackathon organized by the government of India. It is an opportunity for students to use their innovative ideas to solve real-world problems.</description>
     </item>
-    
   </channel>
 </rss>

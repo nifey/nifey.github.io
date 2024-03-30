@@ -24,7 +24,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.111.3 with theme even" />
+<meta name="generator" content="Hugo 0.121.2 with theme even" />
 
 
 <link rel="canonical" href="https://nihaal.me/post/rsync/" />
@@ -46,14 +46,14 @@
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://nihaal.me/post/rsync/" /><meta property="article:section" content="post" />
 <meta property="article:published_time" content="2021-06-19T11:16:00+05:30" />
-<meta property="article:modified_time" content="2021-06-19T11:16:00+05:30" /><meta property="og:site_name" content="Nihaal" />
+<meta property="article:modified_time" content="2021-06-19T11:16:00+05:30" />
+
 <meta itemprop="name" content="Backing up files with RSync">
 <meta itemprop="description" content="You need a backup When was the last time you took a backup of your files? Thanks to technology, today, we can store thousands of photos and videos in a single pen drive. Digital files are easy to store, but they are also easy to lose. And that is why we all need to take regular backup of our files.
 3-2-1 Backup Strategy 3-2-1 Backup strategy is a general rule of thumb that says it is better to have atleast 3 copies of our files."><meta itemprop="datePublished" content="2021-06-19T11:16:00+05:30" />
 <meta itemprop="dateModified" content="2021-06-19T11:16:00+05:30" />
-<meta itemprop="wordCount" content="1037">
-<meta itemprop="keywords" content="backup," /><meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="Backing up files with RSync"/>
+<meta itemprop="wordCount" content="1030">
+<meta itemprop="keywords" content="backup," /><meta name="twitter:card" content="summary"/><meta name="twitter:title" content="Backing up files with RSync"/>
 <meta name="twitter:description" content="You need a backup When was the last time you took a backup of your files? Thanks to technology, today, we can store thousands of photos and videos in a single pen drive. Digital files are easy to store, but they are also easy to lose. And that is why we all need to take regular backup of our files.
 3-2-1 Backup Strategy 3-2-1 Backup strategy is a general rule of thumb that says it is better to have atleast 3 copies of our files."/>
 
@@ -129,7 +129,7 @@
       <div class="post-meta">
         <span class="post-time"> 19-06-2021 </span>
         
-          <span class="more-meta"> 1037 words </span>
+          <span class="more-meta"> 1030 words </span>
           <span class="more-meta"> 5 mins read </span>
         
       </div>
@@ -208,15 +208,8 @@ As I make progress, I&rsquo;ll share what I learn in putting together such a sys
 It is written in C and is suppoted on many OSes including Linux (of course), Windows, OS X and BSD.
 RSync also has many GUI frontends available. Some of them are GSync, QSync, Zynk, etc.
 The general format of the command is shown below.</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">rsync <span class="o">[</span>options<span class="o">]</span> /path/to/source/folder /path/to/backup/folder
-</span></span></code></pre></td></tr></table>
-</div>
-</div><h2 id="when-to-use-rsync">When to use RSync</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>rsync <span style="color:#f92672">[</span>options<span style="color:#f92672">]</span> /path/to/source/folder /path/to/backup/folder
+</span></span></code></pre></div><h2 id="when-to-use-rsync">When to use RSync</h2>
 <p>RSync tries to transfer only the difference between the current file and the file in the backup folder.
 If the file does not exist in the backup folder, it copies the whole file.
 This is especially helpful for incremental backups over a network i.e. when we want the modifications we made to a remote folder
@@ -318,43 +311,19 @@ One example is mysqldump for MySQL.</li>
 <p>We can backup the whole Linux system with RSync.
 The following command backs up programs (/bin), libraries (/lib), boot files (/boot),
 and data (/home) to the backup folder.</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo rsync -aAXv <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>--exclude<span class="o">={</span><span class="s2">&#34;/dev/*&#34;</span>,<span class="s2">&#34;/proc/*&#34;</span>,<span class="s2">&#34;/sys/*&#34;</span>,<span class="s2">&#34;/tmp/*&#34;</span>,<span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>           <span class="s2">&#34;/run/*&#34;</span>,<span class="s2">&#34;/mnt/*&#34;</span>,<span class="s2">&#34;/media/*&#34;</span>,<span class="s2">&#34;/lost+found&#34;</span><span class="o">}</span> <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>/ /path/to/backup/folder
-</span></span></code></pre></td></tr></table>
-</div>
-</div><p>We exclude files in mounted partitions (/mnt/*), directories populated at runtime (/proc/*,/sys/*) and filesystem specific folders like lost+found.
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sudo rsync -aAXv <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>--exclude<span style="color:#f92672">={</span><span style="color:#e6db74">&#34;/dev/*&#34;</span>,<span style="color:#e6db74">&#34;/proc/*&#34;</span>,<span style="color:#e6db74">&#34;/sys/*&#34;</span>,<span style="color:#e6db74">&#34;/tmp/*&#34;</span>,<span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>           <span style="color:#e6db74">&#34;/run/*&#34;</span>,<span style="color:#e6db74">&#34;/mnt/*&#34;</span>,<span style="color:#e6db74">&#34;/media/*&#34;</span>,<span style="color:#e6db74">&#34;/lost+found&#34;</span><span style="color:#f92672">}</span> <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>/ /path/to/backup/folder
+</span></span></code></pre></div><p>We exclude files in mounted partitions (/mnt/*), directories populated at runtime (/proc/*,/sys/*) and filesystem specific folders like lost+found.
 The -A option syncs the Access Control Lists of the files and -X option syncs the extended attributes of the files.</p>
 <h3 id="backup-remote-folder-using-ssh">Backup remote folder using ssh</h3>
 <p>To backup over ssh, we simply add &ldquo;-e ssh&rdquo; to the options.</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">rsync -ave ssh /path/to/source/folder user@remote:~/backup/folder
-</span></span></code></pre></td></tr></table>
-</div>
-</div><h3 id="incremental-backup">Incremental backup</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>rsync -ave ssh /path/to/source/folder user@remote:~/backup/folder
+</span></span></code></pre></div><h3 id="incremental-backup">Incremental backup</h3>
 <p>When used with the <em>-</em>-delete option, we can make the backup folder to be an exact replica of the source folder.</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">rsync -arvhP --delete /path/to/source/folder /path/to/backup/folder
-</span></span></code></pre></td></tr></table>
-</div>
-</div>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>rsync -arvhP --delete /path/to/source/folder /path/to/backup/folder
+</span></span></code></pre></div>
     </div>
 
     <div class="post-copyright">
@@ -424,7 +393,7 @@ The -A option syncs the Access Control Lists of the files and -X option syncs th
   <span class="copyright-year">
     &copy; 
     2016 - 
-    2023<span class="heart"><i class="iconfont icon-heart"></i></span><span>Abdun Nihaal</span>
+    2024<span class="heart"><i class="iconfont icon-heart"></i></span><span>Abdun Nihaal</span>
   </span>
 </div>
 

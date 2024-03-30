@@ -24,7 +24,7 @@ Automated: Syzkaller can automatically restart crashed virtual machines and also
 
 
 
-<meta name="generator" content="Hugo 0.111.3 with theme even" />
+<meta name="generator" content="Hugo 0.121.2 with theme even" />
 
 
 <link rel="canonical" href="https://nihaal.me/post/syzkaller/" />
@@ -46,14 +46,14 @@ Automated: Syzkaller can automatically restart crashed virtual machines and also
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://nihaal.me/post/syzkaller/" /><meta property="article:section" content="post" />
 <meta property="article:published_time" content="2022-12-12T00:00:00+00:00" />
-<meta property="article:modified_time" content="2022-12-12T00:00:00+00:00" /><meta property="og:site_name" content="Nihaal" />
+<meta property="article:modified_time" content="2022-12-12T00:00:00+00:00" />
+
 <meta itemprop="name" content="Finding bugs with Syzkaller">
 <meta itemprop="description" content="Syzkaller is an unsupervised, grammar based, coverage guided fuzzer used for fuzzing operating system kernels. It primarily performs system call fuzzing, but it can also be used for fuzzing USB and network packets. It is currently used for continuous fuzzing of Linux, Android and other BSD kernels.
 Automated: Syzkaller can automatically restart crashed virtual machines and also create a reproducer for the crashes. Coverage guided: Syzkaller gets coverage information using the KCOV infrastructure, which is built into the kernel."><meta itemprop="datePublished" content="2022-12-12T00:00:00+00:00" />
 <meta itemprop="dateModified" content="2022-12-12T00:00:00+00:00" />
-<meta itemprop="wordCount" content="920">
-<meta itemprop="keywords" content="fuzzing,syzkaller," /><meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="Finding bugs with Syzkaller"/>
+<meta itemprop="wordCount" content="863">
+<meta itemprop="keywords" content="fuzzing,syzkaller," /><meta name="twitter:card" content="summary"/><meta name="twitter:title" content="Finding bugs with Syzkaller"/>
 <meta name="twitter:description" content="Syzkaller is an unsupervised, grammar based, coverage guided fuzzer used for fuzzing operating system kernels. It primarily performs system call fuzzing, but it can also be used for fuzzing USB and network packets. It is currently used for continuous fuzzing of Linux, Android and other BSD kernels.
 Automated: Syzkaller can automatically restart crashed virtual machines and also create a reproducer for the crashes. Coverage guided: Syzkaller gets coverage information using the KCOV infrastructure, which is built into the kernel."/>
 
@@ -129,7 +129,7 @@ Automated: Syzkaller can automatically restart crashed virtual machines and also
       <div class="post-meta">
         <span class="post-time"> 12-12-2022 </span>
         
-          <span class="more-meta"> 920 words </span>
+          <span class="more-meta"> 863 words </span>
           <span class="more-meta"> 5 mins read </span>
         
       </div>
@@ -188,57 +188,26 @@ Inside the virtual machine, <em>syz-executor</em> is the program that executes t
 <ul>
 <li>
 <p>Download source</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">  git clone https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git linux
-</span></span><span class="line"><span class="cl">  <span class="nb">cd</span> linux
-</span></span><span class="line"><span class="cl">  make defconfig<span class="p">;</span>        <span class="c1"># Generate default .config</span>
-</span></span><span class="line"><span class="cl">  make kvm_guest.config<span class="p">;</span> <span class="c1"># Enable some configs for virtualization</span>
-</span></span></code></pre></td></tr></table>
-</div>
-</div></li>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>  git clone https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git linux
+</span></span><span style="display:flex;"><span>  cd linux
+</span></span><span style="display:flex;"><span>  make defconfig;        <span style="color:#75715e"># Generate default .config</span>
+</span></span><span style="display:flex;"><span>  make kvm_guest.config; <span style="color:#75715e"># Enable some configs for virtualization</span>
+</span></span></code></pre></div></li>
 <li>
 <p>Ensure that the following configurations are enabled in the .config file.</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span><span class="lnt">6
-</span><span class="lnt">7
-</span><span class="lnt">8
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">  CONFIG_KCOV=y          # Coverage collection
-</span></span><span class="line"><span class="cl">  CONFIG_DEBUG_INFO=y    # Debug info
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">  CONFIG_KASAN=y         # Memory bug detector
-</span></span><span class="line"><span class="cl">  CONFIG_KASAN_INLINE=y
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">  CONFIG_CONFIGFS_FS=y   # Required for debian rootfs
-</span></span><span class="line"><span class="cl">  CONFIG_SECURITYFS=y
-</span></span></code></pre></td></tr></table>
-</div>
-</div></li>
+<pre tabindex="0"><code class="language-nil" data-lang="nil">  CONFIG_KCOV=y          # Coverage collection
+  CONFIG_DEBUG_INFO=y    # Debug info
+
+  CONFIG_KASAN=y         # Memory bug detector
+  CONFIG_KASAN_INLINE=y
+
+  CONFIG_CONFIGFS_FS=y   # Required for debian rootfs
+  CONFIG_SECURITYFS=y
+</code></pre></li>
 <li>
 <p>Compile</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">  make -j16
-</span></span></code></pre></td></tr></table>
-</div>
-</div></li>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>  make -j16
+</span></span></code></pre></div></li>
 </ul>
 <h3 id="2-dot-setup-qemu">2. Setup Qemu</h3>
 <ul>
@@ -247,146 +216,72 @@ Inside the virtual machine, <em>syz-executor</em> is the program that executes t
 <p>We need a root filesystem for booting the kernel in a QEMU virtual machine.
 Syzkaller provides a helper script <em>tools/create-image.sh</em> for creating a debian image.
 The script also creates ssh keys for logging into the VM through SSH.</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">  git clone https://github.com/google/syzkaller
-</span></span><span class="line"><span class="cl">  cd syzkaller
-</span></span><span class="line"><span class="cl">  ./tools/create-image.sh -d buster             # Create a debian buster image
-</span></span><span class="line"><span class="cl">  # Now you should find buster.img, buster.id_rsa, buster.id_rsa.pub created
-</span></span></code></pre></td></tr></table>
-</div>
-</div></li>
+<pre tabindex="0"><code class="language-nil" data-lang="nil">  git clone https://github.com/google/syzkaller
+  cd syzkaller
+  ./tools/create-image.sh -d buster             # Create a debian buster image
+  # Now you should find buster.img, buster.id_rsa, buster.id_rsa.pub created
+</code></pre></li>
 <li>
 <p>Test Qemu</p>
 <p>Syzkaller accesses VM through SSH and so we need to ensure that the kernel boots and that we are able to SSH into the VM using the generated SSH keys.
 If the VM boots fine and we are able to SSH into it, then we are all set for fuzzing.</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span><span class="lnt">17
-</span><span class="lnt">18
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">  # Start qemu with the compiled kernel and debian image
-</span></span><span class="line"><span class="cl">  KERNEL=/home/nihaal/linux     # Path to linux source
-</span></span><span class="line"><span class="cl">  IMAGE=/home/nihaal/syzkaller  # Path to directory containing debian image and SSH keys
-</span></span><span class="line"><span class="cl">  qemu-system-x86_64 \
-</span></span><span class="line"><span class="cl">      -m 2G \
-</span></span><span class="line"><span class="cl">      -smp 2 \
-</span></span><span class="line"><span class="cl">      -kernel $KERNEL/arch/x86/boot/bzImage \
-</span></span><span class="line"><span class="cl">      -append &#34;console=ttyS0 root=/dev/sda earlyprintk=serial net.ifnames=0&#34; \
-</span></span><span class="line"><span class="cl">      -drive file=$IMAGE/buster.img,format=raw \
-</span></span><span class="line"><span class="cl">      -net user,host=10.0.2.10,hostfwd=tcp:127.0.0.1:10021-:22 \
-</span></span><span class="line"><span class="cl">      -net nic,model=e1000 \
-</span></span><span class="line"><span class="cl">      -enable-kvm \
-</span></span><span class="line"><span class="cl">      -nographic \
-</span></span><span class="line"><span class="cl">      -pidfile vm.pid \
-</span></span><span class="line"><span class="cl">      2&gt;&amp;1 | tee vm.log
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">  # From a different console, test SSH access
-</span></span><span class="line"><span class="cl">  ssh -i $IMAGE/buster.id_rsa -p 10021 -o &#34;StrictHostKeyChecking no&#34; root@localhost
-</span></span></code></pre></td></tr></table>
-</div>
-</div></li>
+<pre tabindex="0"><code class="language-nil" data-lang="nil">  # Start qemu with the compiled kernel and debian image
+  KERNEL=/home/nihaal/linux     # Path to linux source
+  IMAGE=/home/nihaal/syzkaller  # Path to directory containing debian image and SSH keys
+  qemu-system-x86_64 \
+      -m 2G \
+      -smp 2 \
+      -kernel $KERNEL/arch/x86/boot/bzImage \
+      -append &#34;console=ttyS0 root=/dev/sda earlyprintk=serial net.ifnames=0&#34; \
+      -drive file=$IMAGE/buster.img,format=raw \
+      -net user,host=10.0.2.10,hostfwd=tcp:127.0.0.1:10021-:22 \
+      -net nic,model=e1000 \
+      -enable-kvm \
+      -nographic \
+      -pidfile vm.pid \
+      2&gt;&amp;1 | tee vm.log
+
+  # From a different console, test SSH access
+  ssh -i $IMAGE/buster.id_rsa -p 10021 -o &#34;StrictHostKeyChecking no&#34; root@localhost
+</code></pre></li>
 </ul>
 <h3 id="3-dot-setup-and-run-syzkaller">3. Setup and run Syzkaller</h3>
 <ul>
 <li>
 <p>Make Syzkaller</p>
 <p>Syzkaller is written in Go. Install golang on your system and compile Syzkaller with make.</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">  <span class="c1"># Install golang</span>
-</span></span><span class="line"><span class="cl">  <span class="nb">cd</span> syzkaller
-</span></span><span class="line"><span class="cl">  make
-</span></span></code></pre></td></tr></table>
-</div>
-</div></li>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>  <span style="color:#75715e"># Install golang</span>
+</span></span><span style="display:flex;"><span>  cd syzkaller
+</span></span><span style="display:flex;"><span>  make
+</span></span></code></pre></div></li>
 <li>
 <p>Create syz-manager config</p>
 <p>We need to pass a configuration file for Syzkaller that contains information about the location of the kernel and root filesystem,
 number of processes, number of VM and the number of virtual CPUs and memory in each VM.
 Description of different configs can be found <span class="underline"><a href="https://github.com/google/syzkaller/blob/master/pkg/mgrconfig/config.go">here</a></span></p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span><span class="lnt">17
-</span><span class="lnt">18
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">  {
-</span></span><span class="line"><span class="cl">      &#34;target&#34;: &#34;linux/amd64&#34;,          # System architecture
-</span></span><span class="line"><span class="cl">      &#34;http&#34;: &#34;127.0.0.1:54321&#34;,        # URL for web interface
-</span></span><span class="line"><span class="cl">      &#34;workdir&#34;: &#34;$WORKDIR&#34;,            # Used for storing crash logs and corpus
-</span></span><span class="line"><span class="cl">      &#34;kernel_obj&#34;: &#34;$KERNEL&#34;,          # Kernel source directory
-</span></span><span class="line"><span class="cl">      &#34;image&#34;: &#34;$IMAGE/buster.img&#34;,     # Generated root filesystem image
-</span></span><span class="line"><span class="cl">      &#34;sshkey&#34;: &#34;$IMAGE/buster.id_rsa&#34;, # Generated SSH key
-</span></span><span class="line"><span class="cl">      &#34;syzkaller&#34;: &#34;$SYZKALLER&#34;,        # Syzkaller directory
-</span></span><span class="line"><span class="cl">      &#34;procs&#34;: 2,                       # Number of processes to use in each VM
-</span></span><span class="line"><span class="cl">      &#34;type&#34;: &#34;qemu&#34;,
-</span></span><span class="line"><span class="cl">      &#34;reproduce&#34;: false,               # Disable reproducer generation
-</span></span><span class="line"><span class="cl">      &#34;vm&#34;: {
-</span></span><span class="line"><span class="cl">          &#34;count&#34;: 4,                   # Number of VMs to use
-</span></span><span class="line"><span class="cl">          &#34;kernel&#34;: &#34;$KERNEL/arch/x86/boot/bzImage&#34;,  # Path to compiled kernel
-</span></span><span class="line"><span class="cl">          &#34;cpu&#34;: 2,                     # Number of CPUs in each VM
-</span></span><span class="line"><span class="cl">          &#34;mem&#34;: 2048                   # Memory used by each VM
-</span></span><span class="line"><span class="cl">      }
-</span></span><span class="line"><span class="cl">  }
-</span></span></code></pre></td></tr></table>
-</div>
-</div></li>
+<pre tabindex="0"><code class="language-nil" data-lang="nil">  {
+      &#34;target&#34;: &#34;linux/amd64&#34;,          # System architecture
+      &#34;http&#34;: &#34;127.0.0.1:54321&#34;,        # URL for web interface
+      &#34;workdir&#34;: &#34;$WORKDIR&#34;,            # Used for storing crash logs and corpus
+      &#34;kernel_obj&#34;: &#34;$KERNEL&#34;,          # Kernel source directory
+      &#34;image&#34;: &#34;$IMAGE/buster.img&#34;,     # Generated root filesystem image
+      &#34;sshkey&#34;: &#34;$IMAGE/buster.id_rsa&#34;, # Generated SSH key
+      &#34;syzkaller&#34;: &#34;$SYZKALLER&#34;,        # Syzkaller directory
+      &#34;procs&#34;: 2,                       # Number of processes to use in each VM
+      &#34;type&#34;: &#34;qemu&#34;,
+      &#34;reproduce&#34;: false,               # Disable reproducer generation
+      &#34;vm&#34;: {
+          &#34;count&#34;: 4,                   # Number of VMs to use
+          &#34;kernel&#34;: &#34;$KERNEL/arch/x86/boot/bzImage&#34;,  # Path to compiled kernel
+          &#34;cpu&#34;: 2,                     # Number of CPUs in each VM
+          &#34;mem&#34;: 2048                   # Memory used by each VM
+      }
+  }
+</code></pre></li>
 <li>
 <p>Start fuzzing</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">  ./bin/syz-manager -config my.cfg
-</span></span></code></pre></td></tr></table>
-</div>
-</div></li>
+<pre tabindex="0"><code class="language-nil" data-lang="nil">  ./bin/syz-manager -config my.cfg
+</code></pre></li>
 </ul>
 <h2 id="syzbot">Syzbot</h2>
 <p>Syzbot is an automated continuous fuzzing infrastructure that performs continous fuzzing of different kernels using Syzkaller and reports any crashes and associated reproducers to the respective mailing lists.
@@ -485,7 +380,7 @@ The Syzbot infrastructure also has a <a href="https://syzkaller.appspot.com/">pu
   <span class="copyright-year">
     &copy; 
     2016 - 
-    2023<span class="heart"><i class="iconfont icon-heart"></i></span><span>Abdun Nihaal</span>
+    2024<span class="heart"><i class="iconfont icon-heart"></i></span><span>Abdun Nihaal</span>
   </span>
 </div>
 

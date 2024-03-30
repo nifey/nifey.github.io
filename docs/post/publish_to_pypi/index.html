@@ -24,7 +24,7 @@ Python Package Index (PyPI) is an index and repository of Python packages." />
 
 
 
-<meta name="generator" content="Hugo 0.111.3 with theme even" />
+<meta name="generator" content="Hugo 0.121.2 with theme even" />
 
 
 <link rel="canonical" href="https://nihaal.me/post/publish_to_pypi/" />
@@ -46,14 +46,14 @@ Python Package Index (PyPI) is an index and repository of Python packages." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://nihaal.me/post/publish_to_pypi/" /><meta property="article:section" content="post" />
 <meta property="article:published_time" content="2021-12-04T00:00:00+00:00" />
-<meta property="article:modified_time" content="2021-12-04T00:00:00+00:00" /><meta property="og:site_name" content="Nihaal" />
+<meta property="article:modified_time" content="2021-12-04T00:00:00+00:00" />
+
 <meta itemprop="name" content="Publishing packages to PyPI">
 <meta itemprop="description" content="The usability of a programming language depends on many factors and one of them is the availability of good libraries to build on. When libraries are available, we also need a way to search and download libraries with ease. Most modern langauges maintain some form of index to make dependency management easier. Examples include Crates.io for Rust and PyPI for Python.
 Python Package Index (PyPI) is an index and repository of Python packages."><meta itemprop="datePublished" content="2021-12-04T00:00:00+00:00" />
 <meta itemprop="dateModified" content="2021-12-04T00:00:00+00:00" />
-<meta itemprop="wordCount" content="1115">
-<meta itemprop="keywords" content="python," /><meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="Publishing packages to PyPI"/>
+<meta itemprop="wordCount" content="1061">
+<meta itemprop="keywords" content="python," /><meta name="twitter:card" content="summary"/><meta name="twitter:title" content="Publishing packages to PyPI"/>
 <meta name="twitter:description" content="The usability of a programming language depends on many factors and one of them is the availability of good libraries to build on. When libraries are available, we also need a way to search and download libraries with ease. Most modern langauges maintain some form of index to make dependency management easier. Examples include Crates.io for Rust and PyPI for Python.
 Python Package Index (PyPI) is an index and repository of Python packages."/>
 
@@ -129,8 +129,8 @@ Python Package Index (PyPI) is an index and repository of Python packages."/>
       <div class="post-meta">
         <span class="post-time"> 04-12-2021 </span>
         
-          <span class="more-meta"> 1115 words </span>
-          <span class="more-meta"> 6 mins read </span>
+          <span class="more-meta"> 1061 words </span>
+          <span class="more-meta"> 5 mins read </span>
         
       </div>
     </header>
@@ -188,82 +188,42 @@ You can always add more functionality in later releases.</p>
 <li>
 <p>Add a MANIFEST.in file</p>
 <p>The MANIFEST.in file is used to specify what files (other than source code and README file) to include or exclude from the package. We will include the LICENSE in the package by including it in the MANIFEST.in file.</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">  include LICENSE
-</span></span></code></pre></td></tr></table>
-</div>
-</div></li>
+<pre tabindex="0"><code class="language-nil" data-lang="nil">  include LICENSE
+</code></pre></li>
 <li>
 <p>Add setup.py file</p>
 <p>setup.py contains information about the package, its dependecies and more.
 The <em>setup()</em> function takes these information as paramters.</p>
 <p>A template setup.py file is shown below.
 It uses the contents of README.md as the <em>long_description</em> and the contents of requirements.txt file as <em>install_requires</em> (i.e. dependencies).</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span><span class="lnt">17
-</span><span class="lnt">18
-</span><span class="lnt">19
-</span><span class="lnt">20
-</span><span class="lnt">21
-</span><span class="lnt">22
-</span><span class="lnt">23
-</span><span class="lnt">24
-</span><span class="lnt">25
-</span><span class="lnt">26
-</span><span class="lnt">27
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl">  <span class="kn">from</span> <span class="nn">setuptools</span> <span class="kn">import</span> <span class="n">setup</span><span class="p">,</span> <span class="n">find_packages</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">  <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&#34;README.md&#34;</span><span class="p">,</span> <span class="s2">&#34;r&#34;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">&#34;utf-8&#34;</span><span class="p">)</span> <span class="k">as</span> <span class="n">fh</span><span class="p">:</span>
-</span></span><span class="line"><span class="cl">      <span class="n">long_description</span> <span class="o">=</span> <span class="n">fh</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
-</span></span><span class="line"><span class="cl">  <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&#34;requirements.txt&#34;</span><span class="p">,</span> <span class="s2">&#34;r&#34;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">&#34;utf-8&#34;</span><span class="p">)</span> <span class="k">as</span> <span class="n">fh</span><span class="p">:</span>
-</span></span><span class="line"><span class="cl">      <span class="n">requirements</span> <span class="o">=</span> <span class="n">fh</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">  <span class="n">setup</span><span class="p">(</span>
-</span></span><span class="line"><span class="cl">      <span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;&lt;package_name&gt;&#39;</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">      <span class="n">version</span> <span class="o">=</span> <span class="s1">&#39;0.0.1&#39;</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">      <span class="n">author</span><span class="o">=</span><span class="s1">&#39;&lt;author name&gt;&#39;</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">      <span class="n">author_email</span><span class="o">=</span><span class="s1">&#39;&lt;author email&gt;&#39;</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">      <span class="n">license</span> <span class="o">=</span> <span class="s1">&#39;&lt;license&gt;&#39;</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">      <span class="n">description</span> <span class="o">=</span> <span class="s1">&#39;&lt;short description&gt;&#39;</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">      <span class="n">long_description</span> <span class="o">=</span> <span class="n">long_description</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">      <span class="n">long_description_content_type</span> <span class="o">=</span> <span class="s2">&#34;text/markdown&#34;</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">      <span class="n">url</span> <span class="o">=</span> <span class="s1">&#39;&lt;link to package repository&gt;&#39;</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">      <span class="n">project_urls</span><span class="o">=</span><span class="p">{</span>
-</span></span><span class="line"><span class="cl">          <span class="s2">&#34;Bug Tracker&#34;</span><span class="p">:</span> <span class="s2">&#34;&lt;bug tracker page&gt;&#34;</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">      <span class="p">},</span>
-</span></span><span class="line"><span class="cl">      <span class="n">classifiers</span><span class="o">=</span><span class="p">[</span>
-</span></span><span class="line"><span class="cl">          <span class="s2">&#34;Programming Language :: Python :: 3&#34;</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">          <span class="s2">&#34;&lt;Other classifiers&gt;&#34;</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">      <span class="p">],</span>
-</span></span><span class="line"><span class="cl">      <span class="n">packages</span> <span class="o">=</span> <span class="n">find_packages</span><span class="p">(),</span>
-</span></span><span class="line"><span class="cl">      <span class="n">install_requires</span> <span class="o">=</span> <span class="p">[</span><span class="n">requirements</span><span class="p">],</span>
-</span></span><span class="line"><span class="cl">  <span class="p">)</span>
-</span></span></code></pre></td></tr></table>
-</div>
-</div><ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>  <span style="color:#f92672">from</span> setuptools <span style="color:#f92672">import</span> setup, find_packages
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">with</span> open(<span style="color:#e6db74">&#34;README.md&#34;</span>, <span style="color:#e6db74">&#34;r&#34;</span>, encoding<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;utf-8&#34;</span>) <span style="color:#66d9ef">as</span> fh:
+</span></span><span style="display:flex;"><span>      long_description <span style="color:#f92672">=</span> fh<span style="color:#f92672">.</span>read()
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">with</span> open(<span style="color:#e6db74">&#34;requirements.txt&#34;</span>, <span style="color:#e6db74">&#34;r&#34;</span>, encoding<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;utf-8&#34;</span>) <span style="color:#66d9ef">as</span> fh:
+</span></span><span style="display:flex;"><span>      requirements <span style="color:#f92672">=</span> fh<span style="color:#f92672">.</span>read()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  setup(
+</span></span><span style="display:flex;"><span>      name <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;&lt;package_name&gt;&#39;</span>,
+</span></span><span style="display:flex;"><span>      version <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;0.0.1&#39;</span>,
+</span></span><span style="display:flex;"><span>      author<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;&lt;author name&gt;&#39;</span>,
+</span></span><span style="display:flex;"><span>      author_email<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;&lt;author email&gt;&#39;</span>,
+</span></span><span style="display:flex;"><span>      license <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;&lt;license&gt;&#39;</span>,
+</span></span><span style="display:flex;"><span>      description <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;&lt;short description&gt;&#39;</span>,
+</span></span><span style="display:flex;"><span>      long_description <span style="color:#f92672">=</span> long_description,
+</span></span><span style="display:flex;"><span>      long_description_content_type <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;text/markdown&#34;</span>,
+</span></span><span style="display:flex;"><span>      url <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;&lt;link to package repository&gt;&#39;</span>,
+</span></span><span style="display:flex;"><span>      project_urls<span style="color:#f92672">=</span>{
+</span></span><span style="display:flex;"><span>          <span style="color:#e6db74">&#34;Bug Tracker&#34;</span>: <span style="color:#e6db74">&#34;&lt;bug tracker page&gt;&#34;</span>,
+</span></span><span style="display:flex;"><span>      },
+</span></span><span style="display:flex;"><span>      classifiers<span style="color:#f92672">=</span>[
+</span></span><span style="display:flex;"><span>          <span style="color:#e6db74">&#34;Programming Language :: Python :: 3&#34;</span>,
+</span></span><span style="display:flex;"><span>          <span style="color:#e6db74">&#34;&lt;Other classifiers&gt;&#34;</span>,
+</span></span><span style="display:flex;"><span>      ],
+</span></span><span style="display:flex;"><span>      packages <span style="color:#f92672">=</span> find_packages(),
+</span></span><span style="display:flex;"><span>      install_requires <span style="color:#f92672">=</span> [requirements],
+</span></span><span style="display:flex;"><span>  )
+</span></span></code></pre></div><ul>
 <li>Classifiers make it easy for people to search on PyPI.
 You can think of them as tags or categories that is used to filter down packages when searching on PyPI.
 You can find a list of all classifiers at <a href="https://pypi.org/classifiers/">https://pypi.org/classifiers/</a>.</li>
@@ -279,28 +239,12 @@ You can find a list of all classifiers at <a href="https://pypi.org/classifiers/
 <em>Source distribution</em> and <em>Wheel file</em> are just two different ways of providing the package to the user.
 In the case of Source distribution, the source code of our package is downloaded and compiled at the user side, whereas the wheel file is already compiled and ready to install.</p>
 <p>We can generate files for both distribution with the following command</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">python setup.py sdist bdist_wheel
-</span></span></code></pre></td></tr></table>
-</div>
-</div><p>This will generate package files under <em>dist</em> directory.</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">ls dist
-</span></span><span class="line"><span class="cl"><span class="c1"># package-0.0.1-py3-none-any.whl</span>
-</span></span><span class="line"><span class="cl"><span class="c1"># package-0.0.1.tar.gz</span>
-</span></span></code></pre></td></tr></table>
-</div>
-</div><h3 id="3-dot-upload-to-pypi">3. Upload to PyPI</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>python setup.py sdist bdist_wheel
+</span></span></code></pre></div><p>This will generate package files under <em>dist</em> directory.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>ls dist
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># package-0.0.1-py3-none-any.whl</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># package-0.0.1.tar.gz</span>
+</span></span></code></pre></div><h3 id="3-dot-upload-to-pypi">3. Upload to PyPI</h3>
 <ul>
 <li>
 <p>Create an account on <a href="https://pypi.org/account/register/">PyPI</a></p>
@@ -310,68 +254,33 @@ In the case of Source distribution, the source code of our package is downloaded
 <p>Install twine</p>
 <p>Twine is a utility tool for publishing on PyPI.
 It can be installed using pip.</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">  pip install twine
-</span></span></code></pre></td></tr></table>
-</div>
-</div></li>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>  pip install twine
+</span></span></code></pre></div></li>
 <li>
 <p>Twine check</p>
 <p>Twine can check and report common packaging mistakes. We can run the <em>check</em> command on the distrubution files that we generated.</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">  twine check dist/*
-</span></span></code></pre></td></tr></table>
-</div>
-</div></li>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>  twine check dist/*
+</span></span></code></pre></div></li>
 <li>
 <p>Create a GPG key, if you don&rsquo;t have one already</p>
 <p>I&rsquo;m not sure if this is required. But when I tried to upload a package to PyPI, it did prompt for a GPG key.</p>
 <p>To create a key, Install GPG and execute the following command.
 It will prompt for name, email, etc and create a GPG key.</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">  gpg --full-generate-key
-</span></span></code></pre></td></tr></table>
-</div>
-</div></li>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>  gpg --full-generate-key
+</span></span></code></pre></div></li>
 <li>
 <p>Test it with <a href="https://test.pypi.org/">testpypi</a></p>
 <p>Before pushing your package to PyPI you can test it on testPyPI.
 This allows us to see how it would look like on the PyPI site without affecting the main index.</p>
 <p>Note that testpypi is a separate instance and so you have to create a new account on testpypi before pushing packages to it.</p>
 <p>To upload the package to testpypi, run:</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">  twine upload -r testpypi dist/*
-</span></span></code></pre></td></tr></table>
-</div>
-</div><p>The -r flag specifies the repository to upload to, which is PyPI by default.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>  twine upload -r testpypi dist/*
+</span></span></code></pre></div><p>The -r flag specifies the repository to upload to, which is PyPI by default.</p>
 </li>
 <li>
 <p>Upload</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">  twine upload dist/*
-</span></span></code></pre></td></tr></table>
-</div>
-</div><p>The above command will prompt for your PyPI username and password, and then upload the package files under <em>dist</em> directory to PyPI.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>  twine upload dist/*
+</span></span></code></pre></div><p>The above command will prompt for your PyPI username and password, and then upload the package files under <em>dist</em> directory to PyPI.</p>
 </li>
 </ul>
 <p>Congratulations! Your package should now be available on PyPI.</p>
@@ -381,75 +290,34 @@ This allows us to see how it would look like on the PyPI site without affecting 
 <li>
 <p>Update <em>version</em> field in setup.py</p>
 <p>We can do this manually by editing setup.py or use a tool called <a href="https://pypi.org/project/bump/"><em>bump</em></a>.</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span><span class="lnt">6
-</span><span class="lnt">7
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">   pip install bump
-</span></span><span class="line"><span class="cl">   <span class="c1"># To change 1.2.3 to 2.0.0</span>
-</span></span><span class="line"><span class="cl">   bump --major --reset
-</span></span><span class="line"><span class="cl">   <span class="c1"># To change 1.2.3 to 1.3.0</span>
-</span></span><span class="line"><span class="cl">   bump --minor --reset
-</span></span><span class="line"><span class="cl">   <span class="c1"># To change 1.2.3 to 1.2.4</span>
-</span></span><span class="line"><span class="cl">   bump --patch
-</span></span></code></pre></td></tr></table>
-</div>
-</div></li>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>   pip install bump
+</span></span><span style="display:flex;"><span>   <span style="color:#75715e"># To change 1.2.3 to 2.0.0</span>
+</span></span><span style="display:flex;"><span>   bump --major --reset
+</span></span><span style="display:flex;"><span>   <span style="color:#75715e"># To change 1.2.3 to 1.3.0</span>
+</span></span><span style="display:flex;"><span>   bump --minor --reset
+</span></span><span style="display:flex;"><span>   <span style="color:#75715e"># To change 1.2.3 to 1.2.4</span>
+</span></span><span style="display:flex;"><span>   bump --patch
+</span></span></code></pre></div></li>
 <li>
 <p>Remove any old package files from the <em>dist</em> directory and build your package again</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">   rm dist/*
-</span></span><span class="line"><span class="cl">   python setup.py sdist bdist_wheel
-</span></span></code></pre></td></tr></table>
-</div>
-</div></li>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>   rm dist/*
+</span></span><span style="display:flex;"><span>   python setup.py sdist bdist_wheel
+</span></span></code></pre></div></li>
 <li>
 <p>Check and upload new package files to PyPI</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">   twine check dist/*
-</span></span><span class="line"><span class="cl">   twine upload dist/*
-</span></span></code></pre></td></tr></table>
-</div>
-</div></li>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>   twine check dist/*
+</span></span><span style="display:flex;"><span>   twine upload dist/*
+</span></span></code></pre></div></li>
 <li>
 <p>Create version tag</p>
 <p>If you are using git, it is important to create version tags. This lets us find which commits are included in a given version of the package.</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span><span class="lnt">6
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">   git tag -am <span class="s2">&#34;Release version 0.0.1&#34;</span> v0.0.1
-</span></span><span class="line"><span class="cl">   <span class="c1"># Or if you prefer writing the tag message in your editor</span>
-</span></span><span class="line"><span class="cl">   git tag -a v0.0.1
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">   <span class="c1"># Push tags to remote</span>
-</span></span><span class="line"><span class="cl">   git push --tags
-</span></span></code></pre></td></tr></table>
-</div>
-</div><p>When creating a new release, it is good practice to summarize the changes between the old version and the new version in the tag message.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>   git tag -am <span style="color:#e6db74">&#34;Release version 0.0.1&#34;</span> v0.0.1
+</span></span><span style="display:flex;"><span>   <span style="color:#75715e"># Or if you prefer writing the tag message in your editor</span>
+</span></span><span style="display:flex;"><span>   git tag -a v0.0.1
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>   <span style="color:#75715e"># Push tags to remote</span>
+</span></span><span style="display:flex;"><span>   git push --tags
+</span></span></code></pre></div><p>When creating a new release, it is good practice to summarize the changes between the old version and the new version in the tag message.</p>
 </li>
 </ol>
 <div class="admonition tip"><p class="admonition-title">Duckduckgo bang for PyPI</p>
@@ -530,7 +398,7 @@ This allows us to see how it would look like on the PyPI site without affecting 
   <span class="copyright-year">
     &copy; 
     2016 - 
-    2023<span class="heart"><i class="iconfont icon-heart"></i></span><span>Abdun Nihaal</span>
+    2024<span class="heart"><i class="iconfont icon-heart"></i></span><span>Abdun Nihaal</span>
   </span>
 </div>
 

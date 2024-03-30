@@ -23,7 +23,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.111.3 with theme even" />
+<meta name="generator" content="Hugo 0.121.2 with theme even" />
 
 
 <link rel="canonical" href="https://nihaal.me/" />
@@ -44,10 +44,10 @@
 <meta property="og:title" content="Nihaal" />
 <meta property="og:description" content="" />
 <meta property="og:type" content="website" />
-<meta property="og:url" content="https://nihaal.me/" /><meta property="og:site_name" content="Nihaal" />
+<meta property="og:url" content="https://nihaal.me/" />
+
 <meta itemprop="name" content="Nihaal">
-<meta itemprop="description" content=""><meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="Nihaal"/>
+<meta itemprop="description" content=""><meta name="twitter:card" content="summary"/><meta name="twitter:title" content="Nihaal"/>
 <meta name="twitter:description" content=""/>
 
 <!--[if lte IE 9]>
@@ -121,7 +121,7 @@
     <div class="post-meta">
       <span class="post-time"> 06-11-2021 </span>
       
-        <span class="more-meta"> 908 words </span>
+        <span class="more-meta"> 879 words </span>
         <span class="more-meta"> 5 mins read </span>
     </div>
   </header>
@@ -131,7 +131,7 @@
       debugfs debugfs is a pseudo-filesystem used for kernel debugging. It is usually mounted at /sys/kernel/debug. debugfs contains files that allow us to read debugging information.
 By default, only the root user can cd into the /sys/kernel/debug directory.
 To change it to allow the current user to cd into debugfs, we can remount it with uid set to the current user&rsquo;s uid.
-1 2 3 sudo umount /sys/kernel/debug sudo mount -t debugfs none /sys/kernel/debug -o uid=`echo $UID` cd /sys/kernel/debug Creating debugfs entries Creating debugfs files is similar to creating character device files.
+sudo umount /sys/kernel/debug sudo mount -t debugfs none /sys/kernel/debug -o uid=`echo $UID` cd /sys/kernel/debug Creating debugfs entries Creating debugfs files is similar to creating character device files.
     </div>
     <div class="read-more">
       <a href="/post/creating_debugfs_files/" class="read-more-link">Read more...</a>
@@ -145,8 +145,8 @@ To change it to allow the current user to cd into debugfs, we can remount it wit
     <div class="post-meta">
       <span class="post-time"> 03-11-2021 </span>
       
-        <span class="more-meta"> 1712 words </span>
-        <span class="more-meta"> 9 mins read </span>
+        <span class="more-meta"> 1587 words </span>
+        <span class="more-meta"> 8 mins read </span>
     </div>
   </header>
   
@@ -167,7 +167,7 @@ Character devices are accessed as a stream of bytes. Eg: Keyboards Block devices
     <div class="post-meta">
       <span class="post-time"> 18-10-2021 </span>
       
-        <span class="more-meta"> 389 words </span>
+        <span class="more-meta"> 359 words </span>
         <span class="more-meta"> 2 mins read </span>
     </div>
   </header>
@@ -176,8 +176,8 @@ Character devices are accessed as a stream of bytes. Eg: Keyboards Block devices
     <div class="post-summary">
       Finding vulnerable dependencies Safety-db is a database that keeps track of vulnerable python packages and version information. It is updated once a month. They also provide a tool called safety, that checks if the installed packages or packages in requirements.txt are identified as vulnerable using the safety-db.
 Install safety
-1 pip install safety Use safety to check all packages in the current virtual enviroment
-1 safety check Use safety to only check the dependencies listed in requirements.
+pip install safety Use safety to check all packages in the current virtual enviroment
+safety check Use safety to only check the dependencies listed in requirements.
     </div>
     <div class="read-more">
       <a href="/post/updating_vulnerable_python_dependencies/" class="read-more-link">Read more...</a>
@@ -191,7 +191,7 @@ Install safety
     <div class="post-meta">
       <span class="post-time"> 12-10-2021 </span>
       
-        <span class="more-meta"> 1041 words </span>
+        <span class="more-meta"> 998 words </span>
         <span class="more-meta"> 5 mins read </span>
     </div>
   </header>
@@ -215,7 +215,7 @@ Loadable kernel modules Linux kernel allows us to load modules to the kernel whi
     <div class="post-meta">
       <span class="post-time"> 19-06-2021 </span>
       
-        <span class="more-meta"> 1037 words </span>
+        <span class="more-meta"> 1030 words </span>
         <span class="more-meta"> 5 mins read </span>
     </div>
   </header>
@@ -273,7 +273,7 @@ Loadable kernel modules Linux kernel allows us to load modules to the kernel whi
   <span class="copyright-year">
     &copy; 
     2016 - 
-    2023<span class="heart"><i class="iconfont icon-heart"></i></span><span>Abdun Nihaal</span>
+    2024<span class="heart"><i class="iconfont icon-heart"></i></span><span>Abdun Nihaal</span>
   </span>
 </div>
 

@@ -6,289 +6,196 @@
     <description>Recent content on Nihaal</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Sat, 12 Aug 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://nihaal.me/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 12 Aug 2023 00:00:00 +0000</lastBuildDate>
+    <atom:link href="https://nihaal.me/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Notes on Sed</title>
       <link>https://nihaal.me/post/sed/</link>
       <pubDate>Sat, 12 Aug 2023 00:00:00 +0000</pubDate>
-      
       <guid>https://nihaal.me/post/sed/</guid>
-      <description>Sed Stream EDitor, UNIX utility Based on ed (line oriented text editor) Used commonly for find and replace based on Regular expressions Useful for processing and transforming logs Can also be used inside vim for find and replace Basic usage 1 2 3 4 5 6 7 cat file | sed &amp;#39;s/hello/world/&amp;#39; sed &amp;#39;s/hello/world/&amp;#39; file sed file -e &amp;#39;s/hello/world/&amp;#39; sed &amp;#39;s/hello/world/&amp;#39; -i file	# Inline (will replace in the file) cat file | sed &amp;#39;/REGEX/d&amp;#39;	# Delete lines matching a regular expression Regular expression syntax Language to represent string patterns Useful beyond sed (eg: grepping through source code) Basic regex: Specify characters to match &amp;lsquo;a&amp;rsquo; matches character a [a-z] matches lowercase alphabets [a-zA-Z0-9] matches alphabets and numbers [abc] matches characters a b c [^abc] matches anything except characters a b c Specify count of characters to match * -&amp;gt; Zero or more instances \+ -&amp;gt; One or more instances ?</description>
+      <description>Sed Stream EDitor, UNIX utility Based on ed (line oriented text editor) Used commonly for find and replace based on Regular expressions Useful for processing and transforming logs Can also be used inside vim for find and replace Basic usage cat file | sed &amp;#39;s/hello/world/&amp;#39; sed &amp;#39;s/hello/world/&amp;#39; file sed file -e &amp;#39;s/hello/world/&amp;#39; sed &amp;#39;s/hello/world/&amp;#39; -i file&#x9;# Inline (will replace in the file) cat file | sed &amp;#39;/REGEX/d&amp;#39;&#x9;# Delete lines matching a regular expression Regular expression syntax Language to represent string patterns Useful beyond sed (eg: grepping through source code) Basic regex: Specify characters to match &amp;lsquo;a&amp;rsquo; matches character a [a-z] matches lowercase alphabets [a-zA-Z0-9] matches alphabets and numbers [abc] matches characters a b c [^abc] matches anything except characters a b c Specify count of characters to match * -&amp;gt; Zero or more instances \+ -&amp;gt; One or more instances ?</description>
     </item>
-    
     <item>
       <title>Kernel defences</title>
       <link>https://nihaal.me/post/kernel_defences/</link>
       <pubDate>Mon, 09 Jan 2023 00:00:00 +0000</pubDate>
-      
       <guid>https://nihaal.me/post/kernel_defences/</guid>
-      <description>Usually when an attacker exploits a vulnerability, the attack starts out as a Illegal memory access or Control flow hijack, which the attacker would use to write to sensitive memory locations or execute arbitrary code in supervisor mode, to try to increase privileges in the system.
-Illegal memory accesses are memory accesses which the programmer didn&amp;rsquo;t intend to happen, which allows attackers to read or write to some memory locations. Illegal memory accesses can be classified on three aspects:</description>
+      <description>Usually when an attacker exploits a vulnerability, the attack starts out as a Illegal memory access or Control flow hijack, which the attacker would use to write to sensitive memory locations or execute arbitrary code in supervisor mode, to try to increase privileges in the system.&#xA;Illegal memory accesses are memory accesses which the programmer didn&amp;rsquo;t intend to happen, which allows attackers to read or write to some memory locations. Illegal memory accesses can be classified on three aspects:</description>
     </item>
-    
     <item>
       <title>Fixing syzbot bugs</title>
       <link>https://nihaal.me/post/fixing_syzbot_bugs/</link>
       <pubDate>Tue, 20 Dec 2022 00:00:00 +0000</pubDate>
-      
       <guid>https://nihaal.me/post/fixing_syzbot_bugs/</guid>
-      <description>Syzbot is an automated fuzzing infrastructure that uses Syzkaller to perform continuous fuzzing, primarily on the Linux kernel. Whenever it finds bugs, Syzbot reports it to the relevant mailing list. It also has a public dashboard where it lists all the open bugs that needs to be fixed.
-Syzbot is quite effective in finding bugs in the kernel but due to the large number of bugs being found, many of them don&amp;rsquo;t get fixed in time.</description>
+      <description>Syzbot is an automated fuzzing infrastructure that uses Syzkaller to perform continuous fuzzing, primarily on the Linux kernel. Whenever it finds bugs, Syzbot reports it to the relevant mailing list. It also has a public dashboard where it lists all the open bugs that needs to be fixed.&#xA;Syzbot is quite effective in finding bugs in the kernel but due to the large number of bugs being found, many of them don&amp;rsquo;t get fixed in time.</description>
     </item>
-    
     <item>
       <title>Coccinelle</title>
       <link>https://nihaal.me/post/coccinelle/</link>
       <pubDate>Wed, 14 Dec 2022 00:00:00 +0000</pubDate>
-      
       <guid>https://nihaal.me/post/coccinelle/</guid>
-      <description>Coccinelle is static analysis tool used for semantic pattern matching and automated transformation of C programs. It is written in OCaml. Unlike other pattern matching tools like grep which use regular expressions, Coccinelle understands C syntax and can find semantic code pattern in the source code and automatically transform them, irrespective of the name of identifiers, comments or formatting.
-Coccinelle is intraprocedural, i.e. all its matching and transformation happens within functions.</description>
+      <description>Coccinelle is static analysis tool used for semantic pattern matching and automated transformation of C programs. It is written in OCaml. Unlike other pattern matching tools like grep which use regular expressions, Coccinelle understands C syntax and can find semantic code pattern in the source code and automatically transform them, irrespective of the name of identifiers, comments or formatting.&#xA;Coccinelle is intraprocedural, i.e. all its matching and transformation happens within functions.</description>
     </item>
-    
     <item>
       <title>Finding bugs with Syzkaller</title>
       <link>https://nihaal.me/post/syzkaller/</link>
       <pubDate>Mon, 12 Dec 2022 00:00:00 +0000</pubDate>
-      
       <guid>https://nihaal.me/post/syzkaller/</guid>
-      <description>Syzkaller is an unsupervised, grammar based, coverage guided fuzzer used for fuzzing operating system kernels. It primarily performs system call fuzzing, but it can also be used for fuzzing USB and network packets. It is currently used for continuous fuzzing of Linux, Android and other BSD kernels.
-Automated: Syzkaller can automatically restart crashed virtual machines and also create a reproducer for the crashes. Coverage guided: Syzkaller gets coverage information using the KCOV infrastructure, which is built into the kernel.</description>
+      <description>Syzkaller is an unsupervised, grammar based, coverage guided fuzzer used for fuzzing operating system kernels. It primarily performs system call fuzzing, but it can also be used for fuzzing USB and network packets. It is currently used for continuous fuzzing of Linux, Android and other BSD kernels.&#xA;Automated: Syzkaller can automatically restart crashed virtual machines and also create a reproducer for the crashes. Coverage guided: Syzkaller gets coverage information using the KCOV infrastructure, which is built into the kernel.</description>
     </item>
-    
     <item>
       <title>How to do research?</title>
       <link>https://nihaal.me/post/how_to_research/</link>
       <pubDate>Tue, 06 Dec 2022 00:00:00 +0000</pubDate>
-      
       <guid>https://nihaal.me/post/how_to_research/</guid>
-      <description>Disclaimer: I&amp;rsquo;m no expert in this. This post is just to collect all my thoughts and lessons learnt from random talks and blogs, about research.
-What is research?
-Research is producing new knowledge. The aim of research is to do something novel (new) and useful. The purpose of literature survey is to ensure that whatever idea we come up with is new and has not been proposed before. And the purpose of evaluations is to show that our idea or technique is useful.</description>
+      <description>Disclaimer: I&amp;rsquo;m no expert in this. This post is just to collect all my thoughts and lessons learnt from random talks and blogs, about research.&#xA;What is research?&#xA;Research is producing new knowledge. The aim of research is to do something novel (new) and useful. The purpose of literature survey is to ensure that our idea is new and has not been proposed before. And the purpose of evaluations is to show that our idea or technique is useful.</description>
     </item>
-    
     <item>
       <title>Kernel Sanitizers</title>
       <link>https://nihaal.me/post/kernel_sanitizers/</link>
       <pubDate>Mon, 05 Dec 2022 00:00:00 +0000</pubDate>
-      
       <guid>https://nihaal.me/post/kernel_sanitizers/</guid>
-      <description>When fuzzing a program by feeding random inputs to it, we need a mechanism to tell when the program is doing unexpected things. Sanitizers help detect bugs in the program at runtime. They are usually used along with fuzzing to detect bugs in programs.
-The two roles of sanitizers:
-Detect incorrect program behaviour: like accessing memory that the program is not supposed to access Report incorrect behaviour: To be useful, the sanitizer needs to report useful information (like the stack trace and ) that makes it easier to understand and fix the bug.</description>
+      <description>When fuzzing a program by feeding random inputs to it, we need a mechanism to tell when the program is doing unexpected things. Sanitizers help detect bugs in the program at runtime. They are usually used along with fuzzing to detect bugs in programs.&#xA;The two roles of sanitizers:&#xA;Detect incorrect program behaviour: like accessing memory that the program is not supposed to access Report incorrect behaviour: To be useful, the sanitizer needs to report useful information (like the stack trace and ) that makes it easier to understand and fix the bug.</description>
     </item>
-    
     <item>
       <title>Linux kernel fuzzing</title>
       <link>https://nihaal.me/post/kernel_fuzzing/</link>
       <pubDate>Sat, 03 Dec 2022 00:00:00 +0000</pubDate>
-      
       <guid>https://nihaal.me/post/kernel_fuzzing/</guid>
-      <description>In this post, we&amp;rsquo;ll see how fuzzing is used for finding different types of bugs in the Linux kernel. This post consists of my notes taken from the talk by Andrey Konavalov about Linux fuzzing.
-Operating systems kernels are complex. Testing kernels is of prime importance since any vulnerability in the kernel can lead to compromising the whole system.
-Fuzzing is a dynamic program analysis technique, used to find bugs in software.</description>
+      <description>In this post, we&amp;rsquo;ll see how fuzzing is used for finding different types of bugs in the Linux kernel. This post consists of my notes taken from the talk by Andrey Konavalov about Linux fuzzing.&#xA;Operating systems kernels are complex. Testing kernels is of prime importance since any vulnerability in the kernel can lead to compromising the whole system.&#xA;Fuzzing is a dynamic program analysis technique, used to find bugs in software.</description>
     </item>
-    
     <item>
       <title>TLB;DR Reversing TLBs with TLB desynchronization</title>
       <link>https://nihaal.me/post/paper_tlbdr/</link>
       <pubDate>Thu, 01 Dec 2022 00:00:00 +0000</pubDate>
-      
       <guid>https://nihaal.me/post/paper_tlbdr/</guid>
-      <description>Yesterday, I read an interesting research paper about reverse engineering TLBs using TLB desynchronization. In this post, I&amp;rsquo;ll write briefly about the key ideas and what I found very interesting in the paper.
-You can find the paper here:
-TLB;DR: Enhancing TLB-based Attacks with TLB Desynchronized Reverse Engineering. TLB;DR Source code Reverse engineering CPU internals In the subfield of hardware security that focuses on communicating (covert channels) or leaking (side channels) critical information using timing or storage channels, accurate information about the CPU internals helps create more efficient and reliable channels.</description>
+      <description>Yesterday, I read an interesting research paper about reverse engineering TLBs using TLB desynchronization. In this post, I&amp;rsquo;ll write briefly about the key ideas and what I found very interesting in the paper.&#xA;You can find the paper here:&#xA;TLB;DR: Enhancing TLB-based Attacks with TLB Desynchronized Reverse Engineering. TLB;DR Source code Reverse engineering CPU internals In the subfield of hardware security that focuses on communicating (covert channels) or leaking (side channels) critical information using timing or storage channels, accurate information about the CPU internals helps create more efficient and reliable channels.</description>
     </item>
-    
     <item>
       <title>Using static checkers on Linux Kernel</title>
       <link>https://nihaal.me/post/static_checker/</link>
       <pubDate>Tue, 15 Feb 2022 00:00:00 +0000</pubDate>
-      
       <guid>https://nihaal.me/post/static_checker/</guid>
-      <description>One of the hurdles in contributing to Linux kernel as a beginner is to find something to work on. If you are working as a kernel developer or are a part of a kernel mentorship program, this shouldn&amp;rsquo;t be a problem. But for others, the first step is to send a bunch of coding style fixes for warnings reported by checkpatch.
-In addition to checkpatch, there are many other static analysis tools like sparse, coccinelle and smatch, used to analyse source code and find possible bugs.</description>
+      <description>One of the hurdles in contributing to Linux kernel as a beginner is to find something to work on. If you are working as a kernel developer or are a part of a kernel mentorship program, this shouldn&amp;rsquo;t be a problem. But for others, the first step is to send a bunch of coding style fixes for warnings reported by checkpatch.&#xA;In addition to checkpatch, there are many other static analysis tools like sparse, coccinelle and smatch, used to analyse source code and find possible bugs.</description>
     </item>
-    
     <item>
       <title>Hardware compression algorithms</title>
       <link>https://nihaal.me/post/hardware_compression_algorithms/</link>
       <pubDate>Fri, 14 Jan 2022 00:00:00 +0000</pubDate>
-      
       <guid>https://nihaal.me/post/hardware_compression_algorithms/</guid>
-      <description>Compression is a common technique that allows us to reduce the size of data. We use it when we store or send files as zip, 7z or rar archives. It helps reduce the space occupied by files in the filesystem and also to save bandwidth while transferring over a network.
-In general, compression algorithms try to encode redundancy or regularity in data with lesser bits.
-There are many different software compression algorithms available.</description>
+      <description>Compression is a common technique that allows us to reduce the size of data. We use it when we store or send files as zip, 7z or rar archives. It helps reduce the space occupied by files in the filesystem and also to save bandwidth while transferring over a network.&#xA;In general, compression algorithms try to encode redundancy or regularity in data with lesser bits.&#xA;There are many different software compression algorithms available.</description>
     </item>
-    
     <item>
       <title>FOSSHack 2021</title>
       <link>https://nihaal.me/post/fosshack_2021/</link>
       <pubDate>Sat, 04 Dec 2021 00:00:00 +0000</pubDate>
-      
       <guid>https://nihaal.me/post/fosshack_2021/</guid>
-      <description>FOSSHack 2021 FOSSHack 2021 is a remote hackathon, organized by FOSSUnited, that happened on 13-14 November. FOSSUnited is a non-profit foundation that seeks to foster more FOSS projects and contributors from India and this hackathon is one such initiative.
-The rules were simple: Build a FOSS project or Work on existing FOSS project during the weekend. The projects would be judged based on factors like technical complexity, completeness and utility.</description>
+      <description>FOSSHack 2021 FOSSHack 2021 is a remote hackathon, organized by FOSSUnited, that happened on 13-14 November. FOSSUnited is a non-profit foundation that seeks to foster more FOSS projects and contributors from India and this hackathon is one such initiative.&#xA;The rules were simple: Build a FOSS project or Work on existing FOSS project during the weekend. The projects would be judged based on factors like technical complexity, completeness and utility.</description>
     </item>
-    
     <item>
       <title>Publishing packages to PyPI</title>
       <link>https://nihaal.me/post/publish_to_pypi/</link>
       <pubDate>Sat, 04 Dec 2021 00:00:00 +0000</pubDate>
-      
       <guid>https://nihaal.me/post/publish_to_pypi/</guid>
-      <description>The usability of a programming language depends on many factors and one of them is the availability of good libraries to build on. When libraries are available, we also need a way to search and download libraries with ease. Most modern langauges maintain some form of index to make dependency management easier. Examples include Crates.io for Rust and PyPI for Python.
-Python Package Index (PyPI) is an index and repository of Python packages.</description>
+      <description>The usability of a programming language depends on many factors and one of them is the availability of good libraries to build on. When libraries are available, we also need a way to search and download libraries with ease. Most modern langauges maintain some form of index to make dependency management easier. Examples include Crates.io for Rust and PyPI for Python.&#xA;Python Package Index (PyPI) is an index and repository of Python packages.</description>
     </item>
-    
     <item>
       <title>Creating sysfs files</title>
       <link>https://nihaal.me/post/creating_sysfs_files/</link>
       <pubDate>Mon, 29 Nov 2021 00:00:00 +0000</pubDate>
-      
       <guid>https://nihaal.me/post/creating_sysfs_files/</guid>
-      <description>The kernel provides a few ways in which userspace programs can get information from the kernel space.
-procfs: Used to get information about running processes debugfs: Used by kernel developers for debugging sysfs Sysfs is used for data that is not related to a particular process. It has information about hardware devices attached to the system and about drivers handling those devices.
-Any file added to the sysfs becomes a part of the Linux Application Binary Interface (ABI).</description>
+      <description>The kernel provides a few ways in which userspace programs can get information from the kernel space.&#xA;procfs: Used to get information about running processes debugfs: Used by kernel developers for debugging sysfs Sysfs is used for data that is not related to a particular process. It has information about hardware devices attached to the system and about drivers handling those devices.&#xA;Any file added to the sysfs becomes a part of the Linux Application Binary Interface (ABI).</description>
     </item>
-    
     <item>
       <title>Looking inside /dev/null</title>
       <link>https://nihaal.me/post/dev_null/</link>
       <pubDate>Sat, 20 Nov 2021 00:00:00 +0000</pubDate>
-      
       <guid>https://nihaal.me/post/dev_null/</guid>
-      <description>Accessing hardware devices like files An important role of the operating system is to allow the user applications to access hardware resources. It has to allow the user programs to use hardware while also ensuring that the applications have permissions to access it and don&amp;rsquo;t misuse them.
-To simplify access to hardware, Unix, by design, exposes most of the hardware devices to userspace as device files, usually present under /dev directory.</description>
+      <description>Accessing hardware devices like files An important role of the operating system is to allow the user applications to access hardware resources. It has to allow the user programs to use hardware while also ensuring that the applications have permissions to access it and don&amp;rsquo;t misuse them.&#xA;To simplify access to hardware, Unix, by design, exposes most of the hardware devices to userspace as device files, usually present under /dev directory.</description>
     </item>
-    
     <item>
       <title>Creating debugfs files</title>
       <link>https://nihaal.me/post/creating_debugfs_files/</link>
       <pubDate>Sat, 06 Nov 2021 00:00:00 +0000</pubDate>
-      
       <guid>https://nihaal.me/post/creating_debugfs_files/</guid>
-      <description>debugfs debugfs is a pseudo-filesystem used for kernel debugging. It is usually mounted at /sys/kernel/debug. debugfs contains files that allow us to read debugging information.
-By default, only the root user can cd into the /sys/kernel/debug directory.
-To change it to allow the current user to cd into debugfs, we can remount it with uid set to the current user&amp;rsquo;s uid.
-1 2 3 sudo umount /sys/kernel/debug sudo mount -t debugfs none /sys/kernel/debug -o uid=`echo $UID` cd /sys/kernel/debug Creating debugfs entries Creating debugfs files is similar to creating character device files.</description>
+      <description>debugfs debugfs is a pseudo-filesystem used for kernel debugging. It is usually mounted at /sys/kernel/debug. debugfs contains files that allow us to read debugging information.&#xA;By default, only the root user can cd into the /sys/kernel/debug directory.&#xA;To change it to allow the current user to cd into debugfs, we can remount it with uid set to the current user&amp;rsquo;s uid.&#xA;sudo umount /sys/kernel/debug sudo mount -t debugfs none /sys/kernel/debug -o uid=`echo $UID` cd /sys/kernel/debug Creating debugfs entries Creating debugfs files is similar to creating character device files.</description>
     </item>
-    
     <item>
       <title>Misc character devices</title>
       <link>https://nihaal.me/post/misc_char_devices/</link>
       <pubDate>Wed, 03 Nov 2021 00:00:00 +0000</pubDate>
-      
       <guid>https://nihaal.me/post/misc_char_devices/</guid>
-      <description>Character Devices, Major and Minor numbers Based on granularity of access, there are two classes of devices:
-Character devices are accessed as a stream of bytes. Eg: Keyboards Block devices are accessed in blocks. For instance, hard disks transfer data in blocks of multiple bytes at a time. The kernel uses major and minor numbers to identify the attached hardware devices. Major number usually tells us the type of device. Minor numbers are used to differentiate two or more devices with the same major number.</description>
+      <description>Character Devices, Major and Minor numbers Based on granularity of access, there are two classes of devices:&#xA;Character devices are accessed as a stream of bytes. Eg: Keyboards Block devices are accessed in blocks. For instance, hard disks transfer data in blocks of multiple bytes at a time. The kernel uses major and minor numbers to identify the attached hardware devices. Major number usually tells us the type of device. Minor numbers are used to differentiate two or more devices with the same major number.</description>
     </item>
-    
     <item>
       <title>Updating vulnerable Python dependencies</title>
       <link>https://nihaal.me/post/updating_vulnerable_python_dependencies/</link>
       <pubDate>Mon, 18 Oct 2021 00:00:00 +0000</pubDate>
-      
       <guid>https://nihaal.me/post/updating_vulnerable_python_dependencies/</guid>
-      <description>Finding vulnerable dependencies Safety-db is a database that keeps track of vulnerable python packages and version information. It is updated once a month. They also provide a tool called safety, that checks if the installed packages or packages in requirements.txt are identified as vulnerable using the safety-db.
-Install safety
-1 pip install safety Use safety to check all packages in the current virtual enviroment
-1 safety check Use safety to only check the dependencies listed in requirements.</description>
+      <description>Finding vulnerable dependencies Safety-db is a database that keeps track of vulnerable python packages and version information. It is updated once a month. They also provide a tool called safety, that checks if the installed packages or packages in requirements.txt are identified as vulnerable using the safety-db.&#xA;Install safety&#xA;pip install safety Use safety to check all packages in the current virtual enviroment&#xA;safety check Use safety to only check the dependencies listed in requirements.</description>
     </item>
-    
     <item>
       <title>Eudyptula Challenge task 5</title>
       <link>https://nihaal.me/post/ec5/</link>
       <pubDate>Tue, 12 Oct 2021 00:00:00 +0000</pubDate>
-      
       <guid>https://nihaal.me/post/ec5/</guid>
-      <description>In this post, I want to share what I learnt by doing task 5 of the Eudyptula challenge.
-The Eudyptula Challenge is a set of 20 tasks designed to help people get started with Linux kernel development.
-Task 5 of the challenge is to make a hello world kernel module get loaded automatically when a USB keyboard is plugged in.
-Loadable kernel modules Linux kernel allows us to load modules to the kernel while the kernel is running.</description>
+      <description>In this post, I want to share what I learnt by doing task 5 of the Eudyptula challenge.&#xA;The Eudyptula Challenge is a set of 20 tasks designed to help people get started with Linux kernel development.&#xA;Task 5 of the challenge is to make a hello world kernel module get loaded automatically when a USB keyboard is plugged in.&#xA;Loadable kernel modules Linux kernel allows us to load modules to the kernel while the kernel is running.</description>
     </item>
-    
     <item>
       <title>Backing up files with RSync</title>
       <link>https://nihaal.me/post/rsync/</link>
       <pubDate>Sat, 19 Jun 2021 11:16:00 +0530</pubDate>
-      
       <guid>https://nihaal.me/post/rsync/</guid>
-      <description>You need a backup When was the last time you took a backup of your files? Thanks to technology, today, we can store thousands of photos and videos in a single pen drive. Digital files are easy to store, but they are also easy to lose. And that is why we all need to take regular backup of our files.
-3-2-1 Backup Strategy 3-2-1 Backup strategy is a general rule of thumb that says it is better to have atleast 3 copies of our files.</description>
+      <description>You need a backup When was the last time you took a backup of your files? Thanks to technology, today, we can store thousands of photos and videos in a single pen drive. Digital files are easy to store, but they are also easy to lose. And that is why we all need to take regular backup of our files.&#xA;3-2-1 Backup Strategy 3-2-1 Backup strategy is a general rule of thumb that says it is better to have atleast 3 copies of our files.</description>
     </item>
-    
     <item>
       <title>Hello world Linux Kernel Module</title>
       <link>https://nihaal.me/post/hello_world_lkm/</link>
       <pubDate>Fri, 31 Jan 2020 10:42:00 +0530</pubDate>
-      
       <guid>https://nihaal.me/post/hello_world_lkm/</guid>
-      <description>A Loadable Kernel Module (LKM) is a piece of code that can be loaded to a running kernel to add additional functionality to the kernel. The code that runs as a kernel module will be executed with kernel privileges. Most operating system kernels support kernel modules.
-The advantage of using kernel modules is that it can be loaded to and unloaded from the kernel without the need to recompile or reboot the kernel.</description>
+      <description>A Loadable Kernel Module (LKM) is a piece of code that can be loaded to a running kernel to add additional functionality to the kernel. The code that runs as a kernel module will be executed with kernel privileges. Most operating system kernels support kernel modules.&#xA;The advantage of using kernel modules is that it can be loaded to and unloaded from the kernel without the need to recompile or reboot the kernel.</description>
     </item>
-    
     <item>
       <title>Smart India Hackathon 2018</title>
       <link>https://nihaal.me/post/2018-09-15-smart-india-hackathon-2018/</link>
       <pubDate>Sat, 15 Sep 2018 17:50:37 +0000</pubDate>
-      
       <guid>https://nihaal.me/post/2018-09-15-smart-india-hackathon-2018/</guid>
-      <description>Smart India Hackathon 2018 In January this year, I along with my friends got an opportunity to participate in the Smart India Hackathon 2018. In this blog post, I want to share my experience of attending this hackathon and the lessons we learnt.
-Smart India Hackathon is a 36-hour hackathon organized by the government of India. It is an opportunity for students to use their innovative ideas to solve real-world problems.</description>
+      <description>Smart India Hackathon 2018 In January this year, I along with my friends got an opportunity to participate in the Smart India Hackathon 2018. In this blog post, I want to share my experience of attending this hackathon and the lessons we learnt.&#xA;Smart India Hackathon is a 36-hour hackathon organized by the government of India. It is an opportunity for students to use their innovative ideas to solve real-world problems.</description>
     </item>
-    
     <item>
       <title>Hacktoberfest and ILUGC meetup</title>
       <link>https://nihaal.me/post/2017-11-12-hacktoberfest-and-ilugc/</link>
       <pubDate>Sun, 12 Nov 2017 13:28:37 +0000</pubDate>
-      
       <guid>https://nihaal.me/post/2017-11-12-hacktoberfest-and-ilugc/</guid>
-      <description>In this post, I want to share what I did for Hacktoberfest.
-Hacktoberfest is a month-long program to motivate people to contribute to open source software. All you have to do is give 4 pull requests to any public repository on Github. The reward is a cool t-shirt and Github stickers. These contributions should be made in the month of October to be counted for hacktoberfest.
-I searched for a project I can contribute to.</description>
+      <description>In this post, I want to share what I did for Hacktoberfest.&#xA;Hacktoberfest is a month-long program to motivate people to contribute to open source software. All you have to do is give 4 pull requests to any public repository on Github. The reward is a cool t-shirt and Github stickers. These contributions should be made in the month of October to be counted for hacktoberfest.&#xA;I searched for a project I can contribute to.</description>
     </item>
-    
     <item>
       <title>Lost in the woods: My entry for JS13Kgames</title>
       <link>https://nihaal.me/post/2017-10-20-lost-in-the-woods-my-entry-for-js13kgames/</link>
       <pubDate>Fri, 20 Oct 2017 20:52:38 +0000</pubDate>
-      
       <guid>https://nihaal.me/post/2017-10-20-lost-in-the-woods-my-entry-for-js13kgames/</guid>
-      <description>In this blog post, I want to share my experience participating in the JS13Kgames game jam.
-About a month ago, I got a chance to participate in the JS13Kgames. JS13kgames is an HTML5 game development competition that happens from 13th August till 13th September. The goal of this competition is to make a game in under 13 kilobytes including all the game assets. For this game jam, I made a two-player game called &amp;ldquo;Lost in the woods&amp;rdquo;.</description>
+      <description>In this blog post, I want to share my experience participating in the JS13Kgames game jam.&#xA;About a month ago, I got a chance to participate in the JS13Kgames. JS13kgames is an HTML5 game development competition that happens from 13th August till 13th September. The goal of this competition is to make a game in under 13 kilobytes including all the game assets. For this game jam, I made a two-player game called &amp;ldquo;Lost in the woods&amp;rdquo;.</description>
     </item>
-    
     <item>
       <title>My experience at MozillaTN meetup 2017</title>
       <link>https://nihaal.me/post/2017-02-23-my-experience-at-mozillatn-meetup/</link>
       <pubDate>Thu, 23 Feb 2017 20:51:38 +0000</pubDate>
-      
       <guid>https://nihaal.me/post/2017-02-23-my-experience-at-mozillatn-meetup/</guid>
-      <description>In this blog post, I am writing about my experience participating in the MozillaTN community meetup held at Coimbatore this January.
-Mozilla is a global community of passionate people working to protect the web as an open resource. I was always interested in Mozilla for 2 reasons. First, Mozilla is one of the pioneers of the open source movement. As far as I remember, Mozilla Firefox was the first open source software I have ever used.</description>
+      <description>In this blog post, I am writing about my experience participating in the MozillaTN community meetup held at Coimbatore this January.&#xA;Mozilla is a global community of passionate people working to protect the web as an open resource. I was always interested in Mozilla for 2 reasons. First, Mozilla is one of the pioneers of the open source movement. As far as I remember, Mozilla Firefox was the first open source software I have ever used.</description>
     </item>
-    
     <item>
       <title>My goals for the next 6 months</title>
       <link>https://nihaal.me/post/2016-12-17-my-goals-for-the-next-6-months/</link>
       <pubDate>Sat, 17 Dec 2016 20:52:38 +0000</pubDate>
-      
       <guid>https://nihaal.me/post/2016-12-17-my-goals-for-the-next-6-months/</guid>
-      <description>In this post, I am sharing my goals for the next 6 months.
-The reason I&amp;rsquo;m doing this is to keep myself motivated and also to let other mozillians know what I&amp;rsquo;m up to.
-Learn Rust. Learning more about the rust language is my first priority. In this 6 months I want to learn about: Unit Testing Networking in rust basics of functional programming If possible, using threads in rust Contribute to some simple, open source rust projects.</description>
+      <description>In this post, I am sharing my goals for the next 6 months.&#xA;The reason I&amp;rsquo;m doing this is to keep myself motivated and also to let other mozillians know what I&amp;rsquo;m up to.&#xA;Learn Rust. Learning more about the rust language is my first priority. In this 6 months I want to learn about: Unit Testing Networking in rust basics of functional programming If possible, using threads in rust Contribute to some simple, open source rust projects.</description>
     </item>
-    
     <item>
       <title>Hello World: Getting started with Rust</title>
       <link>https://nihaal.me/post/2016-11-15-hello-world-getting-started-with-rust/</link>
       <pubDate>Tue, 15 Nov 2016 17:50:37 +0000</pubDate>
-      
       <guid>https://nihaal.me/post/2016-11-15-hello-world-getting-started-with-rust/</guid>
-      <description>The Rust programming language Rust is a system programming language that focusses on three aspects: Speed, Safety and Concurrency. It is being developed by an active community of programmers. Its development is officially sponsored by Mozilla.
-Installing rust First, we have to install the rust compiler which is called rustc and cargo ,rust&amp;rsquo;s package manager. I recommend installing rustc and cargo using rustup. Why rustup? Before answering that I have to mention that rustc comes in three versions : Stable , Beta and Nightly.</description>
+      <description>The Rust programming language Rust is a system programming language that focusses on three aspects: Speed, Safety and Concurrency. It is being developed by an active community of programmers. Its development is officially sponsored by Mozilla.&#xA;Installing rust First, we have to install the rust compiler which is called rustc and cargo ,rust&amp;rsquo;s package manager. I recommend installing rustc and cargo using rustup. Why rustup? Before answering that I have to mention that rustc comes in three versions : Stable , Beta and Nightly.</description>
     </item>
-    
   </channel>
 </rss>

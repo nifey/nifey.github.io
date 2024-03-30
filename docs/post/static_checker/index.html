@@ -24,7 +24,7 @@ In addition to checkpatch, there are many other static analysis tools like spars
 
 
 
-<meta name="generator" content="Hugo 0.111.3 with theme even" />
+<meta name="generator" content="Hugo 0.121.2 with theme even" />
 
 
 <link rel="canonical" href="https://nihaal.me/post/static_checker/" />
@@ -46,14 +46,14 @@ In addition to checkpatch, there are many other static analysis tools like spars
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://nihaal.me/post/static_checker/" /><meta property="article:section" content="post" />
 <meta property="article:published_time" content="2022-02-15T00:00:00+00:00" />
-<meta property="article:modified_time" content="2022-02-15T00:00:00+00:00" /><meta property="og:site_name" content="Nihaal" />
+<meta property="article:modified_time" content="2022-02-15T00:00:00+00:00" />
+
 <meta itemprop="name" content="Using static checkers on Linux Kernel">
 <meta itemprop="description" content="One of the hurdles in contributing to Linux kernel as a beginner is to find something to work on. If you are working as a kernel developer or are a part of a kernel mentorship program, this shouldn&rsquo;t be a problem. But for others, the first step is to send a bunch of coding style fixes for warnings reported by checkpatch.
 In addition to checkpatch, there are many other static analysis tools like sparse, coccinelle and smatch, used to analyse source code and find possible bugs."><meta itemprop="datePublished" content="2022-02-15T00:00:00+00:00" />
 <meta itemprop="dateModified" content="2022-02-15T00:00:00+00:00" />
-<meta itemprop="wordCount" content="1014">
-<meta itemprop="keywords" content="linux,kernel," /><meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="Using static checkers on Linux Kernel"/>
+<meta itemprop="wordCount" content="947">
+<meta itemprop="keywords" content="linux,kernel," /><meta name="twitter:card" content="summary"/><meta name="twitter:title" content="Using static checkers on Linux Kernel"/>
 <meta name="twitter:description" content="One of the hurdles in contributing to Linux kernel as a beginner is to find something to work on. If you are working as a kernel developer or are a part of a kernel mentorship program, this shouldn&rsquo;t be a problem. But for others, the first step is to send a bunch of coding style fixes for warnings reported by checkpatch.
 In addition to checkpatch, there are many other static analysis tools like sparse, coccinelle and smatch, used to analyse source code and find possible bugs."/>
 
@@ -129,7 +129,7 @@ In addition to checkpatch, there are many other static analysis tools like spars
       <div class="post-meta">
         <span class="post-time"> 15-02-2022 </span>
         
-          <span class="more-meta"> 1014 words </span>
+          <span class="more-meta"> 947 words </span>
           <span class="more-meta"> 5 mins read </span>
         
       </div>
@@ -168,49 +168,23 @@ Static analysis tools have false positives. Ensure that you are not fixing a fal
 Enforcing a coding style helps, for instance, when grepping through the code base.</p>
 <p>Checkpatch is a perl script, used to check patches and files for coding style violations.
 It is present under the kernel&rsquo;s scripts folder.</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span><span class="lnt">6
-</span><span class="lnt">7
-</span><span class="lnt">8
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># To use it on patches</span>
-</span></span><span class="line"><span class="cl">./scripts/checkpatch.pl *.patch
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1"># To use it on files</span>
-</span></span><span class="line"><span class="cl">./scripts/checkpatch.pl -f file.c
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1"># To run checkpatch before committing</span>
-</span></span><span class="line"><span class="cl">git diff <span class="p">|</span> ./scripts/checkpatch.pl
-</span></span></code></pre></td></tr></table>
-</div>
-</div><p>If checkpatch finds a coding style violation, it shows a short description, the file, line number and the line that needs to be fixed.
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># To use it on patches</span>
+</span></span><span style="display:flex;"><span>./scripts/checkpatch.pl *.patch
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># To use it on files</span>
+</span></span><span style="display:flex;"><span>./scripts/checkpatch.pl -f file.c
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># To run checkpatch before committing</span>
+</span></span><span style="display:flex;"><span>git diff | ./scripts/checkpatch.pl
+</span></span></code></pre></div><p>If checkpatch finds a coding style violation, it shows a short description, the file, line number and the line that needs to be fixed.
 In the output below, it shows a check to avoid camel case in a function name.</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span><span class="lnt">6
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">CHECK: Avoid CamelCase: &lt;rtl8188e_PHY_SetRFReg&gt;
-</span></span><span class="line"><span class="cl">#14: FILE: drivers/staging/r8188eu/os_dep/ioctl_linux.c:3628:
-</span></span><span class="line"><span class="cl">+		rtl8188e_PHY_SetRFReg(padapter, RF_PATH_A, arg, 0xffffffff, extra_arg);
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">total: 0 errors, 0 warnings, 1 checks, 12 lines checked
-</span></span><span class="line"><span class="cl">Your patch has style problems, please review.
-</span></span></code></pre></td></tr></table>
-</div>
-</div><p>Fixing checkpatch errors is an easy way to send your first patch, as most checkpatch errors are trivial to fix.
+<pre tabindex="0"><code class="language-nil" data-lang="nil">CHECK: Avoid CamelCase: &lt;rtl8188e_PHY_SetRFReg&gt;
+#14: FILE: drivers/staging/r8188eu/os_dep/ioctl_linux.c:3628:
++		rtl8188e_PHY_SetRFReg(padapter, RF_PATH_A, arg, 0xffffffff, extra_arg);
+
+total: 0 errors, 0 warnings, 1 checks, 12 lines checked
+Your patch has style problems, please review.
+</code></pre><p>Fixing checkpatch errors is an easy way to send your first patch, as most checkpatch errors are trivial to fix.
 KernelNewbies site has an excellent writeup on setting up the tools, building the kernel and sending your first patch: <a href="https://kernelnewbies.org/FirstKernelPatch">FirstKernelPatch</a>.</p>
 <ul>
 <li>Not all subsystem maintainers accept checkpatch fixes as it can possibly break working code and also changes the git blame for the lines modified.
@@ -221,103 +195,48 @@ A KernelNewbies post lists some of the <a href="https://kernelnewbies.org/Checkp
 <p>When sending patches, always run checkpatch to ensure that they conform to the kernel coding style.
 Patches with style errors are usually rejected.
 To run checkpatch automatically whenever we commit changes, add checkpatch to git&rsquo;s post commit hook, as shown below: (I learnt this from <a href="https://training.linuxfoundation.org/training/a-beginners-guide-to-linux-kernel-development-lfd103/">LFD 103</a>)</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">cat <span class="s">&lt;&lt; EOF &gt; .git/hooks/post-commit
-</span></span></span><span class="line"><span class="cl"><span class="s">#!/bin/sh
-</span></span></span><span class="line"><span class="cl"><span class="s">exec git show --format=email HEAD | ./scripts/checkpatch.pl --strict --codespell
-</span></span></span><span class="line"><span class="cl"><span class="s">EOF</span>
-</span></span><span class="line"><span class="cl">chmod a+x .git/hooks/post-commit
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1"># Make changes, stage and commit</span>
-</span></span><span class="line"><span class="cl">git commit -s -v
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1"># Post-commit hook will run checkpatch on your code</span>
-</span></span><span class="line"><span class="cl"><span class="c1"># Fix any errors found and amend to previous commit</span>
-</span></span><span class="line"><span class="cl">git commit --amend
-</span></span></code></pre></td></tr></table>
-</div>
-</div><h2 id="sparse"><a href="https://www.kernel.org/doc/html/latest/dev-tools/sparse.html">Sparse</a></h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>cat <span style="color:#e6db74">&lt;&lt; EOF &gt; .git/hooks/post-commit
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">#!/bin/sh
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">exec git show --format=email HEAD | ./scripts/checkpatch.pl --strict --codespell
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">EOF</span>
+</span></span><span style="display:flex;"><span>chmod a+x .git/hooks/post-commit
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Make changes, stage and commit</span>
+</span></span><span style="display:flex;"><span>git commit -s -v
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Post-commit hook will run checkpatch on your code</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Fix any errors found and amend to previous commit</span>
+</span></span><span style="display:flex;"><span>git commit --amend
+</span></span></code></pre></div><h2 id="sparse"><a href="https://www.kernel.org/doc/html/latest/dev-tools/sparse.html">Sparse</a></h2>
 <p>Sparse is a semantic parser which uses annotations in the kernel source code to find possible mistakes.
 It can find bugs caused by incorrect locking, endianness mismatch, mixing kernel and user pointers, etc.</p>
 <p>Sparse is available to install in most distributions. The latest development version can be installed from the git repository.</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span><span class="lnt">6
-</span><span class="lnt">7
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo apt-get install sparse
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1"># Or from git repository</span>
-</span></span><span class="line"><span class="cl">git clone git://git.kernel.org/pub/scm/devel/sparse/sparse.git
-</span></span><span class="line"><span class="cl"><span class="nb">cd</span> sparse
-</span></span><span class="line"><span class="cl">make
-</span></span><span class="line"><span class="cl">make install
-</span></span></code></pre></td></tr></table>
-</div>
-</div><p>To run sparse checks, we have to set the C argument when compiling the kernel:</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span><span class="lnt">6
-</span><span class="lnt">7
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># To run sparse on files about to be compiled</span>
-</span></span><span class="line"><span class="cl">make <span class="nv">C</span><span class="o">=</span><span class="m">1</span>
-</span></span><span class="line"><span class="cl"><span class="c1"># To run sparse on all files</span>
-</span></span><span class="line"><span class="cl">make <span class="nv">C</span><span class="o">=</span><span class="m">2</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1"># To save the warnings to a file</span>
-</span></span><span class="line"><span class="cl">make <span class="nv">C</span><span class="o">=</span><span class="m">2</span> 2&gt;outfile
-</span></span></code></pre></td></tr></table>
-</div>
-</div><h2 id="coccinelle"><a href="https://www.kernel.org/doc/html/latest/dev-tools/coccinelle.html">Coccinelle</a></h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sudo apt-get install sparse
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Or from git repository</span>
+</span></span><span style="display:flex;"><span>git clone git://git.kernel.org/pub/scm/devel/sparse/sparse.git
+</span></span><span style="display:flex;"><span>cd sparse
+</span></span><span style="display:flex;"><span>make
+</span></span><span style="display:flex;"><span>make install
+</span></span></code></pre></div><p>To run sparse checks, we have to set the C argument when compiling the kernel:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># To run sparse on files about to be compiled</span>
+</span></span><span style="display:flex;"><span>make C<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># To run sparse on all files</span>
+</span></span><span style="display:flex;"><span>make C<span style="color:#f92672">=</span><span style="color:#ae81ff">2</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># To save the warnings to a file</span>
+</span></span><span style="display:flex;"><span>make C<span style="color:#f92672">=</span><span style="color:#ae81ff">2</span> 2&gt;outfile
+</span></span></code></pre></div><h2 id="coccinelle"><a href="https://www.kernel.org/doc/html/latest/dev-tools/coccinelle.html">Coccinelle</a></h2>
 <p>Coccinelle is a tool used for making collateral evolutions i.e. making the same change throughout the code base.
 For example, if we want to ensure that the result of a particular function is checked for null, we can use coccinelle to find locations where it is not checked.</p>
 <p>We can specify code matching and transformation rules as <em>semantic patches</em> written in SmPL (Semantic patch language).
 For instance, the following semantic patch replaces expressions of the form (1 &lt;&lt; X) with BIT(X).</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">@@
-</span></span><span class="line"><span class="cl">expression e;
-</span></span><span class="line"><span class="cl">@@
-</span></span><span class="line"><span class="cl">- (1 &lt;&lt; e)
-</span></span><span class="line"><span class="cl">+ BIT(e)
-</span></span></code></pre></td></tr></table>
-</div>
-</div><p>Semantic patches written for the kernel are found in <a href="https://elixir.bootlin.com/linux/latest/source/scripts/coccinelle">scripts/coccinelle</a> directory and can run in four modes:</p>
+<pre tabindex="0"><code class="language-nil" data-lang="nil">@@
+expression e;
+@@
+- (1 &lt;&lt; e)
++ BIT(e)
+</code></pre><p>Semantic patches written for the kernel are found in <a href="https://elixir.bootlin.com/linux/latest/source/scripts/coccinelle">scripts/coccinelle</a> directory and can run in four modes:</p>
 <ol>
 <li>report : Reports the issue and file location</li>
 <li>patch : Generates a patch to fix the issue</li>
@@ -326,72 +245,32 @@ For instance, the following semantic patch replaces expressions of the form (1 &
 </ol>
 <p>Report mode is supported by all kernel semantic patches. The other modes may not be implemented by all kernel semantic patches.</p>
 <p>Coccinelle can be installed from the git repository.</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span><span class="lnt">6
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">git clone https://github.com/coccinelle/coccinelle
-</span></span><span class="line"><span class="cl"><span class="nb">cd</span> coccinelle
-</span></span><span class="line"><span class="cl">./autogen
-</span></span><span class="line"><span class="cl">./configure
-</span></span><span class="line"><span class="cl">make
-</span></span><span class="line"><span class="cl">sudo make install
-</span></span></code></pre></td></tr></table>
-</div>
-</div><p>This installs a command line tool called <strong>spatch</strong> (stands for semantic patch).</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>git clone https://github.com/coccinelle/coccinelle
+</span></span><span style="display:flex;"><span>cd coccinelle
+</span></span><span style="display:flex;"><span>./autogen
+</span></span><span style="display:flex;"><span>./configure
+</span></span><span style="display:flex;"><span>make
+</span></span><span style="display:flex;"><span>sudo make install
+</span></span></code></pre></div><p>This installs a command line tool called <strong>spatch</strong> (stands for semantic patch).</p>
 <p>To run coccinelle on the kernel source:</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># To run all kernel semantic patches (in report mode (default))</span>
-</span></span><span class="line"><span class="cl">make coccicheck
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1"># To run all kernel semantic patches in patch mode</span>
-</span></span><span class="line"><span class="cl">make coccicheck <span class="nv">MODE</span><span class="o">=</span>patch
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1"># To run all kernel semantic patches on a directory</span>
-</span></span><span class="line"><span class="cl">make coccicheck <span class="nv">M</span><span class="o">=</span>drivers/staging/
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1"># To run a particular semantic patch</span>
-</span></span><span class="line"><span class="cl">make coccicheck <span class="nv">COCCI</span><span class="o">=</span>scripts/coccinelle/misc/returnvar.cocci
-</span></span></code></pre></td></tr></table>
-</div>
-</div><p>We can also directly use spatch and specify a semantic patch with the &ndash;sp-file argument.</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># When running kernel semantic patches, set the mode using -D</span>
-</span></span><span class="line"><span class="cl">spatch --sp-file scripts/coccinelle/misc/returnvar.cocci -D report *.c
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1"># When running other semantic patches</span>
-</span></span><span class="line"><span class="cl">spatch --sp-file other.cocci *.c
-</span></span></code></pre></td></tr></table>
-</div>
-</div>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># To run all kernel semantic patches (in report mode (default))</span>
+</span></span><span style="display:flex;"><span>make coccicheck
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># To run all kernel semantic patches in patch mode</span>
+</span></span><span style="display:flex;"><span>make coccicheck MODE<span style="color:#f92672">=</span>patch
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># To run all kernel semantic patches on a directory</span>
+</span></span><span style="display:flex;"><span>make coccicheck M<span style="color:#f92672">=</span>drivers/staging/
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># To run a particular semantic patch</span>
+</span></span><span style="display:flex;"><span>make coccicheck COCCI<span style="color:#f92672">=</span>scripts/coccinelle/misc/returnvar.cocci
+</span></span></code></pre></div><p>We can also directly use spatch and specify a semantic patch with the &ndash;sp-file argument.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># When running kernel semantic patches, set the mode using -D</span>
+</span></span><span style="display:flex;"><span>spatch --sp-file scripts/coccinelle/misc/returnvar.cocci -D report *.c
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># When running other semantic patches</span>
+</span></span><span style="display:flex;"><span>spatch --sp-file other.cocci *.c
+</span></span></code></pre></div>
     </div>
 
     <div class="post-copyright">
@@ -462,7 +341,7 @@ For instance, the following semantic patch replaces expressions of the form (1 &
   <span class="copyright-year">
     &copy; 
     2016 - 
-    2023<span class="heart"><i class="iconfont icon-heart"></i></span><span>Abdun Nihaal</span>
+    2024<span class="heart"><i class="iconfont icon-heart"></i></span><span>Abdun Nihaal</span>
   </span>
 </div>
 
