@@ -167,6 +167,6 @@ We can automate running experiments, collecting logs/output and generating some 
 {{% youtube "q_rEqcO7hMY" %}}
 {{% youtube "a1zDuOPkMSw" %}}
 
--   [How to Have a Bad Career in Research/Academia](https://people.eecs.berkeley.edu/~pattrsn/talks/BadCareer.pdf) (David Patterson)
--   [Increasing your research impact](https://www.sigarch.org/increasing-your-research-impact/) (Mark D. Hill)
--   [How to do great research](https://greatresearch.org/)
+- [How to have a bad career in Research/Academia](https://people.eecs.berkeley.edu/~pattrsn/talks/BadCareer.pdf) (David Patterson)
+- [How to have Real world impact: Five easy steps](https://www.sigarch.org/how-to-have-real-world-impact-five-easy-pieces/)
+- [How to do great research](https://greatresearch.org/)
