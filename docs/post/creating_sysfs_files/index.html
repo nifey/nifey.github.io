@@ -25,7 +25,7 @@ Any file added to the sysfs becomes a part of the Linux Application Binary Inter
 
 
 
-<meta name="generator" content="Hugo 0.121.2 with theme even" />
+<meta name="generator" content="Hugo 0.125.4 with theme even" />
 
 
 <link rel="canonical" href="https://nihaal.me/post/creating_sysfs_files/" />
@@ -41,25 +41,31 @@ Any file added to the sysfs becomes a part of the Linux Application Binary Inter
 <link href="/lib/fancybox/jquery.fancybox-3.1.20.min.css" rel="stylesheet">
 
 
-<meta property="og:title" content="Creating sysfs files" />
-<meta property="og:description" content="The kernel provides a few ways in which userspace programs can get information from the kernel space.
+<meta property="og:url" content="https://nihaal.me/post/creating_sysfs_files/">
+  <meta property="og:site_name" content="Nihaal">
+  <meta property="og:title" content="Creating sysfs files">
+  <meta property="og:description" content="The kernel provides a few ways in which userspace programs can get information from the kernel space.
 procfs: Used to get information about running processes debugfs: Used by kernel developers for debugging sysfs Sysfs is used for data that is not related to a particular process. It has information about hardware devices attached to the system and about drivers handling those devices.
-Any file added to the sysfs becomes a part of the Linux Application Binary Interface (ABI)." />
-<meta property="og:type" content="article" />
-<meta property="og:url" content="https://nihaal.me/post/creating_sysfs_files/" /><meta property="article:section" content="post" />
-<meta property="article:published_time" content="2021-11-29T00:00:00+00:00" />
-<meta property="article:modified_time" content="2021-11-29T00:00:00+00:00" />
+Any file added to the sysfs becomes a part of the Linux Application Binary Interface (ABI).">
+  <meta property="og:locale" content="en">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="post">
+    <meta property="article:published_time" content="2021-11-29T00:00:00+00:00">
+    <meta property="article:modified_time" content="2021-11-29T00:00:00+00:00">
+    <meta property="article:tag" content="Linux">
+    <meta property="article:tag" content="Kernel">
 
-<meta itemprop="name" content="Creating sysfs files">
-<meta itemprop="description" content="The kernel provides a few ways in which userspace programs can get information from the kernel space.
+  <meta itemprop="name" content="Creating sysfs files">
+  <meta itemprop="description" content="The kernel provides a few ways in which userspace programs can get information from the kernel space.
 procfs: Used to get information about running processes debugfs: Used by kernel developers for debugging sysfs Sysfs is used for data that is not related to a particular process. It has information about hardware devices attached to the system and about drivers handling those devices.
-Any file added to the sysfs becomes a part of the Linux Application Binary Interface (ABI)."><meta itemprop="datePublished" content="2021-11-29T00:00:00+00:00" />
-<meta itemprop="dateModified" content="2021-11-29T00:00:00+00:00" />
-<meta itemprop="wordCount" content="1086">
-<meta itemprop="keywords" content="linux,kernel," /><meta name="twitter:card" content="summary"/><meta name="twitter:title" content="Creating sysfs files"/>
+Any file added to the sysfs becomes a part of the Linux Application Binary Interface (ABI).">
+  <meta itemprop="datePublished" content="2021-11-29T00:00:00+00:00">
+  <meta itemprop="dateModified" content="2021-11-29T00:00:00+00:00">
+  <meta itemprop="wordCount" content="1086">
+  <meta itemprop="keywords" content="Linux,Kernel"><meta name="twitter:card" content="summary"><meta name="twitter:title" content="Creating sysfs files">
 <meta name="twitter:description" content="The kernel provides a few ways in which userspace programs can get information from the kernel space.
 procfs: Used to get information about running processes debugfs: Used by kernel developers for debugging sysfs Sysfs is used for data that is not related to a particular process. It has information about hardware devices attached to the system and about drivers handling those devices.
-Any file added to the sysfs becomes a part of the Linux Application Binary Interface (ABI)."/>
+Any file added to the sysfs becomes a part of the Linux Application Binary Interface (ABI).">
 
 <!--[if lte IE 9]>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
@@ -69,6 +75,8 @@ Any file added to the sysfs becomes a part of the Linux Application Binary Inter
   <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
 <![endif]-->
+
+<script defer data-domain="nihaal.me" src="https://stats.nihaal.me/js/script.js"></script>
 
 </head>
 <body>

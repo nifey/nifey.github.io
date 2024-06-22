@@ -24,7 +24,7 @@ Illegal memory accesses are memory accesses which the programmer didn&amp;rsquo;
 
 
 
-<meta name="generator" content="Hugo 0.121.2 with theme even" />
+<meta name="generator" content="Hugo 0.125.4 with theme even" />
 
 
 <link rel="canonical" href="https://nihaal.me/post/kernel_defences/" />
@@ -40,22 +40,28 @@ Illegal memory accesses are memory accesses which the programmer didn&amp;rsquo;
 <link href="/lib/fancybox/jquery.fancybox-3.1.20.min.css" rel="stylesheet">
 
 
-<meta property="og:title" content="Kernel defences" />
-<meta property="og:description" content="Usually when an attacker exploits a vulnerability, the attack starts out as a Illegal memory access or Control flow hijack, which the attacker would use to write to sensitive memory locations or execute arbitrary code in supervisor mode, to try to increase privileges in the system.
-Illegal memory accesses are memory accesses which the programmer didn&rsquo;t intend to happen, which allows attackers to read or write to some memory locations. Illegal memory accesses can be classified on three aspects:" />
-<meta property="og:type" content="article" />
-<meta property="og:url" content="https://nihaal.me/post/kernel_defences/" /><meta property="article:section" content="post" />
-<meta property="article:published_time" content="2023-01-09T00:00:00+00:00" />
-<meta property="article:modified_time" content="2023-01-09T00:00:00+00:00" />
+<meta property="og:url" content="https://nihaal.me/post/kernel_defences/">
+  <meta property="og:site_name" content="Nihaal">
+  <meta property="og:title" content="Kernel defences">
+  <meta property="og:description" content="Usually when an attacker exploits a vulnerability, the attack starts out as a Illegal memory access or Control flow hijack, which the attacker would use to write to sensitive memory locations or execute arbitrary code in supervisor mode, to try to increase privileges in the system.
+Illegal memory accesses are memory accesses which the programmer didn’t intend to happen, which allows attackers to read or write to some memory locations. Illegal memory accesses can be classified on three aspects:">
+  <meta property="og:locale" content="en">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="post">
+    <meta property="article:published_time" content="2023-01-09T00:00:00+00:00">
+    <meta property="article:modified_time" content="2023-01-09T00:00:00+00:00">
+    <meta property="article:tag" content="Linux">
+    <meta property="article:tag" content="Kernel">
 
-<meta itemprop="name" content="Kernel defences">
-<meta itemprop="description" content="Usually when an attacker exploits a vulnerability, the attack starts out as a Illegal memory access or Control flow hijack, which the attacker would use to write to sensitive memory locations or execute arbitrary code in supervisor mode, to try to increase privileges in the system.
-Illegal memory accesses are memory accesses which the programmer didn&rsquo;t intend to happen, which allows attackers to read or write to some memory locations. Illegal memory accesses can be classified on three aspects:"><meta itemprop="datePublished" content="2023-01-09T00:00:00+00:00" />
-<meta itemprop="dateModified" content="2023-01-09T00:00:00+00:00" />
-<meta itemprop="wordCount" content="368">
-<meta itemprop="keywords" content="linux,kernel," /><meta name="twitter:card" content="summary"/><meta name="twitter:title" content="Kernel defences"/>
+  <meta itemprop="name" content="Kernel defences">
+  <meta itemprop="description" content="Usually when an attacker exploits a vulnerability, the attack starts out as a Illegal memory access or Control flow hijack, which the attacker would use to write to sensitive memory locations or execute arbitrary code in supervisor mode, to try to increase privileges in the system.
+Illegal memory accesses are memory accesses which the programmer didn&rsquo;t intend to happen, which allows attackers to read or write to some memory locations. Illegal memory accesses can be classified on three aspects:">
+  <meta itemprop="datePublished" content="2023-01-09T00:00:00+00:00">
+  <meta itemprop="dateModified" content="2023-01-09T00:00:00+00:00">
+  <meta itemprop="wordCount" content="368">
+  <meta itemprop="keywords" content="Linux,Kernel"><meta name="twitter:card" content="summary"><meta name="twitter:title" content="Kernel defences">
 <meta name="twitter:description" content="Usually when an attacker exploits a vulnerability, the attack starts out as a Illegal memory access or Control flow hijack, which the attacker would use to write to sensitive memory locations or execute arbitrary code in supervisor mode, to try to increase privileges in the system.
-Illegal memory accesses are memory accesses which the programmer didn&rsquo;t intend to happen, which allows attackers to read or write to some memory locations. Illegal memory accesses can be classified on three aspects:"/>
+Illegal memory accesses are memory accesses which the programmer didn&rsquo;t intend to happen, which allows attackers to read or write to some memory locations. Illegal memory accesses can be classified on three aspects:">
 
 <!--[if lte IE 9]>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
@@ -65,6 +71,8 @@ Illegal memory accesses are memory accesses which the programmer didn&rsquo;t in
   <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
 <![endif]-->
+
+<script defer data-domain="nihaal.me" src="https://stats.nihaal.me/js/script.js"></script>
 
 </head>
 <body>

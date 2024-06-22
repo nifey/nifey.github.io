@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>rust on Nihaal</title>
+    <title>Rust on Nihaal</title>
     <link>https://nihaal.me/tags/rust/</link>
-    <description>Recent content in rust on Nihaal</description>
-    <generator>Hugo -- gohugo.io</generator>
+    <description>Recent content in Rust on Nihaal</description>
+    <generator>Hugo</generator>
     <language>en</language>
     <lastBuildDate>Tue, 15 Nov 2016 17:50:37 +0000</lastBuildDate>
     <atom:link href="https://nihaal.me/tags/rust/index.xml" rel="self" type="application/rss+xml" />

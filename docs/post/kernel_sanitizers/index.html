@@ -25,7 +25,7 @@ Detect incorrect program behaviour: like accessing memory that the program is no
 
 
 
-<meta name="generator" content="Hugo 0.121.2 with theme even" />
+<meta name="generator" content="Hugo 0.125.4 with theme even" />
 
 
 <link rel="canonical" href="https://nihaal.me/post/kernel_sanitizers/" />
@@ -41,25 +41,32 @@ Detect incorrect program behaviour: like accessing memory that the program is no
 <link href="/lib/fancybox/jquery.fancybox-3.1.20.min.css" rel="stylesheet">
 
 
-<meta property="og:title" content="Kernel Sanitizers" />
-<meta property="og:description" content="When fuzzing a program by feeding random inputs to it, we need a mechanism to tell when the program is doing unexpected things. Sanitizers help detect bugs in the program at runtime. They are usually used along with fuzzing to detect bugs in programs.
+<meta property="og:url" content="https://nihaal.me/post/kernel_sanitizers/">
+  <meta property="og:site_name" content="Nihaal">
+  <meta property="og:title" content="Kernel Sanitizers">
+  <meta property="og:description" content="When fuzzing a program by feeding random inputs to it, we need a mechanism to tell when the program is doing unexpected things. Sanitizers help detect bugs in the program at runtime. They are usually used along with fuzzing to detect bugs in programs.
 The two roles of sanitizers:
-Detect incorrect program behaviour: like accessing memory that the program is not supposed to access Report incorrect behaviour: To be useful, the sanitizer needs to report useful information (like the stack trace and ) that makes it easier to understand and fix the bug." />
-<meta property="og:type" content="article" />
-<meta property="og:url" content="https://nihaal.me/post/kernel_sanitizers/" /><meta property="article:section" content="post" />
-<meta property="article:published_time" content="2022-12-05T00:00:00+00:00" />
-<meta property="article:modified_time" content="2022-12-17T09:25:43+05:30" />
+Detect incorrect program behaviour: like accessing memory that the program is not supposed to access Report incorrect behaviour: To be useful, the sanitizer needs to report useful information (like the stack trace and ) that makes it easier to understand and fix the bug.">
+  <meta property="og:locale" content="en">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="post">
+    <meta property="article:published_time" content="2022-12-05T00:00:00+00:00">
+    <meta property="article:modified_time" content="2022-12-17T09:25:43+05:30">
+    <meta property="article:tag" content="Fuzzing">
+    <meta property="article:tag" content="Linux">
+    <meta property="article:tag" content="Kernel">
 
-<meta itemprop="name" content="Kernel Sanitizers">
-<meta itemprop="description" content="When fuzzing a program by feeding random inputs to it, we need a mechanism to tell when the program is doing unexpected things. Sanitizers help detect bugs in the program at runtime. They are usually used along with fuzzing to detect bugs in programs.
+  <meta itemprop="name" content="Kernel Sanitizers">
+  <meta itemprop="description" content="When fuzzing a program by feeding random inputs to it, we need a mechanism to tell when the program is doing unexpected things. Sanitizers help detect bugs in the program at runtime. They are usually used along with fuzzing to detect bugs in programs.
 The two roles of sanitizers:
-Detect incorrect program behaviour: like accessing memory that the program is not supposed to access Report incorrect behaviour: To be useful, the sanitizer needs to report useful information (like the stack trace and ) that makes it easier to understand and fix the bug."><meta itemprop="datePublished" content="2022-12-05T00:00:00+00:00" />
-<meta itemprop="dateModified" content="2022-12-17T09:25:43+05:30" />
-<meta itemprop="wordCount" content="883">
-<meta itemprop="keywords" content="fuzzing,linux,kernel," /><meta name="twitter:card" content="summary"/><meta name="twitter:title" content="Kernel Sanitizers"/>
+Detect incorrect program behaviour: like accessing memory that the program is not supposed to access Report incorrect behaviour: To be useful, the sanitizer needs to report useful information (like the stack trace and ) that makes it easier to understand and fix the bug.">
+  <meta itemprop="datePublished" content="2022-12-05T00:00:00+00:00">
+  <meta itemprop="dateModified" content="2022-12-17T09:25:43+05:30">
+  <meta itemprop="wordCount" content="883">
+  <meta itemprop="keywords" content="Fuzzing,Linux,Kernel"><meta name="twitter:card" content="summary"><meta name="twitter:title" content="Kernel Sanitizers">
 <meta name="twitter:description" content="When fuzzing a program by feeding random inputs to it, we need a mechanism to tell when the program is doing unexpected things. Sanitizers help detect bugs in the program at runtime. They are usually used along with fuzzing to detect bugs in programs.
 The two roles of sanitizers:
-Detect incorrect program behaviour: like accessing memory that the program is not supposed to access Report incorrect behaviour: To be useful, the sanitizer needs to report useful information (like the stack trace and ) that makes it easier to understand and fix the bug."/>
+Detect incorrect program behaviour: like accessing memory that the program is not supposed to access Report incorrect behaviour: To be useful, the sanitizer needs to report useful information (like the stack trace and ) that makes it easier to understand and fix the bug.">
 
 <!--[if lte IE 9]>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
@@ -69,6 +76,8 @@ Detect incorrect program behaviour: like accessing memory that the program is no
   <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
 <![endif]-->
+
+<script defer data-domain="nihaal.me" src="https://stats.nihaal.me/js/script.js"></script>
 
 </head>
 <body>

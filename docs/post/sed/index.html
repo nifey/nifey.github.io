@@ -23,7 +23,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.121.2 with theme even" />
+<meta name="generator" content="Hugo 0.125.4 with theme even" />
 
 
 <link rel="canonical" href="https://nihaal.me/post/sed/" />
@@ -39,19 +39,24 @@
 <link href="/lib/fancybox/jquery.fancybox-3.1.20.min.css" rel="stylesheet">
 
 
-<meta property="og:title" content="Notes on Sed" />
-<meta property="og:description" content="Sed Stream EDitor, UNIX utility Based on ed (line oriented text editor) Used commonly for find and replace based on Regular expressions Useful for processing and transforming logs Can also be used inside vim for find and replace Basic usage cat file | sed &#39;s/hello/world/&#39; sed &#39;s/hello/world/&#39; file sed file -e &#39;s/hello/world/&#39; sed &#39;s/hello/world/&#39; -i file	# Inline (will replace in the file) cat file | sed &#39;/REGEX/d&#39;	# Delete lines matching a regular expression Regular expression syntax Language to represent string patterns Useful beyond sed (eg: grepping through source code) Basic regex: Specify characters to match &lsquo;a&rsquo; matches character a [a-z] matches lowercase alphabets [a-zA-Z0-9] matches alphabets and numbers [abc] matches characters a b c [^abc] matches anything except characters a b c Specify count of characters to match * -&gt; Zero or more instances \&#43; -&gt; One or more instances ?" />
-<meta property="og:type" content="article" />
-<meta property="og:url" content="https://nihaal.me/post/sed/" /><meta property="article:section" content="post" />
-<meta property="article:published_time" content="2023-08-12T00:00:00+00:00" />
-<meta property="article:modified_time" content="2023-08-12T00:00:00+00:00" />
+<meta property="og:url" content="https://nihaal.me/post/sed/">
+  <meta property="og:site_name" content="Nihaal">
+  <meta property="og:title" content="Notes on Sed">
+  <meta property="og:description" content="Sed Stream EDitor, UNIX utility Based on ed (line oriented text editor) Used commonly for find and replace based on Regular expressions Useful for processing and transforming logs Can also be used inside vim for find and replace Basic usage cat file | sed &#39;s/hello/world/&#39; sed &#39;s/hello/world/&#39; file sed file -e &#39;s/hello/world/&#39; sed &#39;s/hello/world/&#39; -i file	# Inline (will replace in the file) cat file | sed &#39;/REGEX/d&#39;	# Delete lines matching a regular expression Regular expression syntax Language to represent string patterns Useful beyond sed (eg: grepping through source code) Basic regex: Specify characters to match ‘a’ matches character a [a-z] matches lowercase alphabets [a-zA-Z0-9] matches alphabets and numbers [abc] matches characters a b c [^abc] matches anything except characters a b c Specify count of characters to match * -&gt; Zero or more instances \&#43; -&gt; One or more instances ?">
+  <meta property="og:locale" content="en">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="post">
+    <meta property="article:published_time" content="2023-08-12T00:00:00+00:00">
+    <meta property="article:modified_time" content="2023-08-12T00:00:00+00:00">
+    <meta property="article:tag" content="Linux">
 
-<meta itemprop="name" content="Notes on Sed">
-<meta itemprop="description" content="Sed Stream EDitor, UNIX utility Based on ed (line oriented text editor) Used commonly for find and replace based on Regular expressions Useful for processing and transforming logs Can also be used inside vim for find and replace Basic usage cat file | sed &#39;s/hello/world/&#39; sed &#39;s/hello/world/&#39; file sed file -e &#39;s/hello/world/&#39; sed &#39;s/hello/world/&#39; -i file	# Inline (will replace in the file) cat file | sed &#39;/REGEX/d&#39;	# Delete lines matching a regular expression Regular expression syntax Language to represent string patterns Useful beyond sed (eg: grepping through source code) Basic regex: Specify characters to match &lsquo;a&rsquo; matches character a [a-z] matches lowercase alphabets [a-zA-Z0-9] matches alphabets and numbers [abc] matches characters a b c [^abc] matches anything except characters a b c Specify count of characters to match * -&gt; Zero or more instances \&#43; -&gt; One or more instances ?"><meta itemprop="datePublished" content="2023-08-12T00:00:00+00:00" />
-<meta itemprop="dateModified" content="2023-08-12T00:00:00+00:00" />
-<meta itemprop="wordCount" content="480">
-<meta itemprop="keywords" content="linux," /><meta name="twitter:card" content="summary"/><meta name="twitter:title" content="Notes on Sed"/>
-<meta name="twitter:description" content="Sed Stream EDitor, UNIX utility Based on ed (line oriented text editor) Used commonly for find and replace based on Regular expressions Useful for processing and transforming logs Can also be used inside vim for find and replace Basic usage cat file | sed &#39;s/hello/world/&#39; sed &#39;s/hello/world/&#39; file sed file -e &#39;s/hello/world/&#39; sed &#39;s/hello/world/&#39; -i file	# Inline (will replace in the file) cat file | sed &#39;/REGEX/d&#39;	# Delete lines matching a regular expression Regular expression syntax Language to represent string patterns Useful beyond sed (eg: grepping through source code) Basic regex: Specify characters to match &lsquo;a&rsquo; matches character a [a-z] matches lowercase alphabets [a-zA-Z0-9] matches alphabets and numbers [abc] matches characters a b c [^abc] matches anything except characters a b c Specify count of characters to match * -&gt; Zero or more instances \&#43; -&gt; One or more instances ?"/>
+  <meta itemprop="name" content="Notes on Sed">
+  <meta itemprop="description" content="Sed Stream EDitor, UNIX utility Based on ed (line oriented text editor) Used commonly for find and replace based on Regular expressions Useful for processing and transforming logs Can also be used inside vim for find and replace Basic usage cat file | sed &#39;s/hello/world/&#39; sed &#39;s/hello/world/&#39; file sed file -e &#39;s/hello/world/&#39; sed &#39;s/hello/world/&#39; -i file	# Inline (will replace in the file) cat file | sed &#39;/REGEX/d&#39;	# Delete lines matching a regular expression Regular expression syntax Language to represent string patterns Useful beyond sed (eg: grepping through source code) Basic regex: Specify characters to match &lsquo;a&rsquo; matches character a [a-z] matches lowercase alphabets [a-zA-Z0-9] matches alphabets and numbers [abc] matches characters a b c [^abc] matches anything except characters a b c Specify count of characters to match * -&gt; Zero or more instances \&#43; -&gt; One or more instances ?">
+  <meta itemprop="datePublished" content="2023-08-12T00:00:00+00:00">
+  <meta itemprop="dateModified" content="2023-08-12T00:00:00+00:00">
+  <meta itemprop="wordCount" content="480">
+  <meta itemprop="keywords" content="Linux"><meta name="twitter:card" content="summary"><meta name="twitter:title" content="Notes on Sed">
+<meta name="twitter:description" content="Sed Stream EDitor, UNIX utility Based on ed (line oriented text editor) Used commonly for find and replace based on Regular expressions Useful for processing and transforming logs Can also be used inside vim for find and replace Basic usage cat file | sed &#39;s/hello/world/&#39; sed &#39;s/hello/world/&#39; file sed file -e &#39;s/hello/world/&#39; sed &#39;s/hello/world/&#39; -i file	# Inline (will replace in the file) cat file | sed &#39;/REGEX/d&#39;	# Delete lines matching a regular expression Regular expression syntax Language to represent string patterns Useful beyond sed (eg: grepping through source code) Basic regex: Specify characters to match &lsquo;a&rsquo; matches character a [a-z] matches lowercase alphabets [a-zA-Z0-9] matches alphabets and numbers [abc] matches characters a b c [^abc] matches anything except characters a b c Specify count of characters to match * -&gt; Zero or more instances \&#43; -&gt; One or more instances ?">
 
 <!--[if lte IE 9]>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
@@ -61,6 +66,8 @@
   <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
 <![endif]-->
+
+<script defer data-domain="nihaal.me" src="https://stats.nihaal.me/js/script.js"></script>
 
 </head>
 <body>

@@ -26,7 +26,7 @@ sudo umount /sys/kernel/debug sudo mount -t debugfs none /sys/kernel/debug -o ui
 
 
 
-<meta name="generator" content="Hugo 0.121.2 with theme even" />
+<meta name="generator" content="Hugo 0.125.4 with theme even" />
 
 
 <link rel="canonical" href="https://nihaal.me/post/creating_debugfs_files/" />
@@ -42,28 +42,34 @@ sudo umount /sys/kernel/debug sudo mount -t debugfs none /sys/kernel/debug -o ui
 <link href="/lib/fancybox/jquery.fancybox-3.1.20.min.css" rel="stylesheet">
 
 
-<meta property="og:title" content="Creating debugfs files" />
-<meta property="og:description" content="debugfs debugfs is a pseudo-filesystem used for kernel debugging. It is usually mounted at /sys/kernel/debug. debugfs contains files that allow us to read debugging information.
+<meta property="og:url" content="https://nihaal.me/post/creating_debugfs_files/">
+  <meta property="og:site_name" content="Nihaal">
+  <meta property="og:title" content="Creating debugfs files">
+  <meta property="og:description" content="debugfs debugfs is a pseudo-filesystem used for kernel debugging. It is usually mounted at /sys/kernel/debug. debugfs contains files that allow us to read debugging information.
 By default, only the root user can cd into the /sys/kernel/debug directory.
-To change it to allow the current user to cd into debugfs, we can remount it with uid set to the current user&rsquo;s uid.
-sudo umount /sys/kernel/debug sudo mount -t debugfs none /sys/kernel/debug -o uid=`echo $UID` cd /sys/kernel/debug Creating debugfs entries Creating debugfs files is similar to creating character device files." />
-<meta property="og:type" content="article" />
-<meta property="og:url" content="https://nihaal.me/post/creating_debugfs_files/" /><meta property="article:section" content="post" />
-<meta property="article:published_time" content="2021-11-06T00:00:00+00:00" />
-<meta property="article:modified_time" content="2021-11-06T00:00:00+00:00" />
+To change it to allow the current user to cd into debugfs, we can remount it with uid set to the current user’s uid.
+sudo umount /sys/kernel/debug sudo mount -t debugfs none /sys/kernel/debug -o uid=`echo $UID` cd /sys/kernel/debug Creating debugfs entries Creating debugfs files is similar to creating character device files.">
+  <meta property="og:locale" content="en">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="post">
+    <meta property="article:published_time" content="2021-11-06T00:00:00+00:00">
+    <meta property="article:modified_time" content="2021-11-06T00:00:00+00:00">
+    <meta property="article:tag" content="Linux">
+    <meta property="article:tag" content="Kernel">
 
-<meta itemprop="name" content="Creating debugfs files">
-<meta itemprop="description" content="debugfs debugfs is a pseudo-filesystem used for kernel debugging. It is usually mounted at /sys/kernel/debug. debugfs contains files that allow us to read debugging information.
+  <meta itemprop="name" content="Creating debugfs files">
+  <meta itemprop="description" content="debugfs debugfs is a pseudo-filesystem used for kernel debugging. It is usually mounted at /sys/kernel/debug. debugfs contains files that allow us to read debugging information.
 By default, only the root user can cd into the /sys/kernel/debug directory.
 To change it to allow the current user to cd into debugfs, we can remount it with uid set to the current user&rsquo;s uid.
-sudo umount /sys/kernel/debug sudo mount -t debugfs none /sys/kernel/debug -o uid=`echo $UID` cd /sys/kernel/debug Creating debugfs entries Creating debugfs files is similar to creating character device files."><meta itemprop="datePublished" content="2021-11-06T00:00:00+00:00" />
-<meta itemprop="dateModified" content="2021-11-06T00:00:00+00:00" />
-<meta itemprop="wordCount" content="879">
-<meta itemprop="keywords" content="linux,kernel," /><meta name="twitter:card" content="summary"/><meta name="twitter:title" content="Creating debugfs files"/>
+sudo umount /sys/kernel/debug sudo mount -t debugfs none /sys/kernel/debug -o uid=`echo $UID` cd /sys/kernel/debug Creating debugfs entries Creating debugfs files is similar to creating character device files.">
+  <meta itemprop="datePublished" content="2021-11-06T00:00:00+00:00">
+  <meta itemprop="dateModified" content="2021-11-06T00:00:00+00:00">
+  <meta itemprop="wordCount" content="879">
+  <meta itemprop="keywords" content="Linux,Kernel"><meta name="twitter:card" content="summary"><meta name="twitter:title" content="Creating debugfs files">
 <meta name="twitter:description" content="debugfs debugfs is a pseudo-filesystem used for kernel debugging. It is usually mounted at /sys/kernel/debug. debugfs contains files that allow us to read debugging information.
 By default, only the root user can cd into the /sys/kernel/debug directory.
 To change it to allow the current user to cd into debugfs, we can remount it with uid set to the current user&rsquo;s uid.
-sudo umount /sys/kernel/debug sudo mount -t debugfs none /sys/kernel/debug -o uid=`echo $UID` cd /sys/kernel/debug Creating debugfs entries Creating debugfs files is similar to creating character device files."/>
+sudo umount /sys/kernel/debug sudo mount -t debugfs none /sys/kernel/debug -o uid=`echo $UID` cd /sys/kernel/debug Creating debugfs entries Creating debugfs files is similar to creating character device files.">
 
 <!--[if lte IE 9]>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
@@ -73,6 +79,8 @@ sudo umount /sys/kernel/debug sudo mount -t debugfs none /sys/kernel/debug -o ui
   <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
 <![endif]-->
+
+<script defer data-domain="nihaal.me" src="https://stats.nihaal.me/js/script.js"></script>
 
 </head>
 <body>

@@ -24,7 +24,7 @@ Automated: Syzkaller can automatically restart crashed virtual machines and also
 
 
 
-<meta name="generator" content="Hugo 0.121.2 with theme even" />
+<meta name="generator" content="Hugo 0.125.4 with theme even" />
 
 
 <link rel="canonical" href="https://nihaal.me/post/syzkaller/" />
@@ -40,22 +40,28 @@ Automated: Syzkaller can automatically restart crashed virtual machines and also
 <link href="/lib/fancybox/jquery.fancybox-3.1.20.min.css" rel="stylesheet">
 
 
-<meta property="og:title" content="Finding bugs with Syzkaller" />
-<meta property="og:description" content="Syzkaller is an unsupervised, grammar based, coverage guided fuzzer used for fuzzing operating system kernels. It primarily performs system call fuzzing, but it can also be used for fuzzing USB and network packets. It is currently used for continuous fuzzing of Linux, Android and other BSD kernels.
-Automated: Syzkaller can automatically restart crashed virtual machines and also create a reproducer for the crashes. Coverage guided: Syzkaller gets coverage information using the KCOV infrastructure, which is built into the kernel." />
-<meta property="og:type" content="article" />
-<meta property="og:url" content="https://nihaal.me/post/syzkaller/" /><meta property="article:section" content="post" />
-<meta property="article:published_time" content="2022-12-12T00:00:00+00:00" />
-<meta property="article:modified_time" content="2022-12-12T00:00:00+00:00" />
+<meta property="og:url" content="https://nihaal.me/post/syzkaller/">
+  <meta property="og:site_name" content="Nihaal">
+  <meta property="og:title" content="Finding bugs with Syzkaller">
+  <meta property="og:description" content="Syzkaller is an unsupervised, grammar based, coverage guided fuzzer used for fuzzing operating system kernels. It primarily performs system call fuzzing, but it can also be used for fuzzing USB and network packets. It is currently used for continuous fuzzing of Linux, Android and other BSD kernels.
+Automated: Syzkaller can automatically restart crashed virtual machines and also create a reproducer for the crashes. Coverage guided: Syzkaller gets coverage information using the KCOV infrastructure, which is built into the kernel.">
+  <meta property="og:locale" content="en">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="post">
+    <meta property="article:published_time" content="2022-12-12T00:00:00+00:00">
+    <meta property="article:modified_time" content="2022-12-12T00:00:00+00:00">
+    <meta property="article:tag" content="Fuzzing">
+    <meta property="article:tag" content="Syzkaller">
 
-<meta itemprop="name" content="Finding bugs with Syzkaller">
-<meta itemprop="description" content="Syzkaller is an unsupervised, grammar based, coverage guided fuzzer used for fuzzing operating system kernels. It primarily performs system call fuzzing, but it can also be used for fuzzing USB and network packets. It is currently used for continuous fuzzing of Linux, Android and other BSD kernels.
-Automated: Syzkaller can automatically restart crashed virtual machines and also create a reproducer for the crashes. Coverage guided: Syzkaller gets coverage information using the KCOV infrastructure, which is built into the kernel."><meta itemprop="datePublished" content="2022-12-12T00:00:00+00:00" />
-<meta itemprop="dateModified" content="2022-12-12T00:00:00+00:00" />
-<meta itemprop="wordCount" content="863">
-<meta itemprop="keywords" content="fuzzing,syzkaller," /><meta name="twitter:card" content="summary"/><meta name="twitter:title" content="Finding bugs with Syzkaller"/>
+  <meta itemprop="name" content="Finding bugs with Syzkaller">
+  <meta itemprop="description" content="Syzkaller is an unsupervised, grammar based, coverage guided fuzzer used for fuzzing operating system kernels. It primarily performs system call fuzzing, but it can also be used for fuzzing USB and network packets. It is currently used for continuous fuzzing of Linux, Android and other BSD kernels.
+Automated: Syzkaller can automatically restart crashed virtual machines and also create a reproducer for the crashes. Coverage guided: Syzkaller gets coverage information using the KCOV infrastructure, which is built into the kernel.">
+  <meta itemprop="datePublished" content="2022-12-12T00:00:00+00:00">
+  <meta itemprop="dateModified" content="2022-12-12T00:00:00+00:00">
+  <meta itemprop="wordCount" content="863">
+  <meta itemprop="keywords" content="Fuzzing,Syzkaller"><meta name="twitter:card" content="summary"><meta name="twitter:title" content="Finding bugs with Syzkaller">
 <meta name="twitter:description" content="Syzkaller is an unsupervised, grammar based, coverage guided fuzzer used for fuzzing operating system kernels. It primarily performs system call fuzzing, but it can also be used for fuzzing USB and network packets. It is currently used for continuous fuzzing of Linux, Android and other BSD kernels.
-Automated: Syzkaller can automatically restart crashed virtual machines and also create a reproducer for the crashes. Coverage guided: Syzkaller gets coverage information using the KCOV infrastructure, which is built into the kernel."/>
+Automated: Syzkaller can automatically restart crashed virtual machines and also create a reproducer for the crashes. Coverage guided: Syzkaller gets coverage information using the KCOV infrastructure, which is built into the kernel.">
 
 <!--[if lte IE 9]>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
@@ -65,6 +71,8 @@ Automated: Syzkaller can automatically restart crashed virtual machines and also
   <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
 <![endif]-->
+
+<script defer data-domain="nihaal.me" src="https://stats.nihaal.me/js/script.js"></script>
 
 </head>
 <body>
@@ -177,7 +185,7 @@ This allows it to execute deeper code paths that would not be possible with blin
 Syzlang can describe structs that are passed as arguments to syscalls, the possible values for flags and resources (like file descriptors) which are passed across multiple syscalls and have to be created and destroyed using specific system calls.</li>
 </ul>
 <h2 id="syzkaller-overview">Syzkaller overview</h2>
-<p><img src="https://github.com/google/syzkaller/blob/master/docs/process_structure.png?raw=true" alt="">
+<p><img src="https://github.com/google/syzkaller/blob/master/docs/process_structure.png?raw=true">
 The above image, taken from <a href="https://github.com/google/syzkaller/blob/master/docs/internals.md">Syzkaller documentation</a> shows the overall working of Syzkaller.
 Syzkaller consists of different components like syz-manager, syz-fuzzer and syz-executor.
 <em>syz-manager</em> is the process that manages virtual machines, maintains and updates the corpus of input program based on coverage information obtained through <em>syz-fuzzer</em>.
