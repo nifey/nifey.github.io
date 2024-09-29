@@ -83,9 +83,11 @@ There are a few strategies.
     -   Taxonomy
 
 7.  Study anamolies
+
     During your experiments, if you find some benchmark behaving unexpectedly, dig deeper into it and try to explain what is causing that behaviour.
 
 8.  Study failures
+
     If it turns out that the idea does not perform well, find out the reason why it doesn't perform well.
     This could give insights for modifying the design to perform better.
 
@@ -103,16 +105,23 @@ There are a few strategies.
 
 This is where we try to answer: Is my idea useful?
 The evaluation process is different in different fields, even between subfields.
+It's good to spend some time to ensure that the right benchmarks and evaluation methodology is used, before starting with experiments.
 
 -   Choose the right evaluation methodology
     -   When measuring performance on real systems (as opposed to deterministic simulators),
         minimize operating system noise by (i) isolating CPUs using isolcpu boot parameter in Linux
         (ii) Take multiple measurements and use the mean.
-
+    - When assuming evaluation parameters (like simulation paramters), check if they are reasonable, even if they were used in previous papers. Because reviewers will question why the parameters were chosen and if they closely represent real-world parameters.
 -   Choose the right metrics
     -   Use the right mean (arithmetic, geometric or harmonic mean) to aggregate your results.
 -   Choose the right benchmarks
-
+    - Know your benchmark suites.
+    - Get to know what each benchmark does at a high level, and it's behaviour with resepect to your metrics. For instance, if you are trying to reduce virtual memory performance, classify the benchmarks into TLB-friendly and TLB-averse based on TLB hit rates.
+    - If there are input data to the benchmark, then check if the choice of input data affects the  performance of the benchmark, in which case, we have to select input data carefully.
+- Avoid common benchmarking crimes
+    - https://arxiv.org/pdf/1801.02381.pdf
+    - http://www.haifux.org/lectures/311/BM_crimes.pdf
+    - https://gernot-heiser.org/benchmarking-crimes.html
 
 ### Automation {#automation}
 
@@ -157,16 +166,24 @@ We can automate running experiments, collecting logs/output and generating some 
 
 ### Presenting
 
+- How to give a great research talk
 {{% youtube "sT_-owjKIbA" %}}
+- Poster presentation
+{{% youtube "vMSaFUrk-FA" %}}
 
 ## Artifact submission
 - [Artifact Evaluation: Tips for Authors](https://blog.padhye.org/Artifact-Evaluation-Tips-for-Authors/)
 
 ## Other resources
 
+- Own your PhD project: How to take charge of your research
 {{% youtube "q_rEqcO7hMY" %}}
+- You and your research
 {{% youtube "a1zDuOPkMSw" %}}
 
 - [How to have a bad career in Research/Academia](https://people.eecs.berkeley.edu/~pattrsn/talks/BadCareer.pdf) (David Patterson)
 - [How to have Real world impact: Five easy steps](https://www.sigarch.org/how-to-have-real-world-impact-five-easy-pieces/)
 - [How to do great research](https://greatresearch.org/)
+
+- [DBLP paper search within select conferences](https://sabertazimi.github.io/dblp)
+- [Searching paper deadlines of relevant conferences](https://confsearch.ethz.ch/)
