@@ -24,7 +24,7 @@ Illegal memory accesses are memory accesses which the programmer didn&amp;rsquo;
 
 
 
-<meta name="generator" content="Hugo 0.125.4 with theme even" />
+<meta name="generator" content="Hugo 0.126.1 with theme even" />
 
 
 <link rel="canonical" href="https://nihaal.me/post/kernel_defences/" />
@@ -55,13 +55,15 @@ Illegal memory accesses are memory accesses which the programmer didn’t intend
 
   <meta itemprop="name" content="Kernel defences">
   <meta itemprop="description" content="Usually when an attacker exploits a vulnerability, the attack starts out as a Illegal memory access or Control flow hijack, which the attacker would use to write to sensitive memory locations or execute arbitrary code in supervisor mode, to try to increase privileges in the system.
-Illegal memory accesses are memory accesses which the programmer didn&rsquo;t intend to happen, which allows attackers to read or write to some memory locations. Illegal memory accesses can be classified on three aspects:">
+Illegal memory accesses are memory accesses which the programmer didn’t intend to happen, which allows attackers to read or write to some memory locations. Illegal memory accesses can be classified on three aspects:">
   <meta itemprop="datePublished" content="2023-01-09T00:00:00+00:00">
   <meta itemprop="dateModified" content="2023-01-09T00:00:00+00:00">
   <meta itemprop="wordCount" content="368">
-  <meta itemprop="keywords" content="Linux,Kernel"><meta name="twitter:card" content="summary"><meta name="twitter:title" content="Kernel defences">
-<meta name="twitter:description" content="Usually when an attacker exploits a vulnerability, the attack starts out as a Illegal memory access or Control flow hijack, which the attacker would use to write to sensitive memory locations or execute arbitrary code in supervisor mode, to try to increase privileges in the system.
-Illegal memory accesses are memory accesses which the programmer didn&rsquo;t intend to happen, which allows attackers to read or write to some memory locations. Illegal memory accesses can be classified on three aspects:">
+  <meta itemprop="keywords" content="Linux,Kernel">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Kernel defences">
+  <meta name="twitter:description" content="Usually when an attacker exploits a vulnerability, the attack starts out as a Illegal memory access or Control flow hijack, which the attacker would use to write to sensitive memory locations or execute arbitrary code in supervisor mode, to try to increase privileges in the system.
+Illegal memory accesses are memory accesses which the programmer didn’t intend to happen, which allows attackers to read or write to some memory locations. Illegal memory accesses can be classified on three aspects:">
 
 <!--[if lte IE 9]>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
@@ -73,6 +75,27 @@ Illegal memory accesses are memory accesses which the programmer didn&rsquo;t in
 <![endif]-->
 
 <script defer data-domain="nihaal.me" src="https://stats.nihaal.me/js/script.js"></script>
+<script>
+  (function(w, d, t, h, s, n) {
+    w.FlodeskObject = n;
+    var fn = function() {
+      (w[n].q = w[n].q || []).push(arguments);
+    };
+    w[n] = w[n] || fn;
+    var f = d.getElementsByTagName(t)[0];
+    var v = '?v=' + Math.floor(new Date().getTime() / (120 * 1000)) * 60;
+    var sm = d.createElement(t);
+    sm.async = true;
+    sm.type = 'module';
+    sm.src = h + s + '.mjs' + v;
+    f.parentNode.insertBefore(sm, f);
+    var sn = d.createElement(t);
+    sn.async = true;
+    sn.noModule = true;
+    sn.src = h + s + '.js' + v;
+    f.parentNode.insertBefore(sn, f);
+  })(window, document, 'script', 'https://assets.flodesk.com', '/universal', 'fd');
+</script>
 
 </head>
 <body>
@@ -237,6 +260,13 @@ data from untrusted userspace.</p>
       </nav>
     </footer>
   </article>
+  <div id="fd-form-66f8239b39c4e02019d4d467"></div>
+  <script>
+      window.fd('form', {
+          formId: '66f8239b39c4e02019d4d467',
+          containerEl: '#fd-form-66f8239b39c4e02019d4d467'
+      });
+  </script>
         </div>
         
 
@@ -253,7 +283,7 @@ data from untrusted userspace.</p>
       <a href="https://in.linkedin.com/in/abdun-nihaal-289272143" class="iconfont icon-linkedin" title="linkedin"></a>
       <a href="https://www.github.com/nifey" class="iconfont icon-github" title="github"></a>
       <a href="https://www.gitlab.com/nihaal" class="iconfont icon-gitlab" title="gitlab"></a>
-  <a href="https://nihaal.me/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+  
 </div>
 
 <div class="copyright">

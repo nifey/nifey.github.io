@@ -25,7 +25,7 @@ Detect incorrect program behaviour: like accessing memory that the program is no
 
 
 
-<meta name="generator" content="Hugo 0.125.4 with theme even" />
+<meta name="generator" content="Hugo 0.126.1 with theme even" />
 
 
 <link rel="canonical" href="https://nihaal.me/post/kernel_sanitizers/" />
@@ -63,8 +63,10 @@ Detect incorrect program behaviour: like accessing memory that the program is no
   <meta itemprop="datePublished" content="2022-12-05T00:00:00+00:00">
   <meta itemprop="dateModified" content="2022-12-17T09:25:43+05:30">
   <meta itemprop="wordCount" content="883">
-  <meta itemprop="keywords" content="Fuzzing,Linux,Kernel"><meta name="twitter:card" content="summary"><meta name="twitter:title" content="Kernel Sanitizers">
-<meta name="twitter:description" content="When fuzzing a program by feeding random inputs to it, we need a mechanism to tell when the program is doing unexpected things. Sanitizers help detect bugs in the program at runtime. They are usually used along with fuzzing to detect bugs in programs.
+  <meta itemprop="keywords" content="Fuzzing,Linux,Kernel">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Kernel Sanitizers">
+  <meta name="twitter:description" content="When fuzzing a program by feeding random inputs to it, we need a mechanism to tell when the program is doing unexpected things. Sanitizers help detect bugs in the program at runtime. They are usually used along with fuzzing to detect bugs in programs.
 The two roles of sanitizers:
 Detect incorrect program behaviour: like accessing memory that the program is not supposed to access Report incorrect behaviour: To be useful, the sanitizer needs to report useful information (like the stack trace and ) that makes it easier to understand and fix the bug.">
 
@@ -78,6 +80,27 @@ Detect incorrect program behaviour: like accessing memory that the program is no
 <![endif]-->
 
 <script defer data-domain="nihaal.me" src="https://stats.nihaal.me/js/script.js"></script>
+<script>
+  (function(w, d, t, h, s, n) {
+    w.FlodeskObject = n;
+    var fn = function() {
+      (w[n].q = w[n].q || []).push(arguments);
+    };
+    w[n] = w[n] || fn;
+    var f = d.getElementsByTagName(t)[0];
+    var v = '?v=' + Math.floor(new Date().getTime() / (120 * 1000)) * 60;
+    var sm = d.createElement(t);
+    sm.async = true;
+    sm.type = 'module';
+    sm.src = h + s + '.mjs' + v;
+    f.parentNode.insertBefore(sm, f);
+    var sn = d.createElement(t);
+    sn.async = true;
+    sn.noModule = true;
+    sn.src = h + s + '.js' + v;
+    f.parentNode.insertBefore(sn, f);
+  })(window, document, 'script', 'https://assets.flodesk.com', '/universal', 'fd');
+</script>
 
 </head>
 <body>
@@ -274,6 +297,13 @@ Moreover, it samples the memory objects and picks only a few for checking access
       </nav>
     </footer>
   </article>
+  <div id="fd-form-66f8239b39c4e02019d4d467"></div>
+  <script>
+      window.fd('form', {
+          formId: '66f8239b39c4e02019d4d467',
+          containerEl: '#fd-form-66f8239b39c4e02019d4d467'
+      });
+  </script>
         </div>
         
 
@@ -290,7 +320,7 @@ Moreover, it samples the memory objects and picks only a few for checking access
       <a href="https://in.linkedin.com/in/abdun-nihaal-289272143" class="iconfont icon-linkedin" title="linkedin"></a>
       <a href="https://www.github.com/nifey" class="iconfont icon-github" title="github"></a>
       <a href="https://www.gitlab.com/nihaal" class="iconfont icon-gitlab" title="gitlab"></a>
-  <a href="https://nihaal.me/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+  
 </div>
 
 <div class="copyright">

@@ -23,7 +23,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.125.4 with theme even" />
+<meta name="generator" content="Hugo 0.126.1 with theme even" />
 
 
 <link rel="canonical" href="https://nihaal.me/post/sed/" />
@@ -51,12 +51,14 @@
     <meta property="article:tag" content="Linux">
 
   <meta itemprop="name" content="Notes on Sed">
-  <meta itemprop="description" content="Sed Stream EDitor, UNIX utility Based on ed (line oriented text editor) Used commonly for find and replace based on Regular expressions Useful for processing and transforming logs Can also be used inside vim for find and replace Basic usage cat file | sed &#39;s/hello/world/&#39; sed &#39;s/hello/world/&#39; file sed file -e &#39;s/hello/world/&#39; sed &#39;s/hello/world/&#39; -i file	# Inline (will replace in the file) cat file | sed &#39;/REGEX/d&#39;	# Delete lines matching a regular expression Regular expression syntax Language to represent string patterns Useful beyond sed (eg: grepping through source code) Basic regex: Specify characters to match &lsquo;a&rsquo; matches character a [a-z] matches lowercase alphabets [a-zA-Z0-9] matches alphabets and numbers [abc] matches characters a b c [^abc] matches anything except characters a b c Specify count of characters to match * -&gt; Zero or more instances \&#43; -&gt; One or more instances ?">
+  <meta itemprop="description" content="Sed Stream EDitor, UNIX utility Based on ed (line oriented text editor) Used commonly for find and replace based on Regular expressions Useful for processing and transforming logs Can also be used inside vim for find and replace Basic usage cat file | sed &#39;s/hello/world/&#39; sed &#39;s/hello/world/&#39; file sed file -e &#39;s/hello/world/&#39; sed &#39;s/hello/world/&#39; -i file	# Inline (will replace in the file) cat file | sed &#39;/REGEX/d&#39;	# Delete lines matching a regular expression Regular expression syntax Language to represent string patterns Useful beyond sed (eg: grepping through source code) Basic regex: Specify characters to match ‘a’ matches character a [a-z] matches lowercase alphabets [a-zA-Z0-9] matches alphabets and numbers [abc] matches characters a b c [^abc] matches anything except characters a b c Specify count of characters to match * -&gt; Zero or more instances \&#43; -&gt; One or more instances ?">
   <meta itemprop="datePublished" content="2023-08-12T00:00:00+00:00">
   <meta itemprop="dateModified" content="2023-08-12T00:00:00+00:00">
   <meta itemprop="wordCount" content="480">
-  <meta itemprop="keywords" content="Linux"><meta name="twitter:card" content="summary"><meta name="twitter:title" content="Notes on Sed">
-<meta name="twitter:description" content="Sed Stream EDitor, UNIX utility Based on ed (line oriented text editor) Used commonly for find and replace based on Regular expressions Useful for processing and transforming logs Can also be used inside vim for find and replace Basic usage cat file | sed &#39;s/hello/world/&#39; sed &#39;s/hello/world/&#39; file sed file -e &#39;s/hello/world/&#39; sed &#39;s/hello/world/&#39; -i file	# Inline (will replace in the file) cat file | sed &#39;/REGEX/d&#39;	# Delete lines matching a regular expression Regular expression syntax Language to represent string patterns Useful beyond sed (eg: grepping through source code) Basic regex: Specify characters to match &lsquo;a&rsquo; matches character a [a-z] matches lowercase alphabets [a-zA-Z0-9] matches alphabets and numbers [abc] matches characters a b c [^abc] matches anything except characters a b c Specify count of characters to match * -&gt; Zero or more instances \&#43; -&gt; One or more instances ?">
+  <meta itemprop="keywords" content="Linux">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Notes on Sed">
+  <meta name="twitter:description" content="Sed Stream EDitor, UNIX utility Based on ed (line oriented text editor) Used commonly for find and replace based on Regular expressions Useful for processing and transforming logs Can also be used inside vim for find and replace Basic usage cat file | sed &#39;s/hello/world/&#39; sed &#39;s/hello/world/&#39; file sed file -e &#39;s/hello/world/&#39; sed &#39;s/hello/world/&#39; -i file	# Inline (will replace in the file) cat file | sed &#39;/REGEX/d&#39;	# Delete lines matching a regular expression Regular expression syntax Language to represent string patterns Useful beyond sed (eg: grepping through source code) Basic regex: Specify characters to match ‘a’ matches character a [a-z] matches lowercase alphabets [a-zA-Z0-9] matches alphabets and numbers [abc] matches characters a b c [^abc] matches anything except characters a b c Specify count of characters to match * -&gt; Zero or more instances \&#43; -&gt; One or more instances ?">
 
 <!--[if lte IE 9]>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
@@ -68,6 +70,27 @@
 <![endif]-->
 
 <script defer data-domain="nihaal.me" src="https://stats.nihaal.me/js/script.js"></script>
+<script>
+  (function(w, d, t, h, s, n) {
+    w.FlodeskObject = n;
+    var fn = function() {
+      (w[n].q = w[n].q || []).push(arguments);
+    };
+    w[n] = w[n] || fn;
+    var f = d.getElementsByTagName(t)[0];
+    var v = '?v=' + Math.floor(new Date().getTime() / (120 * 1000)) * 60;
+    var sm = d.createElement(t);
+    sm.async = true;
+    sm.type = 'module';
+    sm.src = h + s + '.mjs' + v;
+    f.parentNode.insertBefore(sm, f);
+    var sn = d.createElement(t);
+    sn.async = true;
+    sn.noModule = true;
+    sn.src = h + s + '.js' + v;
+    f.parentNode.insertBefore(sn, f);
+  })(window, document, 'script', 'https://assets.flodesk.com', '/universal', 'fd');
+</script>
 
 </head>
 <body>
@@ -283,6 +306,13 @@
       </nav>
     </footer>
   </article>
+  <div id="fd-form-66f8239b39c4e02019d4d467"></div>
+  <script>
+      window.fd('form', {
+          formId: '66f8239b39c4e02019d4d467',
+          containerEl: '#fd-form-66f8239b39c4e02019d4d467'
+      });
+  </script>
         </div>
         
 
@@ -299,7 +329,7 @@
       <a href="https://in.linkedin.com/in/abdun-nihaal-289272143" class="iconfont icon-linkedin" title="linkedin"></a>
       <a href="https://www.github.com/nifey" class="iconfont icon-github" title="github"></a>
       <a href="https://www.gitlab.com/nihaal" class="iconfont icon-gitlab" title="gitlab"></a>
-  <a href="https://nihaal.me/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+  
 </div>
 
 <div class="copyright">

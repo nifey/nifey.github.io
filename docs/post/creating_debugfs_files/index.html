@@ -26,7 +26,7 @@ sudo umount /sys/kernel/debug sudo mount -t debugfs none /sys/kernel/debug -o ui
 
 
 
-<meta name="generator" content="Hugo 0.125.4 with theme even" />
+<meta name="generator" content="Hugo 0.126.1 with theme even" />
 
 
 <link rel="canonical" href="https://nihaal.me/post/creating_debugfs_files/" />
@@ -60,15 +60,17 @@ sudo umount /sys/kernel/debug sudo mount -t debugfs none /sys/kernel/debug -o ui
   <meta itemprop="name" content="Creating debugfs files">
   <meta itemprop="description" content="debugfs debugfs is a pseudo-filesystem used for kernel debugging. It is usually mounted at /sys/kernel/debug. debugfs contains files that allow us to read debugging information.
 By default, only the root user can cd into the /sys/kernel/debug directory.
-To change it to allow the current user to cd into debugfs, we can remount it with uid set to the current user&rsquo;s uid.
+To change it to allow the current user to cd into debugfs, we can remount it with uid set to the current user’s uid.
 sudo umount /sys/kernel/debug sudo mount -t debugfs none /sys/kernel/debug -o uid=`echo $UID` cd /sys/kernel/debug Creating debugfs entries Creating debugfs files is similar to creating character device files.">
   <meta itemprop="datePublished" content="2021-11-06T00:00:00+00:00">
   <meta itemprop="dateModified" content="2021-11-06T00:00:00+00:00">
   <meta itemprop="wordCount" content="879">
-  <meta itemprop="keywords" content="Linux,Kernel"><meta name="twitter:card" content="summary"><meta name="twitter:title" content="Creating debugfs files">
-<meta name="twitter:description" content="debugfs debugfs is a pseudo-filesystem used for kernel debugging. It is usually mounted at /sys/kernel/debug. debugfs contains files that allow us to read debugging information.
+  <meta itemprop="keywords" content="Linux,Kernel">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Creating debugfs files">
+  <meta name="twitter:description" content="debugfs debugfs is a pseudo-filesystem used for kernel debugging. It is usually mounted at /sys/kernel/debug. debugfs contains files that allow us to read debugging information.
 By default, only the root user can cd into the /sys/kernel/debug directory.
-To change it to allow the current user to cd into debugfs, we can remount it with uid set to the current user&rsquo;s uid.
+To change it to allow the current user to cd into debugfs, we can remount it with uid set to the current user’s uid.
 sudo umount /sys/kernel/debug sudo mount -t debugfs none /sys/kernel/debug -o uid=`echo $UID` cd /sys/kernel/debug Creating debugfs entries Creating debugfs files is similar to creating character device files.">
 
 <!--[if lte IE 9]>
@@ -81,6 +83,27 @@ sudo umount /sys/kernel/debug sudo mount -t debugfs none /sys/kernel/debug -o ui
 <![endif]-->
 
 <script defer data-domain="nihaal.me" src="https://stats.nihaal.me/js/script.js"></script>
+<script>
+  (function(w, d, t, h, s, n) {
+    w.FlodeskObject = n;
+    var fn = function() {
+      (w[n].q = w[n].q || []).push(arguments);
+    };
+    w[n] = w[n] || fn;
+    var f = d.getElementsByTagName(t)[0];
+    var v = '?v=' + Math.floor(new Date().getTime() / (120 * 1000)) * 60;
+    var sm = d.createElement(t);
+    sm.async = true;
+    sm.type = 'module';
+    sm.src = h + s + '.mjs' + v;
+    f.parentNode.insertBefore(sm, f);
+    var sn = d.createElement(t);
+    sn.async = true;
+    sn.noModule = true;
+    sn.src = h + s + '.js' + v;
+    f.parentNode.insertBefore(sn, f);
+  })(window, document, 'script', 'https://assets.flodesk.com', '/universal', 'fd');
+</script>
 
 </head>
 <body>
@@ -486,6 +509,13 @@ I have highlighted the lines that are related to debugfs operations.</p>
       </nav>
     </footer>
   </article>
+  <div id="fd-form-66f8239b39c4e02019d4d467"></div>
+  <script>
+      window.fd('form', {
+          formId: '66f8239b39c4e02019d4d467',
+          containerEl: '#fd-form-66f8239b39c4e02019d4d467'
+      });
+  </script>
         </div>
         
 
@@ -502,7 +532,7 @@ I have highlighted the lines that are related to debugfs operations.</p>
       <a href="https://in.linkedin.com/in/abdun-nihaal-289272143" class="iconfont icon-linkedin" title="linkedin"></a>
       <a href="https://www.github.com/nifey" class="iconfont icon-github" title="github"></a>
       <a href="https://www.gitlab.com/nihaal" class="iconfont icon-gitlab" title="gitlab"></a>
-  <a href="https://nihaal.me/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+  
 </div>
 
 <div class="copyright">

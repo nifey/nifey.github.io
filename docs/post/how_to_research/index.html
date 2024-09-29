@@ -25,7 +25,7 @@ Research is producing new knowledge. The aim of research is to do something nove
 
 
 
-<meta name="generator" content="Hugo 0.125.4 with theme even" />
+<meta name="generator" content="Hugo 0.126.1 with theme even" />
 
 
 <link rel="canonical" href="https://nihaal.me/post/how_to_research/" />
@@ -55,14 +55,16 @@ Research is producing new knowledge. The aim of research is to do something nove
     <meta property="article:tag" content="Research">
 
   <meta itemprop="name" content="How to do research?">
-  <meta itemprop="description" content="Disclaimer: I&rsquo;m no expert in this. This post is just to collect all my thoughts and lessons learnt from random talks and blogs, about research.
+  <meta itemprop="description" content="Disclaimer: I’m no expert in this. This post is just to collect all my thoughts and lessons learnt from random talks and blogs, about research.
 What is research?
 Research is producing new knowledge. The aim of research is to do something novel (new) and useful. The purpose of literature survey is to ensure that our idea is new and has not been proposed before. And the purpose of evaluations is to show that our idea or technique is useful.">
   <meta itemprop="datePublished" content="2022-12-06T00:00:00+00:00">
   <meta itemprop="dateModified" content="2022-12-06T00:00:00+00:00">
-  <meta itemprop="wordCount" content="1399">
-  <meta itemprop="keywords" content="Research"><meta name="twitter:card" content="summary"><meta name="twitter:title" content="How to do research?">
-<meta name="twitter:description" content="Disclaimer: I&rsquo;m no expert in this. This post is just to collect all my thoughts and lessons learnt from random talks and blogs, about research.
+  <meta itemprop="wordCount" content="1469">
+  <meta itemprop="keywords" content="Research">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="How to do research?">
+  <meta name="twitter:description" content="Disclaimer: I’m no expert in this. This post is just to collect all my thoughts and lessons learnt from random talks and blogs, about research.
 What is research?
 Research is producing new knowledge. The aim of research is to do something novel (new) and useful. The purpose of literature survey is to ensure that our idea is new and has not been proposed before. And the purpose of evaluations is to show that our idea or technique is useful.">
 
@@ -76,6 +78,27 @@ Research is producing new knowledge. The aim of research is to do something nove
 <![endif]-->
 
 <script defer data-domain="nihaal.me" src="https://stats.nihaal.me/js/script.js"></script>
+<script>
+  (function(w, d, t, h, s, n) {
+    w.FlodeskObject = n;
+    var fn = function() {
+      (w[n].q = w[n].q || []).push(arguments);
+    };
+    w[n] = w[n] || fn;
+    var f = d.getElementsByTagName(t)[0];
+    var v = '?v=' + Math.floor(new Date().getTime() / (120 * 1000)) * 60;
+    var sm = d.createElement(t);
+    sm.async = true;
+    sm.type = 'module';
+    sm.src = h + s + '.mjs' + v;
+    f.parentNode.insertBefore(sm, f);
+    var sn = d.createElement(t);
+    sn.async = true;
+    sn.noModule = true;
+    sn.src = h + s + '.js' + v;
+    f.parentNode.insertBefore(sn, f);
+  })(window, document, 'script', 'https://assets.flodesk.com', '/universal', 'fd');
+</script>
 
 </head>
 <body>
@@ -140,7 +163,7 @@ Research is producing new knowledge. The aim of research is to do something nove
       <div class="post-meta">
         <span class="post-time"> 06-12-2022 </span>
         
-          <span class="more-meta"> 1399 words </span>
+          <span class="more-meta"> 1469 words </span>
           <span class="more-meta"> 7 mins read </span>
         
       </div>
@@ -255,12 +278,12 @@ unified memory overheads during oversubscription.</li>
 </ul>
 </li>
 <li>
-<p>Study anamolies
-During your experiments, if you find some benchmark behaving unexpectedly, dig deeper into it and try to explain what is causing that behaviour.</p>
+<p>Study anamolies</p>
+<p>During your experiments, if you find some benchmark behaving unexpectedly, dig deeper into it and try to explain what is causing that behaviour.</p>
 </li>
 <li>
-<p>Study failures
-If it turns out that the idea does not perform well, find out the reason why it doesn&rsquo;t perform well.
+<p>Study failures</p>
+<p>If it turns out that the idea does not perform well, find out the reason why it doesn&rsquo;t perform well.
 This could give insights for modifying the design to perform better.</p>
 </li>
 <li>
@@ -275,24 +298,35 @@ This prevents confirmation bias from attachment to the first hypothesis.</li>
 </ul>
 <h3 id="evaluation">Evaluation</h3>
 <p>This is where we try to answer: Is my idea useful?
-The evaluation process is different in different fields, even between subfields.</p>
+The evaluation process is different in different fields, even between subfields.
+It&rsquo;s good to spend some time to ensure that the right benchmarks and evaluation methodology is used, before starting with experiments.</p>
 <ul>
-<li>
-<p>Choose the right evaluation methodology</p>
+<li>Choose the right evaluation methodology
 <ul>
 <li>When measuring performance on real systems (as opposed to deterministic simulators),
 minimize operating system noise by (i) isolating CPUs using isolcpu boot parameter in Linux
 (ii) Take multiple measurements and use the mean.</li>
+<li>When assuming evaluation parameters (like simulation paramters), check if they are reasonable, even if they were used in previous papers. Because reviewers will question why the parameters were chosen and if they closely represent real-world parameters.</li>
 </ul>
 </li>
-<li>
-<p>Choose the right metrics</p>
+<li>Choose the right metrics
 <ul>
 <li>Use the right mean (arithmetic, geometric or harmonic mean) to aggregate your results.</li>
 </ul>
 </li>
-<li>
-<p>Choose the right benchmarks</p>
+<li>Choose the right benchmarks
+<ul>
+<li>Know your benchmark suites.</li>
+<li>Get to know what each benchmark does at a high level, and it&rsquo;s behaviour with resepect to your metrics. For instance, if you are trying to reduce virtual memory performance, classify the benchmarks into TLB-friendly and TLB-averse based on TLB hit rates.</li>
+<li>If there are input data to the benchmark, then check if the choice of input data affects the  performance of the benchmark, in which case, we have to select input data carefully.</li>
+</ul>
+</li>
+<li>Avoid common benchmarking crimes
+<ul>
+<li><a href="https://arxiv.org/pdf/1801.02381.pdf">https://arxiv.org/pdf/1801.02381.pdf</a></li>
+<li><a href="http://www.haifux.org/lectures/311/BM_crimes.pdf">http://www.haifux.org/lectures/311/BM_crimes.pdf</a></li>
+<li><a href="https://gernot-heiser.org/benchmarking-crimes.html">https://gernot-heiser.org/benchmarking-crimes.html</a></li>
+</ul>
 </li>
 </ul>
 <h3 id="automation">Automation</h3>
@@ -352,33 +386,57 @@ or related to the problem you are solving and (2) to show that your work is diff
 </li>
 </ul>
 <h3 id="presenting">Presenting</h3>
-<pre><code>&lt;div style=&quot;position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;&quot;&gt;
-  &lt;iframe allow=&quot;accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share&quot; allowfullscreen=&quot;allowfullscreen&quot; loading=&quot;eager&quot; referrerpolicy=&quot;strict-origin-when-cross-origin&quot; src=&quot;https://www.youtube-nocookie.com/embed/sT_-owjKIbA?autoplay=0&amp;controls=1&amp;end=0&amp;loop=0&amp;mute=0&amp;start=0&quot; style=&quot;position: absolute; top: 0; left: 0; width: 100%; height: 100%; border:0;&quot; title=&quot;YouTube video&quot;
-  &gt;&lt;/iframe&gt;
-&lt;/div&gt;
-</code></pre>
+<ul>
+<li>
+<p>How to give a great research talk</p>
+  <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">
+    <iframe allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen="allowfullscreen" loading="eager" referrerpolicy="strict-origin-when-cross-origin" src="https://www.youtube-nocookie.com/embed/sT_-owjKIbA?autoplay=0&controls=1&end=0&loop=0&mute=0&start=0" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border:0;" title="YouTube video"
+    ></iframe>
+  </div>
+</li>
+<li>
+<p>Poster presentation</p>
+  <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">
+    <iframe allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen="allowfullscreen" loading="eager" referrerpolicy="strict-origin-when-cross-origin" src="https://www.youtube-nocookie.com/embed/vMSaFUrk-FA?autoplay=0&controls=1&end=0&loop=0&mute=0&start=0" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border:0;" title="YouTube video"
+    ></iframe>
+  </div>
+</li>
+</ul>
 <h2 id="artifact-submission">Artifact submission</h2>
 <ul>
 <li><a href="https://blog.padhye.org/Artifact-Evaluation-Tips-for-Authors/">Artifact Evaluation: Tips for Authors</a></li>
 </ul>
 <h2 id="other-resources">Other resources</h2>
-<pre><code>&lt;div style=&quot;position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;&quot;&gt;
-  &lt;iframe allow=&quot;accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share&quot; allowfullscreen=&quot;allowfullscreen&quot; loading=&quot;eager&quot; referrerpolicy=&quot;strict-origin-when-cross-origin&quot; src=&quot;https://www.youtube-nocookie.com/embed/q_rEqcO7hMY?autoplay=0&amp;controls=1&amp;end=0&amp;loop=0&amp;mute=0&amp;start=0&quot; style=&quot;position: absolute; top: 0; left: 0; width: 100%; height: 100%; border:0;&quot; title=&quot;YouTube video&quot;
-  &gt;&lt;/iframe&gt;
-&lt;/div&gt;
-
-
-
-
-&lt;div style=&quot;position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;&quot;&gt;
-  &lt;iframe allow=&quot;accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share&quot; allowfullscreen=&quot;allowfullscreen&quot; loading=&quot;eager&quot; referrerpolicy=&quot;strict-origin-when-cross-origin&quot; src=&quot;https://www.youtube-nocookie.com/embed/a1zDuOPkMSw?autoplay=0&amp;controls=1&amp;end=0&amp;loop=0&amp;mute=0&amp;start=0&quot; style=&quot;position: absolute; top: 0; left: 0; width: 100%; height: 100%; border:0;&quot; title=&quot;YouTube video&quot;
-  &gt;&lt;/iframe&gt;
-&lt;/div&gt;
-</code></pre>
 <ul>
-<li><a href="https://people.eecs.berkeley.edu/~pattrsn/talks/BadCareer.pdf">How to have a bad career in Research/Academia</a> (David Patterson)</li>
-<li><a href="https://www.sigarch.org/how-to-have-real-world-impact-five-easy-pieces/">How to have Real world impact: Five easy steps</a></li>
-<li><a href="https://greatresearch.org/">How to do great research</a></li>
+<li>
+<p>Own your PhD project: How to take charge of your research</p>
+  <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">
+    <iframe allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen="allowfullscreen" loading="eager" referrerpolicy="strict-origin-when-cross-origin" src="https://www.youtube-nocookie.com/embed/q_rEqcO7hMY?autoplay=0&controls=1&end=0&loop=0&mute=0&start=0" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border:0;" title="YouTube video"
+    ></iframe>
+  </div>
+</li>
+<li>
+<p>You and your research</p>
+  <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">
+    <iframe allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen="allowfullscreen" loading="eager" referrerpolicy="strict-origin-when-cross-origin" src="https://www.youtube-nocookie.com/embed/a1zDuOPkMSw?autoplay=0&controls=1&end=0&loop=0&mute=0&start=0" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border:0;" title="YouTube video"
+    ></iframe>
+  </div>
+</li>
+<li>
+<p><a href="https://people.eecs.berkeley.edu/~pattrsn/talks/BadCareer.pdf">How to have a bad career in Research/Academia</a> (David Patterson)</p>
+</li>
+<li>
+<p><a href="https://www.sigarch.org/how-to-have-real-world-impact-five-easy-pieces/">How to have Real world impact: Five easy steps</a></p>
+</li>
+<li>
+<p><a href="https://greatresearch.org/">How to do great research</a></p>
+</li>
+<li>
+<p><a href="https://sabertazimi.github.io/dblp">DBLP paper search within select conferences</a></p>
+</li>
+<li>
+<p><a href="https://confsearch.ethz.ch/">Searching paper deadlines of relevant conferences</a></p>
+</li>
 </ul>
 
     </div>
@@ -416,6 +474,13 @@ or related to the problem you are solving and (2) to show that your work is diff
       </nav>
     </footer>
   </article>
+  <div id="fd-form-66f8239b39c4e02019d4d467"></div>
+  <script>
+      window.fd('form', {
+          formId: '66f8239b39c4e02019d4d467',
+          containerEl: '#fd-form-66f8239b39c4e02019d4d467'
+      });
+  </script>
         </div>
         
 
@@ -432,7 +497,7 @@ or related to the problem you are solving and (2) to show that your work is diff
       <a href="https://in.linkedin.com/in/abdun-nihaal-289272143" class="iconfont icon-linkedin" title="linkedin"></a>
       <a href="https://www.github.com/nifey" class="iconfont icon-github" title="github"></a>
       <a href="https://www.gitlab.com/nihaal" class="iconfont icon-gitlab" title="gitlab"></a>
-  <a href="https://nihaal.me/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+  
 </div>
 
 <div class="copyright">

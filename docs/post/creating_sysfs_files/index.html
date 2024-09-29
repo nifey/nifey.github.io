@@ -25,7 +25,7 @@ Any file added to the sysfs becomes a part of the Linux Application Binary Inter
 
 
 
-<meta name="generator" content="Hugo 0.125.4 with theme even" />
+<meta name="generator" content="Hugo 0.126.1 with theme even" />
 
 
 <link rel="canonical" href="https://nihaal.me/post/creating_sysfs_files/" />
@@ -62,8 +62,10 @@ Any file added to the sysfs becomes a part of the Linux Application Binary Inter
   <meta itemprop="datePublished" content="2021-11-29T00:00:00+00:00">
   <meta itemprop="dateModified" content="2021-11-29T00:00:00+00:00">
   <meta itemprop="wordCount" content="1086">
-  <meta itemprop="keywords" content="Linux,Kernel"><meta name="twitter:card" content="summary"><meta name="twitter:title" content="Creating sysfs files">
-<meta name="twitter:description" content="The kernel provides a few ways in which userspace programs can get information from the kernel space.
+  <meta itemprop="keywords" content="Linux,Kernel">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Creating sysfs files">
+  <meta name="twitter:description" content="The kernel provides a few ways in which userspace programs can get information from the kernel space.
 procfs: Used to get information about running processes debugfs: Used by kernel developers for debugging sysfs Sysfs is used for data that is not related to a particular process. It has information about hardware devices attached to the system and about drivers handling those devices.
 Any file added to the sysfs becomes a part of the Linux Application Binary Interface (ABI).">
 
@@ -77,6 +79,27 @@ Any file added to the sysfs becomes a part of the Linux Application Binary Inter
 <![endif]-->
 
 <script defer data-domain="nihaal.me" src="https://stats.nihaal.me/js/script.js"></script>
+<script>
+  (function(w, d, t, h, s, n) {
+    w.FlodeskObject = n;
+    var fn = function() {
+      (w[n].q = w[n].q || []).push(arguments);
+    };
+    w[n] = w[n] || fn;
+    var f = d.getElementsByTagName(t)[0];
+    var v = '?v=' + Math.floor(new Date().getTime() / (120 * 1000)) * 60;
+    var sm = d.createElement(t);
+    sm.async = true;
+    sm.type = 'module';
+    sm.src = h + s + '.mjs' + v;
+    f.parentNode.insertBefore(sm, f);
+    var sn = d.createElement(t);
+    sn.async = true;
+    sn.noModule = true;
+    sn.src = h + s + '.js' + v;
+    f.parentNode.insertBefore(sn, f);
+  })(window, document, 'script', 'https://assets.flodesk.com', '/universal', 'fd');
+</script>
 
 </head>
 <body>
@@ -421,6 +444,13 @@ In that post, he describes how race conditions can happen with sysfs files and h
       </nav>
     </footer>
   </article>
+  <div id="fd-form-66f8239b39c4e02019d4d467"></div>
+  <script>
+      window.fd('form', {
+          formId: '66f8239b39c4e02019d4d467',
+          containerEl: '#fd-form-66f8239b39c4e02019d4d467'
+      });
+  </script>
         </div>
         
 
@@ -437,7 +467,7 @@ In that post, he describes how race conditions can happen with sysfs files and h
       <a href="https://in.linkedin.com/in/abdun-nihaal-289272143" class="iconfont icon-linkedin" title="linkedin"></a>
       <a href="https://www.github.com/nifey" class="iconfont icon-github" title="github"></a>
       <a href="https://www.gitlab.com/nihaal" class="iconfont icon-gitlab" title="gitlab"></a>
-  <a href="https://nihaal.me/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+  
 </div>
 
 <div class="copyright">
