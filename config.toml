@@ -16,11 +16,12 @@ enableGitInfo = false # use git commit log to generate lastmod record
     title = 'Nihaal'
     languageName = 'English'
 
-# Syntax highlighting by Chroma. NOTE: Don't enable `highlightInClient` and `chroma` at the same time!
-pygmentsOptions = "linenos=table"
-pygmentsCodefences = true
-pygmentsUseClasses = true
-pygmentsCodefencesGuessSyntax = true
+  [languages.en.params]
+    # Syntax highlighting by Chroma. NOTE: Don't enable `highlightInClient` and `chroma` at the same time!
+    pygmentsOptions = "linenos=table"
+    pygmentsCodefences = true
+    pygmentsUseClasses = true
+    pygmentsCodefencesGuessSyntax = true
 
 hasCJKLanguage = false
 paginate = 5
