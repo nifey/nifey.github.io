@@ -2,6 +2,41 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://nihaal.me/</loc>
+    <lastmod>2024-10-24T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://nihaal.me/post/python_text_processing/</loc>
+    <lastmod>2024-10-24T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://nihaal.me/post/</loc>
+    <lastmod>2024-10-24T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://nihaal.me/tags/python/</loc>
+    <lastmod>2024-10-24T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://nihaal.me/tags/</loc>
+    <lastmod>2024-10-24T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
     <loc>https://nihaal.me/tags/linux/</loc>
     <lastmod>2023-08-12T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
@@ -9,28 +44,7 @@
   </url>
   
   <url>
-    <loc>https://nihaal.me/</loc>
-    <lastmod>2023-08-12T00:00:00+00:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
     <loc>https://nihaal.me/post/sed/</loc>
-    <lastmod>2023-08-12T00:00:00+00:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://nihaal.me/post/</loc>
-    <lastmod>2023-08-12T00:00:00+00:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://nihaal.me/tags/</loc>
     <lastmod>2023-08-12T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
@@ -164,13 +178,6 @@
   
   <url>
     <loc>https://nihaal.me/post/publish_to_pypi/</loc>
-    <lastmod>2021-12-04T00:00:00+00:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://nihaal.me/tags/python/</loc>
     <lastmod>2021-12-04T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>

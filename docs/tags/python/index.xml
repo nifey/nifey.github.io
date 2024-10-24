@@ -6,8 +6,15 @@
     <description>Recent content in Python on Nihaal</description>
     <generator>Hugo</generator>
     <language>en</language>
-    <lastBuildDate>Sat, 04 Dec 2021 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Thu, 24 Oct 2024 00:00:00 +0000</lastBuildDate>
     <atom:link href="https://nihaal.me/tags/python/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Notes: Text processing and Regular expressions in Python</title>
+      <link>https://nihaal.me/post/python_text_processing/</link>
+      <pubDate>Thu, 24 Oct 2024 00:00:00 +0000</pubDate>
+      <guid>https://nihaal.me/post/python_text_processing/</guid>
+      <description>In this post, we will learn by example, text processing and regular expression basics in Python. We will also learn how to use inbuilt and external packages, to take command line arguments and to read data from files.&#xA;Notes Execute python scripts like executable Normally, we can execute python scripts by running python script.py. If we want to execute python scripts like an executable on the terminal we can add the following line as the first line of the script.</description>
+    </item>
     <item>
       <title>FOSSHack 2021</title>
       <link>https://nihaal.me/post/fosshack_2021/</link>
