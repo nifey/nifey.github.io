@@ -136,7 +136,7 @@ We can automate running experiments, collecting logs/output and generating some 
 ### Paper writing {#paper-writing}
 
 -   Motivation
-    -   Use a motivating example to convey the challenges and intuitions behind your solution.
+	-   Use a motivating example to convey the challenges and intuitions behind your solution.
 -   Evaluation
     -   **Explain anamolies**: If any of your benchmarks perform in a anomolous way, i.e. it performs unexpectedly,
         then give (possible) reasons, preferably backed by other supporting results.
@@ -155,21 +155,19 @@ We can automate running experiments, collecting logs/output and generating some 
     -   When quoting use backticks for beginning quote \`\` ...quoted_text... "
     -   Use &sect; Section symbol (\\​S in LaTeX) instead of repeating section everywhere.
 -   Related works section
-
     The purpose of related works section is (1) to show that you have read the other state-of-the-art techniques used for,
     or related to the problem you are solving and (2) to show that your work is different and novel from the existing literature.
-
     -   Clearly mention how your technique is different from other closely related works.
     -   Use a table comparing existing works with tick and cross symbols, and show how your work fills the gap better.
 
-{{% youtube "1AYxMbYZQ1Y" %}}
+{{< youtube 1AYxMbYZQ1Y >}}
 
 ### Presenting
 
 - How to give a great research talk
-{{% youtube "sT_-owjKIbA" %}}
+    {{< youtube sT_-owjKIbA>}}
 - Poster presentation
-{{% youtube "vMSaFUrk-FA" %}}
+    {{< youtube vMSaFUrk-FA>}}
 
 ## Artifact submission
 - [Artifact Evaluation: Tips for Authors](https://blog.padhye.org/Artifact-Evaluation-Tips-for-Authors/)
@@ -177,13 +175,11 @@ We can automate running experiments, collecting logs/output and generating some 
 ## Other resources
 
 - Own your PhD project: How to take charge of your research
-{{% youtube "q_rEqcO7hMY" %}}
+    {{< youtube q_rEqcO7hMY>}}
 - You and your research
-{{% youtube "a1zDuOPkMSw" %}}
-
+    {{< youtube a1zDuOPkMSw>}}
 - [How to have a bad career in Research/Academia](https://people.eecs.berkeley.edu/~pattrsn/talks/BadCareer.pdf) (David Patterson)
 - [How to have Real world impact: Five easy steps](https://www.sigarch.org/how-to-have-real-world-impact-five-easy-pieces/)
 - [How to do great research](https://greatresearch.org/)
-
 - [DBLP paper search within select conferences](https://sabertazimi.github.io/dblp)
 - [Searching paper deadlines of relevant conferences](https://confsearch.ethz.ch/)

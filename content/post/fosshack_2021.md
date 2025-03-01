@@ -91,17 +91,14 @@ Pandoc can also convert epub to HTML directly, but it generates one big HTML fil
 
 #### 3. Python libraries {#3-dot-python-libraries}
 
--   [click](https://click.palletsprojects.com/)
-
+-   [click](https://click.palletsprojects.com/) :
     Helps us create a neat CLI interface.
     We found [this article](https://medium.com/nerd-for-tech/how-to-build-and-distribute-a-cli-tool-with-python-537ae41d9d78) useful in getting upto speed, creating the CLI tool.
--   [ebooklib](https://github.com/aerkalov/ebooklib)
-
+-   [ebooklib](https://github.com/aerkalov/ebooklib) :
     Library for parsing epub file.
     This library did most of the hard work of loading the content from the epub file.
     It provides good abstractions to work with the epub content.
--   [pypandoc](https://github.com/NicklasTegner/pypandoc)
-
+-   [pypandoc](https://github.com/NicklasTegner/pypandoc) :
     Thin wrapper for Pandoc. Allows us to invoke Pandoc from Python.
 
 

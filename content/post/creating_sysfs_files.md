@@ -204,9 +204,7 @@ module_exit(echo_exit);
 
 
 ### Testing echo {#testing-echo}
-
 -   Build and load the module
-
     ```bash
       make
       sudo insmod echo.ko
@@ -214,22 +212,18 @@ module_exit(echo_exit);
       #.rw-r--r-- 4.1k root 28 Nov 22:34 /sys/kernel/echo/echo
     ```
 -   Write to the sysfs file (as root)
-
     ```bash
       echo "Good Morning!" | sudo tee /sys/kernel/echo/echo
     ```
 -   Read from the sysfs file. It will return what was last written to it.
-
     ```bash
       cat /sys/kernel/echo/echo
       # Good Morning!
     ```
 -   Unload the module
-
     ```bash
       sudo rmmod echo
     ```
-
 
 ## Race conditions {#race-conditions}
 

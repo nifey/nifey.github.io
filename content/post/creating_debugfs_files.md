@@ -33,35 +33,29 @@ It is done by defining functions and storing pointers to these functions in a _f
     otherwise it is created under the given parent directory.
     The return value of the function is a pointer to a dentry or an error value.
     We need to store this dentry pointer to create files in that directory and also to remove the directory in the exit function.
-
     ```c
       struct dentry *debugfs_create_dir(const char *name, struct dentry *parent);
     ```
 -   In some functions like _debugfs\_create\_dir_, the return value is either a normal kernel space pointer or an error code.
     The return value of these functions must be checked with _IS\_ERR_ macro to check if it is an error code or a valid pointer.
-
     ```c
       root_dentry = debugfs_create_dir("hello", NULL);
       if (IS_ERR(root_dentry))
         return -ENODEV;
     ```
 -   Create debugfs files using the functions available in [include/linux/debugfs.h](https://elixir.bootlin.com/linux/latest/source/include/linux/debugfs.h).
-
     ```c
       struct dentry *debugfs_create_file(const char *name, umode_t mode,
                                          struct dentry *parent, void *data,
                                          const struct file_operations *fops);
     ```
-
     Arguments of the above function:
-
     1.  _name_ : Name of the file to be created
     2.  _mode_ : Access permissions of the file
     3.  _parent_ : Dentry of the folder under which we want to create this file
     4.  _data_ : Pointer value that is stored for later use. inode.i\_private will be set to this value on a open() syscall.
     5.  _fops_ : The _file\_operations_ struct initialized with pointers to the defined functions
 -   To expose the values of simple variables, we have functions for some basic types like u8, u16, etc.
-
     ```c
       void debugfs_create_u8(const char *name, umode_t mode, struct dentry *parent,
                              u8 *value);
@@ -77,11 +71,9 @@ It is done by defining functions and storing pointers to these functions in a _f
 -   In the exit function of the kernel modules, we remove the debugfs entries using _debugfs\_remove_ function.
     We pass the dentry pointer of debugfs directory we created. The function removes debugfs entries recursively, i.e. all files
     under the directory will be removed.
-
     ```c
       void debugfs_remove(struct dentry *dentry);
     ```
-
 
 ## An example: Echo file {#an-example-echo-file}
 
@@ -185,9 +177,7 @@ module_exit(echo_exit);
 
 
 ### Testing echo {#testing-echo}
-
 -   Build and load the module
-
     ```bash
       make
       sudo insmod echo.ko
@@ -195,22 +185,18 @@ module_exit(echo_exit);
       #.rw-rw-rw- 0 root  5 Nov 22:26 echo
     ```
 -   Write to the device
-
     ```bash
       echo "Good Morning!" > /sys/kernel/debug/hello/echo
     ```
 -   Read from the device. It will return what was last written to it.
-
     ```bash
       cat /sys/kernel/debug/hello/echo
       # Good Morning!
     ```
 -   Unload the module
-
     ```bash
       sudo rmmod echo
     ```
-
 
 ## References {#references}
 

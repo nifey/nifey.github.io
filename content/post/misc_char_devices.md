@@ -230,7 +230,6 @@ Then we create the _miscdevice_ structure, initializing some of its members:
 -   _mode_ specifies the permissions for device file access.
     It would be more readable to use macros than to write the octal permission value.
     So we use permission macros defined in [include/linux/stat.h](https://elixir.bootlin.com/linux/latest/source/include/linux/stat.h) and [include/uapi/linux/stat.h](https://elixir.bootlin.com/linux/latest/source/include/uapi/linux/stat.h).
-
     _S\_IRUGO_ denotes that User, Group and Others (UGO) have Read (R) permissions.
     Similarly _S\_IWUGO_ denotes that User, Group and Others (UGO) have Write (W) permissions.
     For the echo device, we want any user to have read and write access, so we use _(S\_IRUGO|S\_IWUGO)_
@@ -303,32 +302,26 @@ clean:
 ### Testing echo {#testing-echo}
 
 -   Build and load the module
-
     ```bash
       make
       sudo insmod echo.ko
       ls /dev/echo
       # crw-rw-rw- 10,123 root  3 Nov 20:53 /dev/echo
     ```
-
     The echo device will show up at /dev/echo. Notice that the major number 10 tells us that it is a misc device.
 -   Write to the device
-
     ```bash
       echo "Good Morning!" > /dev/echo
     ```
 -   Read from the device. It will return what was last written to it.
-
     ```bash
       cat /dev/echo
       # Good Morning!
     ```
 -   Unload the module
-
     ```bash
       sudo rmmod echo
     ```
-
 
 ## References {#references}
 

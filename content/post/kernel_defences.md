@@ -9,13 +9,10 @@ Usually when an attacker exploits a vulnerability, the attack starts out as a _I
 
 -   _Illegal memory accesses_ are memory accesses which the programmer didn't intend to happen, which allows attackers to read or write to some memory locations.
     Illegal memory accesses can be classified on three aspects:
-
     1.  Read or Write access
     2.  Access to Arbitrary address or restricted address
     3.  If it is a write, Arbitrary value or restricted value write
-
     Write accesses and arbitrary address/value writes are more serious bugs, as they allow attackers more control over where or what value they can write, making it easier to subvert execution.
-
 -   In a control flow hijack, the vulnerability provides a way to divert execution into an attacker controlled path.
     For instance, when an attacker controls the value of a function pointer, she can hijack control flow when that function is dereferenced.
     Control flow hijack can happen either on the forward edge (when a function is called) or on the backward edge (when a function returns).

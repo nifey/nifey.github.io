@@ -25,6 +25,7 @@ It is currently used for continuous fuzzing of Linux, Android and other BSD kern
 ## Syzkaller overview {#syzkaller-overview}
 
 ![](https://github.com/google/syzkaller/blob/master/docs/process_structure.png?raw=true)
+
 The above image, taken from [Syzkaller documentation](https://github.com/google/syzkaller/blob/master/docs/internals.md) shows the overall working of Syzkaller.
 Syzkaller consists of different components like syz-manager, syz-fuzzer and syz-executor.
 _syz-manager_ is the process that manages virtual machines, maintains and updates the corpus of input program based on coverage information obtained through _syz-fuzzer_.
@@ -38,7 +39,6 @@ Inside the virtual machine, _syz-executor_ is the program that executes the syst
 ### 1. Compile the Linux kernel for fuzzing {#1-dot-compile-the-linux-kernel-for-fuzzing}
 
 -   Download source
-
     ```bash
       git clone https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git linux
       cd linux
@@ -46,7 +46,6 @@ Inside the virtual machine, _syz-executor_ is the program that executes the syst
       make kvm_guest.config; # Enable some configs for virtualization
     ```
 -   Ensure that the following configurations are enabled in the .config file.
-
     ```nil
       CONFIG_KCOV=y          # Coverage collection
       CONFIG_DEBUG_INFO=y    # Debug info
@@ -58,31 +57,25 @@ Inside the virtual machine, _syz-executor_ is the program that executes the syst
       CONFIG_SECURITYFS=y
     ```
 -   Compile
-
     ```bash
       make -j16
     ```
 
-
 ### 2. Setup Qemu {#2-dot-setup-qemu}
 
--   Create rootfs with SSH access
-
+-   Create rootfs with SSH access.
     We need a root filesystem for booting the kernel in a QEMU virtual machine.
     Syzkaller provides a helper script _tools/create-image.sh_ for creating a debian image.
     The script also creates ssh keys for logging into the VM through SSH.
-
     ```nil
       git clone https://github.com/google/syzkaller
       cd syzkaller
       ./tools/create-image.sh -d buster             # Create a debian buster image
       # Now you should find buster.img, buster.id_rsa, buster.id_rsa.pub created
     ```
--   Test Qemu
-
+-   Test Qemu.
     Syzkaller accesses VM through SSH and so we need to ensure that the kernel boots and that we are able to SSH into the VM using the generated SSH keys.
     If the VM boots fine and we are able to SSH into it, then we are all set for fuzzing.
-
     ```nil
       # Start qemu with the compiled kernel and debian image
       KERNEL=/home/nihaal/linux     # Path to linux source
@@ -104,24 +97,19 @@ Inside the virtual machine, _syz-executor_ is the program that executes the syst
       ssh -i $IMAGE/buster.id_rsa -p 10021 -o "StrictHostKeyChecking no" root@localhost
     ```
 
-
 ### 3. Setup and run Syzkaller {#3-dot-setup-and-run-syzkaller}
 
--   Make Syzkaller
-
+-   Build Syzkaller.
     Syzkaller is written in Go. Install golang on your system and compile Syzkaller with make.
-
     ```bash
       # Install golang
       cd syzkaller
       make
     ```
--   Create syz-manager config
-
+-   Create syz-manager config.
     We need to pass a configuration file for Syzkaller that contains information about the location of the kernel and root filesystem,
     number of processes, number of VM and the number of virtual CPUs and memory in each VM.
     Description of different configs can be found <span class="underline">[here](https://github.com/google/syzkaller/blob/master/pkg/mgrconfig/config.go)</span>
-
     ```nil
       {
           "target": "linux/amd64",          # System architecture
@@ -143,11 +131,9 @@ Inside the virtual machine, _syz-executor_ is the program that executes the syst
       }
     ```
 -   Start fuzzing
-
     ```nil
       ./bin/syz-manager -config my.cfg
     ```
-
 
 ## Syzbot {#syzbot}
 

@@ -24,33 +24,24 @@ I'm documenting the steps involved, in the hope that it will be useful for someo
 Before pushing to PyPI we have to package the project with **setuptools**.
 To do that, we will add a **setup.py** file and some additional files.
 
--   Pick a package name
-
-    Pick a name for your project that is not already used by some other package on PyPI.
+-   Pick a package name that is not already used by some other package on PyPI.
     You can search for existing packages [here](https://pypi.org/search/).
-
     Don't wait till you make your project perfect to publish your package, because, since Python uses a linear namespace, your project name might get taken.
     Moreover, [Name squatting](https://www.reddit.com/r/rust/comments/86yr2x/python%5Fpep%5Fregarding%5Fpackage%5Fnames%5Fabandoned/) seems to be an issue on PyPI (and on Crates.io).
     If your project's basic functionality is working, go ahead and publish.
     You can always add more functionality in later releases.
-
 -   Add a [LICENSE](https://choosealicense.com/) file
 -   Add a README.md or README.rst file
--   Add a MANIFEST.in file
-
+-   Add a MANIFEST.in file.
     The MANIFEST.in file is used to specify what files (other than source code and README file) to include or exclude from the package. We will include the LICENSE in the package by including it in the MANIFEST.in file.
-
     ```nil
       include LICENSE
     ```
--   Add setup.py file
-
+-   Add setup.py file.
     setup.py contains information about the package, its dependecies and more.
     The _setup()_ function takes these information as paramters.
-
     A template setup.py file is shown below.
     It uses the contents of README.md as the _long\_description_ and the contents of requirements.txt file as _install\_requires_ (i.e. dependencies).
-
     ```python
       from setuptools import setup, find_packages
 
@@ -80,7 +71,6 @@ To do that, we will add a **setup.py** file and some additional files.
           install_requires = [requirements],
       )
     ```
-
     -   Classifiers make it easy for people to search on PyPI.
         You can think of them as tags or categories that is used to filter down packages when searching on PyPI.
         You can find a list of all classifiers at <https://pypi.org/classifiers/>.
@@ -115,53 +105,38 @@ ls dist
 ### 3. Upload to PyPI {#3-dot-upload-to-pypi}
 
 -   Create an account on [PyPI](https://pypi.org/account/register/)
-
     Only registered users can upload packages to PyPI.
 -   Install twine
-
     Twine is a utility tool for publishing on PyPI.
     It can be installed using pip.
-
     ```bash
       pip install twine
     ```
 -   Twine check
-
     Twine can check and report common packaging mistakes. We can run the _check_ command on the distrubution files that we generated.
-
     ```bash
       twine check dist/*
     ```
 -   Create a GPG key, if you don't have one already
-
     I'm not sure if this is required. But when I tried to upload a package to PyPI, it did prompt for a GPG key.
-
     To create a key, Install GPG and execute the following command.
     It will prompt for name, email, etc and create a GPG key.
-
     ```bash
       gpg --full-generate-key
     ```
 -   Test it with [testpypi](https://test.pypi.org/)
-
     Before pushing your package to PyPI you can test it on testPyPI.
     This allows us to see how it would look like on the PyPI site without affecting the main index.
-
     Note that testpypi is a separate instance and so you have to create a new account on testpypi before pushing packages to it.
-
     To upload the package to testpypi, run:
-
     ```bash
       twine upload -r testpypi dist/*
     ```
-
     The -r flag specifies the repository to upload to, which is PyPI by default.
 -   Upload
-
     ```bash
       twine upload dist/*
     ```
-
     The above command will prompt for your PyPI username and password, and then upload the package files under _dist_ directory to PyPI.
 
 Congratulations! Your package should now be available on PyPI.
@@ -211,9 +186,7 @@ To publish newer versions of your package:
 
     When creating a new release, it is good practice to summarize the changes between the old version and the new version in the tag message.
 
-{{% admonition tip "Duckduckgo bang for PyPI" %}}
 If you use Duckduckgo, you can use [**!pypi** bang](https://duckduckgo.com/bang?q=pypi) to search for a package in PyPI.
-{{% /admonition %}}
 
 
 ## References {#references}

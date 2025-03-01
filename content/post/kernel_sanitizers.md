@@ -39,9 +39,7 @@ The working of generic KASAN is described below:
     For instance, if the value stored is 3, it indicates that 3 bytes starting from the beginning are legally accessible.
     However if the value stored is 0, it indicates that all 8 corresponding bytes are legally accessible.
     Negative values stored in shadow memory indicates illegal access and different negative values are used to differentiate between red zones (out of bound access) and freed objects (use after free).
-
 -   **Memory access checks**: Before every memory access (or at the beginning of each control flow block, I'm not sure which exactly), KASAN adds code to check the shadow memory to ensure that the memory accesses are performed on valid unpoisoned memory. If not, it crashes the kernel after printing a report.
-
     ```c
       // Instrumented code
       // Calculate index into shadow memory
@@ -52,9 +50,7 @@ The working of generic KASAN is described below:
 
       *p = 1; // Original memory access
     ```
-
 -   **Red zones between objects**: To detect out of bound accesses, KASAN inserts _red zones_, i.e. inaccessible zones between objects. This helps detect accesses that read or write to memory regions outside the allocated region.
-
 -   **Quarantine for heap objects**: To detect dangling pointers (which causes use after free bugs), KASAN prevents reallocating a freed object immediately. Instead it waits for some time before reallocating the same memory to a different object. If there is any memory access to the region during this time window, it is most likely a dangling pointer dereference.
 
 When KASAN detects an illegal memory access, it either prints a warning or panics the kernel depending on the _panic_on_warn_ kernel command line parameter.

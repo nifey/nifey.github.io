@@ -25,12 +25,10 @@ Before we can start fixing bugs, we need to have a Qemu virtual machine setup al
     -   When booting the kernel in Qemu, add the _-s -S_ flags to the command.
         Qemu will wait for a GDB connection before booting up.
     -   In another terminal, open GDB and type:
-
         ```gdb
             target remote localhost:1234
             continue
         ```
-
 
 ## 1. Find a bug to fix {#1-dot-find-a-bug-to-fix}
 
@@ -76,7 +74,6 @@ If you are able to reliably reproduce the bug then you can try fixing it.
     (Shuah Khan suggested this during the LFX mentorship meetings.)
     For example, in the simplified example below, we can infer that since the buggy function is on
     the true branch of the if-else, the if condition must be true for the bug to happen.
-
     ```c
            if (some_bool) {
       	// Buggy function is called from this path
@@ -88,7 +85,6 @@ If you are able to reliably reproduce the bug then you can try fixing it.
 -   Use kgdb to debug the kernel. Set a breakpoint right before the bug and look around to see what is causing the bug.
 -   Minimize the reproducer manually. Try to remove some system calls or operations from the reproducer while ensuring that the reproducer still
     causes the bug.
-
 
 ## 4. Fix the bug {#4-dot-fix-the-bug}
 

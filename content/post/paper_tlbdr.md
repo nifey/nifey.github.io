@@ -58,13 +58,11 @@ There are a few things about the [source code](https://github.com/vusec/tlbdr) t
 
 -   First, since OSes don't allow userspace processes to desynchronize TLBs, they use a Linux kernel module to perform TLB desynchronization by swapping the PTEs of (virtually) adjacent pages.
 -   To reduce interference from other processes and interrupts, the module disables kernel preemption when performing experiments. It uses the following two functions (which I believe are functions defined in the Linux kernel source code) to do that:
-
     ```C
       raw_local_irq_restore(flags);
       preempt_enable();
     ```
 -   In trigger.c, the program allocates a large buffer and writes some data to each page to uniquely identify the physical page. I thought this would be some integer that denotes the page number, but I found this:
-
     ```C
       //Write an identifier to each unique physcial page
       //The identifier will be returned when this code is executed
@@ -77,23 +75,18 @@ There are a few things about the [source code](https://github.com/vusec/tlbdr) t
               p1[12] = 0xc3;
       }
     ```
-
     This actually writes x86 assembly code which returns the unique ID of the page when executed. The advantage of doing it this way is that we can now perform both data access and instruction access to the same page and in both cases identify which physical page we are accessing.
     For example, if the value stored in _i_ is _0x1234_, the following assembly code gets written to the page.
-
-    ```nil
+    ```
       ❯ echo -en "\x90\x90\x48\xb8\x34\x12\x00\x00\x00\x00\x00\x00\xc3" | disasm -c amd64
          0:    90                             nop
          1:    90                             nop
          2:    48 b8 34 12 00 00 00 00 00 00  movabs rax,  0x1234
          c:    c3                             ret
     ```
-
     Since this code is written in userspace pages and needs to be executed in kernel mode during the experiments, they have to disable _Supervisor Mode Execution Prevention (SMEP)_ which is a defence mechanism that prevents executing userspace code when executing in supervisor mode.
     In addition, the NX bit in the page table entries, which prevents execution of code from dirty pages (to avoid shellcode execution), has to be cleared before performing experiments.
-
 -   An experiment from _AMD/mmuctl/source/experiments.c_ to test the presence of a shared TLB.
-
     ```c
       /*
       	This function tests whether an PTE cached in response to a data load

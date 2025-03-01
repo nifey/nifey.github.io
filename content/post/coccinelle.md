@@ -32,7 +32,6 @@ The syntax of semantic patches is similar to C and the notations used in patches
 ## Installing and using Coccinelle {#installing-and-using-coccinelle}
 
 -   To install coccinelle from source
-
     ```bash
       git clone https://github.com/coccinelle/coccinelle
       cd coccinelle
@@ -41,29 +40,21 @@ The syntax of semantic patches is similar to C and the notations used in patches
       make
       sudo make install
     ```
-
     This will install a tool called **spatch**, which is like the _patch_ tool but for semantic patches.
     We use spatch for applying semantic patches.
-
 -   To check if your semantic patch is valid:
-
     ```bash
       spatch --parse-cocci your_patch.cocci
     ```
-
 -   To apply or run your patch on a file or directory:
-
     ```bash
       spatch --sp-file your_patch.cocci file.c
       spatch --sp-file your_patch.cocci --dir directory
     ```
-
 -   To set a virtual dependency (like report,patch,org) use -D flag:
-
     ```bash
       spatch -D report --sp-file your_patch.cocci file.c
     ```
-
 
 ## Writing Semantic patches {#writing-semantic-patches}
 
@@ -100,33 +91,26 @@ We can also use metavariables of a specific struct or type defined in the progra
 
 #### Transformation specification {#transformation-specification}
 
--   Matching code
-
+-   **Matching code**:
     We can use (three) dot symbols: **...** to match any code. This allows us to match lines irrespective of
     the code present between the lines.
     However, in some situations, we may want to restrict the code that we want to skip.
     For this, we can use the **when** clause along with the dots.
-
     -   **...** matches any code
     -   **... when != e** matches any code which is not equivalent to the expression e.
     -   **&lt;... x ...&gt;** matches the expression represented by _x_, zero or more times.
     -   **&lt;+... x ...+&gt;** matches the expression represented by _x_, one or more times.
-
--   Transforming code
-
+-   **Transforming code**:
     The left most column specifies the transformation that needs to be performed.
     The following symbols have special meaning when used as the first character in a line:
-
     -   **+**  adds the line to the matched code
     -   **-**   removes the matched line
     -   **\***   highlights the matched line
     -   **( | )** Disjunction allows us to specify multiple possible match patterns
 
-
 #### Examples {#examples}
 
 1.  Replace expressions of the form 1 &lt;&lt; C with the macro BIT(C) where C is any constant.
-
     ```Coccinelle
           @@
           constant C;
@@ -135,10 +119,8 @@ We can also use metavariables of a specific struct or type defined in the progra
           - 1 << C
     ​      + BIT(C)
     ```
-
 2.  Using _disjunction_: Replace expressions of the form 1 &lt;&lt; C with BIT(C) where C is any constant, and
     replace expressions of the form 1 &lt;&lt; E with BIT(E) where E is any expression.
-
     ```Coccinelle
           @@
           constant C;
@@ -153,11 +135,9 @@ We can also use metavariables of a specific struct or type defined in the progra
     ​      + BIT(E)
           }
     ```
-
 3.  Using _identifiers_ and _dots_: Replace assignment to a local variable followed by immediate return of that value,
     by simply the return statement.
     Notice here, we don't care about what the arguments of the function is, and so we can use dots there.
-
     ```Coccinelle
           @@
           identifier f;
@@ -168,9 +148,7 @@ We can also use metavariables of a specific struct or type defined in the progra
     ​      + return f(...);
     ​      - return r;
     ```
-
 4.  Matching zero or more function calls using **&lt;... ...&gt;**
-
     ```Coccinelle
           @@
           identifier f;
@@ -182,7 +160,6 @@ We can also use metavariables of a specific struct or type defined in the progra
           ...>
           }
     ```
-
 
 ### Advanced features {#advanced-features}
 

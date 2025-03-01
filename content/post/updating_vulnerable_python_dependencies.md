@@ -13,17 +13,14 @@ They also provide a tool called safety, that checks if the installed packages or
 are identified as vulnerable using the safety-db.
 
 -   Install safety
-
     ```bash
     pip install safety
     ```
 -   Use safety to check all packages in the current virtual enviroment
-
     ```bash
     safety check
     ```
 -   Use safety to only check the dependencies listed in requirements.txt file
-
     ```bash
     safety check -r requirements.txt
     ```
@@ -64,27 +61,21 @@ To update the dependencies we can use the pip-upgrade tool.
 pip-upgrade updates the dependency package to the latest version and also updates the requirements.txt file.
 
 -   Install pip-upgrader
-
     ```bash
     pip install pip-upgrader
     ```
 -   Use pip-upgrader on a requirements.txt file
-
     ```bash
     pip-upgrade requirements.txt
     ```
-
     If the requirements.txt file is not provided, it expects to find it in the current directory.
 -   Use pip-upgrader to update a specific package
-
     ```bash
     pip-upgrade requirements.txt -p pillow
     ```
 
-{{% admonition tip "Check for regressions" %}}
 Newer versions of dependencies may change the API that the application uses.
 So when updating dependencies, It is always a good idea to check if the application works correctly with the updated packages.
-{{% /admonition %}}
 
 
 ## References {#references}

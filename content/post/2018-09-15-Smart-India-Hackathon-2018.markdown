@@ -69,13 +69,9 @@ We used [ngrok](https://ngrok.io) to tunnel the requests from the Android app to
 But after the coding period was over, I shut down my laptop which was running the server and the Ngrok service. Because of this, we couldn't give the judges a demo during the last review. We showed the judging panel screencasts of the app that we had shot earlier.
 
 ### Lessons learnt
-
 * Participate in hackathons whenever possible. It is a totally different experience and you will learn a lot. Also learning with friends is always fun.
-
 * Before any hackathon, talk to the potential users of the application you are going to create. During one of the reviews, a member of the judging panel asked us if we had talked to farmers about the application.
-
 * Also if your project is related to Machine learning, make sure you prepare a very good dataset. We did all we could to get a dataset before we went to the hackathon but still, our model's accuracy was just average. 
-
 * Talk with other people. We regret not doing this. After all, a hackathon is not just about writing code. It is an opportunity to socialize.
 
 This was our first hackathon. We didn't win but the experience itself was something special. It is a very good initiative by the Indian government. It is a step towards inculcating the hacker culture among the students. If you are studying in college, then you should definitely give this a try.
