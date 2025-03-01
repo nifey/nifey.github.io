@@ -1,164 +1,179 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <title>Notes on Sed - Nihaal</title>
-  <meta name="renderer" content="webkit" />
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<html><head lang="en">
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge"><title>Notes on Sed - Nihaal</title><meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="Sed
 
-<meta http-equiv="Cache-Control" content="no-transform" />
-<meta http-equiv="Cache-Control" content="no-siteapp" />
+Stream EDitor, UNIX utility
+Based on ed (line oriented text editor)
+Used commonly for find and replace based on Regular expressions
+Useful for processing and transforming logs
+Can also be used inside vim for find and replace
 
-<meta name="theme-color" content="#f8f5ec" />
-<meta name="msapplication-navbutton-color" content="#f8f5ec">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+Basic usage
+cat file | sed &#39;s/hello/world/&#39;
+sed &#39;s/hello/world/&#39; file
+sed file -e &#39;s/hello/world/&#39;
 
+sed &#39;s/hello/world/&#39; -i file	# Inline (will replace in the file)
 
-<meta name="author" content="Abdun Nihaal" /><meta name="description" content="Sed Stream EDitor, UNIX utility Based on ed (line oriented text editor) Used commonly for find and replace based on Regular expressions Useful for processing and transforming logs Can also be used inside vim for find and replace Basic usage cat file | sed &amp;#39;s/hello/world/&amp;#39; sed &amp;#39;s/hello/world/&amp;#39; file sed file -e &amp;#39;s/hello/world/&amp;#39; sed &amp;#39;s/hello/world/&amp;#39; -i file	# Inline (will replace in the file) cat file | sed &amp;#39;/REGEX/d&amp;#39;	# Delete lines matching a regular expression Regular expression syntax Language to represent string patterns Useful beyond sed (eg: grepping through source code) Basic regex: Specify characters to match &amp;lsquo;a&amp;rsquo; matches character a [a-z] matches lowercase alphabets [a-zA-Z0-9] matches alphabets and numbers [abc] matches characters a b c [^abc] matches anything except characters a b c Specify count of characters to match * -&amp;gt; Zero or more instances \&#43; -&amp;gt; One or more instances ?" />
+cat file | sed &#39;/REGEX/d&#39;	# Delete lines matching a regular expression
+Regular expression syntax
 
+Language to represent string patterns
+Useful beyond sed (eg: grepping through source code)
+Basic regex: 
+Specify characters to match
 
-
-
-
-
-<meta name="generator" content="Hugo 0.126.1 with theme even" />
-
-
-<link rel="canonical" href="https://nihaal.me/post/sed/" />
-<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-<link rel="manifest" href="/manifest.json">
-<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+&lsquo;a&rsquo; matches character a
+[a-z] matches lowercase alphabets
+[a-zA-Z0-9] matches alphabets and numbers
+[abc] matches characters a b c
+[^abc] matches anything except characters a b c
 
 
+Specify count of characters to match
 
-<link href="/sass/main.min.f92fd13721ddf72129410fd8250e73152cc6f2438082b6c0208dc24ee7c13fc4.css" rel="stylesheet">
-<link href="/lib/fancybox/jquery.fancybox-3.1.20.min.css" rel="stylesheet">
+* -&gt; Zero or more instances
+\&#43; -&gt; One or more instances
+? -&gt; Zero or one instances
+{8} -&gt; Matches 8 instances
+{1,3} -&gt; Matches 1 to 3 instances
+{3,} -&gt; Matches 3 or more instances
 
 
-<meta property="og:url" content="https://nihaal.me/post/sed/">
+Special characters
+
+. -&gt; Matches any character
+^ -&gt; Matches the beginning of the line
+$ -&gt; Matches the end of the line
+
+
+Combining regex
+
+&lsquo;regex1regex2&rsquo; matches regex1 first then regex2 (Concatenation)
+&lsquo;regex1\|regex2&rsquo; matches either regex1 or regex2 (Choice)
+
+
+Backreferences
+
+Used for selecting a part of the matched string to be used for transforming text
+Enclose parts of the regex with \( .. \) parenthesis
+Use the corresponding matches in replacement using \1, \2, etc to match the first, second backreference respectively.
+
+
+
+Sed command syntax
+PATTERN_SPACE { commands; ...}
+Pattern space
+
+Selects (filters) the lines that we want to process
+Can be specified as line number ranges or regular expressions
+
+sed &#39;7d&#39; file			# Delete line number 7
+sed &#39;1,10d&#39; file		# Delete line number 1 to 10
+sed &#39;/REGEX/d&#39; file		# Delete lines matching REGEX
+sed &#39;3,/REGEX/d&#39; file		# Delete from 3rd line to a line matching REGEX
+sed &#39;/REGEX1/,/REGEX2/d&#39; file	# Delete lines starting from a line matching REGEX1 to a line matching REGEX2
+sed &#39;/REGEX1/,$d&#39; file		# Delete lines starting from a line matching REGEX1 till end of file
+sed &#39;/REGEX1/ {/REGEX2/d}&#39; file # Delete lines matching both REGEX1 and REGEX2
+Substitute command for find and replace
+# Finds patterns matching REGEX1 and replaces with REGEX2
+cat file | sed &#39;s/REGEX1/REGEX2/[flags]&#39;
+# Optional flags
+# i to ignore case
+# g to replace more than one instance of the pattern in a line
+# c to confirm every replacement (Only available in vim mode)
+Other commands
+# Delete command
+cat file | sed &#39;/REGEX/d&#39;	# Delete lines matching a regular expression
+
+# Print command
+cat file | sed -n &#39;10p&#39;		# Print 10th line
+cat file | sed -n &#39;/REGEX/p&#39;	# Grep
+
+# Transliterate command
+cat file | sed &#39;y/abc/ABC/&#39;	# Transliterate (a-&gt;A, b-&gt;B, c-&gt;C)
+For more information, execute info sed on the shell to get a manual on sed." />
+	<meta property="og:image" content=""/>
+	<meta property="og:url" content="https://nihaal.me/post/sed/">
   <meta property="og:site_name" content="Nihaal">
   <meta property="og:title" content="Notes on Sed">
-  <meta property="og:description" content="Sed Stream EDitor, UNIX utility Based on ed (line oriented text editor) Used commonly for find and replace based on Regular expressions Useful for processing and transforming logs Can also be used inside vim for find and replace Basic usage cat file | sed &#39;s/hello/world/&#39; sed &#39;s/hello/world/&#39; file sed file -e &#39;s/hello/world/&#39; sed &#39;s/hello/world/&#39; -i file	# Inline (will replace in the file) cat file | sed &#39;/REGEX/d&#39;	# Delete lines matching a regular expression Regular expression syntax Language to represent string patterns Useful beyond sed (eg: grepping through source code) Basic regex: Specify characters to match ‘a’ matches character a [a-z] matches lowercase alphabets [a-zA-Z0-9] matches alphabets and numbers [abc] matches characters a b c [^abc] matches anything except characters a b c Specify count of characters to match * -&gt; Zero or more instances \&#43; -&gt; One or more instances ?">
-  <meta property="og:locale" content="en">
+  <meta property="og:description" content="Sed Stream EDitor, UNIX utility Based on ed (line oriented text editor) Used commonly for find and replace based on Regular expressions Useful for processing and transforming logs Can also be used inside vim for find and replace Basic usage cat file | sed &#39;s/hello/world/&#39; sed &#39;s/hello/world/&#39; file sed file -e &#39;s/hello/world/&#39; sed &#39;s/hello/world/&#39; -i file	# Inline (will replace in the file) cat file | sed &#39;/REGEX/d&#39;	# Delete lines matching a regular expression Regular expression syntax Language to represent string patterns Useful beyond sed (eg: grepping through source code) Basic regex: Specify characters to match ‘a’ matches character a [a-z] matches lowercase alphabets [a-zA-Z0-9] matches alphabets and numbers [abc] matches characters a b c [^abc] matches anything except characters a b c Specify count of characters to match * -&gt; Zero or more instances \&#43; -&gt; One or more instances ? -&gt; Zero or one instances {8} -&gt; Matches 8 instances {1,3} -&gt; Matches 1 to 3 instances {3,} -&gt; Matches 3 or more instances Special characters . -&gt; Matches any character ^ -&gt; Matches the beginning of the line $ -&gt; Matches the end of the line Combining regex ‘regex1regex2’ matches regex1 first then regex2 (Concatenation) ‘regex1\|regex2’ matches either regex1 or regex2 (Choice) Backreferences Used for selecting a part of the matched string to be used for transforming text Enclose parts of the regex with \( .. \) parenthesis Use the corresponding matches in replacement using \1, \2, etc to match the first, second backreference respectively. Sed command syntax PATTERN_SPACE { commands; ...} Pattern space Selects (filters) the lines that we want to process Can be specified as line number ranges or regular expressions sed &#39;7d&#39; file	# Delete line number 7 sed &#39;1,10d&#39; file	# Delete line number 1 to 10 sed &#39;/REGEX/d&#39; file	# Delete lines matching REGEX sed &#39;3,/REGEX/d&#39; file	# Delete from 3rd line to a line matching REGEX sed &#39;/REGEX1/,/REGEX2/d&#39; file	# Delete lines starting from a line matching REGEX1 to a line matching REGEX2 sed &#39;/REGEX1/,$d&#39; file	# Delete lines starting from a line matching REGEX1 till end of file sed &#39;/REGEX1/ {/REGEX2/d}&#39; file # Delete lines matching both REGEX1 and REGEX2 Substitute command for find and replace # Finds patterns matching REGEX1 and replaces with REGEX2 cat file | sed &#39;s/REGEX1/REGEX2/[flags]&#39; # Optional flags # i to ignore case # g to replace more than one instance of the pattern in a line # c to confirm every replacement (Only available in vim mode) Other commands # Delete command cat file | sed &#39;/REGEX/d&#39;	# Delete lines matching a regular expression # Print command cat file | sed -n &#39;10p&#39;	# Print 10th line cat file | sed -n &#39;/REGEX/p&#39;	# Grep # Transliterate command cat file | sed &#39;y/abc/ABC/&#39;	# Transliterate (a-&gt;A, b-&gt;B, c-&gt;C) For more information, execute info sed on the shell to get a manual on sed.">
+  <meta property="og:locale" content="en_us">
   <meta property="og:type" content="article">
     <meta property="article:section" content="post">
     <meta property="article:published_time" content="2023-08-12T00:00:00+00:00">
     <meta property="article:modified_time" content="2023-08-12T00:00:00+00:00">
     <meta property="article:tag" content="Linux">
 
-  <meta itemprop="name" content="Notes on Sed">
-  <meta itemprop="description" content="Sed Stream EDitor, UNIX utility Based on ed (line oriented text editor) Used commonly for find and replace based on Regular expressions Useful for processing and transforming logs Can also be used inside vim for find and replace Basic usage cat file | sed &#39;s/hello/world/&#39; sed &#39;s/hello/world/&#39; file sed file -e &#39;s/hello/world/&#39; sed &#39;s/hello/world/&#39; -i file	# Inline (will replace in the file) cat file | sed &#39;/REGEX/d&#39;	# Delete lines matching a regular expression Regular expression syntax Language to represent string patterns Useful beyond sed (eg: grepping through source code) Basic regex: Specify characters to match ‘a’ matches character a [a-z] matches lowercase alphabets [a-zA-Z0-9] matches alphabets and numbers [abc] matches characters a b c [^abc] matches anything except characters a b c Specify count of characters to match * -&gt; Zero or more instances \&#43; -&gt; One or more instances ?">
-  <meta itemprop="datePublished" content="2023-08-12T00:00:00+00:00">
-  <meta itemprop="dateModified" content="2023-08-12T00:00:00+00:00">
-  <meta itemprop="wordCount" content="480">
-  <meta itemprop="keywords" content="Linux">
   <meta name="twitter:card" content="summary">
   <meta name="twitter:title" content="Notes on Sed">
-  <meta name="twitter:description" content="Sed Stream EDitor, UNIX utility Based on ed (line oriented text editor) Used commonly for find and replace based on Regular expressions Useful for processing and transforming logs Can also be used inside vim for find and replace Basic usage cat file | sed &#39;s/hello/world/&#39; sed &#39;s/hello/world/&#39; file sed file -e &#39;s/hello/world/&#39; sed &#39;s/hello/world/&#39; -i file	# Inline (will replace in the file) cat file | sed &#39;/REGEX/d&#39;	# Delete lines matching a regular expression Regular expression syntax Language to represent string patterns Useful beyond sed (eg: grepping through source code) Basic regex: Specify characters to match ‘a’ matches character a [a-z] matches lowercase alphabets [a-zA-Z0-9] matches alphabets and numbers [abc] matches characters a b c [^abc] matches anything except characters a b c Specify count of characters to match * -&gt; Zero or more instances \&#43; -&gt; One or more instances ?">
+  <meta name="twitter:description" content="Sed Stream EDitor, UNIX utility Based on ed (line oriented text editor) Used commonly for find and replace based on Regular expressions Useful for processing and transforming logs Can also be used inside vim for find and replace Basic usage cat file | sed &#39;s/hello/world/&#39; sed &#39;s/hello/world/&#39; file sed file -e &#39;s/hello/world/&#39; sed &#39;s/hello/world/&#39; -i file	# Inline (will replace in the file) cat file | sed &#39;/REGEX/d&#39;	# Delete lines matching a regular expression Regular expression syntax Language to represent string patterns Useful beyond sed (eg: grepping through source code) Basic regex: Specify characters to match ‘a’ matches character a [a-z] matches lowercase alphabets [a-zA-Z0-9] matches alphabets and numbers [abc] matches characters a b c [^abc] matches anything except characters a b c Specify count of characters to match * -&gt; Zero or more instances \&#43; -&gt; One or more instances ? -&gt; Zero or one instances {8} -&gt; Matches 8 instances {1,3} -&gt; Matches 1 to 3 instances {3,} -&gt; Matches 3 or more instances Special characters . -&gt; Matches any character ^ -&gt; Matches the beginning of the line $ -&gt; Matches the end of the line Combining regex ‘regex1regex2’ matches regex1 first then regex2 (Concatenation) ‘regex1\|regex2’ matches either regex1 or regex2 (Choice) Backreferences Used for selecting a part of the matched string to be used for transforming text Enclose parts of the regex with \( .. \) parenthesis Use the corresponding matches in replacement using \1, \2, etc to match the first, second backreference respectively. Sed command syntax PATTERN_SPACE { commands; ...} Pattern space Selects (filters) the lines that we want to process Can be specified as line number ranges or regular expressions sed &#39;7d&#39; file	# Delete line number 7 sed &#39;1,10d&#39; file	# Delete line number 1 to 10 sed &#39;/REGEX/d&#39; file	# Delete lines matching REGEX sed &#39;3,/REGEX/d&#39; file	# Delete from 3rd line to a line matching REGEX sed &#39;/REGEX1/,/REGEX2/d&#39; file	# Delete lines starting from a line matching REGEX1 to a line matching REGEX2 sed &#39;/REGEX1/,$d&#39; file	# Delete lines starting from a line matching REGEX1 till end of file sed &#39;/REGEX1/ {/REGEX2/d}&#39; file # Delete lines matching both REGEX1 and REGEX2 Substitute command for find and replace # Finds patterns matching REGEX1 and replaces with REGEX2 cat file | sed &#39;s/REGEX1/REGEX2/[flags]&#39; # Optional flags # i to ignore case # g to replace more than one instance of the pattern in a line # c to confirm every replacement (Only available in vim mode) Other commands # Delete command cat file | sed &#39;/REGEX/d&#39;	# Delete lines matching a regular expression # Print command cat file | sed -n &#39;10p&#39;	# Print 10th line cat file | sed -n &#39;/REGEX/p&#39;	# Grep # Transliterate command cat file | sed &#39;y/abc/ABC/&#39;	# Transliterate (a-&gt;A, b-&gt;B, c-&gt;C) For more information, execute info sed on the shell to get a manual on sed.">
 
-<!--[if lte IE 9]>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
-<![endif]-->
+        <link href="https://nihaal.me/css/fonts.2c2227b81b1970a03e760aa2e6121cd01f87c88586803cbb282aa224720a765f.css" rel="stylesheet">
+	
 
-<!--[if lt IE 9]>
-  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
-<![endif]-->
-
+	
+	<link rel="stylesheet" type="text/css" media="screen" href="https://nihaal.me/css/main.6a0f23ea50fd34b46fee262a5a68e17d458c51a2bc99ba1ba018065de6b180c3.css" /><script type="text/javascript"
+		src="https://nihaal.me/js/MathJax.js"></script>
+		
+		<script type="text/x-mathjax-config">
+		MathJax.Hub.Config({
+			tex2jax: {
+				inlineMath: [['$','$'], ['\\(','\\)']],
+				displayMath: [['$$','$$'], ['\[','\]']],
+				processEscapes: true,
+				processEnvironments: true,
+				skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+				TeX: { equationNumbers: { autoNumber: "AMS" },
+						 extensions: ["AMSmath.js", "AMSsymbols.js"] }
+			}
+		});
+		</script><link rel="stylesheet" href="https://nihaal.me/katex/katex.min.css ">
+		<script defer src="https://nihaal.me/katex/katex.min.js"></script>
+		<script defer src="https://nihaal.me/katex/auto-render.min.js" onload="renderMathInElement(document.body);"></script>
+		
+		<script>
+			document.addEventListener("DOMContentLoaded", function() {
+					renderMathInElement(document.body, {
+							delimiters: [
+									{left: "$$", right: "$$", display: true},
+									{left: "$", right: "$", display: false}
+							]
+					});
+			});
+		</script>
 </head>
 <body>
-  <div id="mobile-navbar" class="mobile-navbar">
-  <div class="mobile-header-logo">
-    <a href="/" class="logo">Nihaal</a>
-  </div>
-  <div class="mobile-navbar-icon">
-    <span></span>
-    <span></span>
-    <span></span>
-  </div>
-</div>
-<nav id="mobile-menu" class="mobile-menu slideout-menu">
-  <ul class="mobile-menu-list">
-    <a href="/">
-        <li class="mobile-menu-item">Home</li>
-      </a><a href="/post/">
-        <li class="mobile-menu-item">Archives</li>
-      </a><a href="/tags/">
-        <li class="mobile-menu-item">Tags</li>
-      </a>
-  </ul>
+        <div class="content"><header>
+	<div class="main">
+		<a href="https://nihaal.me/">Nihaal</a>
+	</div>
+	<nav>
+		
+		<a href="/post">Posts</a>
+		
+		<a href="/about">About</a>
+		
+		<a href="/tags">Tags</a>
+		
+		
+	</nav>
+</header>
 
-  
-
-
-</nav>
-
-  <div class="container" id="mobile-panel">
-    <header id="header" class="header">
-        <div class="logo-wrapper">
-  <a href="/" class="logo">Nihaal</a>
-</div>
-
-
-
-
-
-<nav class="site-navbar">
-  <ul id="menu" class="menu">
-    <li class="menu-item">
-        <a class="menu-item-link" href="/">Home</a>
-      </li><li class="menu-item">
-        <a class="menu-item-link" href="/post/">Archives</a>
-      </li><li class="menu-item">
-        <a class="menu-item-link" href="/tags/">Tags</a>
-      </li>
-  </ul>
-</nav>
-
-    </header>
-
-    <main id="main" class="main">
-      <div class="content-wrapper">
-        <div id="content" class="content">
-          <article class="post">
-    
-    <header class="post-header">
-      <h1 class="post-title">Notes on Sed</h1>
-
-      <div class="post-meta">
-        <span class="post-time"> 12-08-2023 </span>
+<main>
+  <article>
+    <div class="post-container">
+      
+      <div class="post-content">
+        <div class="title">
+          <h1 class="title">Notes on Sed</h1>
+          <div class="meta">Posted on Aug 12, 2023</div>
+        </div>
         
-          <span class="more-meta"> 480 words </span>
-          <span class="more-meta"> 3 mins read </span>
-        
-      </div>
-    </header>
-
-    <div class="post-toc" id="post-toc">
-  <h2 class="post-toc-title">Contents</h2>
-  <div class="post-toc-content always-active">
-    <nav id="TableOfContents">
-  <ul>
-    <li><a href="#sed">Sed</a></li>
-    <li><a href="#basic-usage">Basic usage</a></li>
-    <li><a href="#regular-expression-syntax">Regular expression syntax</a></li>
-    <li><a href="#sed-command-syntax">Sed command syntax</a>
-      <ul>
-        <li><a href="#pattern-space">Pattern space</a></li>
-        <li><a href="#substitute-command-for-find-and-replace">Substitute command for find and replace</a></li>
-      </ul>
-    </li>
-    <li><a href="#other-commands">Other commands</a></li>
-  </ul>
-</nav>
-  </div>
-</div>
-    <div class="post-content">
-      <h1 id="sed">Sed</h1>
+        <section class="body">
+          <h1 id="sed">Sed</h1>
 <ul>
 <li>Stream EDitor, UNIX utility</li>
 <li>Based on ed (line oriented text editor)</li>
@@ -178,7 +193,7 @@
 <ul>
 <li>Language to represent string patterns</li>
 <li>Useful beyond sed (eg: grepping through source code)</li>
-<li>Basic regex: <characters to match><count of characters to match></li>
+<li>Basic regex: <!-- raw HTML omitted --><!-- raw HTML omitted --></li>
 <li>Specify characters to match
 <ul>
 <li><strong>&lsquo;a&rsquo;</strong> matches character a</li>
@@ -220,8 +235,8 @@
 </li>
 </ul>
 <h1 id="sed-command-syntax">Sed command syntax</h1>
-<pre tabindex="0"><code>PATTERN_SPACE { commands; ...}
-</code></pre><h2 id="pattern-space">Pattern space</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>PATTERN_SPACE { commands; ...}
+</span></span></code></pre></div><h2 id="pattern-space">Pattern space</h2>
 <ul>
 <li>Selects (filters) the lines that we want to process</li>
 <li>Can be specified as line number ranges or regular expressions</li>
@@ -252,99 +267,44 @@
 </span></span><span style="display:flex;"><span>cat file | sed <span style="color:#e6db74">&#39;y/abc/ABC/&#39;</span>	<span style="color:#75715e"># Transliterate (a-&gt;A, b-&gt;B, c-&gt;C)</span>
 </span></span></code></pre></div><p>For more information, execute <code>info sed</code> on the shell to get a manual on sed.</p>
 
-    </div>
-
-    <div class="post-copyright">
-  <p class="copyright-item">
-    <span class="item-title">Author</span>
-    <span class="item-content">Abdun Nihaal</span>
-  </p>
-  <p class="copyright-item">
-    <span class="item-title">LastMod</span>
-    <span class="item-content">
-        12-08-2023
-        
-    </span>
-  </p>
-  
-  
-</div>
-<footer class="post-footer">
-      <div class="post-tags">
-          <a href="/tags/linux/">linux</a>
-          </div>
-      <nav class="post-nav">
-        <a class="prev" href="/post/python_text_processing/">
-            <i class="iconfont icon-left"></i>
-            <span class="prev-text nav-default">Notes: Text processing and Regular expressions in Python</span>
-            <span class="prev-text nav-mobile">Prev</span>
-          </a>
-        <a class="next" href="/post/kernel_defences/">
-            <span class="next-text nav-default">Kernel defences</span>
-            <span class="next-text nav-mobile">Next</span>
-            <i class="iconfont icon-right"></i>
-          </a>
-      </nav>
-    </footer>
-  </article>
+        </section>
+        <div class="post-tags">
+          
+          
+          <nav class="nav tags">
+            <ul class="tags">
+              
+              <li><a href="/tags/linux">linux</a></li>
+              
+            </ul>
+          </nav>
+          
+          
         </div>
-        
-
-  
-
-  
-
       </div>
-    </main>
 
-    <footer id="footer" class="footer">
-      <div class="social-links">
-      <a href="https://www.twitter.com/nihaal_an" class="iconfont icon-twitter" title="twitter"></a>
-      <a href="https://in.linkedin.com/in/abdun-nihaal-289272143" class="iconfont icon-linkedin" title="linkedin"></a>
-      <a href="https://www.github.com/nifey" class="iconfont icon-github" title="github"></a>
-      <a href="https://www.gitlab.com/nihaal" class="iconfont icon-gitlab" title="gitlab"></a>
-  
-</div>
-
-<div class="copyright">
-  <span class="power-by">
-    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
-  </span>
-  <span class="division">|</span>
-  <span class="theme-info">
-    Theme - 
-    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
-  </span>
-
-  
-
-  <span class="copyright-year">
-    &copy; 
-    2016 - 
-    2024<span class="heart"><i class="iconfont icon-heart"></i></span><span>Abdun Nihaal</span>
-  </span>
-</div>
-
-    </footer>
-
-    <div class="back-to-top" id="back-to-top">
-      <i class="iconfont icon-up"></i>
+      
+      
     </div>
+
+    </article>
+</main>
+<footer>
+  <div style="display:flex"><a class="soc" href="https://github.com/nifey" rel="me" title="GitHub"><svg class="feather">
+   <use href="/svg/feather-sprite.51cf5647cb1987f769b616558f2620fd9423d72058490231b391bf6aa3744b55.svg#github" />
+</svg></a><a class="border"></a><a class="soc" href="https://in.linkedin.com/in/abdun-nihaal-289272143" rel="me" title="Linkedin"><svg class="feather">
+   <use href="/svg/feather-sprite.51cf5647cb1987f769b616558f2620fd9423d72058490231b391bf6aa3744b55.svg#linkedin" />
+</svg></a><a class="border"></a><a class="soc" href="https://dblp.org/pid/383/3084.html" rel="me" title="DBLP"><svg class="feather">
+   <use href="/svg/feather-sprite.51cf5647cb1987f769b616558f2620fd9423d72058490231b391bf6aa3744b55.svg#book" />
+</svg></a><a class="border"></a></div>
+  <div class="footer-info">
+    2025  <a
+      href="https://github.com/athul/archie">Archie Theme</a> | Built with <a href="https://gohugo.io">Hugo</a>
   </div>
-  <script type="text/javascript" src="/lib/jquery/jquery-3.2.1.min.js"></script>
-  <script type="text/javascript" src="/lib/slideout/slideout-1.0.1.min.js"></script>
-  <script type="text/javascript" src="/lib/fancybox/jquery.fancybox-3.1.20.min.js"></script>
+</footer>
 
 
 
-<script type="text/javascript" src="/js/main.min.4ae89da218555efa0e7093a20b92017d2e1202b66fff9fc2edf4cb8d44b44c6e.js"></script>
-
-
-
-
-
-
-
-
-</body>
+</div>
+    </body>
 </html>

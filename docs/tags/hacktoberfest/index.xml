@@ -5,7 +5,7 @@
     <link>https://nihaal.me/tags/hacktoberfest/</link>
     <description>Recent content in Hacktoberfest on Nihaal</description>
     <generator>Hugo</generator>
-    <language>en</language>
+    <language>en-us</language>
     <lastBuildDate>Sun, 12 Nov 2017 13:28:37 +0000</lastBuildDate>
     <atom:link href="https://nihaal.me/tags/hacktoberfest/index.xml" rel="self" type="application/rss+xml" />
     <item>
@@ -13,7 +13,7 @@
       <link>https://nihaal.me/post/2017-11-12-hacktoberfest-and-ilugc/</link>
       <pubDate>Sun, 12 Nov 2017 13:28:37 +0000</pubDate>
       <guid>https://nihaal.me/post/2017-11-12-hacktoberfest-and-ilugc/</guid>
-      <description>In this post, I want to share what I did for Hacktoberfest.&#xA;Hacktoberfest is a month-long program to motivate people to contribute to open source software. All you have to do is give 4 pull requests to any public repository on Github. The reward is a cool t-shirt and Github stickers. These contributions should be made in the month of October to be counted for hacktoberfest.&#xA;I searched for a project I can contribute to.</description>
+      <description>&lt;p&gt;&lt;img src=&#34;../../../assets/hacktoberfest/hacktoberfest.png&#34; alt=&#34;Hacktoberfest&#34; title=&#34;Hactoberfest&#34;&gt;&lt;/p&gt;&#xA;&lt;p&gt;In this post, I want to share what I did for &lt;a href=&#34;https://hacktoberfest.digitalocean.com&#34;&gt;Hacktoberfest&lt;/a&gt;.&lt;/p&gt;&#xA;&lt;p&gt;Hacktoberfest is a month-long program to motivate people to contribute to open source software. All you have to do is give 4 pull requests to any public repository on Github. The reward is a cool t-shirt and Github stickers. These contributions should be made in the month of October to be counted for hacktoberfest.&lt;/p&gt;&#xA;&lt;p&gt;I searched for a project I can contribute to. I came across repositories that are made for hacktoberfest. People just add their name to some file and give a pull request. I think such repositories are spoiling the spirit of hacktoberfest. The only good thing is that people who are completely new to git and github can practice using git on these repos.&lt;/p&gt;</description>
     </item>
   </channel>
 </rss>

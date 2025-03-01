@@ -1,51 +1,20 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <title>Coccinelle - Nihaal</title>
-  <meta name="renderer" content="webkit" />
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
-
-<meta http-equiv="Cache-Control" content="no-transform" />
-<meta http-equiv="Cache-Control" content="no-siteapp" />
-
-<meta name="theme-color" content="#f8f5ec" />
-<meta name="msapplication-navbutton-color" content="#f8f5ec">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
-
-
-<meta name="author" content="Abdun Nihaal" /><meta name="description" content="Coccinelle is static analysis tool used for semantic pattern matching and automated transformation of C programs. It is written in OCaml. Unlike other pattern matching tools like grep which use regular expressions, Coccinelle understands C syntax and can find semantic code pattern in the source code and automatically transform them, irrespective of the name of identifiers, comments or formatting.
-Coccinelle is intraprocedural, i.e. all its matching and transformation happens within functions." />
-
-
-
-
-
-
-<meta name="generator" content="Hugo 0.126.1 with theme even" />
-
-
-<link rel="canonical" href="https://nihaal.me/post/coccinelle/" />
-<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-<link rel="manifest" href="/manifest.json">
-<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
-
-
-
-<link href="/sass/main.min.f92fd13721ddf72129410fd8250e73152cc6f2438082b6c0208dc24ee7c13fc4.css" rel="stylesheet">
-<link href="/lib/fancybox/jquery.fancybox-3.1.20.min.css" rel="stylesheet">
-
-
-<meta property="og:url" content="https://nihaal.me/post/coccinelle/">
+<html><head lang="en">
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge"><title>Coccinelle - Nihaal</title><meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="Coccinelle is static analysis tool used for semantic pattern matching and automated transformation of C programs.
+It is written in OCaml.
+Unlike other pattern matching tools like grep which use regular expressions, Coccinelle understands C syntax and
+can find semantic code pattern in the source code and automatically transform them, irrespective of the name of identifiers, comments or formatting.
+Coccinelle is intraprocedural, i.e. all its matching and transformation happens within functions.
+Coccinelle also does not expand C macros." />
+	<meta property="og:image" content=""/>
+	<meta property="og:url" content="https://nihaal.me/post/coccinelle/">
   <meta property="og:site_name" content="Nihaal">
   <meta property="og:title" content="Coccinelle">
   <meta property="og:description" content="Coccinelle is static analysis tool used for semantic pattern matching and automated transformation of C programs. It is written in OCaml. Unlike other pattern matching tools like grep which use regular expressions, Coccinelle understands C syntax and can find semantic code pattern in the source code and automatically transform them, irrespective of the name of identifiers, comments or formatting.
-Coccinelle is intraprocedural, i.e. all its matching and transformation happens within functions.">
-  <meta property="og:locale" content="en">
+Coccinelle is intraprocedural, i.e. all its matching and transformation happens within functions. Coccinelle also does not expand C macros.">
+  <meta property="og:locale" content="en_us">
   <meta property="og:type" content="article">
     <meta property="article:section" content="post">
     <meta property="article:published_time" content="2022-12-14T00:00:00+00:00">
@@ -53,120 +22,74 @@ Coccinelle is intraprocedural, i.e. all its matching and transformation happens 
     <meta property="article:tag" content="Linux">
     <meta property="article:tag" content="Kernel">
 
-  <meta itemprop="name" content="Coccinelle">
-  <meta itemprop="description" content="Coccinelle is static analysis tool used for semantic pattern matching and automated transformation of C programs. It is written in OCaml. Unlike other pattern matching tools like grep which use regular expressions, Coccinelle understands C syntax and can find semantic code pattern in the source code and automatically transform them, irrespective of the name of identifiers, comments or formatting.
-Coccinelle is intraprocedural, i.e. all its matching and transformation happens within functions.">
-  <meta itemprop="datePublished" content="2022-12-14T00:00:00+00:00">
-  <meta itemprop="dateModified" content="2022-12-14T00:00:00+00:00">
-  <meta itemprop="wordCount" content="1355">
-  <meta itemprop="keywords" content="Linux,Kernel">
   <meta name="twitter:card" content="summary">
   <meta name="twitter:title" content="Coccinelle">
   <meta name="twitter:description" content="Coccinelle is static analysis tool used for semantic pattern matching and automated transformation of C programs. It is written in OCaml. Unlike other pattern matching tools like grep which use regular expressions, Coccinelle understands C syntax and can find semantic code pattern in the source code and automatically transform them, irrespective of the name of identifiers, comments or formatting.
-Coccinelle is intraprocedural, i.e. all its matching and transformation happens within functions.">
+Coccinelle is intraprocedural, i.e. all its matching and transformation happens within functions. Coccinelle also does not expand C macros.">
 
-<!--[if lte IE 9]>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
-<![endif]-->
+        <link href="https://nihaal.me/css/fonts.2c2227b81b1970a03e760aa2e6121cd01f87c88586803cbb282aa224720a765f.css" rel="stylesheet">
+	
 
-<!--[if lt IE 9]>
-  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
-<![endif]-->
-
+	
+	<link rel="stylesheet" type="text/css" media="screen" href="https://nihaal.me/css/main.6a0f23ea50fd34b46fee262a5a68e17d458c51a2bc99ba1ba018065de6b180c3.css" /><script type="text/javascript"
+		src="https://nihaal.me/js/MathJax.js"></script>
+		
+		<script type="text/x-mathjax-config">
+		MathJax.Hub.Config({
+			tex2jax: {
+				inlineMath: [['$','$'], ['\\(','\\)']],
+				displayMath: [['$$','$$'], ['\[','\]']],
+				processEscapes: true,
+				processEnvironments: true,
+				skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+				TeX: { equationNumbers: { autoNumber: "AMS" },
+						 extensions: ["AMSmath.js", "AMSsymbols.js"] }
+			}
+		});
+		</script><link rel="stylesheet" href="https://nihaal.me/katex/katex.min.css ">
+		<script defer src="https://nihaal.me/katex/katex.min.js"></script>
+		<script defer src="https://nihaal.me/katex/auto-render.min.js" onload="renderMathInElement(document.body);"></script>
+		
+		<script>
+			document.addEventListener("DOMContentLoaded", function() {
+					renderMathInElement(document.body, {
+							delimiters: [
+									{left: "$$", right: "$$", display: true},
+									{left: "$", right: "$", display: false}
+							]
+					});
+			});
+		</script>
 </head>
 <body>
-  <div id="mobile-navbar" class="mobile-navbar">
-  <div class="mobile-header-logo">
-    <a href="/" class="logo">Nihaal</a>
-  </div>
-  <div class="mobile-navbar-icon">
-    <span></span>
-    <span></span>
-    <span></span>
-  </div>
-</div>
-<nav id="mobile-menu" class="mobile-menu slideout-menu">
-  <ul class="mobile-menu-list">
-    <a href="/">
-        <li class="mobile-menu-item">Home</li>
-      </a><a href="/post/">
-        <li class="mobile-menu-item">Archives</li>
-      </a><a href="/tags/">
-        <li class="mobile-menu-item">Tags</li>
-      </a>
-  </ul>
+        <div class="content"><header>
+	<div class="main">
+		<a href="https://nihaal.me/">Nihaal</a>
+	</div>
+	<nav>
+		
+		<a href="/post">Posts</a>
+		
+		<a href="/about">About</a>
+		
+		<a href="/tags">Tags</a>
+		
+		
+	</nav>
+</header>
 
-  
-
-
-</nav>
-
-  <div class="container" id="mobile-panel">
-    <header id="header" class="header">
-        <div class="logo-wrapper">
-  <a href="/" class="logo">Nihaal</a>
-</div>
-
-
-
-
-
-<nav class="site-navbar">
-  <ul id="menu" class="menu">
-    <li class="menu-item">
-        <a class="menu-item-link" href="/">Home</a>
-      </li><li class="menu-item">
-        <a class="menu-item-link" href="/post/">Archives</a>
-      </li><li class="menu-item">
-        <a class="menu-item-link" href="/tags/">Tags</a>
-      </li>
-  </ul>
-</nav>
-
-    </header>
-
-    <main id="main" class="main">
-      <div class="content-wrapper">
-        <div id="content" class="content">
-          <article class="post">
-    
-    <header class="post-header">
-      <h1 class="post-title">Coccinelle</h1>
-
-      <div class="post-meta">
-        <span class="post-time"> 14-12-2022 </span>
+<main>
+  <article>
+    <div class="post-container">
+      
+      <div class="post-content">
+        <div class="title">
+          <h1 class="title">Coccinelle</h1>
+          <div class="meta">Posted on Dec 14, 2022</div>
+        </div>
         
-          <span class="more-meta"> 1355 words </span>
-          <span class="more-meta"> 7 mins read </span>
-        
-      </div>
-    </header>
-
-    <div class="post-toc" id="post-toc">
-  <h2 class="post-toc-title">Contents</h2>
-  <div class="post-toc-content always-active">
-    <nav id="TableOfContents">
-  <ul>
-    <li>
-      <ul>
-        <li><a href="#installing-and-using-coccinelle">Installing and using Coccinelle</a></li>
-        <li><a href="#writing-semantic-patches">Writing Semantic patches</a>
-          <ul>
-            <li><a href="#rules-syntax">Rules syntax</a></li>
-            <li><a href="#advanced-features">Advanced features</a></li>
-          </ul>
-        </li>
-        <li><a href="#coccinelle-internals">Coccinelle Internals</a></li>
-        <li><a href="#references">References</a></li>
-      </ul>
-    </li>
-  </ul>
-</nav>
-  </div>
-</div>
-    <div class="post-content">
-      <p>Coccinelle is static analysis tool used for semantic pattern matching and automated transformation of C programs.
+        <section class="body">
+          <p>Coccinelle is static analysis tool used for semantic pattern matching and automated transformation of C programs.
 It is written in OCaml.
 Unlike other pattern matching tools like grep which use regular expressions, Coccinelle understands C syntax and
 can find semantic code pattern in the source code and automatically transform them, irrespective of the name of identifiers, comments or formatting.</p>
@@ -191,28 +114,23 @@ and the code transformation that needs to be performed.
 The syntax of semantic patches is similar to C and the notations used in patches (eg: <em>+</em> to denote added lines and <em>-</em> to denote deleted lines).</p>
 <h2 id="installing-and-using-coccinelle">Installing and using Coccinelle</h2>
 <ul>
-<li>
-<p>To install coccinelle from source</p>
+<li>To install coccinelle from source
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>  git clone https://github.com/coccinelle/coccinelle
 </span></span><span style="display:flex;"><span>  cd coccinelle
 </span></span><span style="display:flex;"><span>  ./autogen
 </span></span><span style="display:flex;"><span>  ./configure
 </span></span><span style="display:flex;"><span>  make
 </span></span><span style="display:flex;"><span>  sudo make install
-</span></span></code></pre></div><p>This will install a tool called <strong>spatch</strong>, which is like the <em>patch</em> tool but for semantic patches.
-We use spatch for applying semantic patches.</p>
-</li>
-<li>
-<p>To check if your semantic patch is valid:</p>
+</span></span></code></pre></div>This will install a tool called <strong>spatch</strong>, which is like the <em>patch</em> tool but for semantic patches.
+We use spatch for applying semantic patches.</li>
+<li>To check if your semantic patch is valid:
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>  spatch --parse-cocci your_patch.cocci
 </span></span></code></pre></div></li>
-<li>
-<p>To apply or run your patch on a file or directory:</p>
+<li>To apply or run your patch on a file or directory:
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>  spatch --sp-file your_patch.cocci file.c
 </span></span><span style="display:flex;"><span>  spatch --sp-file your_patch.cocci --dir directory
 </span></span></code></pre></div></li>
-<li>
-<p>To set a virtual dependency (like report,patch,org) use -D flag:</p>
+<li>To set a virtual dependency (like report,patch,org) use -D flag:
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>  spatch -D report --sp-file your_patch.cocci file.c
 </span></span></code></pre></div></li>
 </ul>
@@ -234,22 +152,21 @@ We use spatch for applying semantic patches.</p>
 <li>Transformation specification</li>
 </ol>
 <p>The general structure of a rule is given below: (The rule name is optional.)</p>
-<pre tabindex="0"><code class="language-Coccinelle" data-lang="Coccinelle">@rule_name@
-// Metavariable declaration
-@@
-// Transformation specification
-</code></pre><h4 id="metavariable-declaration">Metavariable declaration</h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-gdscript3" data-lang="gdscript3"><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">@</span>rule_name<span style="color:#960050;background-color:#1e0010">@</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">//</span> Metavariable declaration
+</span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">@@</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">//</span> Transformation specification
+</span></span></code></pre></div><h4 id="metavariable-declaration">Metavariable declaration</h4>
 <p>Metavariables are used to abstract over identifiers, expressions, constants and types.
 For example, if I use a metavariable of type <em>expression</em> , it can match over any C expression.
 We can also use metavariables of a specific struct or type defined in the program.</p>
 <h4 id="transformation-specification">Transformation specification</h4>
 <ul>
-<li>
-<p>Matching code</p>
-<p>We can use (three) dot symbols: <strong>&hellip;</strong> to match any code. This allows us to match lines irrespective of
+<li><strong>Matching code</strong>:
+We can use (three) dot symbols: <strong>&hellip;</strong> to match any code. This allows us to match lines irrespective of
 the code present between the lines.
 However, in some situations, we may want to restrict the code that we want to skip.
-For this, we can use the <strong>when</strong> clause along with the dots.</p>
+For this, we can use the <strong>when</strong> clause along with the dots.
 <ul>
 <li><strong>&hellip;</strong> matches any code</li>
 <li><strong>&hellip; when != e</strong> matches any code which is not equivalent to the expression e.</li>
@@ -257,10 +174,9 @@ For this, we can use the <strong>when</strong> clause along with the dots.</p>
 <li><strong>&lt;+&hellip; x &hellip;+&gt;</strong> matches the expression represented by <em>x</em>, one or more times.</li>
 </ul>
 </li>
-<li>
-<p>Transforming code</p>
-<p>The left most column specifies the transformation that needs to be performed.
-The following symbols have special meaning when used as the first character in a line:</p>
+<li><strong>Transforming code</strong>:
+The left most column specifies the transformation that needs to be performed.
+The following symbols have special meaning when used as the first character in a line:
 <ul>
 <li><strong>+</strong>  adds the line to the matched code</li>
 <li><strong>-</strong>   removes the matched line</li>
@@ -271,127 +187,123 @@ The following symbols have special meaning when used as the first character in a
 </ul>
 <h4 id="examples">Examples</h4>
 <ol>
-<li>
-<p>Replace expressions of the form 1 &lt;&lt; C with the macro BIT(C) where C is any constant.</p>
-<pre tabindex="0"><code class="language-Coccinelle" data-lang="Coccinelle">      @@
-      constant C;
-      @@
-
-      - 1 &lt;&lt; C
-​      + BIT(C)
-</code></pre></li>
-<li>
-<p>Using <em>disjunction</em>: Replace expressions of the form 1 &lt;&lt; C with BIT(C) where C is any constant, and
-replace expressions of the form 1 &lt;&lt; E with BIT(E) where E is any expression.</p>
-<pre tabindex="0"><code class="language-Coccinelle" data-lang="Coccinelle">      @@
-      constant C;
-      expression E;
-      @@
-
-      {
-​      - 1 &lt;&lt; C
-​      + BIT(C)
-      |
-​      - 1 &lt;&lt; E
-​      + BIT(E)
-      }
-</code></pre></li>
-<li>
-<p>Using <em>identifiers</em> and <em>dots</em>: Replace assignment to a local variable followed by immediate return of that value,
+<li>Replace expressions of the form 1 &lt;&lt; C with the macro BIT(C) where C is any constant.
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-gdscript3" data-lang="gdscript3"><span style="display:flex;"><span>      <span style="color:#960050;background-color:#1e0010">@@</span>
+</span></span><span style="display:flex;"><span>      constant C;
+</span></span><span style="display:flex;"><span>      <span style="color:#960050;background-color:#1e0010">@@</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span> <span style="color:#f92672">&lt;&lt;</span> C
+</span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">​</span>      <span style="color:#f92672">+</span> BIT(C)
+</span></span></code></pre></div></li>
+<li>Using <em>disjunction</em>: Replace expressions of the form 1 &lt;&lt; C with BIT(C) where C is any constant, and
+replace expressions of the form 1 &lt;&lt; E with BIT(E) where E is any expression.
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-gdscript3" data-lang="gdscript3"><span style="display:flex;"><span>      <span style="color:#960050;background-color:#1e0010">@@</span>
+</span></span><span style="display:flex;"><span>      constant C;
+</span></span><span style="display:flex;"><span>      expression E;
+</span></span><span style="display:flex;"><span>      <span style="color:#960050;background-color:#1e0010">@@</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>      {
+</span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">​</span>      <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span> <span style="color:#f92672">&lt;&lt;</span> C
+</span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">​</span>      <span style="color:#f92672">+</span> BIT(C)
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">|</span>
+</span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">​</span>      <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span> <span style="color:#f92672">&lt;&lt;</span> E
+</span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">​</span>      <span style="color:#f92672">+</span> BIT(E)
+</span></span><span style="display:flex;"><span>      }
+</span></span></code></pre></div></li>
+<li>Using <em>identifiers</em> and <em>dots</em>: Replace assignment to a local variable followed by immediate return of that value,
 by simply the return statement.
-Notice here, we don&rsquo;t care about what the arguments of the function is, and so we can use dots there.</p>
-<pre tabindex="0"><code class="language-Coccinelle" data-lang="Coccinelle">      @@
-      identifier f;
-      expression r;
-      @@
-
-      - r = f(...);
-​      + return f(...);
-​      - return r;
-</code></pre></li>
-<li>
-<p>Matching zero or more function calls using <strong>&lt;&hellip; &hellip;&gt;</strong></p>
-<pre tabindex="0"><code class="language-Coccinelle" data-lang="Coccinelle">      @@
-      identifier f;
-      @@
-      *f(...)
-      {
-      &lt;...
-​      * g(...)
-      ...&gt;
-      }
-</code></pre></li>
+Notice here, we don&rsquo;t care about what the arguments of the function is, and so we can use dots there.
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>      @@
+</span></span><span style="display:flex;"><span>      identifier f;
+</span></span><span style="display:flex;"><span>      expression r;
+</span></span><span style="display:flex;"><span>      @@
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>      - r = f(...);
+</span></span><span style="display:flex;"><span>​      + return f(...);
+</span></span><span style="display:flex;"><span>​      - return r;
+</span></span></code></pre></div></li>
+<li>Matching zero or more function calls using <strong>&lt;&hellip; &hellip;&gt;</strong>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>      @@
+</span></span><span style="display:flex;"><span>      identifier f;
+</span></span><span style="display:flex;"><span>      @@
+</span></span><span style="display:flex;"><span>      *f(...)
+</span></span><span style="display:flex;"><span>      {
+</span></span><span style="display:flex;"><span>      &lt;...
+</span></span><span style="display:flex;"><span>​      * g(...)
+</span></span><span style="display:flex;"><span>      ...&gt;
+</span></span><span style="display:flex;"><span>      }
+</span></span></code></pre></div></li>
 </ol>
 <h3 id="advanced-features">Advanced features</h3>
 <h4 id="rule-dependencies">Rule dependencies</h4>
 <p>We can specify dependency between rules. This allows matching a rule only if another rule has been matched.
 For example, the following sematic patch has two rules. The first rule matches if the BIT macro is used anywhere
 in the file. If it is used, then the second rule which <em>depends</em> on the first rule converts expressions 1 &lt;&lt; E into BIT(E).</p>
-<pre tabindex="0"><code class="language-Coccinelle" data-lang="Coccinelle">   @usesbit@
-   @@
-   BIT(...)
-
-   @depends on usesbit@
-   expression E;
-   @@
-
-   - 1 &lt;&lt; E
-   + BIT(E)
-</code></pre><p>We can also pass values between rules with dependency using <strong>&lt;&lt;</strong> syntax inside the metavariable declaration.</p>
-<pre tabindex="0"><code class="language-Coccinelle" data-lang="Coccinelle">   @usesbit@
-   expression E;
-   @@
-   1 &lt;&lt; E
-
-   @depends on usesbit@
-   expression E &lt;&lt; usesbit.E;
-   @@
-
-   - 1 &lt;&lt; E
-   + BIT(E)
-</code></pre><h4 id="isomorphisms">Isomorphisms</h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>   @usesbit@
+</span></span><span style="display:flex;"><span>   @@
+</span></span><span style="display:flex;"><span>   BIT(...)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>   @depends on usesbit@
+</span></span><span style="display:flex;"><span>   expression E;
+</span></span><span style="display:flex;"><span>   @@
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>   - 1 &lt;&lt; E
+</span></span><span style="display:flex;"><span>   + BIT(E)
+</span></span></code></pre></div><p>We can also pass values between rules with dependency using <strong>&lt;&lt;</strong> syntax inside the metavariable declaration.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>   @usesbit@
+</span></span><span style="display:flex;"><span>   expression E;
+</span></span><span style="display:flex;"><span>   @@
+</span></span><span style="display:flex;"><span>   1 &lt;&lt; E
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>   @depends on usesbit@
+</span></span><span style="display:flex;"><span>   expression E &lt;&lt; usesbit.E;
+</span></span><span style="display:flex;"><span>   @@
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>   - 1 &lt;&lt; E
+</span></span><span style="display:flex;"><span>   + BIT(E)
+</span></span></code></pre></div><h4 id="isomorphisms">Isomorphisms</h4>
 <p>Coccinelle can also find and match code that is equivalent to the expression that we want to match. These statements that are semantically equivalent are called <em>Isomorphisms</em>.
 For example, the following statements are equivalent and so when we try to match <em>(x==NULL)</em>, Coccinelle also tries to match the other three statements.</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="color:#f92672">!</span>x  <span style="color:#f92672">&lt;=&gt;</span>  x <span style="color:#f92672">==</span> NULL  <span style="color:#f92672">&lt;=&gt;</span>  NULL <span style="color:#f92672">==</span> x;
 </span></span></code></pre></div><p>Coccinelle provides a set of default isomorphisms in <em>/usr/lib/coccinelle/standard.iso</em>.
 We can use custom isomorphisms by writing them in a file, let&rsquo;s say in custom.iso and using it in the semantic patches with <strong>using</strong> keyword. We can apply a custom isomorphism file-wide or for a specific rule.</p>
-<pre tabindex="0"><code class="language-coccinelle" data-lang="coccinelle">using &#34;custom.iso&#34;
-@rule1@
-expression e;
-@@
-*e
-</code></pre><pre tabindex="0"><code class="language-coccinelle" data-lang="coccinelle">@rule1 using &#34;custom.iso&#34;@
-expression e;
-@@
-*e
-</code></pre><h4 id="embedding-python-or-ocaml-scripts">Embedding Python or Ocaml scripts</h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>using &#34;custom.iso&#34;
+</span></span><span style="display:flex;"><span>@rule1@
+</span></span><span style="display:flex;"><span>expression e;
+</span></span><span style="display:flex;"><span>@@
+</span></span><span style="display:flex;"><span>*e
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>@rule1 using &#34;custom.iso&#34;@
+</span></span><span style="display:flex;"><span>expression e;
+</span></span><span style="display:flex;"><span>@@
+</span></span><span style="display:flex;"><span>*e
+</span></span></code></pre></div><h4 id="embedding-python-or-ocaml-scripts">Embedding Python or Ocaml scripts</h4>
 <p>We can also embed scripts written in Python or OCaml, inside the semantic patches and have them run when specific rules are matched.
 The rules that contain script code should uses <strong>script:python</strong> or <strong>script:ocaml</strong> in the rulename part.</p>
-<pre tabindex="0"><code class="language-coccinelle" data-lang="coccinelle">@zero_variable@
-identifier i;
-@@
-i = 0;
-
-@script:python depends on zero_variable@
-i &lt;&lt; zero_variable.i;
-@@
-print (f&#34;Identifier {i} was set to zero&#34;)
-</code></pre><h4 id="position-metavariables">Position metavariables</h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-gdscript3" data-lang="gdscript3"><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">@</span>zero_variable<span style="color:#960050;background-color:#1e0010">@</span>
+</span></span><span style="display:flex;"><span>identifier i;
+</span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">@@</span>
+</span></span><span style="display:flex;"><span>i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">@</span>script:python depends on zero_variable<span style="color:#960050;background-color:#1e0010">@</span>
+</span></span><span style="display:flex;"><span>i <span style="color:#f92672">&lt;&lt;</span> zero_variable<span style="color:#f92672">.</span>i;
+</span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">@@</span>
+</span></span><span style="display:flex;"><span>print (f<span style="color:#e6db74">&#34;Identifier {i} was set to zero&#34;</span>)
+</span></span></code></pre></div><h4 id="position-metavariables">Position metavariables</h4>
 <p>Coccinelle also provides <em>position</em> metavariables that can be attached to other metavariables (by appending with @) to find and print the position of the match
 inside the file.</p>
-<pre tabindex="0"><code class="language-coccinelle" data-lang="coccinelle">@zero_variable@
-identifier i;
-position p;
-@@
-i@p = 0;
-
-@script:python depends on zero_variable@
-i &lt;&lt; zero_variable.i;
-p &lt;&lt; zero_variable.p;
-@@
-
-print (f&#34;Identifier {i} was set to zero in file {p[0].file}, in function {p[0].current_element} at line {p[0].line}.&#34;)
-</code></pre><h4 id="universal-and-existential-quantification">Universal and Existential quantification</h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-gdscript3" data-lang="gdscript3"><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">@</span>zero_variable<span style="color:#960050;background-color:#1e0010">@</span>
+</span></span><span style="display:flex;"><span>identifier i;
+</span></span><span style="display:flex;"><span>position p;
+</span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">@@</span>
+</span></span><span style="display:flex;"><span>i<span style="color:#960050;background-color:#1e0010">@</span>p <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">@</span>script:python depends on zero_variable<span style="color:#960050;background-color:#1e0010">@</span>
+</span></span><span style="display:flex;"><span>i <span style="color:#f92672">&lt;&lt;</span> zero_variable<span style="color:#f92672">.</span>i;
+</span></span><span style="display:flex;"><span>p <span style="color:#f92672">&lt;&lt;</span> zero_variable<span style="color:#f92672">.</span>p;
+</span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">@@</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>print (f<span style="color:#e6db74">&#34;Identifier {i} was set to zero in file {p[0].file}, in function {p[0].current_element} at line {p[0].line}.&#34;</span>)
+</span></span></code></pre></div><h4 id="universal-and-existential-quantification">Universal and Existential quantification</h4>
 <p>todo</p>
 <ul>
 <li>when with exists and strict</li>
@@ -414,100 +326,46 @@ I don&rsquo;t know what CTL-VW is, but I&rsquo;m guessing it is a way to mathema
 <li><a href="https://web.imt-atlantique.fr/x-info/coccinelle/stuart_thesis.pdf">Hunting bugs with Coccinelle</a> (Henrik Stuart&rsquo;s Thesis)</li>
 </ul>
 
-    </div>
-
-    <div class="post-copyright">
-  <p class="copyright-item">
-    <span class="item-title">Author</span>
-    <span class="item-content">Abdun Nihaal</span>
-  </p>
-  <p class="copyright-item">
-    <span class="item-title">LastMod</span>
-    <span class="item-content">
-        14-12-2022
-        
-    </span>
-  </p>
-  
-  
-</div>
-<footer class="post-footer">
-      <div class="post-tags">
-          <a href="/tags/linux/">linux</a>
-          <a href="/tags/kernel/">kernel</a>
-          </div>
-      <nav class="post-nav">
-        <a class="prev" href="/post/fixing_syzbot_bugs/">
-            <i class="iconfont icon-left"></i>
-            <span class="prev-text nav-default">Fixing syzbot bugs</span>
-            <span class="prev-text nav-mobile">Prev</span>
-          </a>
-        <a class="next" href="/post/syzkaller/">
-            <span class="next-text nav-default">Finding bugs with Syzkaller</span>
-            <span class="next-text nav-mobile">Next</span>
-            <i class="iconfont icon-right"></i>
-          </a>
-      </nav>
-    </footer>
-  </article>
+        </section>
+        <div class="post-tags">
+          
+          
+          <nav class="nav tags">
+            <ul class="tags">
+              
+              <li><a href="/tags/linux">linux</a></li>
+              
+              <li><a href="/tags/kernel">kernel</a></li>
+              
+            </ul>
+          </nav>
+          
+          
         </div>
-        
-
-  
-
-  
-
       </div>
-    </main>
 
-    <footer id="footer" class="footer">
-      <div class="social-links">
-      <a href="https://www.twitter.com/nihaal_an" class="iconfont icon-twitter" title="twitter"></a>
-      <a href="https://in.linkedin.com/in/abdun-nihaal-289272143" class="iconfont icon-linkedin" title="linkedin"></a>
-      <a href="https://www.github.com/nifey" class="iconfont icon-github" title="github"></a>
-      <a href="https://www.gitlab.com/nihaal" class="iconfont icon-gitlab" title="gitlab"></a>
-  
-</div>
-
-<div class="copyright">
-  <span class="power-by">
-    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
-  </span>
-  <span class="division">|</span>
-  <span class="theme-info">
-    Theme - 
-    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
-  </span>
-
-  
-
-  <span class="copyright-year">
-    &copy; 
-    2016 - 
-    2024<span class="heart"><i class="iconfont icon-heart"></i></span><span>Abdun Nihaal</span>
-  </span>
-</div>
-
-    </footer>
-
-    <div class="back-to-top" id="back-to-top">
-      <i class="iconfont icon-up"></i>
+      
+      
     </div>
+
+    </article>
+</main>
+<footer>
+  <div style="display:flex"><a class="soc" href="https://github.com/nifey" rel="me" title="GitHub"><svg class="feather">
+   <use href="/svg/feather-sprite.51cf5647cb1987f769b616558f2620fd9423d72058490231b391bf6aa3744b55.svg#github" />
+</svg></a><a class="border"></a><a class="soc" href="https://in.linkedin.com/in/abdun-nihaal-289272143" rel="me" title="Linkedin"><svg class="feather">
+   <use href="/svg/feather-sprite.51cf5647cb1987f769b616558f2620fd9423d72058490231b391bf6aa3744b55.svg#linkedin" />
+</svg></a><a class="border"></a><a class="soc" href="https://dblp.org/pid/383/3084.html" rel="me" title="DBLP"><svg class="feather">
+   <use href="/svg/feather-sprite.51cf5647cb1987f769b616558f2620fd9423d72058490231b391bf6aa3744b55.svg#book" />
+</svg></a><a class="border"></a></div>
+  <div class="footer-info">
+    2025  <a
+      href="https://github.com/athul/archie">Archie Theme</a> | Built with <a href="https://gohugo.io">Hugo</a>
   </div>
-  <script type="text/javascript" src="/lib/jquery/jquery-3.2.1.min.js"></script>
-  <script type="text/javascript" src="/lib/slideout/slideout-1.0.1.min.js"></script>
-  <script type="text/javascript" src="/lib/fancybox/jquery.fancybox-3.1.20.min.js"></script>
+</footer>
 
 
 
-<script type="text/javascript" src="/js/main.min.4ae89da218555efa0e7093a20b92017d2e1202b66fff9fc2edf4cb8d44b44c6e.js"></script>
-
-
-
-
-
-
-
-
-</body>
+</div>
+    </body>
 </html>

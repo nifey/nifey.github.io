@@ -5,7 +5,7 @@
     <link>https://nihaal.me/tags/hardware-security/</link>
     <description>Recent content in Hardware-Security on Nihaal</description>
     <generator>Hugo</generator>
-    <language>en</language>
+    <language>en-us</language>
     <lastBuildDate>Fri, 02 Dec 2022 11:17:59 +0530</lastBuildDate>
     <atom:link href="https://nihaal.me/tags/hardware-security/index.xml" rel="self" type="application/rss+xml" />
     <item>
@@ -13,7 +13,7 @@
       <link>https://nihaal.me/post/paper_tlbdr/</link>
       <pubDate>Thu, 01 Dec 2022 00:00:00 +0000</pubDate>
       <guid>https://nihaal.me/post/paper_tlbdr/</guid>
-      <description>Yesterday, I read an interesting research paper about reverse engineering TLBs using TLB desynchronization. In this post, I&amp;rsquo;ll write briefly about the key ideas and what I found very interesting in the paper.&#xA;You can find the paper here:&#xA;TLB;DR: Enhancing TLB-based Attacks with TLB Desynchronized Reverse Engineering. TLB;DR Source code Reverse engineering CPU internals In the subfield of hardware security that focuses on communicating (covert channels) or leaking (side channels) critical information using timing or storage channels, accurate information about the CPU internals helps create more efficient and reliable channels.</description>
+      <description>&lt;p&gt;Yesterday, I read an interesting research paper about reverse engineering TLBs using TLB desynchronization.&#xA;In this post, I&amp;rsquo;ll write briefly about the key ideas and what I found very interesting in the paper.&lt;/p&gt;&#xA;&lt;p&gt;You can find the paper here:&lt;/p&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;&lt;a href=&#34;https://www.usenix.org/conference/usenixsecurity22/presentation/tatar&#34;&gt;&lt;strong&gt;TLB;DR: Enhancing TLB-based Attacks with TLB Desynchronized Reverse Engineering&lt;/strong&gt;&lt;/a&gt;.&lt;/li&gt;&#xA;&lt;li&gt;&lt;a href=&#34;https://github.com/vusec/tlbdr&#34;&gt;TLB;DR Source code&lt;/a&gt;&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;h2 id=&#34;reverse-engineering-cpu-internals&#34;&gt;Reverse engineering CPU internals&lt;/h2&gt;&#xA;&lt;p&gt;In the subfield of hardware security that focuses on communicating (covert channels) or leaking (side channels) critical information using timing or storage channels, accurate information about the CPU internals helps create more efficient and reliable channels.&#xA;Information about the size, associativity, set mapping, etc. of caches and TLBs allow the attacker to fine tune their attacks.&#xA;However, most CPU vendors don&amp;rsquo;t disclose such information in detail, and so, attackers resort to reverse engineering these microarchitectural details.&#xA;Reverse engineering hardware structures is usually performed by observing timing differences, which can have a lot of noise.&#xA;In the paper, TLB;DR, the authors propose a new method for reverse engineering TLBs with high accuracy.&lt;/p&gt;</description>
     </item>
   </channel>
 </rss>

@@ -5,7 +5,7 @@
     <link>https://nihaal.me/tags/rust/</link>
     <description>Recent content in Rust on Nihaal</description>
     <generator>Hugo</generator>
-    <language>en</language>
+    <language>en-us</language>
     <lastBuildDate>Tue, 15 Nov 2016 17:50:37 +0000</lastBuildDate>
     <atom:link href="https://nihaal.me/tags/rust/index.xml" rel="self" type="application/rss+xml" />
     <item>
@@ -13,7 +13,7 @@
       <link>https://nihaal.me/post/2016-11-15-hello-world-getting-started-with-rust/</link>
       <pubDate>Tue, 15 Nov 2016 17:50:37 +0000</pubDate>
       <guid>https://nihaal.me/post/2016-11-15-hello-world-getting-started-with-rust/</guid>
-      <description>The Rust programming language Rust is a system programming language that focusses on three aspects: Speed, Safety and Concurrency. It is being developed by an active community of programmers. Its development is officially sponsored by Mozilla.&#xA;Installing rust First, we have to install the rust compiler which is called rustc and cargo ,rust&amp;rsquo;s package manager. I recommend installing rustc and cargo using rustup. Why rustup? Before answering that I have to mention that rustc comes in three versions : Stable , Beta and Nightly.</description>
+      <description>&lt;h2 id=&#34;the-rust-programming-language&#34;&gt;The Rust programming language&lt;/h2&gt;&#xA;&lt;p&gt;Rust is a system programming language that focusses on three aspects: Speed, Safety and Concurrency. It is being developed by an active community of programmers. Its development is officially sponsored by Mozilla.&lt;/p&gt;&#xA;&lt;h3 id=&#34;installing-rust&#34;&gt;Installing rust&lt;/h3&gt;&#xA;&lt;p&gt;First, we have to install the rust compiler which is called &lt;strong&gt;rustc&lt;/strong&gt; and &lt;strong&gt;cargo&lt;/strong&gt; ,rust&amp;rsquo;s package manager. I recommend installing rustc and cargo using rustup. Why rustup? Before answering that I have to mention that rustc comes in three versions : Stable , Beta and Nightly.&lt;/p&gt;</description>
     </item>
   </channel>
 </rss>

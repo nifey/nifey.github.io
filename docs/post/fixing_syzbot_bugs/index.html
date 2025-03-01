@@ -1,51 +1,19 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <title>Fixing syzbot bugs - Nihaal</title>
-  <meta name="renderer" content="webkit" />
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
-
-<meta http-equiv="Cache-Control" content="no-transform" />
-<meta http-equiv="Cache-Control" content="no-siteapp" />
-
-<meta name="theme-color" content="#f8f5ec" />
-<meta name="msapplication-navbutton-color" content="#f8f5ec">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
-
-
-<meta name="author" content="Abdun Nihaal" /><meta name="description" content="Syzbot is an automated fuzzing infrastructure that uses Syzkaller to perform continuous fuzzing, primarily on the Linux kernel. Whenever it finds bugs, Syzbot reports it to the relevant mailing list. It also has a public dashboard where it lists all the open bugs that needs to be fixed.
-Syzbot is quite effective in finding bugs in the kernel but due to the large number of bugs being found, many of them don&amp;rsquo;t get fixed in time." />
-
-
-
-
-
-
-<meta name="generator" content="Hugo 0.126.1 with theme even" />
-
-
-<link rel="canonical" href="https://nihaal.me/post/fixing_syzbot_bugs/" />
-<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-<link rel="manifest" href="/manifest.json">
-<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
-
-
-
-<link href="/sass/main.min.f92fd13721ddf72129410fd8250e73152cc6f2438082b6c0208dc24ee7c13fc4.css" rel="stylesheet">
-<link href="/lib/fancybox/jquery.fancybox-3.1.20.min.css" rel="stylesheet">
-
-
-<meta property="og:url" content="https://nihaal.me/post/fixing_syzbot_bugs/">
+<html><head lang="en">
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge"><title>Fixing syzbot bugs - Nihaal</title><meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="Syzbot is an automated fuzzing infrastructure that uses Syzkaller to perform continuous fuzzing, primarily on the Linux kernel.
+Whenever it finds bugs, Syzbot reports it to the relevant mailing list.
+It also has a public dashboard where it lists all the open bugs that needs to be fixed.
+Syzbot is quite effective in finding bugs in the kernel but due to the large number of bugs being found, many of them don&rsquo;t get fixed in time. And so, we can help fix those bugs.
+In this post, I&rsquo;ll share the general approaches and steps in fixing Syzbot bugs." />
+	<meta property="og:image" content=""/>
+	<meta property="og:url" content="https://nihaal.me/post/fixing_syzbot_bugs/">
   <meta property="og:site_name" content="Nihaal">
   <meta property="og:title" content="Fixing syzbot bugs">
   <meta property="og:description" content="Syzbot is an automated fuzzing infrastructure that uses Syzkaller to perform continuous fuzzing, primarily on the Linux kernel. Whenever it finds bugs, Syzbot reports it to the relevant mailing list. It also has a public dashboard where it lists all the open bugs that needs to be fixed.
-Syzbot is quite effective in finding bugs in the kernel but due to the large number of bugs being found, many of them don’t get fixed in time.">
-  <meta property="og:locale" content="en">
+Syzbot is quite effective in finding bugs in the kernel but due to the large number of bugs being found, many of them don’t get fixed in time. And so, we can help fix those bugs. In this post, I’ll share the general approaches and steps in fixing Syzbot bugs.">
+  <meta property="og:locale" content="en_us">
   <meta property="og:type" content="article">
     <meta property="article:section" content="post">
     <meta property="article:published_time" content="2022-12-20T00:00:00+00:00">
@@ -54,118 +22,74 @@ Syzbot is quite effective in finding bugs in the kernel but due to the large num
     <meta property="article:tag" content="Kernel">
     <meta property="article:tag" content="Fuzzing">
 
-  <meta itemprop="name" content="Fixing syzbot bugs">
-  <meta itemprop="description" content="Syzbot is an automated fuzzing infrastructure that uses Syzkaller to perform continuous fuzzing, primarily on the Linux kernel. Whenever it finds bugs, Syzbot reports it to the relevant mailing list. It also has a public dashboard where it lists all the open bugs that needs to be fixed.
-Syzbot is quite effective in finding bugs in the kernel but due to the large number of bugs being found, many of them don’t get fixed in time.">
-  <meta itemprop="datePublished" content="2022-12-20T00:00:00+00:00">
-  <meta itemprop="dateModified" content="2022-12-20T00:00:00+00:00">
-  <meta itemprop="wordCount" content="1038">
-  <meta itemprop="keywords" content="Linux,Kernel,Fuzzing">
   <meta name="twitter:card" content="summary">
   <meta name="twitter:title" content="Fixing syzbot bugs">
   <meta name="twitter:description" content="Syzbot is an automated fuzzing infrastructure that uses Syzkaller to perform continuous fuzzing, primarily on the Linux kernel. Whenever it finds bugs, Syzbot reports it to the relevant mailing list. It also has a public dashboard where it lists all the open bugs that needs to be fixed.
-Syzbot is quite effective in finding bugs in the kernel but due to the large number of bugs being found, many of them don’t get fixed in time.">
+Syzbot is quite effective in finding bugs in the kernel but due to the large number of bugs being found, many of them don’t get fixed in time. And so, we can help fix those bugs. In this post, I’ll share the general approaches and steps in fixing Syzbot bugs.">
 
-<!--[if lte IE 9]>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
-<![endif]-->
+        <link href="https://nihaal.me/css/fonts.2c2227b81b1970a03e760aa2e6121cd01f87c88586803cbb282aa224720a765f.css" rel="stylesheet">
+	
 
-<!--[if lt IE 9]>
-  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
-<![endif]-->
-
+	
+	<link rel="stylesheet" type="text/css" media="screen" href="https://nihaal.me/css/main.6a0f23ea50fd34b46fee262a5a68e17d458c51a2bc99ba1ba018065de6b180c3.css" /><script type="text/javascript"
+		src="https://nihaal.me/js/MathJax.js"></script>
+		
+		<script type="text/x-mathjax-config">
+		MathJax.Hub.Config({
+			tex2jax: {
+				inlineMath: [['$','$'], ['\\(','\\)']],
+				displayMath: [['$$','$$'], ['\[','\]']],
+				processEscapes: true,
+				processEnvironments: true,
+				skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+				TeX: { equationNumbers: { autoNumber: "AMS" },
+						 extensions: ["AMSmath.js", "AMSsymbols.js"] }
+			}
+		});
+		</script><link rel="stylesheet" href="https://nihaal.me/katex/katex.min.css ">
+		<script defer src="https://nihaal.me/katex/katex.min.js"></script>
+		<script defer src="https://nihaal.me/katex/auto-render.min.js" onload="renderMathInElement(document.body);"></script>
+		
+		<script>
+			document.addEventListener("DOMContentLoaded", function() {
+					renderMathInElement(document.body, {
+							delimiters: [
+									{left: "$$", right: "$$", display: true},
+									{left: "$", right: "$", display: false}
+							]
+					});
+			});
+		</script>
 </head>
 <body>
-  <div id="mobile-navbar" class="mobile-navbar">
-  <div class="mobile-header-logo">
-    <a href="/" class="logo">Nihaal</a>
-  </div>
-  <div class="mobile-navbar-icon">
-    <span></span>
-    <span></span>
-    <span></span>
-  </div>
-</div>
-<nav id="mobile-menu" class="mobile-menu slideout-menu">
-  <ul class="mobile-menu-list">
-    <a href="/">
-        <li class="mobile-menu-item">Home</li>
-      </a><a href="/post/">
-        <li class="mobile-menu-item">Archives</li>
-      </a><a href="/tags/">
-        <li class="mobile-menu-item">Tags</li>
-      </a>
-  </ul>
+        <div class="content"><header>
+	<div class="main">
+		<a href="https://nihaal.me/">Nihaal</a>
+	</div>
+	<nav>
+		
+		<a href="/post">Posts</a>
+		
+		<a href="/about">About</a>
+		
+		<a href="/tags">Tags</a>
+		
+		
+	</nav>
+</header>
 
-  
-
-
-</nav>
-
-  <div class="container" id="mobile-panel">
-    <header id="header" class="header">
-        <div class="logo-wrapper">
-  <a href="/" class="logo">Nihaal</a>
-</div>
-
-
-
-
-
-<nav class="site-navbar">
-  <ul id="menu" class="menu">
-    <li class="menu-item">
-        <a class="menu-item-link" href="/">Home</a>
-      </li><li class="menu-item">
-        <a class="menu-item-link" href="/post/">Archives</a>
-      </li><li class="menu-item">
-        <a class="menu-item-link" href="/tags/">Tags</a>
-      </li>
-  </ul>
-</nav>
-
-    </header>
-
-    <main id="main" class="main">
-      <div class="content-wrapper">
-        <div id="content" class="content">
-          <article class="post">
-    
-    <header class="post-header">
-      <h1 class="post-title">Fixing syzbot bugs</h1>
-
-      <div class="post-meta">
-        <span class="post-time"> 20-12-2022 </span>
+<main>
+  <article>
+    <div class="post-container">
+      
+      <div class="post-content">
+        <div class="title">
+          <h1 class="title">Fixing syzbot bugs</h1>
+          <div class="meta">Posted on Dec 20, 2022</div>
+        </div>
         
-          <span class="more-meta"> 1038 words </span>
-          <span class="more-meta"> 5 mins read </span>
-        
-      </div>
-    </header>
-
-    <div class="post-toc" id="post-toc">
-  <h2 class="post-toc-title">Contents</h2>
-  <div class="post-toc-content always-active">
-    <nav id="TableOfContents">
-  <ul>
-    <li>
-      <ul>
-        <li><a href="#0-dot-setup-your-system">0. Setup your system</a></li>
-        <li><a href="#1-dot-find-a-bug-to-fix">1. Find a bug to fix</a></li>
-        <li><a href="#2-dot-reproduce-the-bug-on-your-system">2. Reproduce the bug on your system</a></li>
-        <li><a href="#3-dot-find-the-cause-of-the-bug">3. Find the cause of the bug</a></li>
-        <li><a href="#4-dot-fix-the-bug">4. Fix the bug</a></li>
-        <li><a href="#5-dot-create-and-test-your-patch-with-syzbot">5. Create and test your patch with Syzbot</a></li>
-        <li><a href="#6-dot-send-your-patch">6. Send your patch</a></li>
-      </ul>
-    </li>
-  </ul>
-</nav>
-  </div>
-</div>
-    <div class="post-content">
-      <p>Syzbot is an automated fuzzing infrastructure that uses Syzkaller to perform continuous fuzzing, primarily on the Linux kernel.
+        <section class="body">
+          <p>Syzbot is an automated fuzzing infrastructure that uses Syzkaller to perform continuous fuzzing, primarily on the Linux kernel.
 Whenever it finds bugs, Syzbot reports it to the relevant mailing list.
 It also has a <a href="https://syzkaller.appspot.com/">public dashboard</a> where it lists all the open bugs that needs to be fixed.</p>
 <p>Syzbot is quite effective in finding bugs in the kernel but due to the large number of bugs being found, many of them don&rsquo;t get fixed in time. And so, we can help fix those bugs.
@@ -178,18 +102,13 @@ In this post, I&rsquo;ll share the general approaches and steps in fixing Syzbot
 I use the root filesystem generated by <em>create-image.sh</em> file provided by Syzkaller.</li>
 <li>Finally, install gdb and set up kgdb.
 <ul>
-<li>
-<p>Compile the kernel with <em>CONFIG_KGDB</em> enabled in the kernel config.</p>
-</li>
-<li>
-<p>When booting the kernel in Qemu, add the <em>-s -S</em> flags to the command.
-Qemu will wait for a GDB connection before booting up.</p>
-</li>
-<li>
-<p>In another terminal, open GDB and type:</p>
-<pre tabindex="0"><code class="language-gdb" data-lang="gdb">    target remote localhost:1234
-    continue
-</code></pre></li>
+<li>Compile the kernel with <em>CONFIG_KGDB</em> enabled in the kernel config.</li>
+<li>When booting the kernel in Qemu, add the <em>-s -S</em> flags to the command.
+Qemu will wait for a GDB connection before booting up.</li>
+<li>In another terminal, open GDB and type:
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>    target remote localhost:1234
+</span></span><span style="display:flex;"><span>    continue
+</span></span></code></pre></div></li>
 </ul>
 </li>
 </ul>
@@ -222,9 +141,8 @@ Moreover, the patches that we send for the subsystem are usually developed on th
 <p>If you are able to reliably reproduce the bug then you can try fixing it.</p>
 <h2 id="3-dot-find-the-cause-of-the-bug">3. Find the cause of the bug</h2>
 <ul>
-<li>
-<p>Compare different reports of the same bug to see if you can get some information
-For example, we can try to answer questions like these:</p>
+<li>Compare different reports of the same bug to see if you can get some information
+For example, we can try to answer questions like these:
 <ul>
 <li>Is the stack trace changing across reports or is it the same?
 (i.e. can the bug be triggered from different code paths or only in a particular path)</li>
@@ -232,11 +150,10 @@ For example, we can try to answer questions like these:</p>
 <li>Is there anything similar or different across the reports? If yes, why?</li>
 </ul>
 </li>
-<li>
-<p>Go down the stack trace and see what conditions needs to be true for this path to occur.
+<li>Go down the stack trace and see what conditions needs to be true for this path to occur.
 (Shuah Khan suggested this during the LFX mentorship meetings.)
 For example, in the simplified example below, we can infer that since the buggy function is on
-the true branch of the if-else, the if condition must be true for the bug to happen.</p>
+the true branch of the if-else, the if condition must be true for the bug to happen.
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span>       <span style="color:#66d9ef">if</span> (some_bool) {
 </span></span><span style="display:flex;"><span>  	<span style="color:#75715e">// Buggy function is called from this path
 </span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  	<span style="color:#a6e22e">buggy_function</span>();
@@ -244,13 +161,9 @@ the true branch of the if-else, the if condition must be true for the bug to hap
 </span></span><span style="display:flex;"><span>          <span style="color:#a6e22e">some_function</span>();
 </span></span><span style="display:flex;"><span>       }
 </span></span></code></pre></div></li>
-<li>
-<p>Use kgdb to debug the kernel. Set a breakpoint right before the bug and look around to see what is causing the bug.</p>
-</li>
-<li>
-<p>Minimize the reproducer manually. Try to remove some system calls or operations from the reproducer while ensuring that the reproducer still
-causes the bug.</p>
-</li>
+<li>Use kgdb to debug the kernel. Set a breakpoint right before the bug and look around to see what is causing the bug.</li>
+<li>Minimize the reproducer manually. Try to remove some system calls or operations from the reproducer while ensuring that the reproducer still
+causes the bug.</li>
 </ul>
 <h2 id="4-dot-fix-the-bug">4. Fix the bug</h2>
 <p>Fixing the bug involves understanding the root cause and addressing it.
@@ -278,101 +191,48 @@ Then you can send your patch to Syzbot for testing.</p>
 <p>Don&rsquo;t forget to add the Reported-by or Reported-and-tested-by tag to give credit to syzbot.
 You can also look around the code to see if there are any other similar bugs.</p>
 
-    </div>
-
-    <div class="post-copyright">
-  <p class="copyright-item">
-    <span class="item-title">Author</span>
-    <span class="item-content">Abdun Nihaal</span>
-  </p>
-  <p class="copyright-item">
-    <span class="item-title">LastMod</span>
-    <span class="item-content">
-        20-12-2022
-        
-    </span>
-  </p>
-  
-  
-</div>
-<footer class="post-footer">
-      <div class="post-tags">
-          <a href="/tags/linux/">linux</a>
-          <a href="/tags/kernel/">kernel</a>
-          <a href="/tags/fuzzing/">fuzzing</a>
-          </div>
-      <nav class="post-nav">
-        <a class="prev" href="/post/kernel_defences/">
-            <i class="iconfont icon-left"></i>
-            <span class="prev-text nav-default">Kernel defences</span>
-            <span class="prev-text nav-mobile">Prev</span>
-          </a>
-        <a class="next" href="/post/coccinelle/">
-            <span class="next-text nav-default">Coccinelle</span>
-            <span class="next-text nav-mobile">Next</span>
-            <i class="iconfont icon-right"></i>
-          </a>
-      </nav>
-    </footer>
-  </article>
+        </section>
+        <div class="post-tags">
+          
+          
+          <nav class="nav tags">
+            <ul class="tags">
+              
+              <li><a href="/tags/linux">linux</a></li>
+              
+              <li><a href="/tags/kernel">kernel</a></li>
+              
+              <li><a href="/tags/fuzzing">fuzzing</a></li>
+              
+            </ul>
+          </nav>
+          
+          
         </div>
-        
-
-  
-
-  
-
       </div>
-    </main>
 
-    <footer id="footer" class="footer">
-      <div class="social-links">
-      <a href="https://www.twitter.com/nihaal_an" class="iconfont icon-twitter" title="twitter"></a>
-      <a href="https://in.linkedin.com/in/abdun-nihaal-289272143" class="iconfont icon-linkedin" title="linkedin"></a>
-      <a href="https://www.github.com/nifey" class="iconfont icon-github" title="github"></a>
-      <a href="https://www.gitlab.com/nihaal" class="iconfont icon-gitlab" title="gitlab"></a>
-  
-</div>
-
-<div class="copyright">
-  <span class="power-by">
-    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
-  </span>
-  <span class="division">|</span>
-  <span class="theme-info">
-    Theme - 
-    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
-  </span>
-
-  
-
-  <span class="copyright-year">
-    &copy; 
-    2016 - 
-    2024<span class="heart"><i class="iconfont icon-heart"></i></span><span>Abdun Nihaal</span>
-  </span>
-</div>
-
-    </footer>
-
-    <div class="back-to-top" id="back-to-top">
-      <i class="iconfont icon-up"></i>
+      
+      
     </div>
+
+    </article>
+</main>
+<footer>
+  <div style="display:flex"><a class="soc" href="https://github.com/nifey" rel="me" title="GitHub"><svg class="feather">
+   <use href="/svg/feather-sprite.51cf5647cb1987f769b616558f2620fd9423d72058490231b391bf6aa3744b55.svg#github" />
+</svg></a><a class="border"></a><a class="soc" href="https://in.linkedin.com/in/abdun-nihaal-289272143" rel="me" title="Linkedin"><svg class="feather">
+   <use href="/svg/feather-sprite.51cf5647cb1987f769b616558f2620fd9423d72058490231b391bf6aa3744b55.svg#linkedin" />
+</svg></a><a class="border"></a><a class="soc" href="https://dblp.org/pid/383/3084.html" rel="me" title="DBLP"><svg class="feather">
+   <use href="/svg/feather-sprite.51cf5647cb1987f769b616558f2620fd9423d72058490231b391bf6aa3744b55.svg#book" />
+</svg></a><a class="border"></a></div>
+  <div class="footer-info">
+    2025  <a
+      href="https://github.com/athul/archie">Archie Theme</a> | Built with <a href="https://gohugo.io">Hugo</a>
   </div>
-  <script type="text/javascript" src="/lib/jquery/jquery-3.2.1.min.js"></script>
-  <script type="text/javascript" src="/lib/slideout/slideout-1.0.1.min.js"></script>
-  <script type="text/javascript" src="/lib/fancybox/jquery.fancybox-3.1.20.min.js"></script>
+</footer>
 
 
 
-<script type="text/javascript" src="/js/main.min.4ae89da218555efa0e7093a20b92017d2e1202b66fff9fc2edf4cb8d44b44c6e.js"></script>
-
-
-
-
-
-
-
-
-</body>
+</div>
+    </body>
 </html>

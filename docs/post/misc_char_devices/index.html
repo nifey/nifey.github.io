@@ -1,51 +1,26 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <title>Misc character devices - Nihaal</title>
-  <meta name="renderer" content="webkit" />
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<html><head lang="en">
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge"><title>Misc character devices - Nihaal</title><meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="Character Devices, Major and Minor numbers
+Based on granularity of access, there are two classes of devices:
 
-<meta http-equiv="Cache-Control" content="no-transform" />
-<meta http-equiv="Cache-Control" content="no-siteapp" />
+Character devices are accessed as a stream of bytes. Eg: Keyboards
+Block devices are accessed in blocks. For instance, hard disks transfer data in blocks of multiple bytes at a time.
 
-<meta name="theme-color" content="#f8f5ec" />
-<meta name="msapplication-navbutton-color" content="#f8f5ec">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
-
-
-<meta name="author" content="Abdun Nihaal" /><meta name="description" content="Character Devices, Major and Minor numbers Based on granularity of access, there are two classes of devices:
-Character devices are accessed as a stream of bytes. Eg: Keyboards Block devices are accessed in blocks. For instance, hard disks transfer data in blocks of multiple bytes at a time. The kernel uses major and minor numbers to identify the attached hardware devices. Major number usually tells us the type of device. Minor numbers are used to differentiate two or more devices with the same major number." />
-
-
-
-
-
-
-<meta name="generator" content="Hugo 0.126.1 with theme even" />
-
-
-<link rel="canonical" href="https://nihaal.me/post/misc_char_devices/" />
-<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-<link rel="manifest" href="/manifest.json">
-<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
-
-
-
-<link href="/sass/main.min.f92fd13721ddf72129410fd8250e73152cc6f2438082b6c0208dc24ee7c13fc4.css" rel="stylesheet">
-<link href="/lib/fancybox/jquery.fancybox-3.1.20.min.css" rel="stylesheet">
-
-
-<meta property="og:url" content="https://nihaal.me/post/misc_char_devices/">
+The kernel uses major and minor numbers to identify the attached hardware devices.
+Major number usually tells us the type of device.
+Minor numbers are used to differentiate two or more devices with the same major number.
+Some minor numbers are reserved.
+The driver writer can choose to use a specific minor number for a device by reserving it, or allow the kernel to assign any free minor number.
+The meaning of major numbers and the list of reserved minor numbers can be found in Documentation/admin-guide/devices.txt." />
+	<meta property="og:image" content=""/>
+	<meta property="og:url" content="https://nihaal.me/post/misc_char_devices/">
   <meta property="og:site_name" content="Nihaal">
   <meta property="og:title" content="Misc character devices">
   <meta property="og:description" content="Character Devices, Major and Minor numbers Based on granularity of access, there are two classes of devices:
-Character devices are accessed as a stream of bytes. Eg: Keyboards Block devices are accessed in blocks. For instance, hard disks transfer data in blocks of multiple bytes at a time. The kernel uses major and minor numbers to identify the attached hardware devices. Major number usually tells us the type of device. Minor numbers are used to differentiate two or more devices with the same major number.">
-  <meta property="og:locale" content="en">
+Character devices are accessed as a stream of bytes. Eg: Keyboards Block devices are accessed in blocks. For instance, hard disks transfer data in blocks of multiple bytes at a time. The kernel uses major and minor numbers to identify the attached hardware devices. Major number usually tells us the type of device. Minor numbers are used to differentiate two or more devices with the same major number. Some minor numbers are reserved. The driver writer can choose to use a specific minor number for a device by reserving it, or allow the kernel to assign any free minor number. The meaning of major numbers and the list of reserved minor numbers can be found in Documentation/admin-guide/devices.txt.">
+  <meta property="og:locale" content="en_us">
   <meta property="og:type" content="article">
     <meta property="article:section" content="post">
     <meta property="article:published_time" content="2021-11-03T00:00:00+00:00">
@@ -53,122 +28,74 @@ Character devices are accessed as a stream of bytes. Eg: Keyboards Block devices
     <meta property="article:tag" content="Linux">
     <meta property="article:tag" content="Kernel">
 
-  <meta itemprop="name" content="Misc character devices">
-  <meta itemprop="description" content="Character Devices, Major and Minor numbers Based on granularity of access, there are two classes of devices:
-Character devices are accessed as a stream of bytes. Eg: Keyboards Block devices are accessed in blocks. For instance, hard disks transfer data in blocks of multiple bytes at a time. The kernel uses major and minor numbers to identify the attached hardware devices. Major number usually tells us the type of device. Minor numbers are used to differentiate two or more devices with the same major number.">
-  <meta itemprop="datePublished" content="2021-11-03T00:00:00+00:00">
-  <meta itemprop="dateModified" content="2021-11-03T00:00:00+00:00">
-  <meta itemprop="wordCount" content="1587">
-  <meta itemprop="keywords" content="Linux,Kernel">
   <meta name="twitter:card" content="summary">
   <meta name="twitter:title" content="Misc character devices">
   <meta name="twitter:description" content="Character Devices, Major and Minor numbers Based on granularity of access, there are two classes of devices:
-Character devices are accessed as a stream of bytes. Eg: Keyboards Block devices are accessed in blocks. For instance, hard disks transfer data in blocks of multiple bytes at a time. The kernel uses major and minor numbers to identify the attached hardware devices. Major number usually tells us the type of device. Minor numbers are used to differentiate two or more devices with the same major number.">
+Character devices are accessed as a stream of bytes. Eg: Keyboards Block devices are accessed in blocks. For instance, hard disks transfer data in blocks of multiple bytes at a time. The kernel uses major and minor numbers to identify the attached hardware devices. Major number usually tells us the type of device. Minor numbers are used to differentiate two or more devices with the same major number. Some minor numbers are reserved. The driver writer can choose to use a specific minor number for a device by reserving it, or allow the kernel to assign any free minor number. The meaning of major numbers and the list of reserved minor numbers can be found in Documentation/admin-guide/devices.txt.">
 
-<!--[if lte IE 9]>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
-<![endif]-->
+        <link href="https://nihaal.me/css/fonts.2c2227b81b1970a03e760aa2e6121cd01f87c88586803cbb282aa224720a765f.css" rel="stylesheet">
+	
 
-<!--[if lt IE 9]>
-  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
-<![endif]-->
-
+	
+	<link rel="stylesheet" type="text/css" media="screen" href="https://nihaal.me/css/main.6a0f23ea50fd34b46fee262a5a68e17d458c51a2bc99ba1ba018065de6b180c3.css" /><script type="text/javascript"
+		src="https://nihaal.me/js/MathJax.js"></script>
+		
+		<script type="text/x-mathjax-config">
+		MathJax.Hub.Config({
+			tex2jax: {
+				inlineMath: [['$','$'], ['\\(','\\)']],
+				displayMath: [['$$','$$'], ['\[','\]']],
+				processEscapes: true,
+				processEnvironments: true,
+				skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+				TeX: { equationNumbers: { autoNumber: "AMS" },
+						 extensions: ["AMSmath.js", "AMSsymbols.js"] }
+			}
+		});
+		</script><link rel="stylesheet" href="https://nihaal.me/katex/katex.min.css ">
+		<script defer src="https://nihaal.me/katex/katex.min.js"></script>
+		<script defer src="https://nihaal.me/katex/auto-render.min.js" onload="renderMathInElement(document.body);"></script>
+		
+		<script>
+			document.addEventListener("DOMContentLoaded", function() {
+					renderMathInElement(document.body, {
+							delimiters: [
+									{left: "$$", right: "$$", display: true},
+									{left: "$", right: "$", display: false}
+							]
+					});
+			});
+		</script>
 </head>
 <body>
-  <div id="mobile-navbar" class="mobile-navbar">
-  <div class="mobile-header-logo">
-    <a href="/" class="logo">Nihaal</a>
-  </div>
-  <div class="mobile-navbar-icon">
-    <span></span>
-    <span></span>
-    <span></span>
-  </div>
-</div>
-<nav id="mobile-menu" class="mobile-menu slideout-menu">
-  <ul class="mobile-menu-list">
-    <a href="/">
-        <li class="mobile-menu-item">Home</li>
-      </a><a href="/post/">
-        <li class="mobile-menu-item">Archives</li>
-      </a><a href="/tags/">
-        <li class="mobile-menu-item">Tags</li>
-      </a>
-  </ul>
+        <div class="content"><header>
+	<div class="main">
+		<a href="https://nihaal.me/">Nihaal</a>
+	</div>
+	<nav>
+		
+		<a href="/post">Posts</a>
+		
+		<a href="/about">About</a>
+		
+		<a href="/tags">Tags</a>
+		
+		
+	</nav>
+</header>
 
-  
-
-
-</nav>
-
-  <div class="container" id="mobile-panel">
-    <header id="header" class="header">
-        <div class="logo-wrapper">
-  <a href="/" class="logo">Nihaal</a>
-</div>
-
-
-
-
-
-<nav class="site-navbar">
-  <ul id="menu" class="menu">
-    <li class="menu-item">
-        <a class="menu-item-link" href="/">Home</a>
-      </li><li class="menu-item">
-        <a class="menu-item-link" href="/post/">Archives</a>
-      </li><li class="menu-item">
-        <a class="menu-item-link" href="/tags/">Tags</a>
-      </li>
-  </ul>
-</nav>
-
-    </header>
-
-    <main id="main" class="main">
-      <div class="content-wrapper">
-        <div id="content" class="content">
-          <article class="post">
-    
-    <header class="post-header">
-      <h1 class="post-title">Misc character devices</h1>
-
-      <div class="post-meta">
-        <span class="post-time"> 03-11-2021 </span>
+<main>
+  <article>
+    <div class="post-container">
+      
+      <div class="post-content">
+        <div class="title">
+          <h1 class="title">Misc character devices</h1>
+          <div class="meta">Posted on Nov 3, 2021</div>
+        </div>
         
-          <span class="more-meta"> 1587 words </span>
-          <span class="more-meta"> 8 mins read </span>
-        
-      </div>
-    </header>
-
-    <div class="post-toc" id="post-toc">
-  <h2 class="post-toc-title">Contents</h2>
-  <div class="post-toc-content always-active">
-    <nav id="TableOfContents">
-  <ul>
-    <li>
-      <ul>
-        <li><a href="#character-devices-major-and-minor-numbers">Character Devices, Major and Minor numbers</a></li>
-        <li><a href="#misc-char-device">Misc Char device</a></li>
-        <li><a href="#creating-a-misc-char-device">Creating a Misc Char device</a></li>
-        <li><a href="#an-example-echo-device">An example: Echo device</a>
-          <ul>
-            <li><a href="#echo-dot-c">echo.c</a></li>
-            <li><a href="#makefile">Makefile</a></li>
-            <li><a href="#testing-echo">Testing echo</a></li>
-          </ul>
-        </li>
-        <li><a href="#references">References</a></li>
-      </ul>
-    </li>
-  </ul>
-</nav>
-  </div>
-</div>
-    <div class="post-content">
-      <h2 id="character-devices-major-and-minor-numbers">Character Devices, Major and Minor numbers</h2>
+        <section class="body">
+          <h2 id="character-devices-major-and-minor-numbers">Character Devices, Major and Minor numbers</h2>
 <p>Based on granularity of access, there are two classes of devices:</p>
 <ol>
 <li><em>Character devices</em> are accessed as a stream of bytes. Eg: Keyboards</li>
@@ -233,7 +160,7 @@ Also, All misc devices share the same major number: 10 (defined as MISC_MAJOR).<
 <li>Include header files. The first three headers are required by all kernel modules.</li>
 <li>Use module macros to add license, author and description</li>
 </ul>
-<!--listend-->
+<!-- raw HTML omitted -->
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="color:#75715e">#include</span><span style="color:#75715e">&lt;linux/init.h&gt;</span><span style="color:#75715e">
 </span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span><span style="color:#75715e">&lt;linux/kernel.h&gt;</span><span style="color:#75715e">
 </span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span><span style="color:#75715e">&lt;linux/module.h&gt;</span><span style="color:#75715e">
@@ -339,28 +266,20 @@ The write function should</p>
 setting the read and write members of the <em>file_operations</em> struct as the address of the functions we have defined.</p>
 <p>Then we create the <em>miscdevice</em> structure, initializing some of its members:</p>
 <ul>
-<li>
-<p><em>minor</em> is set to the minor number we want for our device.
+<li><em>minor</em> is set to the minor number we want for our device.
 If we use MISC_DYNAMIC_MINOR for this member, the kernel will assign any minor number that is available.
 If we specify a number, the kernel will try to assign that minor number
-but device registration may fail if that minor number is already used by some other device.</p>
-</li>
-<li>
-<p><em>name</em> specifies the name of the device file</p>
-</li>
-<li>
-<p><em>fops</em> member is set as the file_operations structure we created</p>
-</li>
-<li>
-<p><em>mode</em> specifies the permissions for device file access.
+but device registration may fail if that minor number is already used by some other device.</li>
+<li><em>name</em> specifies the name of the device file</li>
+<li><em>fops</em> member is set as the file_operations structure we created</li>
+<li><em>mode</em> specifies the permissions for device file access.
 It would be more readable to use macros than to write the octal permission value.
-So we use permission macros defined in <a href="https://elixir.bootlin.com/linux/latest/source/include/linux/stat.h">include/linux/stat.h</a> and <a href="https://elixir.bootlin.com/linux/latest/source/include/uapi/linux/stat.h">include/uapi/linux/stat.h</a>.</p>
-<p><em>S_IRUGO</em> denotes that User, Group and Others (UGO) have Read (R) permissions.
+So we use permission macros defined in <a href="https://elixir.bootlin.com/linux/latest/source/include/linux/stat.h">include/linux/stat.h</a> and <a href="https://elixir.bootlin.com/linux/latest/source/include/uapi/linux/stat.h">include/uapi/linux/stat.h</a>.
+<em>S_IRUGO</em> denotes that User, Group and Others (UGO) have Read (R) permissions.
 Similarly <em>S_IWUGO</em> denotes that User, Group and Others (UGO) have Write (W) permissions.
-For the echo device, we want any user to have read and write access, so we use <em>(S_IRUGO|S_IWUGO)</em></p>
-</li>
+For the echo device, we want any user to have read and write access, so we use <em>(S_IRUGO|S_IWUGO)</em></li>
 </ul>
-<!--listend-->
+<!-- raw HTML omitted -->
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="color:#66d9ef">static</span> <span style="color:#66d9ef">struct</span> file_operations echo_fops <span style="color:#f92672">=</span> {
 </span></span><span style="display:flex;"><span>	.read	<span style="color:#f92672">=</span> <span style="color:#f92672">&amp;</span>echo_read,
 </span></span><span style="display:flex;"><span>	.write	<span style="color:#f92672">=</span> <span style="color:#f92672">&amp;</span>echo_write,
@@ -410,25 +329,20 @@ If the function returns 0, then the device has been created successfully.</p>
 </span></span><span style="display:flex;"><span>	make -C /usr/lib/modules/<span style="color:#66d9ef">$(</span>shell uname -r<span style="color:#66d9ef">)</span>/build M<span style="color:#f92672">=</span><span style="color:#66d9ef">$(</span>PWD<span style="color:#66d9ef">)</span> clean
 </span></span></code></pre></div><h3 id="testing-echo">Testing echo</h3>
 <ul>
-<li>
-<p>Build and load the module</p>
+<li>Build and load the module
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>  make
 </span></span><span style="display:flex;"><span>  sudo insmod echo.ko
 </span></span><span style="display:flex;"><span>  ls /dev/echo
 </span></span><span style="display:flex;"><span>  <span style="color:#75715e"># crw-rw-rw- 10,123 root  3 Nov 20:53 /dev/echo</span>
-</span></span></code></pre></div><p>The echo device will show up at /dev/echo. Notice that the major number 10 tells us that it is a misc device.</p>
-</li>
-<li>
-<p>Write to the device</p>
+</span></span></code></pre></div>The echo device will show up at /dev/echo. Notice that the major number 10 tells us that it is a misc device.</li>
+<li>Write to the device
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>  echo <span style="color:#e6db74">&#34;Good Morning!&#34;</span> &gt; /dev/echo
 </span></span></code></pre></div></li>
-<li>
-<p>Read from the device. It will return what was last written to it.</p>
+<li>Read from the device. It will return what was last written to it.
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>  cat /dev/echo
 </span></span><span style="display:flex;"><span>  <span style="color:#75715e"># Good Morning!</span>
 </span></span></code></pre></div></li>
-<li>
-<p>Unload the module</p>
+<li>Unload the module
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>  sudo rmmod echo
 </span></span></code></pre></div></li>
 </ul>
@@ -442,100 +356,46 @@ If the function returns 0, then the device has been created successfully.</p>
 <li><a href="https://elixir.bootlin.com/linux/latest/source/include/uapi/linux/stat.h">include/uapi/linux/stat.h</a></li>
 </ul>
 
-    </div>
-
-    <div class="post-copyright">
-  <p class="copyright-item">
-    <span class="item-title">Author</span>
-    <span class="item-content">Abdun Nihaal</span>
-  </p>
-  <p class="copyright-item">
-    <span class="item-title">LastMod</span>
-    <span class="item-content">
-        03-11-2021
-        
-    </span>
-  </p>
-  
-  
-</div>
-<footer class="post-footer">
-      <div class="post-tags">
-          <a href="/tags/linux/">linux</a>
-          <a href="/tags/kernel/">kernel</a>
-          </div>
-      <nav class="post-nav">
-        <a class="prev" href="/post/creating_debugfs_files/">
-            <i class="iconfont icon-left"></i>
-            <span class="prev-text nav-default">Creating debugfs files</span>
-            <span class="prev-text nav-mobile">Prev</span>
-          </a>
-        <a class="next" href="/post/updating_vulnerable_python_dependencies/">
-            <span class="next-text nav-default">Updating vulnerable Python dependencies</span>
-            <span class="next-text nav-mobile">Next</span>
-            <i class="iconfont icon-right"></i>
-          </a>
-      </nav>
-    </footer>
-  </article>
+        </section>
+        <div class="post-tags">
+          
+          
+          <nav class="nav tags">
+            <ul class="tags">
+              
+              <li><a href="/tags/linux">linux</a></li>
+              
+              <li><a href="/tags/kernel">kernel</a></li>
+              
+            </ul>
+          </nav>
+          
+          
         </div>
-        
-
-  
-
-  
-
       </div>
-    </main>
 
-    <footer id="footer" class="footer">
-      <div class="social-links">
-      <a href="https://www.twitter.com/nihaal_an" class="iconfont icon-twitter" title="twitter"></a>
-      <a href="https://in.linkedin.com/in/abdun-nihaal-289272143" class="iconfont icon-linkedin" title="linkedin"></a>
-      <a href="https://www.github.com/nifey" class="iconfont icon-github" title="github"></a>
-      <a href="https://www.gitlab.com/nihaal" class="iconfont icon-gitlab" title="gitlab"></a>
-  
-</div>
-
-<div class="copyright">
-  <span class="power-by">
-    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
-  </span>
-  <span class="division">|</span>
-  <span class="theme-info">
-    Theme - 
-    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
-  </span>
-
-  
-
-  <span class="copyright-year">
-    &copy; 
-    2016 - 
-    2024<span class="heart"><i class="iconfont icon-heart"></i></span><span>Abdun Nihaal</span>
-  </span>
-</div>
-
-    </footer>
-
-    <div class="back-to-top" id="back-to-top">
-      <i class="iconfont icon-up"></i>
+      
+      
     </div>
+
+    </article>
+</main>
+<footer>
+  <div style="display:flex"><a class="soc" href="https://github.com/nifey" rel="me" title="GitHub"><svg class="feather">
+   <use href="/svg/feather-sprite.51cf5647cb1987f769b616558f2620fd9423d72058490231b391bf6aa3744b55.svg#github" />
+</svg></a><a class="border"></a><a class="soc" href="https://in.linkedin.com/in/abdun-nihaal-289272143" rel="me" title="Linkedin"><svg class="feather">
+   <use href="/svg/feather-sprite.51cf5647cb1987f769b616558f2620fd9423d72058490231b391bf6aa3744b55.svg#linkedin" />
+</svg></a><a class="border"></a><a class="soc" href="https://dblp.org/pid/383/3084.html" rel="me" title="DBLP"><svg class="feather">
+   <use href="/svg/feather-sprite.51cf5647cb1987f769b616558f2620fd9423d72058490231b391bf6aa3744b55.svg#book" />
+</svg></a><a class="border"></a></div>
+  <div class="footer-info">
+    2025  <a
+      href="https://github.com/athul/archie">Archie Theme</a> | Built with <a href="https://gohugo.io">Hugo</a>
   </div>
-  <script type="text/javascript" src="/lib/jquery/jquery-3.2.1.min.js"></script>
-  <script type="text/javascript" src="/lib/slideout/slideout-1.0.1.min.js"></script>
-  <script type="text/javascript" src="/lib/fancybox/jquery.fancybox-3.1.20.min.js"></script>
+</footer>
 
 
 
-<script type="text/javascript" src="/js/main.min.4ae89da218555efa0e7093a20b92017d2e1202b66fff9fc2edf4cb8d44b44c6e.js"></script>
-
-
-
-
-
-
-
-
-</body>
+</div>
+    </body>
 </html>

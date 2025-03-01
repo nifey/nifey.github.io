@@ -5,7 +5,7 @@
     <link>https://nihaal.me/tags/fuzzing/</link>
     <description>Recent content in Fuzzing on Nihaal</description>
     <generator>Hugo</generator>
-    <language>en</language>
+    <language>en-us</language>
     <lastBuildDate>Tue, 20 Dec 2022 00:00:00 +0000</lastBuildDate>
     <atom:link href="https://nihaal.me/tags/fuzzing/index.xml" rel="self" type="application/rss+xml" />
     <item>
@@ -13,28 +13,28 @@
       <link>https://nihaal.me/post/fixing_syzbot_bugs/</link>
       <pubDate>Tue, 20 Dec 2022 00:00:00 +0000</pubDate>
       <guid>https://nihaal.me/post/fixing_syzbot_bugs/</guid>
-      <description>Syzbot is an automated fuzzing infrastructure that uses Syzkaller to perform continuous fuzzing, primarily on the Linux kernel. Whenever it finds bugs, Syzbot reports it to the relevant mailing list. It also has a public dashboard where it lists all the open bugs that needs to be fixed.&#xA;Syzbot is quite effective in finding bugs in the kernel but due to the large number of bugs being found, many of them don&amp;rsquo;t get fixed in time.</description>
+      <description>&lt;p&gt;Syzbot is an automated fuzzing infrastructure that uses Syzkaller to perform continuous fuzzing, primarily on the Linux kernel.&#xA;Whenever it finds bugs, Syzbot reports it to the relevant mailing list.&#xA;It also has a &lt;a href=&#34;https://syzkaller.appspot.com/&#34;&gt;public dashboard&lt;/a&gt; where it lists all the open bugs that needs to be fixed.&lt;/p&gt;&#xA;&lt;p&gt;Syzbot is quite effective in finding bugs in the kernel but due to the large number of bugs being found, many of them don&amp;rsquo;t get fixed in time. And so, we can help fix those bugs.&#xA;In this post, I&amp;rsquo;ll share the general approaches and steps in fixing Syzbot bugs.&lt;/p&gt;</description>
     </item>
     <item>
       <title>Finding bugs with Syzkaller</title>
       <link>https://nihaal.me/post/syzkaller/</link>
       <pubDate>Mon, 12 Dec 2022 00:00:00 +0000</pubDate>
       <guid>https://nihaal.me/post/syzkaller/</guid>
-      <description>Syzkaller is an unsupervised, grammar based, coverage guided fuzzer used for fuzzing operating system kernels. It primarily performs system call fuzzing, but it can also be used for fuzzing USB and network packets. It is currently used for continuous fuzzing of Linux, Android and other BSD kernels.&#xA;Automated: Syzkaller can automatically restart crashed virtual machines and also create a reproducer for the crashes. Coverage guided: Syzkaller gets coverage information using the KCOV infrastructure, which is built into the kernel.</description>
+      <description>&lt;p&gt;Syzkaller is an unsupervised, grammar based, coverage guided fuzzer used for fuzzing operating system kernels.&#xA;It primarily performs system call fuzzing, but it can also be used for fuzzing USB and network packets.&#xA;It is currently used for continuous fuzzing of Linux, Android and other BSD kernels.&lt;/p&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;&lt;em&gt;Automated&lt;/em&gt;:&#xA;Syzkaller can automatically restart crashed virtual machines and also create a reproducer for the crashes.&lt;/li&gt;&#xA;&lt;li&gt;&lt;em&gt;Coverage guided&lt;/em&gt;:&#xA;Syzkaller gets coverage information using the KCOV infrastructure, which is built into the kernel.&#xA;After executing a mutated program from the corpus, Syzkaller checks if the program has increased the coverage, i.e. it checks whether any&#xA;new code paths in the kernel have been reached during the execution of the program. If so, it adds the program to the corpus for further mutation.&lt;/li&gt;&#xA;&lt;li&gt;&lt;em&gt;Grammar based&lt;/em&gt;:&#xA;Syzkaller understands the structure and API of system calls.&#xA;It uses system calls descriptions written in  &lt;em&gt;&lt;a href=&#34;https://github.com/google/syzkaller/blob/master/docs/syscall_descriptions_syntax.md&#34;&gt;Syzlang&lt;/a&gt;&lt;/em&gt; to generate valid system calls with randomized values in arguments.&#xA;This allows it to execute deeper code paths that would not be possible with blind random fuzzing.&#xA;Syzlang can describe structs that are passed as arguments to syscalls, the possible values for flags and resources (like file descriptors) which are passed across multiple syscalls and have to be created and destroyed using specific system calls.&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;h2 id=&#34;syzkaller-overview&#34;&gt;Syzkaller overview&lt;/h2&gt;&#xA;&lt;p&gt;&lt;img src=&#34;https://github.com/google/syzkaller/blob/master/docs/process_structure.png?raw=true&#34; alt=&#34;&#34;&gt;&lt;/p&gt;</description>
     </item>
     <item>
       <title>Kernel Sanitizers</title>
       <link>https://nihaal.me/post/kernel_sanitizers/</link>
       <pubDate>Mon, 05 Dec 2022 00:00:00 +0000</pubDate>
       <guid>https://nihaal.me/post/kernel_sanitizers/</guid>
-      <description>When fuzzing a program by feeding random inputs to it, we need a mechanism to tell when the program is doing unexpected things. Sanitizers help detect bugs in the program at runtime. They are usually used along with fuzzing to detect bugs in programs.&#xA;The two roles of sanitizers:&#xA;Detect incorrect program behaviour: like accessing memory that the program is not supposed to access Report incorrect behaviour: To be useful, the sanitizer needs to report useful information (like the stack trace and ) that makes it easier to understand and fix the bug.</description>
+      <description>&lt;p&gt;When fuzzing a program by feeding random inputs to it, we need a mechanism to tell when the program is doing unexpected things.&#xA;Sanitizers help detect bugs in the program at runtime.&#xA;They are usually used along with fuzzing to detect bugs in programs.&lt;/p&gt;&#xA;&lt;p&gt;The two roles of sanitizers:&lt;/p&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;&lt;em&gt;Detect incorrect program behaviour&lt;/em&gt;: like accessing memory that the program is not supposed to access&lt;/li&gt;&#xA;&lt;li&gt;&lt;em&gt;Report incorrect behaviour&lt;/em&gt;: To be useful, the sanitizer needs to report useful information (like the stack trace and ) that makes it easier to understand and fix the bug.&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;p&gt;The Linux kernel supports a number of sanitizers, each focussing on a different class of bugs.&lt;/p&gt;</description>
     </item>
     <item>
       <title>Linux kernel fuzzing</title>
       <link>https://nihaal.me/post/kernel_fuzzing/</link>
       <pubDate>Sat, 03 Dec 2022 00:00:00 +0000</pubDate>
       <guid>https://nihaal.me/post/kernel_fuzzing/</guid>
-      <description>In this post, we&amp;rsquo;ll see how fuzzing is used for finding different types of bugs in the Linux kernel. This post consists of my notes taken from the talk by Andrey Konavalov about Linux fuzzing.&#xA;Operating systems kernels are complex. Testing kernels is of prime importance since any vulnerability in the kernel can lead to compromising the whole system.&#xA;Fuzzing is a dynamic program analysis technique, used to find bugs in software.</description>
+      <description>&lt;p&gt;In this post, we&amp;rsquo;ll see how fuzzing is used for finding different types of bugs in the Linux kernel.&#xA;This post consists of my notes taken from &lt;a href=&#34;https://www.linuxfoundation.org/webinars/fuzzing-linux-kernel?hsLang=en&#34;&gt;the talk by Andrey Konavalov about Linux fuzzing&lt;/a&gt;.&lt;/p&gt;&#xA;&lt;p&gt;Operating systems kernels are complex.&#xA;Testing kernels is of prime importance since any vulnerability in the kernel can lead to compromising the whole system.&lt;/p&gt;&#xA;&lt;p&gt;Fuzzing is a dynamic program analysis technique, used to find bugs in software.&#xA;It works by feeding random input to programs until it crashes.&#xA;In recent times, Fuzzing has been effective in finding bugs, especially the ones that are hard to detect manually.&lt;/p&gt;</description>
     </item>
   </channel>
 </rss>

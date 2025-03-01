@@ -1,51 +1,32 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <title>Finding bugs with Syzkaller - Nihaal</title>
-  <meta name="renderer" content="webkit" />
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<html><head lang="en">
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge"><title>Finding bugs with Syzkaller - Nihaal</title><meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="Syzkaller is an unsupervised, grammar based, coverage guided fuzzer used for fuzzing operating system kernels.
+It primarily performs system call fuzzing, but it can also be used for fuzzing USB and network packets.
+It is currently used for continuous fuzzing of Linux, Android and other BSD kernels.
 
-<meta http-equiv="Cache-Control" content="no-transform" />
-<meta http-equiv="Cache-Control" content="no-siteapp" />
+Automated:
+Syzkaller can automatically restart crashed virtual machines and also create a reproducer for the crashes.
+Coverage guided:
+Syzkaller gets coverage information using the KCOV infrastructure, which is built into the kernel.
+After executing a mutated program from the corpus, Syzkaller checks if the program has increased the coverage, i.e. it checks whether any
+new code paths in the kernel have been reached during the execution of the program. If so, it adds the program to the corpus for further mutation.
+Grammar based:
+Syzkaller understands the structure and API of system calls.
+It uses system calls descriptions written in  Syzlang to generate valid system calls with randomized values in arguments.
+This allows it to execute deeper code paths that would not be possible with blind random fuzzing.
+Syzlang can describe structs that are passed as arguments to syscalls, the possible values for flags and resources (like file descriptors) which are passed across multiple syscalls and have to be created and destroyed using specific system calls.
 
-<meta name="theme-color" content="#f8f5ec" />
-<meta name="msapplication-navbutton-color" content="#f8f5ec">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
-
-
-<meta name="author" content="Abdun Nihaal" /><meta name="description" content="Syzkaller is an unsupervised, grammar based, coverage guided fuzzer used for fuzzing operating system kernels. It primarily performs system call fuzzing, but it can also be used for fuzzing USB and network packets. It is currently used for continuous fuzzing of Linux, Android and other BSD kernels.
-Automated: Syzkaller can automatically restart crashed virtual machines and also create a reproducer for the crashes. Coverage guided: Syzkaller gets coverage information using the KCOV infrastructure, which is built into the kernel." />
-
-
-
-
-
-
-<meta name="generator" content="Hugo 0.126.1 with theme even" />
-
-
-<link rel="canonical" href="https://nihaal.me/post/syzkaller/" />
-<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-<link rel="manifest" href="/manifest.json">
-<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
-
-
-
-<link href="/sass/main.min.f92fd13721ddf72129410fd8250e73152cc6f2438082b6c0208dc24ee7c13fc4.css" rel="stylesheet">
-<link href="/lib/fancybox/jquery.fancybox-3.1.20.min.css" rel="stylesheet">
-
-
-<meta property="og:url" content="https://nihaal.me/post/syzkaller/">
+Syzkaller overview
+" />
+	<meta property="og:image" content=""/>
+	<meta property="og:url" content="https://nihaal.me/post/syzkaller/">
   <meta property="og:site_name" content="Nihaal">
   <meta property="og:title" content="Finding bugs with Syzkaller">
   <meta property="og:description" content="Syzkaller is an unsupervised, grammar based, coverage guided fuzzer used for fuzzing operating system kernels. It primarily performs system call fuzzing, but it can also be used for fuzzing USB and network packets. It is currently used for continuous fuzzing of Linux, Android and other BSD kernels.
-Automated: Syzkaller can automatically restart crashed virtual machines and also create a reproducer for the crashes. Coverage guided: Syzkaller gets coverage information using the KCOV infrastructure, which is built into the kernel.">
-  <meta property="og:locale" content="en">
+Automated: Syzkaller can automatically restart crashed virtual machines and also create a reproducer for the crashes. Coverage guided: Syzkaller gets coverage information using the KCOV infrastructure, which is built into the kernel. After executing a mutated program from the corpus, Syzkaller checks if the program has increased the coverage, i.e. it checks whether any new code paths in the kernel have been reached during the execution of the program. If so, it adds the program to the corpus for further mutation. Grammar based: Syzkaller understands the structure and API of system calls. It uses system calls descriptions written in Syzlang to generate valid system calls with randomized values in arguments. This allows it to execute deeper code paths that would not be possible with blind random fuzzing. Syzlang can describe structs that are passed as arguments to syscalls, the possible values for flags and resources (like file descriptors) which are passed across multiple syscalls and have to be created and destroyed using specific system calls. Syzkaller overview">
+  <meta property="og:locale" content="en_us">
   <meta property="og:type" content="article">
     <meta property="article:section" content="post">
     <meta property="article:published_time" content="2022-12-12T00:00:00+00:00">
@@ -53,122 +34,74 @@ Automated: Syzkaller can automatically restart crashed virtual machines and also
     <meta property="article:tag" content="Fuzzing">
     <meta property="article:tag" content="Syzkaller">
 
-  <meta itemprop="name" content="Finding bugs with Syzkaller">
-  <meta itemprop="description" content="Syzkaller is an unsupervised, grammar based, coverage guided fuzzer used for fuzzing operating system kernels. It primarily performs system call fuzzing, but it can also be used for fuzzing USB and network packets. It is currently used for continuous fuzzing of Linux, Android and other BSD kernels.
-Automated: Syzkaller can automatically restart crashed virtual machines and also create a reproducer for the crashes. Coverage guided: Syzkaller gets coverage information using the KCOV infrastructure, which is built into the kernel.">
-  <meta itemprop="datePublished" content="2022-12-12T00:00:00+00:00">
-  <meta itemprop="dateModified" content="2022-12-12T00:00:00+00:00">
-  <meta itemprop="wordCount" content="863">
-  <meta itemprop="keywords" content="Fuzzing,Syzkaller">
   <meta name="twitter:card" content="summary">
   <meta name="twitter:title" content="Finding bugs with Syzkaller">
   <meta name="twitter:description" content="Syzkaller is an unsupervised, grammar based, coverage guided fuzzer used for fuzzing operating system kernels. It primarily performs system call fuzzing, but it can also be used for fuzzing USB and network packets. It is currently used for continuous fuzzing of Linux, Android and other BSD kernels.
-Automated: Syzkaller can automatically restart crashed virtual machines and also create a reproducer for the crashes. Coverage guided: Syzkaller gets coverage information using the KCOV infrastructure, which is built into the kernel.">
+Automated: Syzkaller can automatically restart crashed virtual machines and also create a reproducer for the crashes. Coverage guided: Syzkaller gets coverage information using the KCOV infrastructure, which is built into the kernel. After executing a mutated program from the corpus, Syzkaller checks if the program has increased the coverage, i.e. it checks whether any new code paths in the kernel have been reached during the execution of the program. If so, it adds the program to the corpus for further mutation. Grammar based: Syzkaller understands the structure and API of system calls. It uses system calls descriptions written in Syzlang to generate valid system calls with randomized values in arguments. This allows it to execute deeper code paths that would not be possible with blind random fuzzing. Syzlang can describe structs that are passed as arguments to syscalls, the possible values for flags and resources (like file descriptors) which are passed across multiple syscalls and have to be created and destroyed using specific system calls. Syzkaller overview">
 
-<!--[if lte IE 9]>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
-<![endif]-->
+        <link href="https://nihaal.me/css/fonts.2c2227b81b1970a03e760aa2e6121cd01f87c88586803cbb282aa224720a765f.css" rel="stylesheet">
+	
 
-<!--[if lt IE 9]>
-  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
-<![endif]-->
-
+	
+	<link rel="stylesheet" type="text/css" media="screen" href="https://nihaal.me/css/main.6a0f23ea50fd34b46fee262a5a68e17d458c51a2bc99ba1ba018065de6b180c3.css" /><script type="text/javascript"
+		src="https://nihaal.me/js/MathJax.js"></script>
+		
+		<script type="text/x-mathjax-config">
+		MathJax.Hub.Config({
+			tex2jax: {
+				inlineMath: [['$','$'], ['\\(','\\)']],
+				displayMath: [['$$','$$'], ['\[','\]']],
+				processEscapes: true,
+				processEnvironments: true,
+				skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+				TeX: { equationNumbers: { autoNumber: "AMS" },
+						 extensions: ["AMSmath.js", "AMSsymbols.js"] }
+			}
+		});
+		</script><link rel="stylesheet" href="https://nihaal.me/katex/katex.min.css ">
+		<script defer src="https://nihaal.me/katex/katex.min.js"></script>
+		<script defer src="https://nihaal.me/katex/auto-render.min.js" onload="renderMathInElement(document.body);"></script>
+		
+		<script>
+			document.addEventListener("DOMContentLoaded", function() {
+					renderMathInElement(document.body, {
+							delimiters: [
+									{left: "$$", right: "$$", display: true},
+									{left: "$", right: "$", display: false}
+							]
+					});
+			});
+		</script>
 </head>
 <body>
-  <div id="mobile-navbar" class="mobile-navbar">
-  <div class="mobile-header-logo">
-    <a href="/" class="logo">Nihaal</a>
-  </div>
-  <div class="mobile-navbar-icon">
-    <span></span>
-    <span></span>
-    <span></span>
-  </div>
-</div>
-<nav id="mobile-menu" class="mobile-menu slideout-menu">
-  <ul class="mobile-menu-list">
-    <a href="/">
-        <li class="mobile-menu-item">Home</li>
-      </a><a href="/post/">
-        <li class="mobile-menu-item">Archives</li>
-      </a><a href="/tags/">
-        <li class="mobile-menu-item">Tags</li>
-      </a>
-  </ul>
+        <div class="content"><header>
+	<div class="main">
+		<a href="https://nihaal.me/">Nihaal</a>
+	</div>
+	<nav>
+		
+		<a href="/post">Posts</a>
+		
+		<a href="/about">About</a>
+		
+		<a href="/tags">Tags</a>
+		
+		
+	</nav>
+</header>
 
-  
-
-
-</nav>
-
-  <div class="container" id="mobile-panel">
-    <header id="header" class="header">
-        <div class="logo-wrapper">
-  <a href="/" class="logo">Nihaal</a>
-</div>
-
-
-
-
-
-<nav class="site-navbar">
-  <ul id="menu" class="menu">
-    <li class="menu-item">
-        <a class="menu-item-link" href="/">Home</a>
-      </li><li class="menu-item">
-        <a class="menu-item-link" href="/post/">Archives</a>
-      </li><li class="menu-item">
-        <a class="menu-item-link" href="/tags/">Tags</a>
-      </li>
-  </ul>
-</nav>
-
-    </header>
-
-    <main id="main" class="main">
-      <div class="content-wrapper">
-        <div id="content" class="content">
-          <article class="post">
-    
-    <header class="post-header">
-      <h1 class="post-title">Finding bugs with Syzkaller</h1>
-
-      <div class="post-meta">
-        <span class="post-time"> 12-12-2022 </span>
+<main>
+  <article>
+    <div class="post-container">
+      
+      <div class="post-content">
+        <div class="title">
+          <h1 class="title">Finding bugs with Syzkaller</h1>
+          <div class="meta">Posted on Dec 12, 2022</div>
+        </div>
         
-          <span class="more-meta"> 863 words </span>
-          <span class="more-meta"> 5 mins read </span>
-        
-      </div>
-    </header>
-
-    <div class="post-toc" id="post-toc">
-  <h2 class="post-toc-title">Contents</h2>
-  <div class="post-toc-content always-active">
-    <nav id="TableOfContents">
-  <ul>
-    <li>
-      <ul>
-        <li><a href="#syzkaller-overview">Syzkaller overview</a></li>
-        <li><a href="#setting-up-syzkaller">Setting up Syzkaller</a>
-          <ul>
-            <li><a href="#1-dot-compile-the-linux-kernel-for-fuzzing">1. Compile the Linux kernel for fuzzing</a></li>
-            <li><a href="#2-dot-setup-qemu">2. Setup Qemu</a></li>
-            <li><a href="#3-dot-setup-and-run-syzkaller">3. Setup and run Syzkaller</a></li>
-          </ul>
-        </li>
-        <li><a href="#syzbot">Syzbot</a></li>
-        <li><a href="#todo">TODO</a></li>
-        <li><a href="#references">References</a></li>
-      </ul>
-    </li>
-  </ul>
-</nav>
-  </div>
-</div>
-    <div class="post-content">
-      <p>Syzkaller is an unsupervised, grammar based, coverage guided fuzzer used for fuzzing operating system kernels.
+        <section class="body">
+          <p>Syzkaller is an unsupervised, grammar based, coverage guided fuzzer used for fuzzing operating system kernels.
 It primarily performs system call fuzzing, but it can also be used for fuzzing USB and network packets.
 It is currently used for continuous fuzzing of Linux, Android and other BSD kernels.</p>
 <ul>
@@ -185,8 +118,8 @@ This allows it to execute deeper code paths that would not be possible with blin
 Syzlang can describe structs that are passed as arguments to syscalls, the possible values for flags and resources (like file descriptors) which are passed across multiple syscalls and have to be created and destroyed using specific system calls.</li>
 </ul>
 <h2 id="syzkaller-overview">Syzkaller overview</h2>
-<p><img src="https://github.com/google/syzkaller/blob/master/docs/process_structure.png?raw=true">
-The above image, taken from <a href="https://github.com/google/syzkaller/blob/master/docs/internals.md">Syzkaller documentation</a> shows the overall working of Syzkaller.
+<p><img src="https://github.com/google/syzkaller/blob/master/docs/process_structure.png?raw=true" alt=""></p>
+<p>The above image, taken from <a href="https://github.com/google/syzkaller/blob/master/docs/internals.md">Syzkaller documentation</a> shows the overall working of Syzkaller.
 Syzkaller consists of different components like syz-manager, syz-fuzzer and syz-executor.
 <em>syz-manager</em> is the process that manages virtual machines, maintains and updates the corpus of input program based on coverage information obtained through <em>syz-fuzzer</em>.
 It also serves the web interface that displays VM information, bugs found and their respective crash logs.
@@ -194,102 +127,94 @@ Inside the virtual machine, <em>syz-executor</em> is the program that executes t
 <h2 id="setting-up-syzkaller">Setting up Syzkaller</h2>
 <h3 id="1-dot-compile-the-linux-kernel-for-fuzzing">1. Compile the Linux kernel for fuzzing</h3>
 <ul>
-<li>
-<p>Download source</p>
+<li>Download source
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>  git clone https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git linux
 </span></span><span style="display:flex;"><span>  cd linux
 </span></span><span style="display:flex;"><span>  make defconfig;        <span style="color:#75715e"># Generate default .config</span>
 </span></span><span style="display:flex;"><span>  make kvm_guest.config; <span style="color:#75715e"># Enable some configs for virtualization</span>
 </span></span></code></pre></div></li>
-<li>
-<p>Ensure that the following configurations are enabled in the .config file.</p>
-<pre tabindex="0"><code class="language-nil" data-lang="nil">  CONFIG_KCOV=y          # Coverage collection
-  CONFIG_DEBUG_INFO=y    # Debug info
-
-  CONFIG_KASAN=y         # Memory bug detector
-  CONFIG_KASAN_INLINE=y
-
-  CONFIG_CONFIGFS_FS=y   # Required for debian rootfs
-  CONFIG_SECURITYFS=y
-</code></pre></li>
-<li>
-<p>Compile</p>
+<li>Ensure that the following configurations are enabled in the .config file.
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>  CONFIG_KCOV=y          # Coverage collection
+</span></span><span style="display:flex;"><span>  CONFIG_DEBUG_INFO=y    # Debug info
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  CONFIG_KASAN=y         # Memory bug detector
+</span></span><span style="display:flex;"><span>  CONFIG_KASAN_INLINE=y
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  CONFIG_CONFIGFS_FS=y   # Required for debian rootfs
+</span></span><span style="display:flex;"><span>  CONFIG_SECURITYFS=y
+</span></span></code></pre></div></li>
+<li>Compile
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>  make -j16
 </span></span></code></pre></div></li>
 </ul>
 <h3 id="2-dot-setup-qemu">2. Setup Qemu</h3>
 <ul>
-<li>
-<p>Create rootfs with SSH access</p>
-<p>We need a root filesystem for booting the kernel in a QEMU virtual machine.
+<li>Create rootfs with SSH access.
+We need a root filesystem for booting the kernel in a QEMU virtual machine.
 Syzkaller provides a helper script <em>tools/create-image.sh</em> for creating a debian image.
-The script also creates ssh keys for logging into the VM through SSH.</p>
-<pre tabindex="0"><code class="language-nil" data-lang="nil">  git clone https://github.com/google/syzkaller
-  cd syzkaller
-  ./tools/create-image.sh -d buster             # Create a debian buster image
-  # Now you should find buster.img, buster.id_rsa, buster.id_rsa.pub created
-</code></pre></li>
-<li>
-<p>Test Qemu</p>
-<p>Syzkaller accesses VM through SSH and so we need to ensure that the kernel boots and that we are able to SSH into the VM using the generated SSH keys.
-If the VM boots fine and we are able to SSH into it, then we are all set for fuzzing.</p>
-<pre tabindex="0"><code class="language-nil" data-lang="nil">  # Start qemu with the compiled kernel and debian image
-  KERNEL=/home/nihaal/linux     # Path to linux source
-  IMAGE=/home/nihaal/syzkaller  # Path to directory containing debian image and SSH keys
-  qemu-system-x86_64 \
-      -m 2G \
-      -smp 2 \
-      -kernel $KERNEL/arch/x86/boot/bzImage \
-      -append &#34;console=ttyS0 root=/dev/sda earlyprintk=serial net.ifnames=0&#34; \
-      -drive file=$IMAGE/buster.img,format=raw \
-      -net user,host=10.0.2.10,hostfwd=tcp:127.0.0.1:10021-:22 \
-      -net nic,model=e1000 \
-      -enable-kvm \
-      -nographic \
-      -pidfile vm.pid \
-      2&gt;&amp;1 | tee vm.log
-
-  # From a different console, test SSH access
-  ssh -i $IMAGE/buster.id_rsa -p 10021 -o &#34;StrictHostKeyChecking no&#34; root@localhost
-</code></pre></li>
+The script also creates ssh keys for logging into the VM through SSH.
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-gdscript3" data-lang="gdscript3"><span style="display:flex;"><span>  git clone https:<span style="color:#f92672">//</span>github<span style="color:#f92672">.</span>com<span style="color:#f92672">/</span>google<span style="color:#f92672">/</span>syzkaller
+</span></span><span style="display:flex;"><span>  cd syzkaller
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">./</span>tools<span style="color:#f92672">/</span>create<span style="color:#f92672">-</span>image<span style="color:#f92672">.</span>sh <span style="color:#f92672">-</span>d buster             <span style="color:#75715e"># Create a debian buster image</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># Now you should find buster.img, buster.id_rsa, buster.id_rsa.pub created</span>
+</span></span></code></pre></div></li>
+<li>Test Qemu.
+Syzkaller accesses VM through SSH and so we need to ensure that the kernel boots and that we are able to SSH into the VM using the generated SSH keys.
+If the VM boots fine and we are able to SSH into it, then we are all set for fuzzing.
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>  # Start qemu with the compiled kernel and debian image
+</span></span><span style="display:flex;"><span>  KERNEL=/home/nihaal/linux     # Path to linux source
+</span></span><span style="display:flex;"><span>  IMAGE=/home/nihaal/syzkaller  # Path to directory containing debian image and SSH keys
+</span></span><span style="display:flex;"><span>  qemu-system-x86_64 \
+</span></span><span style="display:flex;"><span>      -m 2G \
+</span></span><span style="display:flex;"><span>      -smp 2 \
+</span></span><span style="display:flex;"><span>      -kernel $KERNEL/arch/x86/boot/bzImage \
+</span></span><span style="display:flex;"><span>      -append &#34;console=ttyS0 root=/dev/sda earlyprintk=serial net.ifnames=0&#34; \
+</span></span><span style="display:flex;"><span>      -drive file=$IMAGE/buster.img,format=raw \
+</span></span><span style="display:flex;"><span>      -net user,host=10.0.2.10,hostfwd=tcp:127.0.0.1:10021-:22 \
+</span></span><span style="display:flex;"><span>      -net nic,model=e1000 \
+</span></span><span style="display:flex;"><span>      -enable-kvm \
+</span></span><span style="display:flex;"><span>      -nographic \
+</span></span><span style="display:flex;"><span>      -pidfile vm.pid \
+</span></span><span style="display:flex;"><span>      2&gt;&amp;1 | tee vm.log
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  # From a different console, test SSH access
+</span></span><span style="display:flex;"><span>  ssh -i $IMAGE/buster.id_rsa -p 10021 -o &#34;StrictHostKeyChecking no&#34; root@localhost
+</span></span></code></pre></div></li>
 </ul>
 <h3 id="3-dot-setup-and-run-syzkaller">3. Setup and run Syzkaller</h3>
 <ul>
-<li>
-<p>Make Syzkaller</p>
-<p>Syzkaller is written in Go. Install golang on your system and compile Syzkaller with make.</p>
+<li>Build Syzkaller.
+Syzkaller is written in Go. Install golang on your system and compile Syzkaller with make.
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>  <span style="color:#75715e"># Install golang</span>
 </span></span><span style="display:flex;"><span>  cd syzkaller
 </span></span><span style="display:flex;"><span>  make
 </span></span></code></pre></div></li>
-<li>
-<p>Create syz-manager config</p>
-<p>We need to pass a configuration file for Syzkaller that contains information about the location of the kernel and root filesystem,
+<li>Create syz-manager config.
+We need to pass a configuration file for Syzkaller that contains information about the location of the kernel and root filesystem,
 number of processes, number of VM and the number of virtual CPUs and memory in each VM.
-Description of different configs can be found <span class="underline"><a href="https://github.com/google/syzkaller/blob/master/pkg/mgrconfig/config.go">here</a></span></p>
-<pre tabindex="0"><code class="language-nil" data-lang="nil">  {
-      &#34;target&#34;: &#34;linux/amd64&#34;,          # System architecture
-      &#34;http&#34;: &#34;127.0.0.1:54321&#34;,        # URL for web interface
-      &#34;workdir&#34;: &#34;$WORKDIR&#34;,            # Used for storing crash logs and corpus
-      &#34;kernel_obj&#34;: &#34;$KERNEL&#34;,          # Kernel source directory
-      &#34;image&#34;: &#34;$IMAGE/buster.img&#34;,     # Generated root filesystem image
-      &#34;sshkey&#34;: &#34;$IMAGE/buster.id_rsa&#34;, # Generated SSH key
-      &#34;syzkaller&#34;: &#34;$SYZKALLER&#34;,        # Syzkaller directory
-      &#34;procs&#34;: 2,                       # Number of processes to use in each VM
-      &#34;type&#34;: &#34;qemu&#34;,
-      &#34;reproduce&#34;: false,               # Disable reproducer generation
-      &#34;vm&#34;: {
-          &#34;count&#34;: 4,                   # Number of VMs to use
-          &#34;kernel&#34;: &#34;$KERNEL/arch/x86/boot/bzImage&#34;,  # Path to compiled kernel
-          &#34;cpu&#34;: 2,                     # Number of CPUs in each VM
-          &#34;mem&#34;: 2048                   # Memory used by each VM
-      }
-  }
-</code></pre></li>
-<li>
-<p>Start fuzzing</p>
-<pre tabindex="0"><code class="language-nil" data-lang="nil">  ./bin/syz-manager -config my.cfg
-</code></pre></li>
+Description of different configs can be found <!-- raw HTML omitted --><a href="https://github.com/google/syzkaller/blob/master/pkg/mgrconfig/config.go">here</a><!-- raw HTML omitted -->
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>  {
+</span></span><span style="display:flex;"><span>      &#34;target&#34;: &#34;linux/amd64&#34;,          # System architecture
+</span></span><span style="display:flex;"><span>      &#34;http&#34;: &#34;127.0.0.1:54321&#34;,        # URL for web interface
+</span></span><span style="display:flex;"><span>      &#34;workdir&#34;: &#34;$WORKDIR&#34;,            # Used for storing crash logs and corpus
+</span></span><span style="display:flex;"><span>      &#34;kernel_obj&#34;: &#34;$KERNEL&#34;,          # Kernel source directory
+</span></span><span style="display:flex;"><span>      &#34;image&#34;: &#34;$IMAGE/buster.img&#34;,     # Generated root filesystem image
+</span></span><span style="display:flex;"><span>      &#34;sshkey&#34;: &#34;$IMAGE/buster.id_rsa&#34;, # Generated SSH key
+</span></span><span style="display:flex;"><span>      &#34;syzkaller&#34;: &#34;$SYZKALLER&#34;,        # Syzkaller directory
+</span></span><span style="display:flex;"><span>      &#34;procs&#34;: 2,                       # Number of processes to use in each VM
+</span></span><span style="display:flex;"><span>      &#34;type&#34;: &#34;qemu&#34;,
+</span></span><span style="display:flex;"><span>      &#34;reproduce&#34;: false,               # Disable reproducer generation
+</span></span><span style="display:flex;"><span>      &#34;vm&#34;: {
+</span></span><span style="display:flex;"><span>          &#34;count&#34;: 4,                   # Number of VMs to use
+</span></span><span style="display:flex;"><span>          &#34;kernel&#34;: &#34;$KERNEL/arch/x86/boot/bzImage&#34;,  # Path to compiled kernel
+</span></span><span style="display:flex;"><span>          &#34;cpu&#34;: 2,                     # Number of CPUs in each VM
+</span></span><span style="display:flex;"><span>          &#34;mem&#34;: 2048                   # Memory used by each VM
+</span></span><span style="display:flex;"><span>      }
+</span></span><span style="display:flex;"><span>  }
+</span></span></code></pre></div></li>
+<li>Start fuzzing
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>  ./bin/syz-manager -config my.cfg
+</span></span></code></pre></div></li>
 </ul>
 <h2 id="syzbot">Syzbot</h2>
 <p>Syzbot is an automated continuous fuzzing infrastructure that performs continous fuzzing of different kernels using Syzkaller and reports any crashes and associated reproducers to the respective mailing lists.
@@ -305,113 +230,59 @@ The Syzbot infrastructure also has a <a href="https://syzkaller.appspot.com/">pu
 </ul>
 <h2 id="references">References</h2>
 <ul>
-<li><span class="underline"><a href="https://lwn.net/Articles/677764/">LWN article: Coverage-guided kernel fuzzing with syzkaller</a></span></li>
+<li><!-- raw HTML omitted --><a href="https://lwn.net/Articles/677764/">LWN article: Coverage-guided kernel fuzzing with syzkaller</a><!-- raw HTML omitted --></li>
 <li>Collabora&rsquo;s blog series on Syzkaller:
 <ul>
-<li><span class="underline"><a href="https://www.collabora.com/news-and-blog/blog/2020/03/26/syzkaller-fuzzing-the-kernel/">Syzkaller: Fuzzing the kernel</a></span></li>
-<li><span class="underline"><a href="https://www.collabora.com/news-and-blog/blog/2020/04/17/using-syzkaller-to-detect-programming-bugs-in-linux/">Using Syzkaller to detect programming bugs in the kernel</a></span></li>
-<li><span class="underline"><a href="https://www.collabora.com/news-and-blog/blog/2020/05/12/using-syzkaller-fuzzing-your-changes/">Using Syzkaller to fuzz your changes</a></span></li>
-<li><span class="underline"><a href="https://www.collabora.com/news-and-blog/blog/2020/06/26/using-syzkaller-part-4-driver-fuzzing/">Driver fuzzing</a></span></li>
+<li><!-- raw HTML omitted --><a href="https://www.collabora.com/news-and-blog/blog/2020/03/26/syzkaller-fuzzing-the-kernel/">Syzkaller: Fuzzing the kernel</a><!-- raw HTML omitted --></li>
+<li><!-- raw HTML omitted --><a href="https://www.collabora.com/news-and-blog/blog/2020/04/17/using-syzkaller-to-detect-programming-bugs-in-linux/">Using Syzkaller to detect programming bugs in the kernel</a><!-- raw HTML omitted --></li>
+<li><!-- raw HTML omitted --><a href="https://www.collabora.com/news-and-blog/blog/2020/05/12/using-syzkaller-fuzzing-your-changes/">Using Syzkaller to fuzz your changes</a><!-- raw HTML omitted --></li>
+<li><!-- raw HTML omitted --><a href="https://www.collabora.com/news-and-blog/blog/2020/06/26/using-syzkaller-part-4-driver-fuzzing/">Driver fuzzing</a><!-- raw HTML omitted --></li>
 </ul>
 </li>
-<li><span class="underline"><a href="https://github.com/google/syzkaller">Syzkaller</a></span></li>
-<li><span class="underline"><a href="https://syzkaller.appspot.com/">Syzbot Dashboard</a></span></li>
+<li><!-- raw HTML omitted --><a href="https://github.com/google/syzkaller">Syzkaller</a><!-- raw HTML omitted --></li>
+<li><!-- raw HTML omitted --><a href="https://syzkaller.appspot.com/">Syzbot Dashboard</a><!-- raw HTML omitted --></li>
 </ul>
 
-    </div>
-
-    <div class="post-copyright">
-  <p class="copyright-item">
-    <span class="item-title">Author</span>
-    <span class="item-content">Abdun Nihaal</span>
-  </p>
-  <p class="copyright-item">
-    <span class="item-title">LastMod</span>
-    <span class="item-content">
-        12-12-2022
-        
-    </span>
-  </p>
-  
-  
-</div>
-<footer class="post-footer">
-      <div class="post-tags">
-          <a href="/tags/fuzzing/">fuzzing</a>
-          <a href="/tags/syzkaller/">syzkaller</a>
-          </div>
-      <nav class="post-nav">
-        <a class="prev" href="/post/coccinelle/">
-            <i class="iconfont icon-left"></i>
-            <span class="prev-text nav-default">Coccinelle</span>
-            <span class="prev-text nav-mobile">Prev</span>
-          </a>
-        <a class="next" href="/post/how_to_research/">
-            <span class="next-text nav-default">How to do research?</span>
-            <span class="next-text nav-mobile">Next</span>
-            <i class="iconfont icon-right"></i>
-          </a>
-      </nav>
-    </footer>
-  </article>
+        </section>
+        <div class="post-tags">
+          
+          
+          <nav class="nav tags">
+            <ul class="tags">
+              
+              <li><a href="/tags/fuzzing">fuzzing</a></li>
+              
+              <li><a href="/tags/syzkaller">syzkaller</a></li>
+              
+            </ul>
+          </nav>
+          
+          
         </div>
-        
-
-  
-
-  
-
       </div>
-    </main>
 
-    <footer id="footer" class="footer">
-      <div class="social-links">
-      <a href="https://www.twitter.com/nihaal_an" class="iconfont icon-twitter" title="twitter"></a>
-      <a href="https://in.linkedin.com/in/abdun-nihaal-289272143" class="iconfont icon-linkedin" title="linkedin"></a>
-      <a href="https://www.github.com/nifey" class="iconfont icon-github" title="github"></a>
-      <a href="https://www.gitlab.com/nihaal" class="iconfont icon-gitlab" title="gitlab"></a>
-  
-</div>
-
-<div class="copyright">
-  <span class="power-by">
-    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
-  </span>
-  <span class="division">|</span>
-  <span class="theme-info">
-    Theme - 
-    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
-  </span>
-
-  
-
-  <span class="copyright-year">
-    &copy; 
-    2016 - 
-    2024<span class="heart"><i class="iconfont icon-heart"></i></span><span>Abdun Nihaal</span>
-  </span>
-</div>
-
-    </footer>
-
-    <div class="back-to-top" id="back-to-top">
-      <i class="iconfont icon-up"></i>
+      
+      
     </div>
+
+    </article>
+</main>
+<footer>
+  <div style="display:flex"><a class="soc" href="https://github.com/nifey" rel="me" title="GitHub"><svg class="feather">
+   <use href="/svg/feather-sprite.51cf5647cb1987f769b616558f2620fd9423d72058490231b391bf6aa3744b55.svg#github" />
+</svg></a><a class="border"></a><a class="soc" href="https://in.linkedin.com/in/abdun-nihaal-289272143" rel="me" title="Linkedin"><svg class="feather">
+   <use href="/svg/feather-sprite.51cf5647cb1987f769b616558f2620fd9423d72058490231b391bf6aa3744b55.svg#linkedin" />
+</svg></a><a class="border"></a><a class="soc" href="https://dblp.org/pid/383/3084.html" rel="me" title="DBLP"><svg class="feather">
+   <use href="/svg/feather-sprite.51cf5647cb1987f769b616558f2620fd9423d72058490231b391bf6aa3744b55.svg#book" />
+</svg></a><a class="border"></a></div>
+  <div class="footer-info">
+    2025  <a
+      href="https://github.com/athul/archie">Archie Theme</a> | Built with <a href="https://gohugo.io">Hugo</a>
   </div>
-  <script type="text/javascript" src="/lib/jquery/jquery-3.2.1.min.js"></script>
-  <script type="text/javascript" src="/lib/slideout/slideout-1.0.1.min.js"></script>
-  <script type="text/javascript" src="/lib/fancybox/jquery.fancybox-3.1.20.min.js"></script>
+</footer>
 
 
 
-<script type="text/javascript" src="/js/main.min.4ae89da218555efa0e7093a20b92017d2e1202b66fff9fc2edf4cb8d44b44c6e.js"></script>
-
-
-
-
-
-
-
-
-</body>
+</div>
+    </body>
 </html>

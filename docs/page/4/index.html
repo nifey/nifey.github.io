@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html>
+	<head lang="en">
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge"><title>Nihaal | Home </title><meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="" />
+	<meta property="og:image" content=""/>
+	<link rel="alternate" type="application/rss+xml" href="https://nihaal.me/index.xml" title="Nihaal" />
+	<meta property="og:url" content="https://nihaal.me/">
+  <meta property="og:site_name" content="Nihaal">
+  <meta property="og:title" content="Nihaal">
+  <meta property="og:locale" content="en_us">
+  <meta property="og:type" content="website">
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Nihaal">
+
+        <link href="https://nihaal.me/css/fonts.2c2227b81b1970a03e760aa2e6121cd01f87c88586803cbb282aa224720a765f.css" rel="stylesheet">
+	
+
+	
+	<link rel="stylesheet" type="text/css" media="screen" href="https://nihaal.me/css/main.6a0f23ea50fd34b46fee262a5a68e17d458c51a2bc99ba1ba018065de6b180c3.css" /><script type="text/javascript"
+		src="https://nihaal.me/js/MathJax.js"></script>
+		
+		<script type="text/x-mathjax-config">
+		MathJax.Hub.Config({
+			tex2jax: {
+				inlineMath: [['$','$'], ['\\(','\\)']],
+				displayMath: [['$$','$$'], ['\[','\]']],
+				processEscapes: true,
+				processEnvironments: true,
+				skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+				TeX: { equationNumbers: { autoNumber: "AMS" },
+						 extensions: ["AMSmath.js", "AMSsymbols.js"] }
+			}
+		});
+		</script><link rel="stylesheet" href="https://nihaal.me/katex/katex.min.css ">
+		<script defer src="https://nihaal.me/katex/katex.min.js"></script>
+		<script defer src="https://nihaal.me/katex/auto-render.min.js" onload="renderMathInElement(document.body);"></script>
+		
+		<script>
+			document.addEventListener("DOMContentLoaded", function() {
+					renderMathInElement(document.body, {
+							delimiters: [
+									{left: "$$", right: "$$", display: true},
+									{left: "$", right: "$", display: false}
+							]
+					});
+			});
+		</script>
+</head>
+
+	<body>
+		<div class="content">
+			<header>
+	<div class="main">
+		<a href="https://nihaal.me/">Nihaal</a>
+	</div>
+	<nav>
+		
+		<a href="/post">Posts</a>
+		
+		<a href="/about">About</a>
+		
+		<a href="/tags">Tags</a>
+		
+		
+	</nav>
+</header>
+
+			
+			<main class="list">
+				<div class="site-description"><p>Notes, musings and what not</p></div>
+				
+				
+				
+				<section class="list-item">
+					<h1 class="title"><a href="/post/dev_null/">Looking inside /dev/null</a></h1>
+					<time>Nov 20, 2021</time>
+					<br><div class="description">
+	
+	<h2 id="accessing-hardware-devices-like-files">Accessing hardware devices like files</h2>
+<p>An important role of the operating system is to allow the user applications to access hardware resources. It has to allow the user programs to use hardware while also ensuring that the applications have permissions to access it and don&rsquo;t misuse them.</p>
+<p>To simplify access to hardware, Unix, by design, exposes most of the hardware devices to userspace as <em>device files</em>, usually present under /dev directory.
+Applications can then access the hardware by invoking system calls like read or write on the device files associated with that device.</p>&hellip;
+	
+</div>
+					<a class="readmore" href="/post/dev_null/">Read more ⟶</a>
+				</section>
+				
+				<section class="list-item">
+					<h1 class="title"><a href="/post/creating_debugfs_files/">Creating debugfs files</a></h1>
+					<time>Nov 6, 2021</time>
+					<br><div class="description">
+	
+	<h2 id="debugfs">debugfs</h2>
+<p>debugfs is a pseudo-filesystem used for kernel debugging.
+It is usually mounted at /sys/kernel/debug.
+debugfs contains files that allow us to read debugging information.</p>
+<p>By default, only the root user can <em>cd</em> into the  /sys/kernel/debug directory.</p>
+<p>To change it to allow the current user to <em>cd</em> into debugfs, we can remount it with <em>uid</em> set to the current user&rsquo;s <em>uid</em>.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sudo umount /sys/kernel/debug
+</span></span><span style="display:flex;"><span>sudo mount -t debugfs none /sys/kernel/debug -o uid<span style="color:#f92672">=</span><span style="color:#e6db74">`</span>echo $UID<span style="color:#e6db74">`</span>
+</span></span><span style="display:flex;"><span>cd /sys/kernel/debug
+</span></span></code></pre></div><h2 id="creating-debugfs-entries">Creating debugfs entries</h2>
+<p>Creating debugfs files is similar to creating character device files.
+It is done by defining functions and storing pointers to these functions in a <em>file_operations</em> structure which is then passed to the kernel.</p>&hellip;
+	
+</div>
+					<a class="readmore" href="/post/creating_debugfs_files/">Read more ⟶</a>
+				</section>
+				
+				<section class="list-item">
+					<h1 class="title"><a href="/post/misc_char_devices/">Misc character devices</a></h1>
+					<time>Nov 3, 2021</time>
+					<br><div class="description">
+	
+	<h2 id="character-devices-major-and-minor-numbers">Character Devices, Major and Minor numbers</h2>
+<p>Based on granularity of access, there are two classes of devices:</p>
+<ol>
+<li><em>Character devices</em> are accessed as a stream of bytes. Eg: Keyboards</li>
+<li><em>Block devices</em> are accessed in blocks. For instance, hard disks transfer data in blocks of multiple bytes at a time.</li>
+</ol>
+<p>The kernel uses major and minor numbers to identify the attached hardware devices.
+Major number usually tells us the type of device.
+Minor numbers are used to differentiate two or more devices with the same major number.
+Some minor numbers are reserved.
+The driver writer can choose to use a specific minor number for a device by reserving it, or allow the kernel to assign any free minor number.
+The meaning of major numbers and the list of reserved minor numbers can be found in <a href="https://elixir.bootlin.com/linux/latest/source/Documentation/admin-guide/devices.txt">Documentation/admin-guide/devices.txt</a>.</p>&hellip;
+	
+</div>
+					<a class="readmore" href="/post/misc_char_devices/">Read more ⟶</a>
+				</section>
+				
+				<section class="list-item">
+					<h1 class="title"><a href="/post/updating_vulnerable_python_dependencies/">Updating vulnerable Python dependencies</a></h1>
+					<time>Oct 18, 2021</time>
+					<br><div class="description">
+	
+	<h2 id="finding-vulnerable-dependencies">Finding vulnerable dependencies</h2>
+<p><a href="https://github.com/pyupio/safety-db">Safety-db</a> is a database that keeps track of vulnerable python packages and version information.
+It is updated once a month.
+They also provide a tool called safety, that checks if the installed packages or packages in requirements.txt
+are identified as vulnerable using the safety-db.</p>
+<ul>
+<li>Install safety
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>pip install safety
+</span></span></code></pre></div></li>
+<li>Use safety to check all packages in the current virtual enviroment
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>safety check
+</span></span></code></pre></div></li>
+<li>Use safety to only check the dependencies listed in requirements.txt file
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>safety check -r requirements.txt
+</span></span></code></pre></div></li>
+</ul>
+<p>Safety shows a list of python packages that have a known vulnerability.</p>&hellip;
+	
+</div>
+					<a class="readmore" href="/post/updating_vulnerable_python_dependencies/">Read more ⟶</a>
+				</section>
+				
+				<section class="list-item">
+					<h1 class="title"><a href="/post/ec5/">Eudyptula Challenge task 5</a></h1>
+					<time>Oct 12, 2021</time>
+					<br><div class="description">
+	
+	<p>In this post, I want to share what I learnt by doing task 5 of the Eudyptula challenge.</p>
+<p>The Eudyptula Challenge is a set of 20 tasks designed to
+help people get started with Linux kernel development.</p>
+<p>Task 5 of the challenge is to make a <a href="https://nihaal.me/post/hello%5Fworld%5Flkm/">hello world kernel module</a> get loaded
+automatically when a USB keyboard is plugged in.</p>
+<h2 id="loadable-kernel-modules">Loadable kernel modules</h2>
+<p>Linux kernel allows us to load modules to the kernel while the kernel is running.
+Once loaded, the module&rsquo;s code executes in kernel mode and can access all the kernel&rsquo;s global symbols.</p>&hellip;
+	
+</div>
+					<a class="readmore" href="/post/ec5/">Read more ⟶</a>
+				</section>
+				
+				
+
+<ul class="pagination">
+	<span class="page-item page-prev">
+	
+    <a href="/page/3/" class="page-link" aria-label="Previous"><span aria-hidden="true">← Prev</span></a>
+	
+	</span>
+	<span class="page-item page-next">
+	
+    <a href="/page/5/" class="page-link" aria-label="Next"><span aria-hidden="true">Next →</span></a>
+	
+	</span>
+</ul>
+
+
+			</main>
+			<footer>
+  <div style="display:flex"><a class="soc" href="https://github.com/nifey" rel="me" title="GitHub"><svg class="feather">
+   <use href="/svg/feather-sprite.51cf5647cb1987f769b616558f2620fd9423d72058490231b391bf6aa3744b55.svg#github" />
+</svg></a><a class="border"></a><a class="soc" href="https://in.linkedin.com/in/abdun-nihaal-289272143" rel="me" title="Linkedin"><svg class="feather">
+   <use href="/svg/feather-sprite.51cf5647cb1987f769b616558f2620fd9423d72058490231b391bf6aa3744b55.svg#linkedin" />
+</svg></a><a class="border"></a><a class="soc" href="https://dblp.org/pid/383/3084.html" rel="me" title="DBLP"><svg class="feather">
+   <use href="/svg/feather-sprite.51cf5647cb1987f769b616558f2620fd9423d72058490231b391bf6aa3744b55.svg#book" />
+</svg></a><a class="border"></a></div>
+  <div class="footer-info">
+    2025  <a
+      href="https://github.com/athul/archie">Archie Theme</a> | Built with <a href="https://gohugo.io">Hugo</a>
+  </div>
+</footer>
+
+
+
+
+		</div>
+		
+	</body>
+</html>

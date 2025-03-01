@@ -5,7 +5,7 @@
     <link>https://nihaal.me/tags/backup/</link>
     <description>Recent content in Backup on Nihaal</description>
     <generator>Hugo</generator>
-    <language>en</language>
+    <language>en-us</language>
     <lastBuildDate>Sat, 19 Jun 2021 11:16:00 +0530</lastBuildDate>
     <atom:link href="https://nihaal.me/tags/backup/index.xml" rel="self" type="application/rss+xml" />
     <item>
@@ -13,7 +13,7 @@
       <link>https://nihaal.me/post/rsync/</link>
       <pubDate>Sat, 19 Jun 2021 11:16:00 +0530</pubDate>
       <guid>https://nihaal.me/post/rsync/</guid>
-      <description>You need a backup When was the last time you took a backup of your files? Thanks to technology, today, we can store thousands of photos and videos in a single pen drive. Digital files are easy to store, but they are also easy to lose. And that is why we all need to take regular backup of our files.&#xA;3-2-1 Backup Strategy 3-2-1 Backup strategy is a general rule of thumb that says it is better to have atleast 3 copies of our files.</description>
+      <description>&lt;h2 id=&#34;you-need-a-backup&#34;&gt;You need a backup&lt;/h2&gt;&#xA;&lt;p&gt;When was the last time you took a backup of your files?&#xA;Thanks to technology, today, we can store thousands of photos and videos in a single pen drive.&#xA;Digital files are easy to store, but they are also easy to lose.&#xA;And that is why we all need to take regular backup of our files.&lt;/p&gt;&#xA;&lt;h3 id=&#34;3-2-1-backup-strategy&#34;&gt;3-2-1 Backup Strategy&lt;/h3&gt;&#xA;&lt;p&gt;3-2-1 Backup strategy is a general rule of thumb that says it is better to have atleast 3 copies of our files.&lt;/p&gt;</description>
     </item>
   </channel>
 </rss>

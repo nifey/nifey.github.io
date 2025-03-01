@@ -1,53 +1,22 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <title>Linux kernel fuzzing - Nihaal</title>
-  <meta name="renderer" content="webkit" />
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
-
-<meta http-equiv="Cache-Control" content="no-transform" />
-<meta http-equiv="Cache-Control" content="no-siteapp" />
-
-<meta name="theme-color" content="#f8f5ec" />
-<meta name="msapplication-navbutton-color" content="#f8f5ec">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
-
-
-<meta name="author" content="Abdun Nihaal" /><meta name="description" content="In this post, we&amp;rsquo;ll see how fuzzing is used for finding different types of bugs in the Linux kernel. This post consists of my notes taken from the talk by Andrey Konavalov about Linux fuzzing.
-Operating systems kernels are complex. Testing kernels is of prime importance since any vulnerability in the kernel can lead to compromising the whole system.
-Fuzzing is a dynamic program analysis technique, used to find bugs in software." />
-
-
-
-
-
-
-<meta name="generator" content="Hugo 0.126.1 with theme even" />
-
-
-<link rel="canonical" href="https://nihaal.me/post/kernel_fuzzing/" />
-<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-<link rel="manifest" href="/manifest.json">
-<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
-
-
-
-<link href="/sass/main.min.f92fd13721ddf72129410fd8250e73152cc6f2438082b6c0208dc24ee7c13fc4.css" rel="stylesheet">
-<link href="/lib/fancybox/jquery.fancybox-3.1.20.min.css" rel="stylesheet">
-
-
-<meta property="og:url" content="https://nihaal.me/post/kernel_fuzzing/">
+<html><head lang="en">
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge"><title>Linux kernel fuzzing - Nihaal</title><meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="In this post, we&rsquo;ll see how fuzzing is used for finding different types of bugs in the Linux kernel.
+This post consists of my notes taken from the talk by Andrey Konavalov about Linux fuzzing.
+Operating systems kernels are complex.
+Testing kernels is of prime importance since any vulnerability in the kernel can lead to compromising the whole system.
+Fuzzing is a dynamic program analysis technique, used to find bugs in software.
+It works by feeding random input to programs until it crashes.
+In recent times, Fuzzing has been effective in finding bugs, especially the ones that are hard to detect manually." />
+	<meta property="og:image" content=""/>
+	<meta property="og:url" content="https://nihaal.me/post/kernel_fuzzing/">
   <meta property="og:site_name" content="Nihaal">
   <meta property="og:title" content="Linux kernel fuzzing">
   <meta property="og:description" content="In this post, we’ll see how fuzzing is used for finding different types of bugs in the Linux kernel. This post consists of my notes taken from the talk by Andrey Konavalov about Linux fuzzing.
 Operating systems kernels are complex. Testing kernels is of prime importance since any vulnerability in the kernel can lead to compromising the whole system.
-Fuzzing is a dynamic program analysis technique, used to find bugs in software.">
-  <meta property="og:locale" content="en">
+Fuzzing is a dynamic program analysis technique, used to find bugs in software. It works by feeding random input to programs until it crashes. In recent times, Fuzzing has been effective in finding bugs, especially the ones that are hard to detect manually.">
+  <meta property="og:locale" content="en_us">
   <meta property="og:type" content="article">
     <meta property="article:section" content="post">
     <meta property="article:published_time" content="2022-12-03T00:00:00+00:00">
@@ -56,128 +25,82 @@ Fuzzing is a dynamic program analysis technique, used to find bugs in software."
     <meta property="article:tag" content="Linux">
     <meta property="article:tag" content="Kernel">
 
-  <meta itemprop="name" content="Linux kernel fuzzing">
-  <meta itemprop="description" content="In this post, we’ll see how fuzzing is used for finding different types of bugs in the Linux kernel. This post consists of my notes taken from the talk by Andrey Konavalov about Linux fuzzing.
-Operating systems kernels are complex. Testing kernels is of prime importance since any vulnerability in the kernel can lead to compromising the whole system.
-Fuzzing is a dynamic program analysis technique, used to find bugs in software.">
-  <meta itemprop="datePublished" content="2022-12-03T00:00:00+00:00">
-  <meta itemprop="dateModified" content="2022-12-12T10:11:08+05:30">
-  <meta itemprop="wordCount" content="749">
-  <meta itemprop="keywords" content="Fuzzing,Linux,Kernel">
   <meta name="twitter:card" content="summary">
   <meta name="twitter:title" content="Linux kernel fuzzing">
   <meta name="twitter:description" content="In this post, we’ll see how fuzzing is used for finding different types of bugs in the Linux kernel. This post consists of my notes taken from the talk by Andrey Konavalov about Linux fuzzing.
 Operating systems kernels are complex. Testing kernels is of prime importance since any vulnerability in the kernel can lead to compromising the whole system.
-Fuzzing is a dynamic program analysis technique, used to find bugs in software.">
+Fuzzing is a dynamic program analysis technique, used to find bugs in software. It works by feeding random input to programs until it crashes. In recent times, Fuzzing has been effective in finding bugs, especially the ones that are hard to detect manually.">
 
-<!--[if lte IE 9]>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
-<![endif]-->
+        <link href="https://nihaal.me/css/fonts.2c2227b81b1970a03e760aa2e6121cd01f87c88586803cbb282aa224720a765f.css" rel="stylesheet">
+	
 
-<!--[if lt IE 9]>
-  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
-<![endif]-->
-
+	
+	<link rel="stylesheet" type="text/css" media="screen" href="https://nihaal.me/css/main.6a0f23ea50fd34b46fee262a5a68e17d458c51a2bc99ba1ba018065de6b180c3.css" /><script type="text/javascript"
+		src="https://nihaal.me/js/MathJax.js"></script>
+		
+		<script type="text/x-mathjax-config">
+		MathJax.Hub.Config({
+			tex2jax: {
+				inlineMath: [['$','$'], ['\\(','\\)']],
+				displayMath: [['$$','$$'], ['\[','\]']],
+				processEscapes: true,
+				processEnvironments: true,
+				skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+				TeX: { equationNumbers: { autoNumber: "AMS" },
+						 extensions: ["AMSmath.js", "AMSsymbols.js"] }
+			}
+		});
+		</script><link rel="stylesheet" href="https://nihaal.me/katex/katex.min.css ">
+		<script defer src="https://nihaal.me/katex/katex.min.js"></script>
+		<script defer src="https://nihaal.me/katex/auto-render.min.js" onload="renderMathInElement(document.body);"></script>
+		
+		<script>
+			document.addEventListener("DOMContentLoaded", function() {
+					renderMathInElement(document.body, {
+							delimiters: [
+									{left: "$$", right: "$$", display: true},
+									{left: "$", right: "$", display: false}
+							]
+					});
+			});
+		</script>
 </head>
 <body>
-  <div id="mobile-navbar" class="mobile-navbar">
-  <div class="mobile-header-logo">
-    <a href="/" class="logo">Nihaal</a>
-  </div>
-  <div class="mobile-navbar-icon">
-    <span></span>
-    <span></span>
-    <span></span>
-  </div>
-</div>
-<nav id="mobile-menu" class="mobile-menu slideout-menu">
-  <ul class="mobile-menu-list">
-    <a href="/">
-        <li class="mobile-menu-item">Home</li>
-      </a><a href="/post/">
-        <li class="mobile-menu-item">Archives</li>
-      </a><a href="/tags/">
-        <li class="mobile-menu-item">Tags</li>
-      </a>
-  </ul>
+        <div class="content"><header>
+	<div class="main">
+		<a href="https://nihaal.me/">Nihaal</a>
+	</div>
+	<nav>
+		
+		<a href="/post">Posts</a>
+		
+		<a href="/about">About</a>
+		
+		<a href="/tags">Tags</a>
+		
+		
+	</nav>
+</header>
 
-  
-
-
-</nav>
-
-  <div class="container" id="mobile-panel">
-    <header id="header" class="header">
-        <div class="logo-wrapper">
-  <a href="/" class="logo">Nihaal</a>
-</div>
-
-
-
-
-
-<nav class="site-navbar">
-  <ul id="menu" class="menu">
-    <li class="menu-item">
-        <a class="menu-item-link" href="/">Home</a>
-      </li><li class="menu-item">
-        <a class="menu-item-link" href="/post/">Archives</a>
-      </li><li class="menu-item">
-        <a class="menu-item-link" href="/tags/">Tags</a>
-      </li>
-  </ul>
-</nav>
-
-    </header>
-
-    <main id="main" class="main">
-      <div class="content-wrapper">
-        <div id="content" class="content">
-          <article class="post">
-    
-    <header class="post-header">
-      <h1 class="post-title">Linux kernel fuzzing</h1>
-
-      <div class="post-meta">
-        <span class="post-time"> 03-12-2022 </span>
+<main>
+  <article>
+    <div class="post-container">
+      
+      <div class="post-content">
+        <div class="title">
+          <h1 class="title">Linux kernel fuzzing</h1>
+          <div class="meta">Posted on Dec 3, 2022</div>
+        </div>
         
-          <span class="more-meta"> 749 words </span>
-          <span class="more-meta"> 4 mins read </span>
-        
-      </div>
-    </header>
-
-    <div class="post-toc" id="post-toc">
-  <h2 class="post-toc-title">Contents</h2>
-  <div class="post-toc-content always-active">
-    <nav id="TableOfContents">
-  <ul>
-    <li>
-      <ul>
-        <li><a href="#running-the-program">Running the program</a></li>
-        <li><a href="#feeding-input-to-the-program">Feeding input to the program</a></li>
-        <li><a href="#generating-random-inputs">Generating random inputs</a></li>
-        <li><a href="#detecting-crashes">Detecting crashes</a></li>
-        <li><a href="#automating-the-whole-process">Automating the whole process</a></li>
-        <li><a href="#references">References</a></li>
-      </ul>
-    </li>
-  </ul>
-</nav>
-  </div>
-</div>
-    <div class="post-content">
-      <p>In this post, we&rsquo;ll see how fuzzing is used for finding different types of bugs in the Linux kernel.
+        <section class="body">
+          <p>In this post, we&rsquo;ll see how fuzzing is used for finding different types of bugs in the Linux kernel.
 This post consists of my notes taken from <a href="https://www.linuxfoundation.org/webinars/fuzzing-linux-kernel?hsLang=en">the talk by Andrey Konavalov about Linux fuzzing</a>.</p>
 <p>Operating systems kernels are complex.
 Testing kernels is of prime importance since any vulnerability in the kernel can lead to compromising the whole system.</p>
 <p>Fuzzing is a dynamic program analysis technique, used to find bugs in software.
 It works by feeding random input to programs until it crashes.
 In recent times, Fuzzing has been effective in finding bugs, especially the ones that are hard to detect manually.</p>
-<div class="admonition example">
 <p>Fuzzing is <strong>feeding random inputs into a program until it crashes</strong></p>
-</div>
 <p><strong><a href="https://github.com/google/syzkaller">Syzkaller</a></strong> is a coverage guided kernel fuzzer written in Go, that has discovered a lot of bugs by fuzzing system calls.
 It supports various kernels including Linux, Android, OpenBSD, NetBSD, etc.
 In addition to system call fuzzing, it also performs USB fuzzing and fuzzing through filesystem images.</p>
@@ -203,24 +126,16 @@ The other external ways of input to the kernel include network packets, file sys
 <p>It does not suffice to generate random inputs.
 A good fuzzer needs to generate random inputs that are most likely to crash the program and also goes through different execution paths of the program.</p>
 <ul>
-<li>
-<p><em>Structure aware</em>: Input generation process needs to be aware of the structure of arguments.
-Most system calls takes some C structure as argument. The input generated should follow the semantics of the structure.</p>
-</li>
-<li>
-<p><em>Coverage guided fuzzing</em>: To detect a large number of bugs, fuzzing needs to have good coverage.
+<li><em>Structure aware</em>: Input generation process needs to be aware of the structure of arguments.
+Most system calls takes some C structure as argument. The input generated should follow the semantics of the structure.</li>
+<li><em>Coverage guided fuzzing</em>: To detect a large number of bugs, fuzzing needs to have good coverage.
 In coverage guided fuzzing, the input generation process uses a corpus of valid inputs and mutates them.
 If a mutated input is found to increase coverage, then it is added into the corpus.
-This process is repeated to increase the fuzzing coverage.</p>
-</li>
-<li>
-<p><em>API aware</em>: System calls act like an API. For example, the open syscall returns a file descriptor which is then used in subsequent syscalls.
-The input generation must understand this API to generate valid programs that can test deeper parts of the kernel code.</p>
-</li>
-<li>
-<p><em>Script aware</em>: Linux kernel has internal script languages like BPF.
-The input generation process should understand and generate valid programs in the script language which can then be passed through syscalls.</p>
-</li>
+This process is repeated to increase the fuzzing coverage.</li>
+<li><em>API aware</em>: System calls act like an API. For example, the open syscall returns a file descriptor which is then used in subsequent syscalls.
+The input generation must understand this API to generate valid programs that can test deeper parts of the kernel code.</li>
+<li><em>Script aware</em>: Linux kernel has internal script languages like BPF.
+The input generation process should understand and generate valid programs in the script language which can then be passed through syscalls.</li>
 </ul>
 <h2 id="detecting-crashes">Detecting crashes</h2>
 <p>During fuzzing, bugs can be detected by dynamic program analysis tools or by programmer inserted checks (BUG_ON, WARN_ON).
@@ -228,30 +143,30 @@ Kernel Sanitizers like KASAN, KMSAN, KCSAN, UBSAN can be enabled by setting resp
 These sanitizers detect bugs and prints useful information like the stack trace or memory dump to the kernel log.
 These reports can then be used to locate the bug and fix it.</p>
 <table>
-<thead>
-<tr>
-<th>Kernel Sanitizers</th>
-<th>Type of bugs detected</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Kernel Address Sanitizer (KASAN)</td>
-<td>Out of bounds access, Use after free</td>
-</tr>
-<tr>
-<td>Kernel Memory Sanitizer (KMSAN)</td>
-<td>Uninitialized memory</td>
-</tr>
-<tr>
-<td>Kernel Concurrency Sanitizer (KCSAN)</td>
-<td>Data races</td>
-</tr>
-<tr>
-<td>Undefined Behaviour Sanitizer (UBSAN)</td>
-<td>Variable overflows, alignment issues</td>
-</tr>
-</tbody>
+  <thead>
+      <tr>
+          <th>Kernel Sanitizers</th>
+          <th>Type of bugs detected</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>Kernel Address Sanitizer (KASAN)</td>
+          <td>Out of bounds access, Use after free</td>
+      </tr>
+      <tr>
+          <td>Kernel Memory Sanitizer (KMSAN)</td>
+          <td>Uninitialized memory</td>
+      </tr>
+      <tr>
+          <td>Kernel Concurrency Sanitizer (KCSAN)</td>
+          <td>Data races</td>
+      </tr>
+      <tr>
+          <td>Undefined Behaviour Sanitizer (UBSAN)</td>
+          <td>Variable overflows, alignment issues</td>
+      </tr>
+  </tbody>
 </table>
 <h2 id="automating-the-whole-process">Automating the whole process</h2>
 <p>Syzkaller automates the fuzzing process by monitoring the kernel logs for crash reports. When a crash is
@@ -266,101 +181,48 @@ reproducer for the crash which will help in checking if a patch has fixed the bu
 <li><a href="https://syzkaller.appspot.com/">Syzbot Dashboard</a></li>
 </ul>
 
-    </div>
-
-    <div class="post-copyright">
-  <p class="copyright-item">
-    <span class="item-title">Author</span>
-    <span class="item-content">Abdun Nihaal</span>
-  </p>
-  <p class="copyright-item">
-    <span class="item-title">LastMod</span>
-    <span class="item-content">
-        12-12-2022
-        
-    </span>
-  </p>
-  
-  
-</div>
-<footer class="post-footer">
-      <div class="post-tags">
-          <a href="/tags/fuzzing/">fuzzing</a>
-          <a href="/tags/linux/">linux</a>
-          <a href="/tags/kernel/">kernel</a>
-          </div>
-      <nav class="post-nav">
-        <a class="prev" href="/post/kernel_sanitizers/">
-            <i class="iconfont icon-left"></i>
-            <span class="prev-text nav-default">Kernel Sanitizers</span>
-            <span class="prev-text nav-mobile">Prev</span>
-          </a>
-        <a class="next" href="/post/paper_tlbdr/">
-            <span class="next-text nav-default">TLB;DR Reversing TLBs with TLB desynchronization</span>
-            <span class="next-text nav-mobile">Next</span>
-            <i class="iconfont icon-right"></i>
-          </a>
-      </nav>
-    </footer>
-  </article>
+        </section>
+        <div class="post-tags">
+          
+          
+          <nav class="nav tags">
+            <ul class="tags">
+              
+              <li><a href="/tags/fuzzing">fuzzing</a></li>
+              
+              <li><a href="/tags/linux">linux</a></li>
+              
+              <li><a href="/tags/kernel">kernel</a></li>
+              
+            </ul>
+          </nav>
+          
+          
         </div>
-        
-
-  
-
-  
-
       </div>
-    </main>
 
-    <footer id="footer" class="footer">
-      <div class="social-links">
-      <a href="https://www.twitter.com/nihaal_an" class="iconfont icon-twitter" title="twitter"></a>
-      <a href="https://in.linkedin.com/in/abdun-nihaal-289272143" class="iconfont icon-linkedin" title="linkedin"></a>
-      <a href="https://www.github.com/nifey" class="iconfont icon-github" title="github"></a>
-      <a href="https://www.gitlab.com/nihaal" class="iconfont icon-gitlab" title="gitlab"></a>
-  
-</div>
-
-<div class="copyright">
-  <span class="power-by">
-    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
-  </span>
-  <span class="division">|</span>
-  <span class="theme-info">
-    Theme - 
-    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
-  </span>
-
-  
-
-  <span class="copyright-year">
-    &copy; 
-    2016 - 
-    2024<span class="heart"><i class="iconfont icon-heart"></i></span><span>Abdun Nihaal</span>
-  </span>
-</div>
-
-    </footer>
-
-    <div class="back-to-top" id="back-to-top">
-      <i class="iconfont icon-up"></i>
+      
+      
     </div>
+
+    </article>
+</main>
+<footer>
+  <div style="display:flex"><a class="soc" href="https://github.com/nifey" rel="me" title="GitHub"><svg class="feather">
+   <use href="/svg/feather-sprite.51cf5647cb1987f769b616558f2620fd9423d72058490231b391bf6aa3744b55.svg#github" />
+</svg></a><a class="border"></a><a class="soc" href="https://in.linkedin.com/in/abdun-nihaal-289272143" rel="me" title="Linkedin"><svg class="feather">
+   <use href="/svg/feather-sprite.51cf5647cb1987f769b616558f2620fd9423d72058490231b391bf6aa3744b55.svg#linkedin" />
+</svg></a><a class="border"></a><a class="soc" href="https://dblp.org/pid/383/3084.html" rel="me" title="DBLP"><svg class="feather">
+   <use href="/svg/feather-sprite.51cf5647cb1987f769b616558f2620fd9423d72058490231b391bf6aa3744b55.svg#book" />
+</svg></a><a class="border"></a></div>
+  <div class="footer-info">
+    2025  <a
+      href="https://github.com/athul/archie">Archie Theme</a> | Built with <a href="https://gohugo.io">Hugo</a>
   </div>
-  <script type="text/javascript" src="/lib/jquery/jquery-3.2.1.min.js"></script>
-  <script type="text/javascript" src="/lib/slideout/slideout-1.0.1.min.js"></script>
-  <script type="text/javascript" src="/lib/fancybox/jquery.fancybox-3.1.20.min.js"></script>
+</footer>
 
 
 
-<script type="text/javascript" src="/js/main.min.4ae89da218555efa0e7093a20b92017d2e1202b66fff9fc2edf4cb8d44b44c6e.js"></script>
-
-
-
-
-
-
-
-
-</body>
+</div>
+    </body>
 </html>
