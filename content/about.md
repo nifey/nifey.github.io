@@ -4,28 +4,38 @@ date = 2025-02-28
 draft = false
 +++
 
-- I'm pursuing a PhD focussing on Linux kernel security and Static analysis
-- I occasionally [write](https://nihaal.me)
-- Checkout my [lists](https://github.com/nifey?tab=stars)
+- I'm a PhD student focussing on Linux kernel security and Static analysis. I work with [Prof. Chester Rebeiro](https://cse.iitm.ac.in/~chester/) and [Prof. Madhu Mutyam](https://cse.iitm.ac.in/~madhu/).
+  **My current research** is on detecting memory leaks in the Linux kernel using static analysis. A list of memory leaks that we have detected and fixed can be found [here](https://docs.google.com/spreadsheets/d/e/2PACX-1vREgEjH21e0OygLBQ8D20FkhNTDXCrZIDkwWykv21STmx16QlgFiveawTFcTD6Bs2R0pHVoeC2nzDrT/pubhtml)⭐.
+- I occasionally [write](https://nihaal.me) and collect interesting [git repositories](https://github.com/nifey?tab=stars).
+
+### Publication
+
+1. [Selective Memory Compression for GPU Memory Oversubscription Management](https://dl.acm.org/doi/abs/10.1145/3673038.3673058)
+
+    Abdun Nihaal, Madhu Mutyam
+  
+    Published at International Conference on Parallel Processing (ICPP 24) with all three reproducibility badges ([Artifact](https://zenodo.org/records/12917001)).
 
 ### FOSS Contributions 💻
+- [**Patches accepted to Linux kernel**](https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git/log/?qt=author&q=abdun+Nihaal)
 - [SARIF.nvim](https://github.com/nifey/sarif.nvim) : A Neovim plugin to view [SARIF](https://sarifweb.azurewebsites.net/) formatted results
 - [Epub2Sphinx](https://github.com/nifey/epub2sphinx) : A tool to convert EPUB files to HTML files. FOSSHack 2021 Winner [[Blog post](https://nihaal.me/post/fosshack_2021/)]
-- [Cleanup Patches accpeted to Linux kernel](https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/log/?qt=author&q=abdun+Nihaal)
 - [Discovered a new variant of Trojan Source attack](https://github.com/nickboucher/trojan-source/pull/21)
 
 #### FOSS Meetup Talks 🎤
 
-- 10 Sep 2023 @ TOSSConf 2023 : Text Processing with UNIX tools (in Tamil) [[Video](https://www.youtube.com/watch?v=70yJ3pyqtps)]
-- 29 Jan 2023 @ MiniDebConf Villupuram : Contributing to Linux kernel [[Slides](https://nihaal.me/reveal.js/presentations/ilugc/contributing_to_linux_kernel_minidebconf.pdf)]
-- 12 Mar 2022 @ ILUGC : Coccinelle [[Slides](https://nihaal.me/reveal.js/presentations/ilugc/coccinelle)]
-- 11 Dec 2021 @ ILUGC : Trojan Source [[Slides](https://nihaal.me/reveal.js/presentations/ilugc/trojan_source)]
-- 11 Sep 2021 @ ILUGC : Two uses for Single Board Computers [[Slides](https://nihaal.me/reveal.js/presentations/ilugc/znc_pihole)]
-- 12 Jun 2021 @ ILUGC : RSync [[Slides](https://nihaal.me/reveal.js/presentations/ilugc/rsync)] [[Blog Post](https://nihaal.me/post/rsync/)]
-- 13 Feb 2021 @ ILUGC : Huge pages in Linux [[Slides](https://nihaal.me/reveal.js/presentations/thp/)]
-- 09 Jan 2021 @ ILUGC : Managing dotfiles with GNU Stow [[Slides](https://nihaal.me/reveal.js/presentations/stow/)]
-- 10 Oct 2020 @ ILUGC : Profiling with BPFTrace [[Slides](https://nihaal.me/reveal.js/presentations/bpftrace/)]
-- 09 Jun 2018 @ ILUGC : Make your first Linux kernel patch [[Slides](https://nihaal.me/reveal.js/presentations/kernelpatch/)]
+| Date        | Venue                   | Title                                      | Links                                                  |
+| ----------- | ----------------------- | ------------------------------------------ | ------------------------------------------------------ |
+| 10 Sep 2023 | TOSSConf 2023           | Text Processing with UNIX tools (in Tamil) | [[Video](https://www.youtube.com/watch?v=70yJ3pyqtps)] | 
+| 29 Jan 2023 | MiniDebConf Villupuram  | Contributing to Linux kernel | [[Slides](https://nihaal.me/reveal.js/presentations/ilugc/contributing_to_linux_kernel_minidebconf.pdf)] |
+| 12 Mar 2022 | ILUGC | Coccinelle | [[Slides](https://nihaal.me/reveal.js/presentations/ilugc/coccinelle)] |
+| 11 Dec 2021 | ILUGC | Trojan Source | [[Slides](https://nihaal.me/reveal.js/presentations/ilugc/trojan_source)] |
+| 11 Sep 2021 | ILUGC | Two uses for Single Board Computers | [[Slides](https://nihaal.me/reveal.js/presentations/ilugc/znc_pihole)] |
+| 12 Jun 2021 | ILUGC | RSync | [[Slides](https://nihaal.me/reveal.js/presentations/ilugc/rsync)] [[Blog Post](https://nihaal.me/post/rsync/)] |
+| 13 Feb 2021 | ILUGC | Huge pages in Linux | [[Slides](https://nihaal.me/reveal.js/presentations/thp/)] |
+| 09 Jan 2021 | ILUGC | Managing dotfiles with GNU Stow | [[Slides](https://nihaal.me/reveal.js/presentations/stow/)] |
+| 10 Oct 2020 | ILUGC | Profiling with BPFTrace | [[Slides](https://nihaal.me/reveal.js/presentations/bpftrace/)] |
+| 09 Jun 2018 | ILUGC | Make your first Linux kernel patch | [[Slides](https://nihaal.me/reveal.js/presentations/kernelpatch/)] |
 
 ### Research 👨‍🎓
 - [How to do research?](https://nihaal.me/post/how_to_research/)

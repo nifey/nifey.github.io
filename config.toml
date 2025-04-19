@@ -16,8 +16,8 @@ paginate=5 # articles per page
 	mode="light" # color-mode → light,dark,toggle or auto
 	useCDN=false # don't use CDNs for fonts and icons, instead serve them locally.
 	subtitle = "Notes, musings and what not"
-	mathjax = true # enable MathJax support
-	katex = true # enable KaTeX support
+	mathjax = false # enable MathJax support
+	katex = false # enable KaTeX support
 
 # Social Tags
 
@@ -32,9 +32,9 @@ icon = "linkedin"
 url = "https://in.linkedin.com/in/abdun-nihaal-289272143"
 
 [[params.social]]
-name = "DBLP"
+name = "Google Scholar"
 icon = "book"
-url = "https://dblp.org/pid/383/3084.html"
+url = "https://scholar.google.com/citations?user=7OgnEeUAAAAJ"
 
 # Main menu Items
 
