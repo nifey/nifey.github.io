@@ -32,211 +32,248 @@
 		
 		<a href="/post">Posts</a>
 		
-		<a href="/about">About</a>
-		
 		<a href="/tags">Tags</a>
 		
 		
 	</nav>
 </header>
 
-			
-			<main class="list">
-				<div class="site-description"><p>Notes, musings and what not</p></div>
-				
-				
-				
-				<section class="list-item">
-					<h1 class="title"><a href="/post/python_text_processing/">Notes: Text processing and Regular expressions in Python</a></h1>
-					<time>Oct 24, 2024</time>
-					<br><div class="description">
-	
-	<p>In this post, we will learn by example, text processing and regular expression basics in Python.
-We will also learn how to use inbuilt and external packages, to take command line arguments and to read data from files.</p>
-<h2 id="notes">Notes</h2>
-<h3 id="execute-python-scripts-like-executable">Execute python scripts like executable</h3>
-<p>Normally, we can execute python scripts by running <code>python script.py</code>. If we want to execute python scripts like an executable on the terminal we can add the following line as the first line of the script.</p>&hellip;
-	
-</div>
-					<a class="readmore" href="/post/python_text_processing/">Read more ⟶</a>
-				</section>
-				
-				<section class="list-item">
-					<h1 class="title"><a href="/post/sed/">Notes on Sed</a></h1>
-					<time>Aug 12, 2023</time>
-					<br><div class="description">
-	
-	<h1 id="sed">Sed</h1>
-<ul>
-<li>Stream EDitor, UNIX utility</li>
-<li>Based on ed (line oriented text editor)</li>
-<li>Used commonly for <strong>find and replace</strong> based on Regular expressions</li>
-<li>Useful for processing and transforming logs</li>
-<li>Can also be used inside vim for find and replace</li>
+
+            
+            <article>
+                
+                <div class="post-container">
+                    <div class="post-content">
+                        <div class="title">
+                            <h1 class="title">Hi there 👋, I&#39;m Nihaal</h1>
+                        </div>
+                        <section class="body">
+                            <ul>
+<li>I&rsquo;m a PhD student focussing on Linux kernel security and Static analysis. I work with <a href="https://cse.iitm.ac.in/~chester/">Prof. Chester Rebeiro</a> and <a href="https://cse.iitm.ac.in/~madhu/">Prof. Madhu Mutyam</a>.
+<strong>My current research</strong> is on detecting memory leaks in the Linux kernel using static analysis. A list of memory leaks that we have detected and fixed can be found <a href="https://docs.google.com/spreadsheets/d/e/2PACX-1vREgEjH21e0OygLBQ8D20FkhNTDXCrZIDkwWykv21STmx16QlgFiveawTFcTD6Bs2R0pHVoeC2nzDrT/pubhtml">here</a>⭐.</li>
+<li>I occasionally <a href="#posts">write</a> and collect interesting <a href="https://github.com/nifey?tab=stars">git repositories</a>.</li>
 </ul>
-<h1 id="basic-usage">Basic usage</h1>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>cat file | sed <span style="color:#e6db74">&#39;s/hello/world/&#39;</span>
-</span></span><span style="display:flex;"><span>sed <span style="color:#e6db74">&#39;s/hello/world/&#39;</span> file
-</span></span><span style="display:flex;"><span>sed file -e <span style="color:#e6db74">&#39;s/hello/world/&#39;</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>sed <span style="color:#e6db74">&#39;s/hello/world/&#39;</span> -i file	<span style="color:#75715e"># Inline (will replace in the file)</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>cat file | sed <span style="color:#e6db74">&#39;/REGEX/d&#39;</span>	<span style="color:#75715e"># Delete lines matching a regular expression</span>
-</span></span></code></pre></div><h1 id="regular-expression-syntax">Regular expression syntax</h1>
-<ul>
-<li>Language to represent string patterns</li>
-<li>Useful beyond sed (eg: grepping through source code)</li>
-<li>Basic regex: <!-- raw HTML omitted --><!-- raw HTML omitted --></li>
-<li>Specify characters to match
-<ul>
-<li><strong>&lsquo;a&rsquo;</strong> matches character a</li>
-<li><strong>[a-z]</strong> matches lowercase alphabets</li>
-<li><strong>[a-zA-Z0-9]</strong> matches alphabets and numbers</li>
-<li><strong>[abc]</strong> matches characters a b c</li>
-<li><strong>[^abc]</strong> matches anything except characters a b c</li>
-</ul>
-</li>
-<li>Specify count of characters to match
-<ul>
-<li><strong>*</strong> -&gt; Zero or more instances</li>
-<li><strong>\+</strong> -&gt; One or more instances</li>
-<li><strong>?</strong> -&gt; Zero or one instances</li>
-<li><strong>{8}</strong> -&gt; Matches 8 instances</li>
-<li><strong>{1,3}</strong> -&gt; Matches 1 to 3 instances</li>
-<li><strong>{3,}</strong> -&gt; Matches 3 or more instances</li>
-</ul>
-</li>
-<li>Special characters
-<ul>
-<li><strong>.</strong> -&gt; Matches any character</li>
-<li><strong>^</strong> -&gt; Matches the beginning of the line</li>
-<li><strong>$</strong> -&gt; Matches the end of the line</li>
-</ul>
-</li>
-<li>Combining regex
-<ul>
-<li><strong>&lsquo;regex1regex2&rsquo;</strong> matches regex1 first then regex2 (Concatenation)</li>
-<li><strong>&lsquo;regex1\|regex2&rsquo;</strong> matches either regex1 or regex2 (Choice)</li>
-</ul>
-</li>
-<li>Backreferences
-<ul>
-<li>Used for selecting a part of the matched string to be used for transforming text</li>
-<li>Enclose parts of the regex with \( .. \) parenthesis</li>
-<li>Use the corresponding matches in replacement using \1, \2, etc to match the first, second backreference respectively.</li>
-</ul>
-</li>
-</ul>
-<h1 id="sed-command-syntax">Sed command syntax</h1>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>PATTERN_SPACE { commands; ...}
-</span></span></code></pre></div><h2 id="pattern-space">Pattern space</h2>
-<ul>
-<li>Selects (filters) the lines that we want to process</li>
-<li>Can be specified as line number ranges or regular expressions</li>
-</ul>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>sed <span style="color:#e6db74">&#39;7d&#39;</span> file			<span style="color:#75715e"># Delete line number 7</span>
-</span></span><span style="display:flex;"><span>sed <span style="color:#e6db74">&#39;1,10d&#39;</span> file		<span style="color:#75715e"># Delete line number 1 to 10</span>
-</span></span><span style="display:flex;"><span>sed <span style="color:#e6db74">&#39;/REGEX/d&#39;</span> file		<span style="color:#75715e"># Delete lines matching REGEX</span>
-</span></span><span style="display:flex;"><span>sed <span style="color:#e6db74">&#39;3,/REGEX/d&#39;</span> file		<span style="color:#75715e"># Delete from 3rd line to a line matching REGEX</span>
-</span></span><span style="display:flex;"><span>sed <span style="color:#e6db74">&#39;/REGEX1/,/REGEX2/d&#39;</span> file	<span style="color:#75715e"># Delete lines starting from a line matching REGEX1 to a line matching REGEX2</span>
-</span></span><span style="display:flex;"><span>sed <span style="color:#e6db74">&#39;/REGEX1/,$d&#39;</span> file		<span style="color:#75715e"># Delete lines starting from a line matching REGEX1 till end of file</span>
-</span></span><span style="display:flex;"><span>sed <span style="color:#e6db74">&#39;/REGEX1/ {/REGEX2/d}&#39;</span> file <span style="color:#75715e"># Delete lines matching both REGEX1 and REGEX2</span>
-</span></span></code></pre></div><h2 id="substitute-command-for-find-and-replace">Substitute command for find and replace</h2>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span><span style="color:#75715e"># Finds patterns matching REGEX1 and replaces with REGEX2</span>
-</span></span><span style="display:flex;"><span>cat file | sed <span style="color:#e6db74">&#39;s/REGEX1/REGEX2/[flags]&#39;</span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># Optional flags</span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># i to ignore case</span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># g to replace more than one instance of the pattern in a line</span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># c to confirm every replacement (Only available in vim mode)</span>
-</span></span></code></pre></div><h1 id="other-commands">Other commands</h1>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span><span style="color:#75715e"># Delete command</span>
-</span></span><span style="display:flex;"><span>cat file | sed <span style="color:#e6db74">&#39;/REGEX/d&#39;</span>	<span style="color:#75715e"># Delete lines matching a regular expression</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># Print command</span>
-</span></span><span style="display:flex;"><span>cat file | sed -n <span style="color:#e6db74">&#39;10p&#39;</span>		<span style="color:#75715e"># Print 10th line</span>
-</span></span><span style="display:flex;"><span>cat file | sed -n <span style="color:#e6db74">&#39;/REGEX/p&#39;</span>	<span style="color:#75715e"># Grep</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># Transliterate command</span>
-</span></span><span style="display:flex;"><span>cat file | sed <span style="color:#e6db74">&#39;y/abc/ABC/&#39;</span>	<span style="color:#75715e"># Transliterate (a-&gt;A, b-&gt;B, c-&gt;C)</span>
-</span></span></code></pre></div><p>For more information, execute <code>info sed</code> on the shell to get a manual on sed.</p>&hellip;
-	
-</div>
-					<a class="readmore" href="/post/sed/">Read more ⟶</a>
-				</section>
-				
-				<section class="list-item">
-					<h1 class="title"><a href="/post/kernel_defences/">Kernel defences</a></h1>
-					<time>Jan 9, 2023</time>
-					<br><div class="description">
-	
-	<p>Usually when an attacker exploits a vulnerability, the attack starts out as a <em>Illegal memory access</em> or <em>Control flow hijack</em>, which the attacker would use to write to sensitive memory locations or execute arbitrary code in supervisor mode, to try to increase privileges in the system.</p>
-<ul>
-<li><em>Illegal memory accesses</em> are memory accesses which the programmer didn&rsquo;t intend to happen, which allows attackers to read or write to some memory locations.
-Illegal memory accesses can be classified on three aspects:
+<h3 id="publication">Publication</h3>
 <ol>
-<li>Read or Write access</li>
-<li>Access to Arbitrary address or restricted address</li>
-<li>If it is a write, Arbitrary value or restricted value write
-Write accesses and arbitrary address/value writes are more serious bugs, as they allow attackers more control over where or what value they can write, making it easier to subvert execution.</li>
-</ol>
+<li>
+<p><a href="https://dl.acm.org/doi/abs/10.1145/3673038.3673058">Selective Memory Compression for GPU Memory Oversubscription Management</a></p>
+<p>Abdun Nihaal, Madhu Mutyam</p>
+<p>Published at International Conference on Parallel Processing (ICPP 24) with all three reproducibility badges (<a href="https://zenodo.org/records/12917001">Artifact</a>).</p>
 </li>
-<li>In a control flow hijack, the vulnerability provides a way to divert execution into an attacker controlled path.
-For instance, when an attacker controls the value of a function pointer, she can hijack control flow when that function is dereferenced.
-Control flow hijack can happen either on the forward edge (when a function is called) or on the backward edge (when a function returns).</li>
+</ol>
+<h3 id="foss-contributions-">FOSS Contributions 💻</h3>
+<ul>
+<li><a href="https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git/log/?qt=author&amp;q=abdun+Nihaal"><strong>Patches accepted to Linux kernel</strong></a></li>
+<li><a href="https://github.com/nifey/sarif.nvim">SARIF.nvim</a> : A Neovim plugin to view <a href="https://sarifweb.azurewebsites.net/">SARIF</a> formatted results</li>
+<li><a href="https://github.com/nifey/epub2sphinx">Epub2Sphinx</a> : A tool to convert EPUB files to HTML files. FOSSHack 2021 Winner [<a href="https://nihaal.me/post/fosshack_2021/">Blog post</a>]</li>
+<li><a href="https://github.com/nickboucher/trojan-source/pull/21">Discovered a new variant of Trojan Source attack</a></li>
 </ul>
-<p>Despite having vulnerabilities that allow illegal writes or control flow hijack, the kernel has a few defence mechanisms in place to make
-it difficult to convert a vulnerability into a useful attack.</p>&hellip;
-	
-</div>
-					<a class="readmore" href="/post/kernel_defences/">Read more ⟶</a>
-				</section>
-				
-				<section class="list-item">
-					<h1 class="title"><a href="/post/fixing_syzbot_bugs/">Fixing syzbot bugs</a></h1>
-					<time>Dec 20, 2022</time>
-					<br><div class="description">
-	
-	<p>Syzbot is an automated fuzzing infrastructure that uses Syzkaller to perform continuous fuzzing, primarily on the Linux kernel.
-Whenever it finds bugs, Syzbot reports it to the relevant mailing list.
-It also has a <a href="https://syzkaller.appspot.com/">public dashboard</a> where it lists all the open bugs that needs to be fixed.</p>
-<p>Syzbot is quite effective in finding bugs in the kernel but due to the large number of bugs being found, many of them don&rsquo;t get fixed in time. And so, we can help fix those bugs.
-In this post, I&rsquo;ll share the general approaches and steps in fixing Syzbot bugs.</p>&hellip;
-	
-</div>
-					<a class="readmore" href="/post/fixing_syzbot_bugs/">Read more ⟶</a>
-				</section>
-				
-				<section class="list-item">
-					<h1 class="title"><a href="/post/coccinelle/">Coccinelle</a></h1>
-					<time>Dec 14, 2022</time>
-					<br><div class="description">
-	
-	<p>Coccinelle is static analysis tool used for semantic pattern matching and automated transformation of C programs.
-It is written in OCaml.
-Unlike other pattern matching tools like grep which use regular expressions, Coccinelle understands C syntax and
-can find semantic code pattern in the source code and automatically transform them, irrespective of the name of identifiers, comments or formatting.</p>
-<p>Coccinelle is <em>intraprocedural</em>, i.e. all its matching and transformation happens within functions.
-Coccinelle also does not expand C macros.</p>&hellip;
-	
-</div>
-					<a class="readmore" href="/post/coccinelle/">Read more ⟶</a>
-				</section>
-				
-				
-
-<ul class="pagination">
-	<span class="page-item page-prev">
-	
-	</span>
-	<span class="page-item page-next">
-	
-    <a href="/page/2/" class="page-link" aria-label="Next"><span aria-hidden="true">Next →</span></a>
-	
-	</span>
+<h3 id="foss-meetup-talks-">FOSS Meetup Talks 🎤</h3>
+<table>
+  <thead>
+      <tr>
+          <th>Date</th>
+          <th>Venue</th>
+          <th>Title</th>
+          <th>Links</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>10 Sep 2023</td>
+          <td>TOSSConf 2023</td>
+          <td>Text Processing with UNIX tools (in Tamil)</td>
+          <td>[<a href="https://www.youtube.com/watch?v=70yJ3pyqtps">Video</a>]</td>
+      </tr>
+      <tr>
+          <td>29 Jan 2023</td>
+          <td>MiniDebConf Villupuram</td>
+          <td>Contributing to Linux kernel</td>
+          <td>[<a href="https://nihaal.me/reveal.js/presentations/ilugc/contributing_to_linux_kernel_minidebconf.pdf">Slides</a>]</td>
+      </tr>
+      <tr>
+          <td>12 Mar 2022</td>
+          <td>ILUGC</td>
+          <td>Coccinelle</td>
+          <td>[<a href="https://nihaal.me/reveal.js/presentations/ilugc/coccinelle">Slides</a>]</td>
+      </tr>
+      <tr>
+          <td>11 Dec 2021</td>
+          <td>ILUGC</td>
+          <td>Trojan Source</td>
+          <td>[<a href="https://nihaal.me/reveal.js/presentations/ilugc/trojan_source">Slides</a>]</td>
+      </tr>
+      <tr>
+          <td>11 Sep 2021</td>
+          <td>ILUGC</td>
+          <td>Two uses for Single Board Computers</td>
+          <td>[<a href="https://nihaal.me/reveal.js/presentations/ilugc/znc_pihole">Slides</a>]</td>
+      </tr>
+      <tr>
+          <td>12 Jun 2021</td>
+          <td>ILUGC</td>
+          <td>RSync</td>
+          <td>[<a href="https://nihaal.me/reveal.js/presentations/ilugc/rsync">Slides</a>] [<a href="https://nihaal.me/post/rsync/">Blog Post</a>]</td>
+      </tr>
+      <tr>
+          <td>13 Feb 2021</td>
+          <td>ILUGC</td>
+          <td>Huge pages in Linux</td>
+          <td>[<a href="https://nihaal.me/reveal.js/presentations/thp/">Slides</a>]</td>
+      </tr>
+      <tr>
+          <td>09 Jan 2021</td>
+          <td>ILUGC</td>
+          <td>Managing dotfiles with GNU Stow</td>
+          <td>[<a href="https://nihaal.me/reveal.js/presentations/stow/">Slides</a>]</td>
+      </tr>
+      <tr>
+          <td>10 Oct 2020</td>
+          <td>ILUGC</td>
+          <td>Profiling with BPFTrace</td>
+          <td>[<a href="https://nihaal.me/reveal.js/presentations/bpftrace/">Slides</a>]</td>
+      </tr>
+      <tr>
+          <td>09 Jun 2018</td>
+          <td>ILUGC</td>
+          <td>Make your first Linux kernel patch</td>
+          <td>[<a href="https://nihaal.me/reveal.js/presentations/kernelpatch/">Slides</a>]</td>
+      </tr>
+  </tbody>
+</table>
+<h3 id="research-">Research 👨‍🎓</h3>
+<ul>
+<li><a href="https://nihaal.me/post/how_to_research/">How to do research?</a></li>
+<li><a href="https://github.com/nifey/ret">Ret</a> : A python tool to automate running experiments and plotting them</li>
+<li><a href="https://github.com/nifey/nbench">NBench</a> : Port of Parboil 2.5 and Rodinia 3.1 benchmarks to CUDA Unified memory</li>
+</ul>
+<h3 id="course-projects-">Course Projects ✍️</h3>
+<ul>
+<li><a href="https://github.com/nifey/CUDA-sed">CUDA-sed</a> (GPU Programming course project)</li>
+<li><a href="https://github.com/nifey/cad_for_vlsi">Verilog generator for Carry Ripple, Carry Lookahead Adders and Wallace Tree Multiplier</a> (CAD for VLSI course assignment)</li>
+<li><a href="https://github.com/nifey/bluespec_project">Matrix Transpose Accelerator in Bluespec System Verilog</a> (CAD for VLSI project)</li>
+<li><a href="https://github.com/nifey/urp">Boolean calculator using Unate Recursive Paradigm</a> (Project for VLSI CAD course on Coursera)</li>
+<li><a href="https://github.com/nifey/reverse_llc">Reversing Last Level Caches</a> (Secure Processor Microarchitecture Course Project)</li>
+</ul>
+<h3 id="ctf-writeups-and-programming-challenges-">CTF writeups and Programming challenges 📊</h3>
+<ul>
+<li><a href="https://github.com/nifey/ctf">CTF writeups</a></li>
+<li><a href="https://github.com/nifey/advent_of_code">Advent of Code</a></li>
+<li><a href="https://github.com/nifey/eudyptula">Eudyptula Challenge</a></li>
+</ul>
+<h3 id="silly-little-games-">Silly little games 🎮</h3>
+<ul>
+<li><a href="https://github.com/nifey/ipi">Inter Planetary Internet</a> [<a href="https://js13kgames.com/2020/games/inter-planetary-internet">Play</a>]</li>
+<li><a href="https://github.com/nifey/leftandright">Left and Right</a> [<a href="https://js13kgames.com/games/left-and-right">Play</a>]</li>
+<li><a href="https://github.com/nifey/lost-in-the-woods">Lost in the Woods</a> [<a href="https://js13kgames.com/games/lost-in-the-woods">Play</a>] [<a href="https://nihaal.me/post/2017-10-20-lost-in-the-woods-my-entry-for-js13kgames/">Blog post</a>]</li>
+<li><a href="https://github.com/nifey/pong">Pong using C,SDL2</a></li>
+<li><a href="https://github.com/nifey/tictactoe">TicTacToe in Rust</a></li>
+</ul>
+<h3 id="silly-little-projects-">Silly little projects 🧭</h3>
+<ul>
+<li>Chat application built using JavaFx and Java Nio (<a href="https://github.com/nifey/ChatApplication-Client">Client</a>, <a href="https://github.com/nifey/ChatApplication-Server">Server</a>)</li>
+<li><a href="https://github.com/nifey/VerilogViz">VerilogViz</a> (unfinished) : A tool to visualize circuits written in Verilog</li>
+<li><a href="https://github.com/nifey/Spot_Backend">Spot Backend</a> : Smart India Hackathon 2018 [<a href="https://nihaal.me/post/2018-09-15-smart-india-hackathon-2018/">Blog post</a>]</li>
+<li><a href="https://github.com/nifey/Facemash">Facemash</a> : Facemash using Elo rating system</li>
 </ul>
 
+                        </section>
+                    </div>
+                </div>
+            </article>
 
+            
+			<main class="list">
+                <a id="posts"></a>
+                <h3 class="page-title">Blog posts</h1>
+                <ul class="posts">
+                    <li class="post">
+                            <a href="/post/python_text_processing/">Notes: Text processing and Regular expressions in Python</a>
+                            <span class="meta">Oct 24, 2024</span>
+                        </li><li class="post">
+                            <a href="/post/sed/">Notes on Sed</a>
+                            <span class="meta">Aug 12, 2023</span>
+                        </li><li class="post">
+                            <a href="/post/kernel_defences/">Kernel defences</a>
+                            <span class="meta">Jan 9, 2023</span>
+                        </li><li class="post">
+                            <a href="/post/fixing_syzbot_bugs/">Fixing syzbot bugs</a>
+                            <span class="meta">Dec 20, 2022</span>
+                        </li><li class="post">
+                            <a href="/post/coccinelle/">Coccinelle</a>
+                            <span class="meta">Dec 14, 2022</span>
+                        </li><li class="post">
+                            <a href="/post/syzkaller/">Finding bugs with Syzkaller</a>
+                            <span class="meta">Dec 12, 2022</span>
+                        </li><li class="post">
+                            <a href="/post/how_to_research/">How to do research?</a>
+                            <span class="meta">Dec 6, 2022</span>
+                        </li><li class="post">
+                            <a href="/post/kernel_sanitizers/">Kernel Sanitizers</a>
+                            <span class="meta">Dec 5, 2022</span>
+                        </li><li class="post">
+                            <a href="/post/kernel_fuzzing/">Linux kernel fuzzing</a>
+                            <span class="meta">Dec 3, 2022</span>
+                        </li><li class="post">
+                            <a href="/post/paper_tlbdr/">TLB;DR Reversing TLBs with TLB desynchronization</a>
+                            <span class="meta">Dec 1, 2022</span>
+                        </li><li class="post">
+                            <a href="/post/static_checker/">Using static checkers on Linux Kernel</a>
+                            <span class="meta">Feb 15, 2022</span>
+                        </li><li class="post">
+                            <a href="/post/hardware_compression_algorithms/">Hardware compression algorithms</a>
+                            <span class="meta">Jan 14, 2022</span>
+                        </li><li class="post">
+                            <a href="/post/fosshack_2021/">FOSSHack 2021</a>
+                            <span class="meta">Dec 4, 2021</span>
+                        </li><li class="post">
+                            <a href="/post/publish_to_pypi/">Publishing packages to PyPI</a>
+                            <span class="meta">Dec 4, 2021</span>
+                        </li><li class="post">
+                            <a href="/post/creating_sysfs_files/">Creating sysfs files</a>
+                            <span class="meta">Nov 29, 2021</span>
+                        </li><li class="post">
+                            <a href="/post/dev_null/">Looking inside /dev/null</a>
+                            <span class="meta">Nov 20, 2021</span>
+                        </li><li class="post">
+                            <a href="/post/creating_debugfs_files/">Creating debugfs files</a>
+                            <span class="meta">Nov 6, 2021</span>
+                        </li><li class="post">
+                            <a href="/post/misc_char_devices/">Misc character devices</a>
+                            <span class="meta">Nov 3, 2021</span>
+                        </li><li class="post">
+                            <a href="/post/updating_vulnerable_python_dependencies/">Updating vulnerable Python dependencies</a>
+                            <span class="meta">Oct 18, 2021</span>
+                        </li><li class="post">
+                            <a href="/post/ec5/">Eudyptula Challenge task 5</a>
+                            <span class="meta">Oct 12, 2021</span>
+                        </li><li class="post">
+                            <a href="/post/rsync/">Backing up files with RSync</a>
+                            <span class="meta">Jun 19, 2021</span>
+                        </li><li class="post">
+                            <a href="/post/hello_world_lkm/">Hello world Linux Kernel Module</a>
+                            <span class="meta">Jan 31, 2020</span>
+                        </li><li class="post">
+                            <a href="/post/2018-09-15-smart-india-hackathon-2018/">Smart India Hackathon 2018</a>
+                            <span class="meta">Sep 15, 2018</span>
+                        </li><li class="post">
+                            <a href="/post/2017-11-12-hacktoberfest-and-ilugc/">Hacktoberfest and ILUGC meetup</a>
+                            <span class="meta">Nov 12, 2017</span>
+                        </li><li class="post">
+                            <a href="/post/2017-10-20-lost-in-the-woods-my-entry-for-js13kgames/">Lost in the woods: My entry for JS13Kgames</a>
+                            <span class="meta">Oct 20, 2017</span>
+                        </li><li class="post">
+                            <a href="/post/2017-02-23-my-experience-at-mozillatn-meetup/">My experience at MozillaTN meetup 2017</a>
+                            <span class="meta">Feb 23, 2017</span>
+                        </li><li class="post">
+                            <a href="/post/2016-12-17-my-goals-for-the-next-6-months/">My goals for the next 6 months</a>
+                            <span class="meta">Dec 17, 2016</span>
+                        </li><li class="post">
+                            <a href="/post/2016-11-15-hello-world-getting-started-with-rust/">Hello World: Getting started with Rust</a>
+                            <span class="meta">Nov 15, 2016</span>
+                        </li></ul>
 			</main>
+
 			<footer>
   <div style="display:flex"><a class="soc" href="https://github.com/nifey" rel="me" title="GitHub"><svg class="feather">
    <use href="/svg/feather-sprite.51cf5647cb1987f769b616558f2620fd9423d72058490231b391bf6aa3744b55.svg#github" />
