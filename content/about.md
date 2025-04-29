@@ -6,7 +6,7 @@ draft = false
 
 - I'm a PhD student focussing on Linux kernel security and Static analysis. I work with [Prof. Chester Rebeiro](https://cse.iitm.ac.in/~chester/) and [Prof. Madhu Mutyam](https://cse.iitm.ac.in/~madhu/).
   **My current research** is on detecting memory leaks in the Linux kernel using static analysis. A list of memory leaks that we have detected and fixed can be found [here](https://docs.google.com/spreadsheets/d/e/2PACX-1vREgEjH21e0OygLBQ8D20FkhNTDXCrZIDkwWykv21STmx16QlgFiveawTFcTD6Bs2R0pHVoeC2nzDrT/pubhtml)⭐.
-- I occasionally [write](https://nihaal.me) and collect interesting [git repositories](https://github.com/nifey?tab=stars).
+- I occasionally [write](#posts) and collect interesting [git repositories](https://github.com/nifey?tab=stars).
 
 ### Publication
 
@@ -22,7 +22,7 @@ draft = false
 - [Epub2Sphinx](https://github.com/nifey/epub2sphinx) : A tool to convert EPUB files to HTML files. FOSSHack 2021 Winner [[Blog post](https://nihaal.me/post/fosshack_2021/)]
 - [Discovered a new variant of Trojan Source attack](https://github.com/nickboucher/trojan-source/pull/21)
 
-#### FOSS Meetup Talks 🎤
+### FOSS Meetup Talks 🎤
 
 | Date        | Venue                   | Title                                      | Links                                                  |
 | ----------- | ----------------------- | ------------------------------------------ | ------------------------------------------------------ |
