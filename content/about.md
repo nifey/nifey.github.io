@@ -18,8 +18,9 @@ draft = false
 
 ### FOSS Contributions 💻
 - [**Patches accepted to Linux kernel**](https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git/log/?qt=author&q=abdun+Nihaal)
-- [SARIF.nvim](https://github.com/nifey/sarif.nvim) : A Neovim plugin to view [SARIF](https://sarifweb.azurewebsites.net/) formatted results
-- [Epub2Sphinx](https://github.com/nifey/epub2sphinx) : A tool to convert EPUB files to HTML files. FOSSHack 2021 Winner [[Blog post](https://nihaal.me/post/fosshack_2021/)]
+- [SARIF.nvim](https://github.com/nifey/sarif.nvim) : A Neovim plugin to view [SARIF](https://sarifweb.azurewebsites.net/) formatted results. [[FOSSHack 2025 Winner](https://forum.fossunited.org/t/foss-hack-2025-results/5541/6)] [[Demo](https://drive.google.com/file/d/1twjMVKDfBfCQH8s54CxTjrR7ssvYatuU/view)]
+- [Epub2Sphinx](https://github.com/nifey/epub2sphinx) : A tool to convert EPUB files to HTML files. [[FOSSHack 2021 Winner](https://forum.fossunited.org/t/foss-hack-2021-results/957)] [[Blog post](https://nihaal.me/post/fosshack_2021/)] [[Demo](https://drive.google.com/file/d/1yB5dfDtlfZ8K9rm0uYAPy008jZmMSUL-/view)]
+- [SqliteDirFS](https://github.com/nifey/sqlitedirfs) : A FUSE filesystem to allow reading a SQLite3 Database as a set of folders and files.
 - [Discovered a new variant of Trojan Source attack](https://github.com/nickboucher/trojan-source/pull/21)
 
 ### FOSS Meetup Talks 🎤
