@@ -4,7 +4,7 @@
     <title>Syzkaller on Nihaal</title>
     <link>https://nihaal.me/tags/syzkaller/</link>
     <description>Recent content in Syzkaller on Nihaal</description>
-    <generator>Hugo</generator>
+    <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Mon, 12 Dec 2022 00:00:00 +0000</lastBuildDate>
     <atom:link href="https://nihaal.me/tags/syzkaller/index.xml" rel="self" type="application/rss+xml" />
@@ -13,7 +13,7 @@
       <link>https://nihaal.me/post/syzkaller/</link>
       <pubDate>Mon, 12 Dec 2022 00:00:00 +0000</pubDate>
       <guid>https://nihaal.me/post/syzkaller/</guid>
-      <description>&lt;p&gt;Syzkaller is an unsupervised, grammar based, coverage guided fuzzer used for fuzzing operating system kernels.&#xA;It primarily performs system call fuzzing, but it can also be used for fuzzing USB and network packets.&#xA;It is currently used for continuous fuzzing of Linux, Android and other BSD kernels.&lt;/p&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;&lt;em&gt;Automated&lt;/em&gt;:&#xA;Syzkaller can automatically restart crashed virtual machines and also create a reproducer for the crashes.&lt;/li&gt;&#xA;&lt;li&gt;&lt;em&gt;Coverage guided&lt;/em&gt;:&#xA;Syzkaller gets coverage information using the KCOV infrastructure, which is built into the kernel.&#xA;After executing a mutated program from the corpus, Syzkaller checks if the program has increased the coverage, i.e. it checks whether any&#xA;new code paths in the kernel have been reached during the execution of the program. If so, it adds the program to the corpus for further mutation.&lt;/li&gt;&#xA;&lt;li&gt;&lt;em&gt;Grammar based&lt;/em&gt;:&#xA;Syzkaller understands the structure and API of system calls.&#xA;It uses system calls descriptions written in  &lt;em&gt;&lt;a href=&#34;https://github.com/google/syzkaller/blob/master/docs/syscall_descriptions_syntax.md&#34;&gt;Syzlang&lt;/a&gt;&lt;/em&gt; to generate valid system calls with randomized values in arguments.&#xA;This allows it to execute deeper code paths that would not be possible with blind random fuzzing.&#xA;Syzlang can describe structs that are passed as arguments to syscalls, the possible values for flags and resources (like file descriptors) which are passed across multiple syscalls and have to be created and destroyed using specific system calls.&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;h2 id=&#34;syzkaller-overview&#34;&gt;Syzkaller overview&lt;/h2&gt;&#xA;&lt;p&gt;&lt;img src=&#34;https://github.com/google/syzkaller/blob/master/docs/process_structure.png?raw=true&#34; alt=&#34;&#34;&gt;&lt;/p&gt;</description>
+      <description>Syzkaller is an unsupervised, grammar based, coverage guided fuzzer used for fuzzing operating system kernels. It primarily performs system call fuzzing, but it can also be used for fuzzing USB and network packets. It is currently used for continuous fuzzing of Linux, Android and other BSD kernels.&#xA;Automated: Syzkaller can automatically restart crashed virtual machines and also create a reproducer for the crashes. Coverage guided: Syzkaller gets coverage information using the KCOV infrastructure, which is built into the kernel.</description>
     </item>
   </channel>
 </rss>

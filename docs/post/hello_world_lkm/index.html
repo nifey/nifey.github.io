@@ -2,27 +2,20 @@
 <html><head lang="en">
 	<meta charset="utf-8" />
 	<meta http-equiv="X-UA-Compatible" content="IE=edge"><title>Hello world Linux Kernel Module - Nihaal</title><meta name="viewport" content="width=device-width, initial-scale=1">
-	<meta name="description" content="A Loadable Kernel Module (LKM) is a piece of code that can be loaded to a running kernel to add additional functionality to the kernel.
-The code that runs as a kernel module will be executed with kernel privileges. Most operating system kernels support kernel modules.
+	<meta name="description" content="A Loadable Kernel Module (LKM) is a piece of code that can be loaded to a running kernel to add additional functionality to the kernel. The code that runs as a kernel module will be executed with kernel privileges. Most operating system kernels support kernel modules.
 The advantage of using kernel modules is that it can be loaded to and unloaded from the kernel without the need to recompile or reboot the kernel." />
 	<meta property="og:image" content=""/>
-	<meta property="og:url" content="https://nihaal.me/post/hello_world_lkm/">
-  <meta property="og:site_name" content="Nihaal">
-  <meta property="og:title" content="Hello world Linux Kernel Module">
-  <meta property="og:description" content="A Loadable Kernel Module (LKM) is a piece of code that can be loaded to a running kernel to add additional functionality to the kernel. The code that runs as a kernel module will be executed with kernel privileges. Most operating system kernels support kernel modules.
-The advantage of using kernel modules is that it can be loaded to and unloaded from the kernel without the need to recompile or reboot the kernel.">
-  <meta property="og:locale" content="en_us">
-  <meta property="og:type" content="article">
-    <meta property="article:section" content="post">
-    <meta property="article:published_time" content="2020-01-31T10:42:00+05:30">
-    <meta property="article:modified_time" content="2020-01-31T10:42:00+05:30">
-    <meta property="article:tag" content="Linux">
-    <meta property="article:tag" content="Kernel">
+	<meta property="og:title" content="Hello world Linux Kernel Module" />
+<meta property="og:description" content="A Loadable Kernel Module (LKM) is a piece of code that can be loaded to a running kernel to add additional functionality to the kernel. The code that runs as a kernel module will be executed with kernel privileges. Most operating system kernels support kernel modules.
+The advantage of using kernel modules is that it can be loaded to and unloaded from the kernel without the need to recompile or reboot the kernel." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://nihaal.me/post/hello_world_lkm/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2020-01-31T10:42:00+05:30" />
+<meta property="article:modified_time" content="2020-01-31T10:42:00+05:30" />
 
-  <meta name="twitter:card" content="summary">
-  <meta name="twitter:title" content="Hello world Linux Kernel Module">
-  <meta name="twitter:description" content="A Loadable Kernel Module (LKM) is a piece of code that can be loaded to a running kernel to add additional functionality to the kernel. The code that runs as a kernel module will be executed with kernel privileges. Most operating system kernels support kernel modules.
-The advantage of using kernel modules is that it can be loaded to and unloaded from the kernel without the need to recompile or reboot the kernel.">
+<meta name="twitter:card" content="summary"/><meta name="twitter:title" content="Hello world Linux Kernel Module"/>
+<meta name="twitter:description" content="A Loadable Kernel Module (LKM) is a piece of code that can be loaded to a running kernel to add additional functionality to the kernel. The code that runs as a kernel module will be executed with kernel privileges. Most operating system kernels support kernel modules.
+The advantage of using kernel modules is that it can be loaded to and unloaded from the kernel without the need to recompile or reboot the kernel."/>
 
         <link href="https://nihaal.me/css/fonts.2c2227b81b1970a03e760aa2e6121cd01f87c88586803cbb282aa224720a765f.css" rel="stylesheet">
 	
@@ -105,7 +98,7 @@ Here again, we just use printk to print a message and return.</p>
 </span></span><span style="display:flex;"><span><span style="color:#a6e22e">clean</span><span style="color:#f92672">:</span>
 </span></span><span style="display:flex;"><span>        make -C /lib/modules/<span style="color:#66d9ef">$(</span>shell uname -r<span style="color:#66d9ef">)</span>/build M<span style="color:#f92672">=</span><span style="color:#66d9ef">$(</span>PWD<span style="color:#66d9ef">)</span> clean
 </span></span></code></pre></div><p>Run <code>make</code> to build the kernel module. This will create a new file with .ko (Kernel Object) extension.</p>
-<figure><img src="/ox-hugo/lkm_make.png">
+<figure><img src="/ox-hugo/lkm_make.png"/>
 </figure>
 
 <h2 id="commands-for-working-with-kernel-modules">Commands for working with kernel modules</h2>
@@ -126,7 +119,7 @@ You can check if the module has been loaded using <code>lsmod</code>.</p>
 </span></span><span style="display:flex;"><span>lsmod | grep hello
 </span></span></code></pre></div><p>Check the kernel log to see if our hello world message is printed.</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>dmesg
-</span></span></code></pre></div><figure><img src="/ox-hugo/lkm_insmod.png">
+</span></span></code></pre></div><figure><img src="/ox-hugo/lkm_insmod.png"/>
 </figure>
 
 <p>To unload the kernel module use the <code>rmmod</code> command. This will invoke the exit function of the module.</p>
@@ -134,7 +127,7 @@ You can check if the module has been loaded using <code>lsmod</code>.</p>
 </span></span><span style="display:flex;"><span>lsmod | grep hello
 </span></span></code></pre></div><p>Now if we check the kernel log we can see the message printed in the exit function.</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>dmesg
-</span></span></code></pre></div><figure><img src="/ox-hugo/lkm_rmmod.png">
+</span></span></code></pre></div><figure><img src="/ox-hugo/lkm_rmmod.png"/>
 </figure>
 
 <h2 id="what-s-next">What&rsquo;s next?</h2>

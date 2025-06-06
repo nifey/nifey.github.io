@@ -2,36 +2,23 @@
 <html><head lang="en">
 	<meta charset="utf-8" />
 	<meta http-equiv="X-UA-Compatible" content="IE=edge"><title>Kernel Sanitizers - Nihaal</title><meta name="viewport" content="width=device-width, initial-scale=1">
-	<meta name="description" content="When fuzzing a program by feeding random inputs to it, we need a mechanism to tell when the program is doing unexpected things.
-Sanitizers help detect bugs in the program at runtime.
-They are usually used along with fuzzing to detect bugs in programs.
+	<meta name="description" content="When fuzzing a program by feeding random inputs to it, we need a mechanism to tell when the program is doing unexpected things. Sanitizers help detect bugs in the program at runtime. They are usually used along with fuzzing to detect bugs in programs.
 The two roles of sanitizers:
-
-Detect incorrect program behaviour: like accessing memory that the program is not supposed to access
-Report incorrect behaviour: To be useful, the sanitizer needs to report useful information (like the stack trace and ) that makes it easier to understand and fix the bug.
-
-The Linux kernel supports a number of sanitizers, each focussing on a different class of bugs." />
+Detect incorrect program behaviour: like accessing memory that the program is not supposed to access Report incorrect behaviour: To be useful, the sanitizer needs to report useful information (like the stack trace and ) that makes it easier to understand and fix the bug." />
 	<meta property="og:image" content=""/>
-	<meta property="og:url" content="https://nihaal.me/post/kernel_sanitizers/">
-  <meta property="og:site_name" content="Nihaal">
-  <meta property="og:title" content="Kernel Sanitizers">
-  <meta property="og:description" content="When fuzzing a program by feeding random inputs to it, we need a mechanism to tell when the program is doing unexpected things. Sanitizers help detect bugs in the program at runtime. They are usually used along with fuzzing to detect bugs in programs.
+	<meta property="og:title" content="Kernel Sanitizers" />
+<meta property="og:description" content="When fuzzing a program by feeding random inputs to it, we need a mechanism to tell when the program is doing unexpected things. Sanitizers help detect bugs in the program at runtime. They are usually used along with fuzzing to detect bugs in programs.
 The two roles of sanitizers:
-Detect incorrect program behaviour: like accessing memory that the program is not supposed to access Report incorrect behaviour: To be useful, the sanitizer needs to report useful information (like the stack trace and ) that makes it easier to understand and fix the bug. The Linux kernel supports a number of sanitizers, each focussing on a different class of bugs.">
-  <meta property="og:locale" content="en_us">
-  <meta property="og:type" content="article">
-    <meta property="article:section" content="post">
-    <meta property="article:published_time" content="2022-12-05T00:00:00+00:00">
-    <meta property="article:modified_time" content="2022-12-17T09:25:43+05:30">
-    <meta property="article:tag" content="Fuzzing">
-    <meta property="article:tag" content="Linux">
-    <meta property="article:tag" content="Kernel">
+Detect incorrect program behaviour: like accessing memory that the program is not supposed to access Report incorrect behaviour: To be useful, the sanitizer needs to report useful information (like the stack trace and ) that makes it easier to understand and fix the bug." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://nihaal.me/post/kernel_sanitizers/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2022-12-05T00:00:00+00:00" />
+<meta property="article:modified_time" content="2022-12-17T09:25:43+05:30" />
 
-  <meta name="twitter:card" content="summary">
-  <meta name="twitter:title" content="Kernel Sanitizers">
-  <meta name="twitter:description" content="When fuzzing a program by feeding random inputs to it, we need a mechanism to tell when the program is doing unexpected things. Sanitizers help detect bugs in the program at runtime. They are usually used along with fuzzing to detect bugs in programs.
+<meta name="twitter:card" content="summary"/><meta name="twitter:title" content="Kernel Sanitizers"/>
+<meta name="twitter:description" content="When fuzzing a program by feeding random inputs to it, we need a mechanism to tell when the program is doing unexpected things. Sanitizers help detect bugs in the program at runtime. They are usually used along with fuzzing to detect bugs in programs.
 The two roles of sanitizers:
-Detect incorrect program behaviour: like accessing memory that the program is not supposed to access Report incorrect behaviour: To be useful, the sanitizer needs to report useful information (like the stack trace and ) that makes it easier to understand and fix the bug. The Linux kernel supports a number of sanitizers, each focussing on a different class of bugs.">
+Detect incorrect program behaviour: like accessing memory that the program is not supposed to access Report incorrect behaviour: To be useful, the sanitizer needs to report useful information (like the stack trace and ) that makes it easier to understand and fix the bug."/>
 
         <link href="https://nihaal.me/css/fonts.2c2227b81b1970a03e760aa2e6121cd01f87c88586803cbb282aa224720a765f.css" rel="stylesheet">
 	

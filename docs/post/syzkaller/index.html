@@ -2,42 +2,20 @@
 <html><head lang="en">
 	<meta charset="utf-8" />
 	<meta http-equiv="X-UA-Compatible" content="IE=edge"><title>Finding bugs with Syzkaller - Nihaal</title><meta name="viewport" content="width=device-width, initial-scale=1">
-	<meta name="description" content="Syzkaller is an unsupervised, grammar based, coverage guided fuzzer used for fuzzing operating system kernels.
-It primarily performs system call fuzzing, but it can also be used for fuzzing USB and network packets.
-It is currently used for continuous fuzzing of Linux, Android and other BSD kernels.
-
-Automated:
-Syzkaller can automatically restart crashed virtual machines and also create a reproducer for the crashes.
-Coverage guided:
-Syzkaller gets coverage information using the KCOV infrastructure, which is built into the kernel.
-After executing a mutated program from the corpus, Syzkaller checks if the program has increased the coverage, i.e. it checks whether any
-new code paths in the kernel have been reached during the execution of the program. If so, it adds the program to the corpus for further mutation.
-Grammar based:
-Syzkaller understands the structure and API of system calls.
-It uses system calls descriptions written in  Syzlang to generate valid system calls with randomized values in arguments.
-This allows it to execute deeper code paths that would not be possible with blind random fuzzing.
-Syzlang can describe structs that are passed as arguments to syscalls, the possible values for flags and resources (like file descriptors) which are passed across multiple syscalls and have to be created and destroyed using specific system calls.
-
-Syzkaller overview
-" />
+	<meta name="description" content="Syzkaller is an unsupervised, grammar based, coverage guided fuzzer used for fuzzing operating system kernels. It primarily performs system call fuzzing, but it can also be used for fuzzing USB and network packets. It is currently used for continuous fuzzing of Linux, Android and other BSD kernels.
+Automated: Syzkaller can automatically restart crashed virtual machines and also create a reproducer for the crashes. Coverage guided: Syzkaller gets coverage information using the KCOV infrastructure, which is built into the kernel." />
 	<meta property="og:image" content=""/>
-	<meta property="og:url" content="https://nihaal.me/post/syzkaller/">
-  <meta property="og:site_name" content="Nihaal">
-  <meta property="og:title" content="Finding bugs with Syzkaller">
-  <meta property="og:description" content="Syzkaller is an unsupervised, grammar based, coverage guided fuzzer used for fuzzing operating system kernels. It primarily performs system call fuzzing, but it can also be used for fuzzing USB and network packets. It is currently used for continuous fuzzing of Linux, Android and other BSD kernels.
-Automated: Syzkaller can automatically restart crashed virtual machines and also create a reproducer for the crashes. Coverage guided: Syzkaller gets coverage information using the KCOV infrastructure, which is built into the kernel. After executing a mutated program from the corpus, Syzkaller checks if the program has increased the coverage, i.e. it checks whether any new code paths in the kernel have been reached during the execution of the program. If so, it adds the program to the corpus for further mutation. Grammar based: Syzkaller understands the structure and API of system calls. It uses system calls descriptions written in Syzlang to generate valid system calls with randomized values in arguments. This allows it to execute deeper code paths that would not be possible with blind random fuzzing. Syzlang can describe structs that are passed as arguments to syscalls, the possible values for flags and resources (like file descriptors) which are passed across multiple syscalls and have to be created and destroyed using specific system calls. Syzkaller overview">
-  <meta property="og:locale" content="en_us">
-  <meta property="og:type" content="article">
-    <meta property="article:section" content="post">
-    <meta property="article:published_time" content="2022-12-12T00:00:00+00:00">
-    <meta property="article:modified_time" content="2022-12-12T00:00:00+00:00">
-    <meta property="article:tag" content="Fuzzing">
-    <meta property="article:tag" content="Syzkaller">
+	<meta property="og:title" content="Finding bugs with Syzkaller" />
+<meta property="og:description" content="Syzkaller is an unsupervised, grammar based, coverage guided fuzzer used for fuzzing operating system kernels. It primarily performs system call fuzzing, but it can also be used for fuzzing USB and network packets. It is currently used for continuous fuzzing of Linux, Android and other BSD kernels.
+Automated: Syzkaller can automatically restart crashed virtual machines and also create a reproducer for the crashes. Coverage guided: Syzkaller gets coverage information using the KCOV infrastructure, which is built into the kernel." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://nihaal.me/post/syzkaller/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2022-12-12T00:00:00+00:00" />
+<meta property="article:modified_time" content="2022-12-12T00:00:00+00:00" />
 
-  <meta name="twitter:card" content="summary">
-  <meta name="twitter:title" content="Finding bugs with Syzkaller">
-  <meta name="twitter:description" content="Syzkaller is an unsupervised, grammar based, coverage guided fuzzer used for fuzzing operating system kernels. It primarily performs system call fuzzing, but it can also be used for fuzzing USB and network packets. It is currently used for continuous fuzzing of Linux, Android and other BSD kernels.
-Automated: Syzkaller can automatically restart crashed virtual machines and also create a reproducer for the crashes. Coverage guided: Syzkaller gets coverage information using the KCOV infrastructure, which is built into the kernel. After executing a mutated program from the corpus, Syzkaller checks if the program has increased the coverage, i.e. it checks whether any new code paths in the kernel have been reached during the execution of the program. If so, it adds the program to the corpus for further mutation. Grammar based: Syzkaller understands the structure and API of system calls. It uses system calls descriptions written in Syzlang to generate valid system calls with randomized values in arguments. This allows it to execute deeper code paths that would not be possible with blind random fuzzing. Syzlang can describe structs that are passed as arguments to syscalls, the possible values for flags and resources (like file descriptors) which are passed across multiple syscalls and have to be created and destroyed using specific system calls. Syzkaller overview">
+<meta name="twitter:card" content="summary"/><meta name="twitter:title" content="Finding bugs with Syzkaller"/>
+<meta name="twitter:description" content="Syzkaller is an unsupervised, grammar based, coverage guided fuzzer used for fuzzing operating system kernels. It primarily performs system call fuzzing, but it can also be used for fuzzing USB and network packets. It is currently used for continuous fuzzing of Linux, Android and other BSD kernels.
+Automated: Syzkaller can automatically restart crashed virtual machines and also create a reproducer for the crashes. Coverage guided: Syzkaller gets coverage information using the KCOV infrastructure, which is built into the kernel."/>
 
         <link href="https://nihaal.me/css/fonts.2c2227b81b1970a03e760aa2e6121cd01f87c88586803cbb282aa224720a765f.css" rel="stylesheet">
 	

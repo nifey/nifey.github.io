@@ -2,30 +2,20 @@
 <html><head lang="en">
 	<meta charset="utf-8" />
 	<meta http-equiv="X-UA-Compatible" content="IE=edge"><title>Backing up files with RSync - Nihaal</title><meta name="viewport" content="width=device-width, initial-scale=1">
-	<meta name="description" content="You need a backup
-When was the last time you took a backup of your files?
-Thanks to technology, today, we can store thousands of photos and videos in a single pen drive.
-Digital files are easy to store, but they are also easy to lose.
-And that is why we all need to take regular backup of our files.
-3-2-1 Backup Strategy
-3-2-1 Backup strategy is a general rule of thumb that says it is better to have atleast 3 copies of our files." />
+	<meta name="description" content="You need a backup When was the last time you took a backup of your files? Thanks to technology, today, we can store thousands of photos and videos in a single pen drive. Digital files are easy to store, but they are also easy to lose. And that is why we all need to take regular backup of our files.
+3-2-1 Backup Strategy 3-2-1 Backup strategy is a general rule of thumb that says it is better to have atleast 3 copies of our files." />
 	<meta property="og:image" content=""/>
-	<meta property="og:url" content="https://nihaal.me/post/rsync/">
-  <meta property="og:site_name" content="Nihaal">
-  <meta property="og:title" content="Backing up files with RSync">
-  <meta property="og:description" content="You need a backup When was the last time you took a backup of your files? Thanks to technology, today, we can store thousands of photos and videos in a single pen drive. Digital files are easy to store, but they are also easy to lose. And that is why we all need to take regular backup of our files.
-3-2-1 Backup Strategy 3-2-1 Backup strategy is a general rule of thumb that says it is better to have atleast 3 copies of our files.">
-  <meta property="og:locale" content="en_us">
-  <meta property="og:type" content="article">
-    <meta property="article:section" content="post">
-    <meta property="article:published_time" content="2021-06-19T11:16:00+05:30">
-    <meta property="article:modified_time" content="2021-06-19T11:16:00+05:30">
-    <meta property="article:tag" content="Backup">
+	<meta property="og:title" content="Backing up files with RSync" />
+<meta property="og:description" content="You need a backup When was the last time you took a backup of your files? Thanks to technology, today, we can store thousands of photos and videos in a single pen drive. Digital files are easy to store, but they are also easy to lose. And that is why we all need to take regular backup of our files.
+3-2-1 Backup Strategy 3-2-1 Backup strategy is a general rule of thumb that says it is better to have atleast 3 copies of our files." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://nihaal.me/post/rsync/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2021-06-19T11:16:00+05:30" />
+<meta property="article:modified_time" content="2021-06-19T11:16:00+05:30" />
 
-  <meta name="twitter:card" content="summary">
-  <meta name="twitter:title" content="Backing up files with RSync">
-  <meta name="twitter:description" content="You need a backup When was the last time you took a backup of your files? Thanks to technology, today, we can store thousands of photos and videos in a single pen drive. Digital files are easy to store, but they are also easy to lose. And that is why we all need to take regular backup of our files.
-3-2-1 Backup Strategy 3-2-1 Backup strategy is a general rule of thumb that says it is better to have atleast 3 copies of our files.">
+<meta name="twitter:card" content="summary"/><meta name="twitter:title" content="Backing up files with RSync"/>
+<meta name="twitter:description" content="You need a backup When was the last time you took a backup of your files? Thanks to technology, today, we can store thousands of photos and videos in a single pen drive. Digital files are easy to store, but they are also easy to lose. And that is why we all need to take regular backup of our files.
+3-2-1 Backup Strategy 3-2-1 Backup strategy is a general rule of thumb that says it is better to have atleast 3 copies of our files."/>
 
         <link href="https://nihaal.me/css/fonts.2c2227b81b1970a03e760aa2e6121cd01f87c88586803cbb282aa224720a765f.css" rel="stylesheet">
 	
@@ -141,58 +131,58 @@ One example is mysqldump for MySQL.</li>
 <h2 id="freqently-used-options">Freqently used options</h2>
 <p>Here is a table of the most commonly used RSync options.</p>
 <table>
-  <thead>
-      <tr>
-          <th>Option</th>
-          <th>Used for</th>
-      </tr>
-  </thead>
-  <tbody>
-      <tr>
-          <td>-a</td>
-          <td>preserves permission and other attributes</td>
-      </tr>
-      <tr>
-          <td>-r</td>
-          <td>to copy recursively</td>
-      </tr>
-      <tr>
-          <td>-z</td>
-          <td>transfers data in compressed format (to save bandwidth)</td>
-      </tr>
-      <tr>
-          <td>-vhP</td>
-          <td>verbose, human-readable, show progress</td>
-      </tr>
-      <tr>
-          <td>-e ssh</td>
-          <td>transfer over ssh</td>
-      </tr>
-      <tr>
-          <td>-e &lsquo;ssh -p port&rsquo;</td>
-          <td>transfer over ssh using a different port</td>
-      </tr>
-      <tr>
-          <td>-W</td>
-          <td>whole file transfer (instead of diff based)</td>
-      </tr>
-      <tr>
-          <td><em>-</em>-dry-run, -n</td>
-          <td>does not modify filesystem</td>
-      </tr>
-      <tr>
-          <td><em>-</em>-delete</td>
-          <td>removes files (in backup folder) that does not exist at the source  folder</td>
-      </tr>
-      <tr>
-          <td><em>-</em>-exclude=&quot;&quot;</td>
-          <td>to specify which files to exclude</td>
-      </tr>
-      <tr>
-          <td><em>-</em>-exclude-from=file</td>
-          <td>exclude glob patterns specified in a file</td>
-      </tr>
-  </tbody>
+<thead>
+<tr>
+<th>Option</th>
+<th>Used for</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>-a</td>
+<td>preserves permission and other attributes</td>
+</tr>
+<tr>
+<td>-r</td>
+<td>to copy recursively</td>
+</tr>
+<tr>
+<td>-z</td>
+<td>transfers data in compressed format (to save bandwidth)</td>
+</tr>
+<tr>
+<td>-vhP</td>
+<td>verbose, human-readable, show progress</td>
+</tr>
+<tr>
+<td>-e ssh</td>
+<td>transfer over ssh</td>
+</tr>
+<tr>
+<td>-e &lsquo;ssh -p port&rsquo;</td>
+<td>transfer over ssh using a different port</td>
+</tr>
+<tr>
+<td>-W</td>
+<td>whole file transfer (instead of diff based)</td>
+</tr>
+<tr>
+<td><em>-</em>-dry-run, -n</td>
+<td>does not modify filesystem</td>
+</tr>
+<tr>
+<td><em>-</em>-delete</td>
+<td>removes files (in backup folder) that does not exist at the source  folder</td>
+</tr>
+<tr>
+<td><em>-</em>-exclude=&quot;&quot;</td>
+<td>to specify which files to exclude</td>
+</tr>
+<tr>
+<td><em>-</em>-exclude-from=file</td>
+<td>exclude glob patterns specified in a file</td>
+</tr>
+</tbody>
 </table>
 <h2 id="common-uses">Common uses</h2>
 <h3 id="full-system-backup--for-more-information">Full system backup (<a href="https://www.linuxsecrets.com/archlinux-wiki/wiki.archlinux.org/index.php/Full%5Fsystem%5Fbackup%5Fwith%5Frsync.html">For more information</a>)</h3>

@@ -2,36 +2,20 @@
 <html><head lang="en">
 	<meta charset="utf-8" />
 	<meta http-equiv="X-UA-Compatible" content="IE=edge"><title>Misc character devices - Nihaal</title><meta name="viewport" content="width=device-width, initial-scale=1">
-	<meta name="description" content="Character Devices, Major and Minor numbers
-Based on granularity of access, there are two classes of devices:
-
-Character devices are accessed as a stream of bytes. Eg: Keyboards
-Block devices are accessed in blocks. For instance, hard disks transfer data in blocks of multiple bytes at a time.
-
-The kernel uses major and minor numbers to identify the attached hardware devices.
-Major number usually tells us the type of device.
-Minor numbers are used to differentiate two or more devices with the same major number.
-Some minor numbers are reserved.
-The driver writer can choose to use a specific minor number for a device by reserving it, or allow the kernel to assign any free minor number.
-The meaning of major numbers and the list of reserved minor numbers can be found in Documentation/admin-guide/devices.txt." />
+	<meta name="description" content="Character Devices, Major and Minor numbers Based on granularity of access, there are two classes of devices:
+Character devices are accessed as a stream of bytes. Eg: Keyboards Block devices are accessed in blocks. For instance, hard disks transfer data in blocks of multiple bytes at a time. The kernel uses major and minor numbers to identify the attached hardware devices. Major number usually tells us the type of device. Minor numbers are used to differentiate two or more devices with the same major number." />
 	<meta property="og:image" content=""/>
-	<meta property="og:url" content="https://nihaal.me/post/misc_char_devices/">
-  <meta property="og:site_name" content="Nihaal">
-  <meta property="og:title" content="Misc character devices">
-  <meta property="og:description" content="Character Devices, Major and Minor numbers Based on granularity of access, there are two classes of devices:
-Character devices are accessed as a stream of bytes. Eg: Keyboards Block devices are accessed in blocks. For instance, hard disks transfer data in blocks of multiple bytes at a time. The kernel uses major and minor numbers to identify the attached hardware devices. Major number usually tells us the type of device. Minor numbers are used to differentiate two or more devices with the same major number. Some minor numbers are reserved. The driver writer can choose to use a specific minor number for a device by reserving it, or allow the kernel to assign any free minor number. The meaning of major numbers and the list of reserved minor numbers can be found in Documentation/admin-guide/devices.txt.">
-  <meta property="og:locale" content="en_us">
-  <meta property="og:type" content="article">
-    <meta property="article:section" content="post">
-    <meta property="article:published_time" content="2021-11-03T00:00:00+00:00">
-    <meta property="article:modified_time" content="2021-11-03T00:00:00+00:00">
-    <meta property="article:tag" content="Linux">
-    <meta property="article:tag" content="Kernel">
+	<meta property="og:title" content="Misc character devices" />
+<meta property="og:description" content="Character Devices, Major and Minor numbers Based on granularity of access, there are two classes of devices:
+Character devices are accessed as a stream of bytes. Eg: Keyboards Block devices are accessed in blocks. For instance, hard disks transfer data in blocks of multiple bytes at a time. The kernel uses major and minor numbers to identify the attached hardware devices. Major number usually tells us the type of device. Minor numbers are used to differentiate two or more devices with the same major number." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://nihaal.me/post/misc_char_devices/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2021-11-03T00:00:00+00:00" />
+<meta property="article:modified_time" content="2021-11-03T00:00:00+00:00" />
 
-  <meta name="twitter:card" content="summary">
-  <meta name="twitter:title" content="Misc character devices">
-  <meta name="twitter:description" content="Character Devices, Major and Minor numbers Based on granularity of access, there are two classes of devices:
-Character devices are accessed as a stream of bytes. Eg: Keyboards Block devices are accessed in blocks. For instance, hard disks transfer data in blocks of multiple bytes at a time. The kernel uses major and minor numbers to identify the attached hardware devices. Major number usually tells us the type of device. Minor numbers are used to differentiate two or more devices with the same major number. Some minor numbers are reserved. The driver writer can choose to use a specific minor number for a device by reserving it, or allow the kernel to assign any free minor number. The meaning of major numbers and the list of reserved minor numbers can be found in Documentation/admin-guide/devices.txt.">
+<meta name="twitter:card" content="summary"/><meta name="twitter:title" content="Misc character devices"/>
+<meta name="twitter:description" content="Character Devices, Major and Minor numbers Based on granularity of access, there are two classes of devices:
+Character devices are accessed as a stream of bytes. Eg: Keyboards Block devices are accessed in blocks. For instance, hard disks transfer data in blocks of multiple bytes at a time. The kernel uses major and minor numbers to identify the attached hardware devices. Major number usually tells us the type of device. Minor numbers are used to differentiate two or more devices with the same major number."/>
 
         <link href="https://nihaal.me/css/fonts.2c2227b81b1970a03e760aa2e6121cd01f87c88586803cbb282aa224720a765f.css" rel="stylesheet">
 	

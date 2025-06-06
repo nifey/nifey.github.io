@@ -4,7 +4,7 @@
     <title>Research on Nihaal</title>
     <link>https://nihaal.me/tags/research/</link>
     <description>Recent content in Research on Nihaal</description>
-    <generator>Hugo</generator>
+    <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Tue, 06 Dec 2022 00:00:00 +0000</lastBuildDate>
     <atom:link href="https://nihaal.me/tags/research/index.xml" rel="self" type="application/rss+xml" />
@@ -13,21 +13,21 @@
       <link>https://nihaal.me/post/how_to_research/</link>
       <pubDate>Tue, 06 Dec 2022 00:00:00 +0000</pubDate>
       <guid>https://nihaal.me/post/how_to_research/</guid>
-      <description>&lt;p&gt;Disclaimer: I&amp;rsquo;m no expert in this. This post is just to collect all my thoughts and lessons learnt from random talks and blogs, about research.&lt;/p&gt;&#xA;&lt;p&gt;&lt;strong&gt;What is research?&lt;/strong&gt;&lt;/p&gt;&#xA;&lt;p&gt;Research is producing new knowledge.&#xA;The aim of research is to do something &lt;strong&gt;novel&lt;/strong&gt; (new) and &lt;strong&gt;useful&lt;/strong&gt;.&#xA;The purpose of literature survey is to ensure that our idea is new and has not been proposed before.&#xA;And the purpose of evaluations is to show that our idea or technique is useful.&lt;/p&gt;</description>
+      <description>Disclaimer: I&amp;rsquo;m no expert in this. This post is just to collect all my thoughts and lessons learnt from random talks and blogs, about research.&#xA;What is research?&#xA;Research is producing new knowledge. The aim of research is to do something novel (new) and useful. The purpose of literature survey is to ensure that our idea is new and has not been proposed before. And the purpose of evaluations is to show that our idea or technique is useful.</description>
     </item>
     <item>
       <title>TLB;DR Reversing TLBs with TLB desynchronization</title>
       <link>https://nihaal.me/post/paper_tlbdr/</link>
       <pubDate>Thu, 01 Dec 2022 00:00:00 +0000</pubDate>
       <guid>https://nihaal.me/post/paper_tlbdr/</guid>
-      <description>&lt;p&gt;Yesterday, I read an interesting research paper about reverse engineering TLBs using TLB desynchronization.&#xA;In this post, I&amp;rsquo;ll write briefly about the key ideas and what I found very interesting in the paper.&lt;/p&gt;&#xA;&lt;p&gt;You can find the paper here:&lt;/p&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;&lt;a href=&#34;https://www.usenix.org/conference/usenixsecurity22/presentation/tatar&#34;&gt;&lt;strong&gt;TLB;DR: Enhancing TLB-based Attacks with TLB Desynchronized Reverse Engineering&lt;/strong&gt;&lt;/a&gt;.&lt;/li&gt;&#xA;&lt;li&gt;&lt;a href=&#34;https://github.com/vusec/tlbdr&#34;&gt;TLB;DR Source code&lt;/a&gt;&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;h2 id=&#34;reverse-engineering-cpu-internals&#34;&gt;Reverse engineering CPU internals&lt;/h2&gt;&#xA;&lt;p&gt;In the subfield of hardware security that focuses on communicating (covert channels) or leaking (side channels) critical information using timing or storage channels, accurate information about the CPU internals helps create more efficient and reliable channels.&#xA;Information about the size, associativity, set mapping, etc. of caches and TLBs allow the attacker to fine tune their attacks.&#xA;However, most CPU vendors don&amp;rsquo;t disclose such information in detail, and so, attackers resort to reverse engineering these microarchitectural details.&#xA;Reverse engineering hardware structures is usually performed by observing timing differences, which can have a lot of noise.&#xA;In the paper, TLB;DR, the authors propose a new method for reverse engineering TLBs with high accuracy.&lt;/p&gt;</description>
+      <description>Yesterday, I read an interesting research paper about reverse engineering TLBs using TLB desynchronization. In this post, I&amp;rsquo;ll write briefly about the key ideas and what I found very interesting in the paper.&#xA;You can find the paper here:&#xA;TLB;DR: Enhancing TLB-based Attacks with TLB Desynchronized Reverse Engineering. TLB;DR Source code Reverse engineering CPU internals In the subfield of hardware security that focuses on communicating (covert channels) or leaking (side channels) critical information using timing or storage channels, accurate information about the CPU internals helps create more efficient and reliable channels.</description>
     </item>
     <item>
       <title>Hardware compression algorithms</title>
       <link>https://nihaal.me/post/hardware_compression_algorithms/</link>
       <pubDate>Fri, 14 Jan 2022 00:00:00 +0000</pubDate>
       <guid>https://nihaal.me/post/hardware_compression_algorithms/</guid>
-      <description>&lt;p&gt;Compression is a common technique that allows us to reduce the size of data.&#xA;We use it when we store or send files as &lt;em&gt;zip&lt;/em&gt;, &lt;em&gt;7z&lt;/em&gt; or &lt;em&gt;rar&lt;/em&gt; archives.&#xA;It helps reduce the space occupied by files in the filesystem and also to save bandwidth while transferring over a network.&lt;/p&gt;&#xA;&lt;p&gt;In general, compression algorithms try to encode &lt;strong&gt;redundancy or regularity in data&lt;/strong&gt; with lesser bits.&lt;/p&gt;&#xA;&lt;p&gt;There are many different software compression algorithms available.&#xA;Lempel-Ziv family of algorithms, used in tools like &lt;em&gt;zip&lt;/em&gt; and &lt;em&gt;7z&lt;/em&gt;, works by replacing repeated chunks of data with a pointer to an earlier occurrence. This avoids repeating the same chunks of data over and over again.&lt;/p&gt;</description>
+      <description>Compression is a common technique that allows us to reduce the size of data. We use it when we store or send files as zip, 7z or rar archives. It helps reduce the space occupied by files in the filesystem and also to save bandwidth while transferring over a network.&#xA;In general, compression algorithms try to encode redundancy or regularity in data with lesser bits.&#xA;There are many different software compression algorithms available.</description>
     </item>
   </channel>
 </rss>

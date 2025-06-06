@@ -3,40 +3,19 @@
 	<meta charset="utf-8" />
 	<meta http-equiv="X-UA-Compatible" content="IE=edge"><title>Kernel defences - Nihaal</title><meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta name="description" content="Usually when an attacker exploits a vulnerability, the attack starts out as a Illegal memory access or Control flow hijack, which the attacker would use to write to sensitive memory locations or execute arbitrary code in supervisor mode, to try to increase privileges in the system.
-
-Illegal memory accesses are memory accesses which the programmer didn&rsquo;t intend to happen, which allows attackers to read or write to some memory locations.
-Illegal memory accesses can be classified on three aspects:
-
-Read or Write access
-Access to Arbitrary address or restricted address
-If it is a write, Arbitrary value or restricted value write
-Write accesses and arbitrary address/value writes are more serious bugs, as they allow attackers more control over where or what value they can write, making it easier to subvert execution.
-
-
-In a control flow hijack, the vulnerability provides a way to divert execution into an attacker controlled path.
-For instance, when an attacker controls the value of a function pointer, she can hijack control flow when that function is dereferenced.
-Control flow hijack can happen either on the forward edge (when a function is called) or on the backward edge (when a function returns).
-
-Despite having vulnerabilities that allow illegal writes or control flow hijack, the kernel has a few defence mechanisms in place to make
-it difficult to convert a vulnerability into a useful attack." />
+Illegal memory accesses are memory accesses which the programmer didn&rsquo;t intend to happen, which allows attackers to read or write to some memory locations. Illegal memory accesses can be classified on three aspects: Read or Write access Access to Arbitrary address or restricted address If it is a write, Arbitrary value or restricted value write Write accesses and arbitrary address/value writes are more serious bugs, as they allow attackers more control over where or what value they can write, making it easier to subvert execution." />
 	<meta property="og:image" content=""/>
-	<meta property="og:url" content="https://nihaal.me/post/kernel_defences/">
-  <meta property="og:site_name" content="Nihaal">
-  <meta property="og:title" content="Kernel defences">
-  <meta property="og:description" content="Usually when an attacker exploits a vulnerability, the attack starts out as a Illegal memory access or Control flow hijack, which the attacker would use to write to sensitive memory locations or execute arbitrary code in supervisor mode, to try to increase privileges in the system.
-Illegal memory accesses are memory accesses which the programmer didn’t intend to happen, which allows attackers to read or write to some memory locations. Illegal memory accesses can be classified on three aspects: Read or Write access Access to Arbitrary address or restricted address If it is a write, Arbitrary value or restricted value write Write accesses and arbitrary address/value writes are more serious bugs, as they allow attackers more control over where or what value they can write, making it easier to subvert execution. In a control flow hijack, the vulnerability provides a way to divert execution into an attacker controlled path. For instance, when an attacker controls the value of a function pointer, she can hijack control flow when that function is dereferenced. Control flow hijack can happen either on the forward edge (when a function is called) or on the backward edge (when a function returns). Despite having vulnerabilities that allow illegal writes or control flow hijack, the kernel has a few defence mechanisms in place to make it difficult to convert a vulnerability into a useful attack.">
-  <meta property="og:locale" content="en_us">
-  <meta property="og:type" content="article">
-    <meta property="article:section" content="post">
-    <meta property="article:published_time" content="2023-01-09T00:00:00+00:00">
-    <meta property="article:modified_time" content="2023-01-09T00:00:00+00:00">
-    <meta property="article:tag" content="Linux">
-    <meta property="article:tag" content="Kernel">
+	<meta property="og:title" content="Kernel defences" />
+<meta property="og:description" content="Usually when an attacker exploits a vulnerability, the attack starts out as a Illegal memory access or Control flow hijack, which the attacker would use to write to sensitive memory locations or execute arbitrary code in supervisor mode, to try to increase privileges in the system.
+Illegal memory accesses are memory accesses which the programmer didn&rsquo;t intend to happen, which allows attackers to read or write to some memory locations. Illegal memory accesses can be classified on three aspects: Read or Write access Access to Arbitrary address or restricted address If it is a write, Arbitrary value or restricted value write Write accesses and arbitrary address/value writes are more serious bugs, as they allow attackers more control over where or what value they can write, making it easier to subvert execution." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://nihaal.me/post/kernel_defences/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2023-01-09T00:00:00+00:00" />
+<meta property="article:modified_time" content="2023-01-09T00:00:00+00:00" />
 
-  <meta name="twitter:card" content="summary">
-  <meta name="twitter:title" content="Kernel defences">
-  <meta name="twitter:description" content="Usually when an attacker exploits a vulnerability, the attack starts out as a Illegal memory access or Control flow hijack, which the attacker would use to write to sensitive memory locations or execute arbitrary code in supervisor mode, to try to increase privileges in the system.
-Illegal memory accesses are memory accesses which the programmer didn’t intend to happen, which allows attackers to read or write to some memory locations. Illegal memory accesses can be classified on three aspects: Read or Write access Access to Arbitrary address or restricted address If it is a write, Arbitrary value or restricted value write Write accesses and arbitrary address/value writes are more serious bugs, as they allow attackers more control over where or what value they can write, making it easier to subvert execution. In a control flow hijack, the vulnerability provides a way to divert execution into an attacker controlled path. For instance, when an attacker controls the value of a function pointer, she can hijack control flow when that function is dereferenced. Control flow hijack can happen either on the forward edge (when a function is called) or on the backward edge (when a function returns). Despite having vulnerabilities that allow illegal writes or control flow hijack, the kernel has a few defence mechanisms in place to make it difficult to convert a vulnerability into a useful attack.">
+<meta name="twitter:card" content="summary"/><meta name="twitter:title" content="Kernel defences"/>
+<meta name="twitter:description" content="Usually when an attacker exploits a vulnerability, the attack starts out as a Illegal memory access or Control flow hijack, which the attacker would use to write to sensitive memory locations or execute arbitrary code in supervisor mode, to try to increase privileges in the system.
+Illegal memory accesses are memory accesses which the programmer didn&rsquo;t intend to happen, which allows attackers to read or write to some memory locations. Illegal memory accesses can be classified on three aspects: Read or Write access Access to Arbitrary address or restricted address If it is a write, Arbitrary value or restricted value write Write accesses and arbitrary address/value writes are more serious bugs, as they allow attackers more control over where or what value they can write, making it easier to subvert execution."/>
 
         <link href="https://nihaal.me/css/fonts.2c2227b81b1970a03e760aa2e6121cd01f87c88586803cbb282aa224720a765f.css" rel="stylesheet">
 	

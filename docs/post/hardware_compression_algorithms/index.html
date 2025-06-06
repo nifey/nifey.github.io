@@ -2,31 +2,23 @@
 <html><head lang="en">
 	<meta charset="utf-8" />
 	<meta http-equiv="X-UA-Compatible" content="IE=edge"><title>Hardware compression algorithms - Nihaal</title><meta name="viewport" content="width=device-width, initial-scale=1">
-	<meta name="description" content="Compression is a common technique that allows us to reduce the size of data.
-We use it when we store or send files as zip, 7z or rar archives.
-It helps reduce the space occupied by files in the filesystem and also to save bandwidth while transferring over a network.
+	<meta name="description" content="Compression is a common technique that allows us to reduce the size of data. We use it when we store or send files as zip, 7z or rar archives. It helps reduce the space occupied by files in the filesystem and also to save bandwidth while transferring over a network.
 In general, compression algorithms try to encode redundancy or regularity in data with lesser bits.
-There are many different software compression algorithms available.
-Lempel-Ziv family of algorithms, used in tools like zip and 7z, works by replacing repeated chunks of data with a pointer to an earlier occurrence. This avoids repeating the same chunks of data over and over again." />
+There are many different software compression algorithms available." />
 	<meta property="og:image" content=""/>
-	<meta property="og:url" content="https://nihaal.me/post/hardware_compression_algorithms/">
-  <meta property="og:site_name" content="Nihaal">
-  <meta property="og:title" content="Hardware compression algorithms">
-  <meta property="og:description" content="Compression is a common technique that allows us to reduce the size of data. We use it when we store or send files as zip, 7z or rar archives. It helps reduce the space occupied by files in the filesystem and also to save bandwidth while transferring over a network.
+	<meta property="og:title" content="Hardware compression algorithms" />
+<meta property="og:description" content="Compression is a common technique that allows us to reduce the size of data. We use it when we store or send files as zip, 7z or rar archives. It helps reduce the space occupied by files in the filesystem and also to save bandwidth while transferring over a network.
 In general, compression algorithms try to encode redundancy or regularity in data with lesser bits.
-There are many different software compression algorithms available. Lempel-Ziv family of algorithms, used in tools like zip and 7z, works by replacing repeated chunks of data with a pointer to an earlier occurrence. This avoids repeating the same chunks of data over and over again.">
-  <meta property="og:locale" content="en_us">
-  <meta property="og:type" content="article">
-    <meta property="article:section" content="post">
-    <meta property="article:published_time" content="2022-01-14T00:00:00+00:00">
-    <meta property="article:modified_time" content="2022-02-01T16:56:23+05:30">
-    <meta property="article:tag" content="Research">
+There are many different software compression algorithms available." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://nihaal.me/post/hardware_compression_algorithms/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2022-01-14T00:00:00+00:00" />
+<meta property="article:modified_time" content="2022-02-01T16:56:23+05:30" />
 
-  <meta name="twitter:card" content="summary">
-  <meta name="twitter:title" content="Hardware compression algorithms">
-  <meta name="twitter:description" content="Compression is a common technique that allows us to reduce the size of data. We use it when we store or send files as zip, 7z or rar archives. It helps reduce the space occupied by files in the filesystem and also to save bandwidth while transferring over a network.
+<meta name="twitter:card" content="summary"/><meta name="twitter:title" content="Hardware compression algorithms"/>
+<meta name="twitter:description" content="Compression is a common technique that allows us to reduce the size of data. We use it when we store or send files as zip, 7z or rar archives. It helps reduce the space occupied by files in the filesystem and also to save bandwidth while transferring over a network.
 In general, compression algorithms try to encode redundancy or regularity in data with lesser bits.
-There are many different software compression algorithms available. Lempel-Ziv family of algorithms, used in tools like zip and 7z, works by replacing repeated chunks of data with a pointer to an earlier occurrence. This avoids repeating the same chunks of data over and over again.">
+There are many different software compression algorithms available."/>
 
         <link href="https://nihaal.me/css/fonts.2c2227b81b1970a03e760aa2e6121cd01f87c88586803cbb282aa224720a765f.css" rel="stylesheet">
 	
@@ -110,87 +102,87 @@ It exploits the presence of repeated zero words and the fact that most significa
 It uses 3 bits of metadata to indicate which pattern to use for the 4B word and some extra data bits depending on the pattern matched with.</p>
 <p>The seven patterns that FPC uses are given in the table below (which is taken from the paper):</p>
 <table>
-  <thead>
-      <tr>
-          <th>Prefix (bits)</th>
-          <th>Pattern</th>
-          <th>Data size</th>
-      </tr>
-  </thead>
-  <tbody>
-      <tr>
-          <td>000</td>
-          <td>Zero run</td>
-          <td>3 bits (up to 8 zeroes)</td>
-      </tr>
-      <tr>
-          <td>001</td>
-          <td>4 bit sign extended</td>
-          <td>4 bits</td>
-      </tr>
-      <tr>
-          <td>010</td>
-          <td>1 byte sign extended</td>
-          <td>8 bits</td>
-      </tr>
-      <tr>
-          <td>011</td>
-          <td>Halfword sign extended</td>
-          <td>16 bits</td>
-      </tr>
-      <tr>
-          <td>100</td>
-          <td>Halfword padded with zero halfword</td>
-          <td>16 bits (non zero halfword)</td>
-      </tr>
-      <tr>
-          <td>101</td>
-          <td>Two halfwords, each a byte sign extended</td>
-          <td>16 bits (the two bytes)</td>
-      </tr>
-      <tr>
-          <td>110</td>
-          <td>Word with repeated bytes</td>
-          <td>8 bits</td>
-      </tr>
-      <tr>
-          <td>111</td>
-          <td>Uncompressed word</td>
-          <td>32 bits</td>
-      </tr>
-  </tbody>
+<thead>
+<tr>
+<th>Prefix (bits)</th>
+<th>Pattern</th>
+<th>Data size</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>000</td>
+<td>Zero run</td>
+<td>3 bits (up to 8 zeroes)</td>
+</tr>
+<tr>
+<td>001</td>
+<td>4 bit sign extended</td>
+<td>4 bits</td>
+</tr>
+<tr>
+<td>010</td>
+<td>1 byte sign extended</td>
+<td>8 bits</td>
+</tr>
+<tr>
+<td>011</td>
+<td>Halfword sign extended</td>
+<td>16 bits</td>
+</tr>
+<tr>
+<td>100</td>
+<td>Halfword padded with zero halfword</td>
+<td>16 bits (non zero halfword)</td>
+</tr>
+<tr>
+<td>101</td>
+<td>Two halfwords, each a byte sign extended</td>
+<td>16 bits (the two bytes)</td>
+</tr>
+<tr>
+<td>110</td>
+<td>Word with repeated bytes</td>
+<td>8 bits</td>
+</tr>
+<tr>
+<td>111</td>
+<td>Uncompressed word</td>
+<td>32 bits</td>
+</tr>
+</tbody>
 </table>
 <p>Some 4B words and their FPC compressed form is shown below:</p>
 <table>
-  <thead>
-      <tr>
-          <th>4B word (hex)</th>
-          <th>Prefix (bits)</th>
-          <th>Extra data (hex)</th>
-      </tr>
-  </thead>
-  <tbody>
-      <tr>
-          <td>00000007</td>
-          <td>001</td>
-          <td>7</td>
-      </tr>
-      <tr>
-          <td>00000071</td>
-          <td>010</td>
-          <td>71</td>
-      </tr>
-      <tr>
-          <td>FFFF8000</td>
-          <td>011</td>
-          <td>8000</td>
-      </tr>
-      <tr>
-          <td>94949494</td>
-          <td>110</td>
-          <td>94</td>
-      </tr>
-  </tbody>
+<thead>
+<tr>
+<th>4B word (hex)</th>
+<th>Prefix (bits)</th>
+<th>Extra data (hex)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>00000007</td>
+<td>001</td>
+<td>7</td>
+</tr>
+<tr>
+<td>00000071</td>
+<td>010</td>
+<td>71</td>
+</tr>
+<tr>
+<td>FFFF8000</td>
+<td>011</td>
+<td>8000</td>
+</tr>
+<tr>
+<td>94949494</td>
+<td>110</td>
+<td>94</td>
+</tr>
+</tbody>
 </table>
 <h3 id="base-delta-immediate">Base Delta Immediate</h3>
 <p>Base Delta Immediate compression tries to compress data by using <em>low dynamic range</em>.
@@ -198,38 +190,34 @@ The algorithm stores a cacheline as a 4B base value followed by the <em>deltas</
 If there is high value locality, the <em>deltas</em> can be represented with less number of bits than required for 4B values.</p>
 <p>For instance, consider a 32B data containing the following 4B values</p>
 <table>
-  <thead>
-      <tr>
-          <th>0x00203008</th>
-          <th>0x00203009</th>
-          <th>0x0020301F</th>
-          <th>0x00203020</th>
-          <th>0x00203000</th>
-          <th>0x002030F0</th>
-          <th>0x002030EE</th>
-          <th>0x00203003</th>
-      </tr>
-  </thead>
-  <tbody>
-  </tbody>
+<thead>
+<tr>
+<th>0x00203008</th>
+<th>0x00203009</th>
+<th>0x0020301F</th>
+<th>0x00203020</th>
+<th>0x00203000</th>
+<th>0x002030F0</th>
+<th>0x002030EE</th>
+<th>0x00203003</th>
+</tr>
+</thead>
 </table>
 <p>After applying BDI compression, we can store it like this:</p>
 <table>
-  <thead>
-      <tr>
-          <th>0x00203008</th>
-          <th>0x00</th>
-          <th>0x01</th>
-          <th>0x17</th>
-          <th>0x18</th>
-          <th>0xF8</th>
-          <th>0xE8</th>
-          <th>0xE6</th>
-          <th>0xFB</th>
-      </tr>
-  </thead>
-  <tbody>
-  </tbody>
+<thead>
+<tr>
+<th>0x00203008</th>
+<th>0x00</th>
+<th>0x01</th>
+<th>0x17</th>
+<th>0x18</th>
+<th>0xF8</th>
+<th>0xE8</th>
+<th>0xE6</th>
+<th>0xFB</th>
+</tr>
+</thead>
 </table>
 <p>By storing 1B <em>deltas</em> instead of the 4B words, we save 20 bytes.</p>
 <h3 id="cpack">CPack</h3>
@@ -239,71 +227,67 @@ If new 4B word matches partially or fully with a 4B word present in the dictiona
 metadata (to identify which parts match with the dictionary word), index pointing to the matched dictionary entry and the bytes that differ.</p>
 <p>The CPack pattern encodings for a dictionary size of 16, are shown below (taken from the paper):</p>
 <table>
-  <thead>
-      <tr>
-          <th>Prefix (bits)</th>
-          <th>Pattern</th>
-          <th>Additional Data</th>
-      </tr>
-  </thead>
-  <tbody>
-      <tr>
-          <td>00</td>
-          <td>zzzz  (All zeroes)</td>
-          <td></td>
-      </tr>
-      <tr>
-          <td>01</td>
-          <td>xxxx  (No match)</td>
-          <td>4B data</td>
-      </tr>
-      <tr>
-          <td>10</td>
-          <td>mmmm  (Full match)</td>
-          <td>4b index</td>
-      </tr>
-      <tr>
-          <td>1100</td>
-          <td>mmxx  (2B Partial match)</td>
-          <td>4b index + 2B data</td>
-      </tr>
-      <tr>
-          <td>1101</td>
-          <td>zzzx  (1B word)</td>
-          <td>1B data</td>
-      </tr>
-      <tr>
-          <td>1110</td>
-          <td>mmmx  (1B Partial match)</td>
-          <td>4b index + 1B data</td>
-      </tr>
-  </tbody>
+<thead>
+<tr>
+<th>Prefix (bits)</th>
+<th>Pattern</th>
+<th>Additional Data</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>00</td>
+<td>zzzz  (All zeroes)</td>
+<td></td>
+</tr>
+<tr>
+<td>01</td>
+<td>xxxx  (No match)</td>
+<td>4B data</td>
+</tr>
+<tr>
+<td>10</td>
+<td>mmmm  (Full match)</td>
+<td>4b index</td>
+</tr>
+<tr>
+<td>1100</td>
+<td>mmxx  (2B Partial match)</td>
+<td>4b index + 2B data</td>
+</tr>
+<tr>
+<td>1101</td>
+<td>zzzx  (1B word)</td>
+<td>1B data</td>
+</tr>
+<tr>
+<td>1110</td>
+<td>mmmx  (1B Partial match)</td>
+<td>4b index + 1B data</td>
+</tr>
+</tbody>
 </table>
 <p>For example, consider the following 4 words:</p>
 <table>
-  <thead>
-      <tr>
-          <th>0x12345678</th>
-          <th>0x000000F0</th>
-          <th>0x12340608</th>
-          <th>0x12345678</th>
-      </tr>
-  </thead>
-  <tbody>
-  </tbody>
+<thead>
+<tr>
+<th>0x12345678</th>
+<th>0x000000F0</th>
+<th>0x12340608</th>
+<th>0x12345678</th>
+</tr>
+</thead>
 </table>
 <p>When compressed with CPack, we get:</p>
 <table>
-  <thead>
-      <tr>
-          <th>0x12345678</th>
-          <th>(1101) 0xF0</th>
-          <th>(1100) (0000) 0x0608</th>
-          <th>(10) (0000)</th>
-      </tr>
-  </thead>
-  <tbody>
-  </tbody>
+<thead>
+<tr>
+<th>0x12345678</th>
+<th>(1101) 0xF0</th>
+<th>(1100) (0000) 0x0608</th>
+<th>(10) (0000)</th>
+</tr>
+</thead>
 </table>
 <p>The dictionary is not stored as it is not needed. Because when compressing a 4B word in a cacheline,
 It is only compared with dictionary entries that were added before (<em>never after</em>) this current word is compressed.

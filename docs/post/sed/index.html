@@ -2,114 +2,17 @@
 <html><head lang="en">
 	<meta charset="utf-8" />
 	<meta http-equiv="X-UA-Compatible" content="IE=edge"><title>Notes on Sed - Nihaal</title><meta name="viewport" content="width=device-width, initial-scale=1">
-	<meta name="description" content="Sed
-
-Stream EDitor, UNIX utility
-Based on ed (line oriented text editor)
-Used commonly for find and replace based on Regular expressions
-Useful for processing and transforming logs
-Can also be used inside vim for find and replace
-
-Basic usage
-cat file | sed &#39;s/hello/world/&#39;
-sed &#39;s/hello/world/&#39; file
-sed file -e &#39;s/hello/world/&#39;
-
-sed &#39;s/hello/world/&#39; -i file	# Inline (will replace in the file)
-
-cat file | sed &#39;/REGEX/d&#39;	# Delete lines matching a regular expression
-Regular expression syntax
-
-Language to represent string patterns
-Useful beyond sed (eg: grepping through source code)
-Basic regex: 
-Specify characters to match
-
-&lsquo;a&rsquo; matches character a
-[a-z] matches lowercase alphabets
-[a-zA-Z0-9] matches alphabets and numbers
-[abc] matches characters a b c
-[^abc] matches anything except characters a b c
-
-
-Specify count of characters to match
-
-* -&gt; Zero or more instances
-\&#43; -&gt; One or more instances
-? -&gt; Zero or one instances
-{8} -&gt; Matches 8 instances
-{1,3} -&gt; Matches 1 to 3 instances
-{3,} -&gt; Matches 3 or more instances
-
-
-Special characters
-
-. -&gt; Matches any character
-^ -&gt; Matches the beginning of the line
-$ -&gt; Matches the end of the line
-
-
-Combining regex
-
-&lsquo;regex1regex2&rsquo; matches regex1 first then regex2 (Concatenation)
-&lsquo;regex1\|regex2&rsquo; matches either regex1 or regex2 (Choice)
-
-
-Backreferences
-
-Used for selecting a part of the matched string to be used for transforming text
-Enclose parts of the regex with \( .. \) parenthesis
-Use the corresponding matches in replacement using \1, \2, etc to match the first, second backreference respectively.
-
-
-
-Sed command syntax
-PATTERN_SPACE { commands; ...}
-Pattern space
-
-Selects (filters) the lines that we want to process
-Can be specified as line number ranges or regular expressions
-
-sed &#39;7d&#39; file			# Delete line number 7
-sed &#39;1,10d&#39; file		# Delete line number 1 to 10
-sed &#39;/REGEX/d&#39; file		# Delete lines matching REGEX
-sed &#39;3,/REGEX/d&#39; file		# Delete from 3rd line to a line matching REGEX
-sed &#39;/REGEX1/,/REGEX2/d&#39; file	# Delete lines starting from a line matching REGEX1 to a line matching REGEX2
-sed &#39;/REGEX1/,$d&#39; file		# Delete lines starting from a line matching REGEX1 till end of file
-sed &#39;/REGEX1/ {/REGEX2/d}&#39; file # Delete lines matching both REGEX1 and REGEX2
-Substitute command for find and replace
-# Finds patterns matching REGEX1 and replaces with REGEX2
-cat file | sed &#39;s/REGEX1/REGEX2/[flags]&#39;
-# Optional flags
-# i to ignore case
-# g to replace more than one instance of the pattern in a line
-# c to confirm every replacement (Only available in vim mode)
-Other commands
-# Delete command
-cat file | sed &#39;/REGEX/d&#39;	# Delete lines matching a regular expression
-
-# Print command
-cat file | sed -n &#39;10p&#39;		# Print 10th line
-cat file | sed -n &#39;/REGEX/p&#39;	# Grep
-
-# Transliterate command
-cat file | sed &#39;y/abc/ABC/&#39;	# Transliterate (a-&gt;A, b-&gt;B, c-&gt;C)
-For more information, execute info sed on the shell to get a manual on sed." />
+	<meta name="description" content="Sed Stream EDitor, UNIX utility Based on ed (line oriented text editor) Used commonly for find and replace based on Regular expressions Useful for processing and transforming logs Can also be used inside vim for find and replace Basic usage cat file | sed &#39;s/hello/world/&#39; sed &#39;s/hello/world/&#39; file sed file -e &#39;s/hello/world/&#39; sed &#39;s/hello/world/&#39; -i file	# Inline (will replace in the file) cat file | sed &#39;/REGEX/d&#39;	# Delete lines matching a regular expression Regular expression syntax Language to represent string patterns Useful beyond sed (eg: grepping through source code) Basic regex: Specify characters to match &lsquo;a&rsquo; matches character a [a-z] matches lowercase alphabets [a-zA-Z0-9] matches alphabets and numbers [abc] matches characters a b c [^abc] matches anything except characters a b c Specify count of characters to match * -&gt; Zero or more instances \&#43; -&gt; One or more instances ?" />
 	<meta property="og:image" content=""/>
-	<meta property="og:url" content="https://nihaal.me/post/sed/">
-  <meta property="og:site_name" content="Nihaal">
-  <meta property="og:title" content="Notes on Sed">
-  <meta property="og:description" content="Sed Stream EDitor, UNIX utility Based on ed (line oriented text editor) Used commonly for find and replace based on Regular expressions Useful for processing and transforming logs Can also be used inside vim for find and replace Basic usage cat file | sed &#39;s/hello/world/&#39; sed &#39;s/hello/world/&#39; file sed file -e &#39;s/hello/world/&#39; sed &#39;s/hello/world/&#39; -i file	# Inline (will replace in the file) cat file | sed &#39;/REGEX/d&#39;	# Delete lines matching a regular expression Regular expression syntax Language to represent string patterns Useful beyond sed (eg: grepping through source code) Basic regex: Specify characters to match ‘a’ matches character a [a-z] matches lowercase alphabets [a-zA-Z0-9] matches alphabets and numbers [abc] matches characters a b c [^abc] matches anything except characters a b c Specify count of characters to match * -&gt; Zero or more instances \&#43; -&gt; One or more instances ? -&gt; Zero or one instances {8} -&gt; Matches 8 instances {1,3} -&gt; Matches 1 to 3 instances {3,} -&gt; Matches 3 or more instances Special characters . -&gt; Matches any character ^ -&gt; Matches the beginning of the line $ -&gt; Matches the end of the line Combining regex ‘regex1regex2’ matches regex1 first then regex2 (Concatenation) ‘regex1\|regex2’ matches either regex1 or regex2 (Choice) Backreferences Used for selecting a part of the matched string to be used for transforming text Enclose parts of the regex with \( .. \) parenthesis Use the corresponding matches in replacement using \1, \2, etc to match the first, second backreference respectively. Sed command syntax PATTERN_SPACE { commands; ...} Pattern space Selects (filters) the lines that we want to process Can be specified as line number ranges or regular expressions sed &#39;7d&#39; file	# Delete line number 7 sed &#39;1,10d&#39; file	# Delete line number 1 to 10 sed &#39;/REGEX/d&#39; file	# Delete lines matching REGEX sed &#39;3,/REGEX/d&#39; file	# Delete from 3rd line to a line matching REGEX sed &#39;/REGEX1/,/REGEX2/d&#39; file	# Delete lines starting from a line matching REGEX1 to a line matching REGEX2 sed &#39;/REGEX1/,$d&#39; file	# Delete lines starting from a line matching REGEX1 till end of file sed &#39;/REGEX1/ {/REGEX2/d}&#39; file # Delete lines matching both REGEX1 and REGEX2 Substitute command for find and replace # Finds patterns matching REGEX1 and replaces with REGEX2 cat file | sed &#39;s/REGEX1/REGEX2/[flags]&#39; # Optional flags # i to ignore case # g to replace more than one instance of the pattern in a line # c to confirm every replacement (Only available in vim mode) Other commands # Delete command cat file | sed &#39;/REGEX/d&#39;	# Delete lines matching a regular expression # Print command cat file | sed -n &#39;10p&#39;	# Print 10th line cat file | sed -n &#39;/REGEX/p&#39;	# Grep # Transliterate command cat file | sed &#39;y/abc/ABC/&#39;	# Transliterate (a-&gt;A, b-&gt;B, c-&gt;C) For more information, execute info sed on the shell to get a manual on sed.">
-  <meta property="og:locale" content="en_us">
-  <meta property="og:type" content="article">
-    <meta property="article:section" content="post">
-    <meta property="article:published_time" content="2023-08-12T00:00:00+00:00">
-    <meta property="article:modified_time" content="2023-08-12T00:00:00+00:00">
-    <meta property="article:tag" content="Linux">
+	<meta property="og:title" content="Notes on Sed" />
+<meta property="og:description" content="Sed Stream EDitor, UNIX utility Based on ed (line oriented text editor) Used commonly for find and replace based on Regular expressions Useful for processing and transforming logs Can also be used inside vim for find and replace Basic usage cat file | sed &#39;s/hello/world/&#39; sed &#39;s/hello/world/&#39; file sed file -e &#39;s/hello/world/&#39; sed &#39;s/hello/world/&#39; -i file	# Inline (will replace in the file) cat file | sed &#39;/REGEX/d&#39;	# Delete lines matching a regular expression Regular expression syntax Language to represent string patterns Useful beyond sed (eg: grepping through source code) Basic regex: Specify characters to match &lsquo;a&rsquo; matches character a [a-z] matches lowercase alphabets [a-zA-Z0-9] matches alphabets and numbers [abc] matches characters a b c [^abc] matches anything except characters a b c Specify count of characters to match * -&gt; Zero or more instances \&#43; -&gt; One or more instances ?" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://nihaal.me/post/sed/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2023-08-12T00:00:00+00:00" />
+<meta property="article:modified_time" content="2023-08-12T00:00:00+00:00" />
 
-  <meta name="twitter:card" content="summary">
-  <meta name="twitter:title" content="Notes on Sed">
-  <meta name="twitter:description" content="Sed Stream EDitor, UNIX utility Based on ed (line oriented text editor) Used commonly for find and replace based on Regular expressions Useful for processing and transforming logs Can also be used inside vim for find and replace Basic usage cat file | sed &#39;s/hello/world/&#39; sed &#39;s/hello/world/&#39; file sed file -e &#39;s/hello/world/&#39; sed &#39;s/hello/world/&#39; -i file	# Inline (will replace in the file) cat file | sed &#39;/REGEX/d&#39;	# Delete lines matching a regular expression Regular expression syntax Language to represent string patterns Useful beyond sed (eg: grepping through source code) Basic regex: Specify characters to match ‘a’ matches character a [a-z] matches lowercase alphabets [a-zA-Z0-9] matches alphabets and numbers [abc] matches characters a b c [^abc] matches anything except characters a b c Specify count of characters to match * -&gt; Zero or more instances \&#43; -&gt; One or more instances ? -&gt; Zero or one instances {8} -&gt; Matches 8 instances {1,3} -&gt; Matches 1 to 3 instances {3,} -&gt; Matches 3 or more instances Special characters . -&gt; Matches any character ^ -&gt; Matches the beginning of the line $ -&gt; Matches the end of the line Combining regex ‘regex1regex2’ matches regex1 first then regex2 (Concatenation) ‘regex1\|regex2’ matches either regex1 or regex2 (Choice) Backreferences Used for selecting a part of the matched string to be used for transforming text Enclose parts of the regex with \( .. \) parenthesis Use the corresponding matches in replacement using \1, \2, etc to match the first, second backreference respectively. Sed command syntax PATTERN_SPACE { commands; ...} Pattern space Selects (filters) the lines that we want to process Can be specified as line number ranges or regular expressions sed &#39;7d&#39; file	# Delete line number 7 sed &#39;1,10d&#39; file	# Delete line number 1 to 10 sed &#39;/REGEX/d&#39; file	# Delete lines matching REGEX sed &#39;3,/REGEX/d&#39; file	# Delete from 3rd line to a line matching REGEX sed &#39;/REGEX1/,/REGEX2/d&#39; file	# Delete lines starting from a line matching REGEX1 to a line matching REGEX2 sed &#39;/REGEX1/,$d&#39; file	# Delete lines starting from a line matching REGEX1 till end of file sed &#39;/REGEX1/ {/REGEX2/d}&#39; file # Delete lines matching both REGEX1 and REGEX2 Substitute command for find and replace # Finds patterns matching REGEX1 and replaces with REGEX2 cat file | sed &#39;s/REGEX1/REGEX2/[flags]&#39; # Optional flags # i to ignore case # g to replace more than one instance of the pattern in a line # c to confirm every replacement (Only available in vim mode) Other commands # Delete command cat file | sed &#39;/REGEX/d&#39;	# Delete lines matching a regular expression # Print command cat file | sed -n &#39;10p&#39;	# Print 10th line cat file | sed -n &#39;/REGEX/p&#39;	# Grep # Transliterate command cat file | sed &#39;y/abc/ABC/&#39;	# Transliterate (a-&gt;A, b-&gt;B, c-&gt;C) For more information, execute info sed on the shell to get a manual on sed.">
+<meta name="twitter:card" content="summary"/><meta name="twitter:title" content="Notes on Sed"/>
+<meta name="twitter:description" content="Sed Stream EDitor, UNIX utility Based on ed (line oriented text editor) Used commonly for find and replace based on Regular expressions Useful for processing and transforming logs Can also be used inside vim for find and replace Basic usage cat file | sed &#39;s/hello/world/&#39; sed &#39;s/hello/world/&#39; file sed file -e &#39;s/hello/world/&#39; sed &#39;s/hello/world/&#39; -i file	# Inline (will replace in the file) cat file | sed &#39;/REGEX/d&#39;	# Delete lines matching a regular expression Regular expression syntax Language to represent string patterns Useful beyond sed (eg: grepping through source code) Basic regex: Specify characters to match &lsquo;a&rsquo; matches character a [a-z] matches lowercase alphabets [a-zA-Z0-9] matches alphabets and numbers [abc] matches characters a b c [^abc] matches anything except characters a b c Specify count of characters to match * -&gt; Zero or more instances \&#43; -&gt; One or more instances ?"/>
 
         <link href="https://nihaal.me/css/fonts.2c2227b81b1970a03e760aa2e6121cd01f87c88586803cbb282aa224720a765f.css" rel="stylesheet">
 	

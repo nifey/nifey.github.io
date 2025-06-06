@@ -3,35 +3,25 @@
 	<meta charset="utf-8" />
 	<meta http-equiv="X-UA-Compatible" content="IE=edge"><title>Eudyptula Challenge task 5 - Nihaal</title><meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta name="description" content="In this post, I want to share what I learnt by doing task 5 of the Eudyptula challenge.
-The Eudyptula Challenge is a set of 20 tasks designed to
-help people get started with Linux kernel development.
-Task 5 of the challenge is to make a hello world kernel module get loaded
-automatically when a USB keyboard is plugged in.
-Loadable kernel modules
-Linux kernel allows us to load modules to the kernel while the kernel is running.
-Once loaded, the module&rsquo;s code executes in kernel mode and can access all the kernel&rsquo;s global symbols." />
+The Eudyptula Challenge is a set of 20 tasks designed to help people get started with Linux kernel development.
+Task 5 of the challenge is to make a hello world kernel module get loaded automatically when a USB keyboard is plugged in.
+Loadable kernel modules Linux kernel allows us to load modules to the kernel while the kernel is running." />
 	<meta property="og:image" content=""/>
-	<meta property="og:url" content="https://nihaal.me/post/ec5/">
-  <meta property="og:site_name" content="Nihaal">
-  <meta property="og:title" content="Eudyptula Challenge task 5">
-  <meta property="og:description" content="In this post, I want to share what I learnt by doing task 5 of the Eudyptula challenge.
+	<meta property="og:title" content="Eudyptula Challenge task 5" />
+<meta property="og:description" content="In this post, I want to share what I learnt by doing task 5 of the Eudyptula challenge.
 The Eudyptula Challenge is a set of 20 tasks designed to help people get started with Linux kernel development.
 Task 5 of the challenge is to make a hello world kernel module get loaded automatically when a USB keyboard is plugged in.
-Loadable kernel modules Linux kernel allows us to load modules to the kernel while the kernel is running. Once loaded, the module’s code executes in kernel mode and can access all the kernel’s global symbols.">
-  <meta property="og:locale" content="en_us">
-  <meta property="og:type" content="article">
-    <meta property="article:section" content="post">
-    <meta property="article:published_time" content="2021-10-12T00:00:00+00:00">
-    <meta property="article:modified_time" content="2021-10-12T00:00:00+00:00">
-    <meta property="article:tag" content="Linux">
-    <meta property="article:tag" content="Kernel">
+Loadable kernel modules Linux kernel allows us to load modules to the kernel while the kernel is running." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://nihaal.me/post/ec5/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2021-10-12T00:00:00+00:00" />
+<meta property="article:modified_time" content="2021-10-12T00:00:00+00:00" />
 
-  <meta name="twitter:card" content="summary">
-  <meta name="twitter:title" content="Eudyptula Challenge task 5">
-  <meta name="twitter:description" content="In this post, I want to share what I learnt by doing task 5 of the Eudyptula challenge.
+<meta name="twitter:card" content="summary"/><meta name="twitter:title" content="Eudyptula Challenge task 5"/>
+<meta name="twitter:description" content="In this post, I want to share what I learnt by doing task 5 of the Eudyptula challenge.
 The Eudyptula Challenge is a set of 20 tasks designed to help people get started with Linux kernel development.
 Task 5 of the challenge is to make a hello world kernel module get loaded automatically when a USB keyboard is plugged in.
-Loadable kernel modules Linux kernel allows us to load modules to the kernel while the kernel is running. Once loaded, the module’s code executes in kernel mode and can access all the kernel’s global symbols.">
+Loadable kernel modules Linux kernel allows us to load modules to the kernel while the kernel is running."/>
 
         <link href="https://nihaal.me/css/fonts.2c2227b81b1970a03e760aa2e6121cd01f87c88586803cbb282aa224720a765f.css" rel="stylesheet">
 	
@@ -134,26 +124,26 @@ and load modules with a modalias that matches the modalias passed by udevd.</p>
 <p><strong>modprobe</strong> and <strong>insmod</strong> are the two userspace utilities used to load kernel modules.
 The differences between the two are:</p>
 <table>
-  <thead>
-      <tr>
-          <th>modprobe</th>
-          <th>insmod</th>
-      </tr>
-  </thead>
-  <tbody>
-      <tr>
-          <td>Resolves module dependencies</td>
-          <td>Only loads the specified .ko (kernel object) file</td>
-      </tr>
-      <tr>
-          <td>Loads module from default module path (/lib/modules/`uname -r`)</td>
-          <td>Loads module from user specified location</td>
-      </tr>
-      <tr>
-          <td>Module parameters can be provided in config file in /etc/modprobe.d</td>
-          <td>Module parameters are given as commmand-line arguments</td>
-      </tr>
-  </tbody>
+<thead>
+<tr>
+<th>modprobe</th>
+<th>insmod</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Resolves module dependencies</td>
+<td>Only loads the specified .ko (kernel object) file</td>
+</tr>
+<tr>
+<td>Loads module from default module path (/lib/modules/`uname -r`)</td>
+<td>Loads module from user specified location</td>
+</tr>
+<tr>
+<td>Module parameters can be provided in config file in /etc/modprobe.d</td>
+<td>Module parameters are given as commmand-line arguments</td>
+</tr>
+</tbody>
 </table>
 <p>Before loading a module, modprobe will load all modules that the current module depends on.
 modprobe finds dependencies between modules by looking at the /lib/modules/`uname -r`/modules.dep file.</p>

@@ -2,40 +2,26 @@
 <html><head lang="en">
 	<meta charset="utf-8" />
 	<meta http-equiv="X-UA-Compatible" content="IE=edge"><title>Creating debugfs files - Nihaal</title><meta name="viewport" content="width=device-width, initial-scale=1">
-	<meta name="description" content="debugfs
-debugfs is a pseudo-filesystem used for kernel debugging.
-It is usually mounted at /sys/kernel/debug.
-debugfs contains files that allow us to read debugging information.
-By default, only the root user can cd into the  /sys/kernel/debug directory.
+	<meta name="description" content="debugfs debugfs is a pseudo-filesystem used for kernel debugging. It is usually mounted at /sys/kernel/debug. debugfs contains files that allow us to read debugging information.
+By default, only the root user can cd into the /sys/kernel/debug directory.
 To change it to allow the current user to cd into debugfs, we can remount it with uid set to the current user&rsquo;s uid.
-sudo umount /sys/kernel/debug
-sudo mount -t debugfs none /sys/kernel/debug -o uid=`echo $UID`
-cd /sys/kernel/debug
-Creating debugfs entries
-Creating debugfs files is similar to creating character device files.
-It is done by defining functions and storing pointers to these functions in a file_operations structure which is then passed to the kernel." />
+sudo umount /sys/kernel/debug sudo mount -t debugfs none /sys/kernel/debug -o uid=`echo $UID` cd /sys/kernel/debug Creating debugfs entries Creating debugfs files is similar to creating character device files." />
 	<meta property="og:image" content=""/>
-	<meta property="og:url" content="https://nihaal.me/post/creating_debugfs_files/">
-  <meta property="og:site_name" content="Nihaal">
-  <meta property="og:title" content="Creating debugfs files">
-  <meta property="og:description" content="debugfs debugfs is a pseudo-filesystem used for kernel debugging. It is usually mounted at /sys/kernel/debug. debugfs contains files that allow us to read debugging information.
+	<meta property="og:title" content="Creating debugfs files" />
+<meta property="og:description" content="debugfs debugfs is a pseudo-filesystem used for kernel debugging. It is usually mounted at /sys/kernel/debug. debugfs contains files that allow us to read debugging information.
 By default, only the root user can cd into the /sys/kernel/debug directory.
-To change it to allow the current user to cd into debugfs, we can remount it with uid set to the current user’s uid.
-sudo umount /sys/kernel/debug sudo mount -t debugfs none /sys/kernel/debug -o uid=`echo $UID` cd /sys/kernel/debug Creating debugfs entries Creating debugfs files is similar to creating character device files. It is done by defining functions and storing pointers to these functions in a file_operations structure which is then passed to the kernel.">
-  <meta property="og:locale" content="en_us">
-  <meta property="og:type" content="article">
-    <meta property="article:section" content="post">
-    <meta property="article:published_time" content="2021-11-06T00:00:00+00:00">
-    <meta property="article:modified_time" content="2021-11-06T00:00:00+00:00">
-    <meta property="article:tag" content="Linux">
-    <meta property="article:tag" content="Kernel">
+To change it to allow the current user to cd into debugfs, we can remount it with uid set to the current user&rsquo;s uid.
+sudo umount /sys/kernel/debug sudo mount -t debugfs none /sys/kernel/debug -o uid=`echo $UID` cd /sys/kernel/debug Creating debugfs entries Creating debugfs files is similar to creating character device files." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://nihaal.me/post/creating_debugfs_files/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2021-11-06T00:00:00+00:00" />
+<meta property="article:modified_time" content="2021-11-06T00:00:00+00:00" />
 
-  <meta name="twitter:card" content="summary">
-  <meta name="twitter:title" content="Creating debugfs files">
-  <meta name="twitter:description" content="debugfs debugfs is a pseudo-filesystem used for kernel debugging. It is usually mounted at /sys/kernel/debug. debugfs contains files that allow us to read debugging information.
+<meta name="twitter:card" content="summary"/><meta name="twitter:title" content="Creating debugfs files"/>
+<meta name="twitter:description" content="debugfs debugfs is a pseudo-filesystem used for kernel debugging. It is usually mounted at /sys/kernel/debug. debugfs contains files that allow us to read debugging information.
 By default, only the root user can cd into the /sys/kernel/debug directory.
-To change it to allow the current user to cd into debugfs, we can remount it with uid set to the current user’s uid.
-sudo umount /sys/kernel/debug sudo mount -t debugfs none /sys/kernel/debug -o uid=`echo $UID` cd /sys/kernel/debug Creating debugfs entries Creating debugfs files is similar to creating character device files. It is done by defining functions and storing pointers to these functions in a file_operations structure which is then passed to the kernel.">
+To change it to allow the current user to cd into debugfs, we can remount it with uid set to the current user&rsquo;s uid.
+sudo umount /sys/kernel/debug sudo mount -t debugfs none /sys/kernel/debug -o uid=`echo $UID` cd /sys/kernel/debug Creating debugfs entries Creating debugfs files is similar to creating character device files."/>
 
         <link href="https://nihaal.me/css/fonts.2c2227b81b1970a03e760aa2e6121cd01f87c88586803cbb282aa224720a765f.css" rel="stylesheet">
 	

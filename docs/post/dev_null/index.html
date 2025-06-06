@@ -2,28 +2,20 @@
 <html><head lang="en">
 	<meta charset="utf-8" />
 	<meta http-equiv="X-UA-Compatible" content="IE=edge"><title>Looking inside /dev/null - Nihaal</title><meta name="viewport" content="width=device-width, initial-scale=1">
-	<meta name="description" content="Accessing hardware devices like files
-An important role of the operating system is to allow the user applications to access hardware resources. It has to allow the user programs to use hardware while also ensuring that the applications have permissions to access it and don&rsquo;t misuse them.
-To simplify access to hardware, Unix, by design, exposes most of the hardware devices to userspace as device files, usually present under /dev directory.
-Applications can then access the hardware by invoking system calls like read or write on the device files associated with that device." />
+	<meta name="description" content="Accessing hardware devices like files An important role of the operating system is to allow the user applications to access hardware resources. It has to allow the user programs to use hardware while also ensuring that the applications have permissions to access it and don&rsquo;t misuse them.
+To simplify access to hardware, Unix, by design, exposes most of the hardware devices to userspace as device files, usually present under /dev directory." />
 	<meta property="og:image" content=""/>
-	<meta property="og:url" content="https://nihaal.me/post/dev_null/">
-  <meta property="og:site_name" content="Nihaal">
-  <meta property="og:title" content="Looking inside /dev/null">
-  <meta property="og:description" content="Accessing hardware devices like files An important role of the operating system is to allow the user applications to access hardware resources. It has to allow the user programs to use hardware while also ensuring that the applications have permissions to access it and don’t misuse them.
-To simplify access to hardware, Unix, by design, exposes most of the hardware devices to userspace as device files, usually present under /dev directory. Applications can then access the hardware by invoking system calls like read or write on the device files associated with that device.">
-  <meta property="og:locale" content="en_us">
-  <meta property="og:type" content="article">
-    <meta property="article:section" content="post">
-    <meta property="article:published_time" content="2021-11-20T00:00:00+00:00">
-    <meta property="article:modified_time" content="2021-11-20T00:00:00+00:00">
-    <meta property="article:tag" content="Linux">
-    <meta property="article:tag" content="Kernel">
+	<meta property="og:title" content="Looking inside /dev/null" />
+<meta property="og:description" content="Accessing hardware devices like files An important role of the operating system is to allow the user applications to access hardware resources. It has to allow the user programs to use hardware while also ensuring that the applications have permissions to access it and don&rsquo;t misuse them.
+To simplify access to hardware, Unix, by design, exposes most of the hardware devices to userspace as device files, usually present under /dev directory." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://nihaal.me/post/dev_null/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2021-11-20T00:00:00+00:00" />
+<meta property="article:modified_time" content="2021-11-20T00:00:00+00:00" />
 
-  <meta name="twitter:card" content="summary">
-  <meta name="twitter:title" content="Looking inside /dev/null">
-  <meta name="twitter:description" content="Accessing hardware devices like files An important role of the operating system is to allow the user applications to access hardware resources. It has to allow the user programs to use hardware while also ensuring that the applications have permissions to access it and don’t misuse them.
-To simplify access to hardware, Unix, by design, exposes most of the hardware devices to userspace as device files, usually present under /dev directory. Applications can then access the hardware by invoking system calls like read or write on the device files associated with that device.">
+<meta name="twitter:card" content="summary"/><meta name="twitter:title" content="Looking inside /dev/null"/>
+<meta name="twitter:description" content="Accessing hardware devices like files An important role of the operating system is to allow the user applications to access hardware resources. It has to allow the user programs to use hardware while also ensuring that the applications have permissions to access it and don&rsquo;t misuse them.
+To simplify access to hardware, Unix, by design, exposes most of the hardware devices to userspace as device files, usually present under /dev directory."/>
 
         <link href="https://nihaal.me/css/fonts.2c2227b81b1970a03e760aa2e6121cd01f87c88586803cbb282aa224720a765f.css" rel="stylesheet">
 	

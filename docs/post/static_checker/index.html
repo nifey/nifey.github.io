@@ -2,28 +2,20 @@
 <html><head lang="en">
 	<meta charset="utf-8" />
 	<meta http-equiv="X-UA-Compatible" content="IE=edge"><title>Using static checkers on Linux Kernel - Nihaal</title><meta name="viewport" content="width=device-width, initial-scale=1">
-	<meta name="description" content="One of the hurdles in contributing to Linux kernel as a beginner is to find something to work on.
-If you are working as a kernel developer or are a part of a kernel mentorship program, this shouldn&rsquo;t be a problem. But for others, the first step is to send a bunch of coding style fixes for warnings reported by checkpatch.
-In addition to checkpatch, there are many other static analysis tools like sparse, coccinelle and smatch, used to analyse source code and find possible bugs.
-In this post, I&rsquo;ll show how to use some of these tools to find issues to fix." />
+	<meta name="description" content="One of the hurdles in contributing to Linux kernel as a beginner is to find something to work on. If you are working as a kernel developer or are a part of a kernel mentorship program, this shouldn&rsquo;t be a problem. But for others, the first step is to send a bunch of coding style fixes for warnings reported by checkpatch.
+In addition to checkpatch, there are many other static analysis tools like sparse, coccinelle and smatch, used to analyse source code and find possible bugs." />
 	<meta property="og:image" content=""/>
-	<meta property="og:url" content="https://nihaal.me/post/static_checker/">
-  <meta property="og:site_name" content="Nihaal">
-  <meta property="og:title" content="Using static checkers on Linux Kernel">
-  <meta property="og:description" content="One of the hurdles in contributing to Linux kernel as a beginner is to find something to work on. If you are working as a kernel developer or are a part of a kernel mentorship program, this shouldn’t be a problem. But for others, the first step is to send a bunch of coding style fixes for warnings reported by checkpatch.
-In addition to checkpatch, there are many other static analysis tools like sparse, coccinelle and smatch, used to analyse source code and find possible bugs. In this post, I’ll show how to use some of these tools to find issues to fix.">
-  <meta property="og:locale" content="en_us">
-  <meta property="og:type" content="article">
-    <meta property="article:section" content="post">
-    <meta property="article:published_time" content="2022-02-15T00:00:00+00:00">
-    <meta property="article:modified_time" content="2022-02-15T00:00:00+00:00">
-    <meta property="article:tag" content="Linux">
-    <meta property="article:tag" content="Kernel">
+	<meta property="og:title" content="Using static checkers on Linux Kernel" />
+<meta property="og:description" content="One of the hurdles in contributing to Linux kernel as a beginner is to find something to work on. If you are working as a kernel developer or are a part of a kernel mentorship program, this shouldn&rsquo;t be a problem. But for others, the first step is to send a bunch of coding style fixes for warnings reported by checkpatch.
+In addition to checkpatch, there are many other static analysis tools like sparse, coccinelle and smatch, used to analyse source code and find possible bugs." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://nihaal.me/post/static_checker/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2022-02-15T00:00:00+00:00" />
+<meta property="article:modified_time" content="2022-02-15T00:00:00+00:00" />
 
-  <meta name="twitter:card" content="summary">
-  <meta name="twitter:title" content="Using static checkers on Linux Kernel">
-  <meta name="twitter:description" content="One of the hurdles in contributing to Linux kernel as a beginner is to find something to work on. If you are working as a kernel developer or are a part of a kernel mentorship program, this shouldn’t be a problem. But for others, the first step is to send a bunch of coding style fixes for warnings reported by checkpatch.
-In addition to checkpatch, there are many other static analysis tools like sparse, coccinelle and smatch, used to analyse source code and find possible bugs. In this post, I’ll show how to use some of these tools to find issues to fix.">
+<meta name="twitter:card" content="summary"/><meta name="twitter:title" content="Using static checkers on Linux Kernel"/>
+<meta name="twitter:description" content="One of the hurdles in contributing to Linux kernel as a beginner is to find something to work on. If you are working as a kernel developer or are a part of a kernel mentorship program, this shouldn&rsquo;t be a problem. But for others, the first step is to send a bunch of coding style fixes for warnings reported by checkpatch.
+In addition to checkpatch, there are many other static analysis tools like sparse, coccinelle and smatch, used to analyse source code and find possible bugs."/>
 
         <link href="https://nihaal.me/css/fonts.2c2227b81b1970a03e760aa2e6121cd01f87c88586803cbb282aa224720a765f.css" rel="stylesheet">
 	

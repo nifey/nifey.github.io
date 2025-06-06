@@ -2,34 +2,23 @@
 <html><head lang="en">
 	<meta charset="utf-8" />
 	<meta http-equiv="X-UA-Compatible" content="IE=edge"><title>Linux kernel fuzzing - Nihaal</title><meta name="viewport" content="width=device-width, initial-scale=1">
-	<meta name="description" content="In this post, we&rsquo;ll see how fuzzing is used for finding different types of bugs in the Linux kernel.
-This post consists of my notes taken from the talk by Andrey Konavalov about Linux fuzzing.
-Operating systems kernels are complex.
-Testing kernels is of prime importance since any vulnerability in the kernel can lead to compromising the whole system.
-Fuzzing is a dynamic program analysis technique, used to find bugs in software.
-It works by feeding random input to programs until it crashes.
-In recent times, Fuzzing has been effective in finding bugs, especially the ones that are hard to detect manually." />
+	<meta name="description" content="In this post, we&rsquo;ll see how fuzzing is used for finding different types of bugs in the Linux kernel. This post consists of my notes taken from the talk by Andrey Konavalov about Linux fuzzing.
+Operating systems kernels are complex. Testing kernels is of prime importance since any vulnerability in the kernel can lead to compromising the whole system.
+Fuzzing is a dynamic program analysis technique, used to find bugs in software." />
 	<meta property="og:image" content=""/>
-	<meta property="og:url" content="https://nihaal.me/post/kernel_fuzzing/">
-  <meta property="og:site_name" content="Nihaal">
-  <meta property="og:title" content="Linux kernel fuzzing">
-  <meta property="og:description" content="In this post, we’ll see how fuzzing is used for finding different types of bugs in the Linux kernel. This post consists of my notes taken from the talk by Andrey Konavalov about Linux fuzzing.
+	<meta property="og:title" content="Linux kernel fuzzing" />
+<meta property="og:description" content="In this post, we&rsquo;ll see how fuzzing is used for finding different types of bugs in the Linux kernel. This post consists of my notes taken from the talk by Andrey Konavalov about Linux fuzzing.
 Operating systems kernels are complex. Testing kernels is of prime importance since any vulnerability in the kernel can lead to compromising the whole system.
-Fuzzing is a dynamic program analysis technique, used to find bugs in software. It works by feeding random input to programs until it crashes. In recent times, Fuzzing has been effective in finding bugs, especially the ones that are hard to detect manually.">
-  <meta property="og:locale" content="en_us">
-  <meta property="og:type" content="article">
-    <meta property="article:section" content="post">
-    <meta property="article:published_time" content="2022-12-03T00:00:00+00:00">
-    <meta property="article:modified_time" content="2022-12-12T10:11:08+05:30">
-    <meta property="article:tag" content="Fuzzing">
-    <meta property="article:tag" content="Linux">
-    <meta property="article:tag" content="Kernel">
+Fuzzing is a dynamic program analysis technique, used to find bugs in software." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://nihaal.me/post/kernel_fuzzing/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2022-12-03T00:00:00+00:00" />
+<meta property="article:modified_time" content="2022-12-12T10:11:08+05:30" />
 
-  <meta name="twitter:card" content="summary">
-  <meta name="twitter:title" content="Linux kernel fuzzing">
-  <meta name="twitter:description" content="In this post, we’ll see how fuzzing is used for finding different types of bugs in the Linux kernel. This post consists of my notes taken from the talk by Andrey Konavalov about Linux fuzzing.
+<meta name="twitter:card" content="summary"/><meta name="twitter:title" content="Linux kernel fuzzing"/>
+<meta name="twitter:description" content="In this post, we&rsquo;ll see how fuzzing is used for finding different types of bugs in the Linux kernel. This post consists of my notes taken from the talk by Andrey Konavalov about Linux fuzzing.
 Operating systems kernels are complex. Testing kernels is of prime importance since any vulnerability in the kernel can lead to compromising the whole system.
-Fuzzing is a dynamic program analysis technique, used to find bugs in software. It works by feeding random input to programs until it crashes. In recent times, Fuzzing has been effective in finding bugs, especially the ones that are hard to detect manually.">
+Fuzzing is a dynamic program analysis technique, used to find bugs in software."/>
 
         <link href="https://nihaal.me/css/fonts.2c2227b81b1970a03e760aa2e6121cd01f87c88586803cbb282aa224720a765f.css" rel="stylesheet">
 	
@@ -113,30 +102,30 @@ Kernel Sanitizers like KASAN, KMSAN, KCSAN, UBSAN can be enabled by setting resp
 These sanitizers detect bugs and prints useful information like the stack trace or memory dump to the kernel log.
 These reports can then be used to locate the bug and fix it.</p>
 <table>
-  <thead>
-      <tr>
-          <th>Kernel Sanitizers</th>
-          <th>Type of bugs detected</th>
-      </tr>
-  </thead>
-  <tbody>
-      <tr>
-          <td>Kernel Address Sanitizer (KASAN)</td>
-          <td>Out of bounds access, Use after free</td>
-      </tr>
-      <tr>
-          <td>Kernel Memory Sanitizer (KMSAN)</td>
-          <td>Uninitialized memory</td>
-      </tr>
-      <tr>
-          <td>Kernel Concurrency Sanitizer (KCSAN)</td>
-          <td>Data races</td>
-      </tr>
-      <tr>
-          <td>Undefined Behaviour Sanitizer (UBSAN)</td>
-          <td>Variable overflows, alignment issues</td>
-      </tr>
-  </tbody>
+<thead>
+<tr>
+<th>Kernel Sanitizers</th>
+<th>Type of bugs detected</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Kernel Address Sanitizer (KASAN)</td>
+<td>Out of bounds access, Use after free</td>
+</tr>
+<tr>
+<td>Kernel Memory Sanitizer (KMSAN)</td>
+<td>Uninitialized memory</td>
+</tr>
+<tr>
+<td>Kernel Concurrency Sanitizer (KCSAN)</td>
+<td>Data races</td>
+</tr>
+<tr>
+<td>Undefined Behaviour Sanitizer (UBSAN)</td>
+<td>Variable overflows, alignment issues</td>
+</tr>
+</tbody>
 </table>
 <h2 id="automating-the-whole-process">Automating the whole process</h2>
 <p>Syzkaller automates the fuzzing process by monitoring the kernel logs for crash reports. When a crash is

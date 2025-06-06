@@ -2,30 +2,20 @@
 <html><head lang="en">
 	<meta charset="utf-8" />
 	<meta http-equiv="X-UA-Compatible" content="IE=edge"><title>Fixing syzbot bugs - Nihaal</title><meta name="viewport" content="width=device-width, initial-scale=1">
-	<meta name="description" content="Syzbot is an automated fuzzing infrastructure that uses Syzkaller to perform continuous fuzzing, primarily on the Linux kernel.
-Whenever it finds bugs, Syzbot reports it to the relevant mailing list.
-It also has a public dashboard where it lists all the open bugs that needs to be fixed.
-Syzbot is quite effective in finding bugs in the kernel but due to the large number of bugs being found, many of them don&rsquo;t get fixed in time. And so, we can help fix those bugs.
-In this post, I&rsquo;ll share the general approaches and steps in fixing Syzbot bugs." />
+	<meta name="description" content="Syzbot is an automated fuzzing infrastructure that uses Syzkaller to perform continuous fuzzing, primarily on the Linux kernel. Whenever it finds bugs, Syzbot reports it to the relevant mailing list. It also has a public dashboard where it lists all the open bugs that needs to be fixed.
+Syzbot is quite effective in finding bugs in the kernel but due to the large number of bugs being found, many of them don&rsquo;t get fixed in time." />
 	<meta property="og:image" content=""/>
-	<meta property="og:url" content="https://nihaal.me/post/fixing_syzbot_bugs/">
-  <meta property="og:site_name" content="Nihaal">
-  <meta property="og:title" content="Fixing syzbot bugs">
-  <meta property="og:description" content="Syzbot is an automated fuzzing infrastructure that uses Syzkaller to perform continuous fuzzing, primarily on the Linux kernel. Whenever it finds bugs, Syzbot reports it to the relevant mailing list. It also has a public dashboard where it lists all the open bugs that needs to be fixed.
-Syzbot is quite effective in finding bugs in the kernel but due to the large number of bugs being found, many of them don’t get fixed in time. And so, we can help fix those bugs. In this post, I’ll share the general approaches and steps in fixing Syzbot bugs.">
-  <meta property="og:locale" content="en_us">
-  <meta property="og:type" content="article">
-    <meta property="article:section" content="post">
-    <meta property="article:published_time" content="2022-12-20T00:00:00+00:00">
-    <meta property="article:modified_time" content="2022-12-20T00:00:00+00:00">
-    <meta property="article:tag" content="Linux">
-    <meta property="article:tag" content="Kernel">
-    <meta property="article:tag" content="Fuzzing">
+	<meta property="og:title" content="Fixing syzbot bugs" />
+<meta property="og:description" content="Syzbot is an automated fuzzing infrastructure that uses Syzkaller to perform continuous fuzzing, primarily on the Linux kernel. Whenever it finds bugs, Syzbot reports it to the relevant mailing list. It also has a public dashboard where it lists all the open bugs that needs to be fixed.
+Syzbot is quite effective in finding bugs in the kernel but due to the large number of bugs being found, many of them don&rsquo;t get fixed in time." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://nihaal.me/post/fixing_syzbot_bugs/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2022-12-20T00:00:00+00:00" />
+<meta property="article:modified_time" content="2022-12-20T00:00:00+00:00" />
 
-  <meta name="twitter:card" content="summary">
-  <meta name="twitter:title" content="Fixing syzbot bugs">
-  <meta name="twitter:description" content="Syzbot is an automated fuzzing infrastructure that uses Syzkaller to perform continuous fuzzing, primarily on the Linux kernel. Whenever it finds bugs, Syzbot reports it to the relevant mailing list. It also has a public dashboard where it lists all the open bugs that needs to be fixed.
-Syzbot is quite effective in finding bugs in the kernel but due to the large number of bugs being found, many of them don’t get fixed in time. And so, we can help fix those bugs. In this post, I’ll share the general approaches and steps in fixing Syzbot bugs.">
+<meta name="twitter:card" content="summary"/><meta name="twitter:title" content="Fixing syzbot bugs"/>
+<meta name="twitter:description" content="Syzbot is an automated fuzzing infrastructure that uses Syzkaller to perform continuous fuzzing, primarily on the Linux kernel. Whenever it finds bugs, Syzbot reports it to the relevant mailing list. It also has a public dashboard where it lists all the open bugs that needs to be fixed.
+Syzbot is quite effective in finding bugs in the kernel but due to the large number of bugs being found, many of them don&rsquo;t get fixed in time."/>
 
         <link href="https://nihaal.me/css/fonts.2c2227b81b1970a03e760aa2e6121cd01f87c88586803cbb282aa224720a765f.css" rel="stylesheet">
 	
